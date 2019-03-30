@@ -1,25 +1,4 @@
 
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Oswald&subset=vietnamese');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400&subset=vietnamese');
-@import url('https://fonts.googleapis.com/css?family=Quicksand:300,400&subset=vietnamese');
-@import url('https://fonts.googleapis.com/css?family=Karla:400,700i');
-@import url('https://fonts.googleapis.com/css?family=Great+Vibes');
-@import url('https://fonts.googleapis.com/css?family=Satisfy');
-@import url('https://fonts.googleapis.com/css?family=Alex+Brush');
-@import url('https://fonts.googleapis.com/css?family=Dancing+Script&subset=vietnamese');
-@import url('https://fonts.googleapis.com/css?family=Miriam+Libre:400,700');
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400&subset=vietnamese');
-
-
-// Variables
-@import 'variables';
-@import 'common';
-@import 'mr-style';
-
-// Bootstrap
-//@import '~bootstrap/scss/bootstrap';
-
 html {overflow: hidden;}
 .navbar-laravel {
   background-color: #fff;

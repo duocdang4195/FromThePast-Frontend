@@ -2560,10 +2560,6 @@ section {
     background-repeat: no-repeat
 }
 
-.img-bg-nav-shop {
-    background-image: url(../images/background/bg-nav-shop.png)
-}
-
 
 /*===============================
  ========  3.4 Parallax  ========
@@ -4155,17 +4151,10 @@ h5.hero-heading-alt {
     right: 20%
 }
 
-.carousel-control.left:hover {
-    cursor: url(../images/slide/left.png), auto;
-}
-
-.carousel-control.right:hover {
-    cursor: url(../images/slide/right.png), auto;
-}
 
 .carousel-control.control-style-2.left,
 .carousel-control.control-style-2.right {
-    cursor: auto
+    cursor: auto;
 }
 
 .carousel-fade .carousel-inner .item {
@@ -6038,7 +6027,7 @@ button {
 
 .countdown.bordered-light div {
     border: 2px solid #ececec;
-    color: # ececec
+    color: #ececec;
 }
 
 .countdown.timer-lg.bordered-dark div,
@@ -6189,7 +6178,6 @@ button {
     margin: 10px;
     border: 2px solid #EFB521;
     display: inline-block;
-    transform: scale(, )
 }
 
 .folio-style-1 .folio-links a:first-child i {
@@ -6208,7 +6196,7 @@ button {
 
 .folio-style-1:hover .folio-links a:first-child i,
 .folio-style-1:hover .folio-links a:last-child i {
-    transform: scale(1)
+    transform: scale(1);
 }
 
 .folio-style-1 .folio-links a i:hover {
@@ -6491,7 +6479,7 @@ button {
 
 .team-style-1 .team-member {
     border: 10px solid transparent;
-    !important position: relative;
+    position: relative;
     margin-bottom: 30px;
 }
 
@@ -6531,8 +6519,6 @@ button {
     text-align: center;
     padding: 0px 20px;
 }
-
-.team-style-1 .team-member .member-info {}
 
 .team-style-1 .team-member:hover .overlay {
     opacity: 1
@@ -6661,10 +6647,11 @@ button {
     text-align: center;
     left: 0;
     right: 0;
-    padding: 30px transition: all 0.4s ease-in-out;
+    padding: 30px;
+    transition: all 0.4s ease-in-out;
     -webkit-transition: all 0.4s ease-in-out;
     position: absolute;
-    bottom: 15px
+    bottom: 15px;
 }
 
 .team-style-4 .team-member .member-img .overlay .member-meta {
@@ -8118,9 +8105,9 @@ button {
     vertical-align: middle
 }
 
-.shop-cart table>tbody>tr .product-name,
+.shop-cart table>tbody>tr .product-name
 {
-    padding-left: 30px
+    padding-left: 30px;
 }
 
 .shop-cart table>tbody>tr .product-img {
@@ -8616,7 +8603,7 @@ footer .latest-news-widget .news-wrapper {
     display: block;
     border-bottom: 1px solid rgba(204, 204, 204, 0.2);
     transition: all 0.3s ease-in-out;
-    -webkit- transition: all 0.3s ease-in-out
+    transition: all 0.3s ease-in-out
 }
 
 footer .latest-news-widget .news-wrapper:last-child {
