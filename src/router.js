@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import { ifNotAuthenticated } from './plugins/authenticate-logic';
 import Home from './components/views/Home.vue';
 
 Vue.use(Router);
@@ -10,7 +11,8 @@ export default new Router ({
 			{
 				path: '/',
 				name: 'home',
-				component: Home,
+        component: Home,
+        beforeEnter: ifNotAuthenticated,
 			},
 		]
 })
