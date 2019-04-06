@@ -10,10 +10,22 @@
       <form action>
         <textarea
           class="mr-input"
+          v-model="email"
+          v-if="isShowEmail"
           type="text"
           maxlength="250"
-          spellcheck="false"
-          placeholder="Trên đỉnh núi thì thường cô đơn: Nếu muốn thành công, hãy sống một cuộc sống phi thường thay vì bình thường, an yên. Không phải tôi lựa chọn, mà đó là số phận của tôi. Cố lên! Hãy làm tròn số phận của mình!"
+          placeholder="Chào bạn đẹp trai xinh gái!!!"
+          @keydown.enter.prevent="checkUser"
+        ></textarea>
+        <textarea
+          class="mr-input"
+          v-model="password"
+          label="Hi Ad. Password"
+          v-if="isShowPassword"
+          type="text"
+          maxlength="250"
+          placeholder="pass"
+          @keydown.enter.prevent="signIn"
         ></textarea>
         <p class="mr-author">William Sheakper</p>
       </form>
@@ -26,13 +38,45 @@
   </div>
 </template>
 <script>
+ 
+import { mapActions } from 'vuex'
+
 export default {
-	
+	data() {
+    return {
+      email: '',
+      password: '',
+      isShowEmail: true,
+      isShowPassword: false
+    }
+  },
+  methods: {
+    ...mapActions(["checkAccount", "logIn"]),
+    checkUser() {
+      this.checkAccount({
+        email: this.email,
+      }).then(res => {
+        if (res.ok) {
+          this.isShowEmail = false
+          this.isShowPassword = true
+        } else {
+          console.log('fasle')
+        }
+      })
+    },
+    signIn() {
+      this.logIn({
+        email: this.email,
+        password: this.password
+      })
+    }
+  }
 }
 </script>
 
 
 <style lang="css" scoped>
+
 #mr_homeVideo {
   position: fixed;
   top: 0;
