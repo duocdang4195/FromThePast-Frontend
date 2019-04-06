@@ -8,6 +8,7 @@ export const composeApi = (options = {}) => {
       accept: 'application/json',
     },
   });
+  return instance;
 }
 
 export default composeApi();
