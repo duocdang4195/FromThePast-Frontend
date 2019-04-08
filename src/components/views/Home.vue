@@ -7,10 +7,10 @@
       <img src="@/assets/images/logoHome.svg" alt>
     </p>
     <div class="mr-body">
-      <form action>
+      <form action> 
         <textarea
           class="mr-input"
-          v-model="email"
+          v-model="userName"
           v-if="isShowEmail"
           type="text"
           maxlength="250"
@@ -29,6 +29,31 @@
         ></textarea>
         <p class="mr-author">William Sheakper</p>
       </form>
+      <div class="register">
+        <div class="register__field" v-if="newEmail">
+          <h2>Hi, is that your email ?</h2>
+          <input type="text" v-model="userName" >
+        </div>
+        <div class="register__field" v-if="newUserName">
+          <h2>New User Name</h2>
+          <input type="text" v-model="newUsername" >
+        </div>
+        <div class="register__field" v-if="newPassword">
+          <h2>New Password</h2>
+          <input type="text" v-model="password" >
+        </div>
+        <div class="register__field" v-if="confirmPassword">
+          <h2>Confirm Password</h2>
+          <input type="text" v-model="password_confirmation" >
+        </div>
+        <div class="register__field" v-if="genderCheck">
+          <v-select
+            :items="gender"
+            label="Gender"
+            v-model="gender"
+          ></v-select>
+        </div>
+      </div>
     </div>
     <div class="rh-footer">
       <p>
@@ -44,23 +69,32 @@ import { mapActions } from 'vuex'
 export default {
 	data() {
     return {
-      email: '',
+      userName: '',
       password: '',
+      password_confirmation: '',
+      newUsername: '',
+      gender: [{text: 'Male', value: 1}, {text: 'Female', value: 2}],
       isShowEmail: true,
-      isShowPassword: false
+      isShowPassword: false,
+      newEmail: false,
+      newUserName: false,
+      newPassword: false,
+      confirmPassword: false,
+      genderCheck: false
     }
   },
   methods: {
     ...mapActions(["checkAccount", "logIn"]),
     checkUser() {
       this.checkAccount({
-        email: this.email,
+        username: this.userName,
       }).then(res => {
         if (res.ok) {
           this.isShowEmail = false
           this.isShowPassword = true
         } else {
-          console.log('fasle')
+          this.isShowEmail = false
+          this.newEmail = true
         }
       })
     },
@@ -75,8 +109,25 @@ export default {
 </script>
 
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 
+.register {
+  width: 500px;
+  margin: auto;
+  text-align: left;
+  &__field {
+    h2 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    input {
+      border: none;
+      border-bottom: 1px solid #fff;
+      outline: none;
+      width: 100%;
+    }
+  }
+}
 #mr_homeVideo {
   position: fixed;
   top: 0;

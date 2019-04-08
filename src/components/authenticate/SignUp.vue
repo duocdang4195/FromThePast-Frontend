@@ -29,16 +29,19 @@
     </div>
     <div class="signup__input">
       <v-text-field
-        v-model="confirmPassword"
+        v-model="password_confirmation"
         label="CONFIRM PASSWORD"
       ></v-text-field>
     </div>
     <div class="signup__input">
       <p>GENDER</p>
-      <v-radio-group v-model="row" row>
+      <v-radio-group row>
         <v-radio v-model="male" label="Male" :value="false"></v-radio>
         <v-radio v-model="female" label="Femail" :value="false"></v-radio>
       </v-radio-group>
+    </div>
+    <div class="signup__link">
+      <p>Already have login and password? <router-link :to="{name: 'login'}" > Sign In  </router-link></p>
     </div>
   </div>
 </template>
@@ -51,7 +54,7 @@ export default {
       name: '',
       email: '',
       password: '',
-      confirmPassword: '',
+      password_confirmation: '',
       male: '',
       female: '',
     }
