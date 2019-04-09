@@ -1,11 +1,11 @@
 <template>
   <div class="login">
     <h2 class="login__title">
-      SIGNUP
+      LOGIN
     </h2>
     <div class="login__input">
       <v-text-field
-        v-model="userName"
+        v-model="email"
         label="USER NAME"
       ></v-text-field>
     </div>
@@ -15,18 +15,43 @@
         label="PASSWORD"
       ></v-text-field>
     </div>
+    <div class="login__btn">
+      <v-btn @click="signIn" :block="true" color="#cecece">LOGIN</v-btn>
+    </div>
+    <div class="login__link">
+      <p>Don't have an account? <router-link :to="{name: 'signup'}" > Sign Up Now! </router-link></p>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      password: '',
-      userName: ''
+  import { mapActions } from 'vuex';
+  import Swal from 'sweetalert2';
+
+  export default {
+    data() {
+      return {
+        password: '',
+        email: ''
+      }
+    }, 
+    methods: {
+      ...mapActions(["logIn"]),
+      signIn() {
+        this.logIn({
+          email: this.email,
+          password: this.password
+        }).then( res => {
+          if(!res.ok) {
+            Swal.fire({
+              title: 'username or password invalid',
+              type: 'error',
+            })
+          }
+        })
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
