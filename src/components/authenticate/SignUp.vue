@@ -35,10 +35,13 @@
     </div>
     <div class="signup__input">
       <p>GENDER</p>
-      <v-radio-group row>
-        <v-radio v-model="male" label="Male" :value="false"></v-radio>
-        <v-radio v-model="female" label="Femail" :value="false"></v-radio>
+      <v-radio-group v-model="gender" row>
+        <v-radio label="Male" value="1"></v-radio>
+        <v-radio label="Female" value="2"></v-radio>
       </v-radio-group>
+    </div>
+    <div class="signup__submi">
+      <v-btn :block="true" color="#cecece" @click="register">SIGN UP</v-btn>
     </div>
     <div class="signup__link">
       <p>Already have login and password? <router-link :to="{name: 'login'}" > Sign In  </router-link></p>
@@ -47,6 +50,10 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import Swal from 'sweetalert2';
+
+const validateEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
   data() {
     return {
@@ -55,9 +62,47 @@ export default {
       email: '',
       password: '',
       password_confirmation: '',
-      male: '',
-      female: '',
+      gender: '',
     }
+  },
+  methods: {
+    ...mapActions(["signUp"]),
+    validateRegister() {
+      if (this.userName === '' 
+          || this.name === '' 
+          || this.email === '' 
+          || this.password === ''
+          || this.password_confirmation === '' 
+          || this.gender === '') {
+            Swal.fire({
+              title: 'please check fill feild',
+              type: 'error',
+            })
+          }
+          if (this.password_confirmation != this.password) {
+            Swal.fire({
+              title: 'Password and Confirm Password Invalid',
+              type: 'error',
+            })
+          }
+          if (!validateEmail.test(this.email)) {
+            Swal.fire({
+              title: 'Email Invalid',
+              type: 'error',
+            })
+          }
+    },
+    register() {
+      this.validateRegister()
+      this.signUp({
+        username: this.userName,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.password_confirmation,
+        gender: Number(this.gender),
+        name: this.name
+      })
+    },
   }
 }
 </script>
@@ -78,6 +123,9 @@ export default {
       p {
         text-align: left;
       }
+    }
+    &__link {
+      margin-top: 20px;
     }
   }
 </style>

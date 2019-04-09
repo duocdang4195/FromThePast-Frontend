@@ -10,7 +10,7 @@
       <form action> 
         <textarea
           class="mr-input"
-          v-model="userName"
+          v-model="email"
           v-if="isShowEmail"
           type="text"
           maxlength="250"
@@ -32,26 +32,26 @@
       <div class="register">
         <div class="register__field" v-if="newEmail">
           <h2>Hi, is that your email ?</h2>
-          <input type="text" v-model="userName" >
+          <input @keydown.enter.prevent="showNewUserName" type="text" v-model="email" >
         </div>
         <div class="register__field" v-if="newUserName">
           <h2>New User Name</h2>
-          <input type="text" v-model="newUsername" >
+          <input @keydown.enter.prevent="showNewPassword" type="text" v-model="newUsername" >
         </div>
         <div class="register__field" v-if="newPassword">
           <h2>New Password</h2>
-          <input type="text" v-model="password" >
+          <input @keydown.enter.prevent="showConfirmPassword" type="text" v-model="newPasswordText" >
         </div>
         <div class="register__field" v-if="confirmPassword">
           <h2>Confirm Password</h2>
-          <input type="text" v-model="password_confirmation" >
+          <input @keydown.enter.prevent="showGenderCheck" type="text" v-model="password_confirmation" >
         </div>
         <div class="register__field" v-if="genderCheck">
-          <v-select
-            :items="gender"
-            label="Gender"
-            v-model="gender"
-          ></v-select>
+          <h2 @click="register">Gender</h2>
+          <v-radio-group v-model="gender" row>
+            <v-radio :light="true" label="Male" value="1"></v-radio>
+            <v-radio label="Female" value="2"></v-radio>
+          </v-radio-group>
         </div>
       </div>
     </div>
@@ -64,16 +64,21 @@
 </template>
 <script>
  
-import { mapActions } from 'vuex'
+import { mapActions } from 'vuex';
+import Swal from 'sweetalert2';
 
+  const validateEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
 	data() {
     return {
+      name: 'Tâm Đẹp Trai',
       userName: '',
       password: '',
+      email: '',
+      newPasswordText: '',
       password_confirmation: '',
       newUsername: '',
-      gender: [{text: 'Male', value: 1}, {text: 'Female', value: 2}],
+      gender: '',
       isShowEmail: true,
       isShowPassword: false,
       newEmail: false,
@@ -84,10 +89,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["checkAccount", "logIn"]),
+    ...mapActions(["checkAccount", "logIn", "signUp"]),
     checkUser() {
       this.checkAccount({
-        username: this.userName,
+        email: this.email,
       }).then(res => {
         if (res.ok) {
           this.isShowEmail = false
@@ -98,12 +103,66 @@ export default {
         }
       })
     },
+    showNewUserName() {
+      if(validateEmail.test(this.email.toLowerCase())) {
+        this.newEmail = false,
+        this.newUserName = true
+      } else {
+        Swal.fire({
+          title: 'Email invalid',
+          type: 'error',
+        })
+      }
+    },
+    showNewPassword() {
+      if(this.newUsername === '') {
+        Swal.fire({
+          title: 'Please Fill User Name',
+          type: 'error',
+        })
+      } else {
+        this.newUserName = false,
+        this.newPassword = true
+      }
+    },
+    showConfirmPassword() {
+      if(this.newPasswordText === '') {
+        Swal.fire({
+          title: 'Please Fill Password',
+          type: 'error',
+        })
+      } else {
+        this.newPassword = false,
+        this.confirmPassword = true
+      }
+    },
+    showGenderCheck() {
+      if (this.password_confirmation != this.newPasswordText) {
+        Swal.fire({
+          title: 'Pasword And Confirm Passowrd Invalid',
+          type: 'error',
+        })
+      } else {
+        this.confirmPassword = false,
+        this.genderCheck = true
+      }
+    },
     signIn() {
       this.logIn({
         email: this.email,
         password: this.password
       })
-    }
+    },
+    register() {
+      this.signUp({
+        username: this.newUsername,
+        email: this.email,
+        password: this.newPasswordText,
+        password_confirmation: this.password_confirmation,
+        gender: Number(this.gender),
+        name: this.name
+      })
+    },
   }
 }
 </script>
@@ -125,6 +184,11 @@ export default {
       border-bottom: 1px solid #fff;
       outline: none;
       width: 100%;
+    }
+    .v-label {
+      .theme--light {
+        color: #fff;
+      }
     }
   }
 }

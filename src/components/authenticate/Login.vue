@@ -26,6 +26,7 @@
 
 <script>
   import { mapActions } from 'vuex';
+  import Swal from 'sweetalert2';
 
   export default {
     data() {
@@ -40,6 +41,13 @@
         this.logIn({
           email: this.email,
           password: this.password
+        }).then( res => {
+          if(!res.ok) {
+            Swal.fire({
+              title: 'username or password invalid',
+              type: 'error',
+            })
+          }
         })
       }
     }
