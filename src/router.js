@@ -10,6 +10,9 @@ import my_profit from './components/my_page/my_profit.vue';
 import my_quotation from './components/my_page/my_quotation.vue';
 import my_writing from './components/my_page/my_writing.vue';
 import Emotion_write from './components/emotion/Emotion_write.vue';
+import Emotion_list from './components/emotion/Emotion_list.vue';
+import Emotion_view from './components/emotion/Emotion_view.vue';
+import service from './components/service/service.vue';
 
 Vue.use(Router);
 
@@ -70,6 +73,21 @@ export default new Router ({
 			path: '/main',
 			name: 'main',
 			component: main,
+		},
+		{
+			path: '/Emotion_list',
+			name: 'Emotion_list',
+			component: Emotion_list,
+		},
+		{
+			path: '/Emotion_view',
+			name: 'Emotion_view',
+			component: Emotion_view,
+		},
+		{
+			path: '/service',
+			name: 'service',
+			component: service,
 		},
 	]
 })

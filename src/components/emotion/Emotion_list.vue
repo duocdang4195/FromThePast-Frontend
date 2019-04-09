@@ -1,5 +1,5 @@
 <template>
-	<div class="mr-emotion-list" style="background-image:url('/img/pexels-photo-1084188-1920.jpg');">			
+	<div class="mr-emotion-list">			
 		<button class="mr-pre"><i class="ti-angle-left"></i></button>			
 		<div class="mr-article-wr">
 			<div class="mr-header">
@@ -37,7 +37,8 @@
 		background-repeat: no-repeat;
 		justify-content: center;
 		flex-direction: row;
-		align-items: center;		
+		align-items: center;	
+		background-image:url('../../assets/images/pexels-photo-1084188-1920.jpg');	
 		> button {
 			position: relative;
 			display: inline-block; 
