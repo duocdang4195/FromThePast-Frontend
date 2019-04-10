@@ -13,7 +13,6 @@ export default {
   async signUp({}, input) {
 		try {
       const response = await api.post('/auth/register', input);
-      console.log(response)
 			return { ok: true};
 		} catch (error) {
 			return { ok: false, error };
@@ -29,8 +28,17 @@ export default {
   },
   async createQuotations({}, data) {
 		try {
-      const response = await api.post('/api/quotation/', data);
-      console.log('res', response)
+      const response = await api.post('/quotation', data);
+			return { ok: true};
+		} catch (error) {
+			return { ok: false, error };
+		}
+  },
+  async getQuotations({ commit }, data) {
+		try {
+      const response = await api.get('/quotation', data);
+      commit('updateQuotations', response.data)
+      console.log('res', response.data)
 			return { ok: true};
 		} catch (error) {
       console.log('error', error)

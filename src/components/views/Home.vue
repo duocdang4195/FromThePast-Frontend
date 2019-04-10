@@ -14,8 +14,8 @@
           v-if="isShowEmail"
           type="text"
           maxlength="250"
-          placeholder="Chào bạn đẹp trai xinh gái!!!"
-          @keydown.enter.prevent="checkUser"
+          placeholder="hello new friend"
+          @keydown.enter.prevent="saveQuotations"
         ></textarea>
         <textarea
           class="mr-input"
@@ -27,7 +27,12 @@
           placeholder="pass"
           @keydown.enter.prevent="signIn"
         ></textarea>
-        <p class="mr-author">William Sheakper</p>
+        <p 
+          @click="checkUser" 
+          v-tooltip="'Bạn có thể lưu thành tên tác giả nếu đằn kí'" 
+          class="mr-author">
+            Author
+        </p>
       </form>
       <div class="register">
         <div class="register__field" v-if="newEmail">
@@ -40,18 +45,11 @@
         </div>
         <div class="register__field" v-if="newPassword">
           <h2>New Password</h2>
-          <input @keydown.enter.prevent="showConfirmPassword" type="text" v-model="newPasswordText" >
+          <input @keydown.enter.prevent="showConfirmPassword" type="password" v-model="newPasswordText" >
         </div>
         <div class="register__field" v-if="confirmPassword">
           <h2>Confirm Password</h2>
-          <input @keydown.enter.prevent="showGenderCheck" type="text" v-model="password_confirmation" >
-        </div>
-        <div class="register__field" v-if="genderCheck">
-          <h2 @click="register">Gender</h2>
-          <v-radio-group v-model="gender" row>
-            <v-radio :light="true" label="Male" value="1"></v-radio>
-            <v-radio label="Female" value="2"></v-radio>
-          </v-radio-group>
+          <input @keydown.enter.prevent="showGenderCheck" type="password" v-model="password_confirmation" >
         </div>
       </div>
     </div>
@@ -78,7 +76,8 @@ export default {
       newPasswordText: '',
       password_confirmation: '',
       newUsername: '',
-      gender: '',
+      gender: '0',
+      quotations: [],
       isShowEmail: true,
       isShowPassword: false,
       newEmail: false,
@@ -88,8 +87,18 @@ export default {
       genderCheck: false
     }
   },
+  computed: {
+    randomQuotaions() {
+      this.getQuotations()
+    }
+  },
   methods: {
-    ...mapActions(["checkAccount", "logIn", "signUp", "createQuotations"]),
+    ...mapActions(["checkAccount", "logIn", "signUp", "createQuotations", "getQuotations"]),
+    saveQuotations() {
+      this.createQuotations({
+        content: this.email
+      })
+    },
     checkUser() {
       this.checkAccount({
         email: this.email,
@@ -100,9 +109,6 @@ export default {
         } else {
           this.isShowEmail = false
           this.newEmail = true
-          this.createQuotations({
-            content: this.email
-          })
         }
       })
     },
@@ -146,14 +152,17 @@ export default {
           type: 'error',
         })
       } else {
-        this.confirmPassword = false,
-        this.genderCheck = true
+        this.register()
       }
     },
     signIn() {
       this.logIn({
         email: this.email,
         password: this.password
+      }).then( res => {
+        if(res.ok) {
+          this.$router.push({ name: 'home'})
+        }
       })
     },
     register() {
@@ -164,6 +173,10 @@ export default {
         password_confirmation: this.password_confirmation,
         gender: Number(this.gender),
         name: this.name
+      }).then( res => {
+        if(res.ok) {
+          this.$router.push({ name: 'home'})
+        }
       })
     },
   }
@@ -316,6 +329,7 @@ export default {
   text-align: right;
   font-size: 20px;
   font-style: italic;
+  cursor: pointer;
 }
 .mr-body form .rh-heart-icon,
 .mr-body form .rh-infinity-icon {
