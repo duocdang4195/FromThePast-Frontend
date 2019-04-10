@@ -26,5 +26,15 @@ export default {
 		} catch (error) {
 			return { ok: false, error };
 		}
+  },
+  async createQuotations({}, data) {
+		try {
+      const response = await api.post('/api/quotation/', data);
+      console.log('res', response)
+			return { ok: true};
+		} catch (error) {
+      console.log('error', error)
+			return { ok: false, error };
+		}
 	},
 }

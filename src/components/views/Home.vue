@@ -89,7 +89,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["checkAccount", "logIn", "signUp"]),
+    ...mapActions(["checkAccount", "logIn", "signUp", "createQuotations"]),
     checkUser() {
       this.checkAccount({
         email: this.email,
@@ -100,6 +100,9 @@ export default {
         } else {
           this.isShowEmail = false
           this.newEmail = true
+          this.createQuotations({
+            content: this.email
+          })
         }
       })
     },
