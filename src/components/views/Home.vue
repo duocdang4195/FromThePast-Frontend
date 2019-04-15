@@ -14,7 +14,7 @@
           v-if="isShowEmail"
           type="text"
           maxlength="250"
-          placeholder="hello new friend"
+          :placeholder="randomQuotaions"
           @keydown.enter.prevent="saveQuotations"
         ></textarea>
         <textarea
@@ -62,8 +62,9 @@
 </template>
 <script>
  
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import Swal from 'sweetalert2';
+import { setInterval } from 'timers';
 
   const validateEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
@@ -78,6 +79,7 @@ export default {
       newUsername: '',
       gender: '0',
       quotations: [],
+      quotationsStringRandom: '',
       isShowEmail: true,
       isShowPassword: false,
       newEmail: false,
@@ -88,16 +90,30 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['quotationRandom']),
     randomQuotaions() {
       this.getQuotations()
-    }
+      this.quotationsStringRandom = this.quotationRandom
+      return this.quotationsStringRandom
+    },
   },
   methods: {
     ...mapActions(["checkAccount", "logIn", "signUp", "createQuotations", "getQuotations"]),
     saveQuotations() {
-      this.createQuotations({
-        content: this.email
-      })
+      if(this.email === '') {
+        Swal.fire({
+          title: 'Field is required',
+          type: 'error',
+        })
+      } else {
+        this.createQuotations({
+          content: this.email
+        }).then(res => {
+          if(res.ok) {
+            this.email = ''
+          }
+        })
+      }
     },
     checkUser() {
       this.checkAccount({

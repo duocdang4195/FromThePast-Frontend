@@ -26,22 +26,21 @@ export default {
 			return { ok: false, error };
 		}
   },
-  async createQuotations({}, data) {
+  async createQuotations({ commit }, data) {
 		try {
       const response = await api.post('/quotation', data);
+      commit('updateQuotations', response.data[0].content)
 			return { ok: true};
 		} catch (error) {
 			return { ok: false, error };
 		}
   },
-  async getQuotations({ commit }, data) {
+  async getQuotations({ commit }) {
 		try {
-      const response = await api.get('/quotation', data);
-      commit('updateQuotations', response.data)
-      console.log('res', response.data)
+      const response = await api.get('/quotation');
+      commit('updateQuotations', response.data[0].content)
 			return { ok: true};
 		} catch (error) {
-      console.log('error', error)
 			return { ok: false, error };
 		}
 	},
