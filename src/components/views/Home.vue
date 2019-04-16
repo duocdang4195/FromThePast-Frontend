@@ -4,7 +4,7 @@
       <source src="@/assets/video/cloudSky.mp4" type="video/mp4">
     </video>
     <p class="mr_logo">
-      <img src="@/assets/images/logoHome.svg" alt>
+      <img @click="randomQuotations" src="@/assets/images/logoHome.svg" alt>
     </p>
     <div class="mr-body">
       <form action> 
@@ -14,7 +14,7 @@
           v-if="isShowEmail"
           type="text"
           maxlength="250"
-          :placeholder="randomQuotaions"
+          placeholder="randomQuotaions"
           @keydown.enter.prevent="saveQuotations"
         ></textarea>
         <textarea
@@ -89,16 +89,33 @@ export default {
       genderCheck: false
     }
   },
+  created() {
+    this.createQuotations
+  },
   computed: {
     ...mapGetters(['quotationRandom']),
-    randomQuotaions() {
-      this.getQuotations()
-      this.quotationsStringRandom = this.quotationRandom
-      return this.quotationsStringRandom
-    },
   },
   methods: {
     ...mapActions(["checkAccount", "logIn", "signUp", "createQuotations", "getQuotations"]),
+    async randomQuotations() {
+      await this.getQuotations()
+      let oldString = this.quotationRandom
+      let newString = '';
+      let i = 0;
+      let quotationsRandom = setInterval(
+        function() {
+          let temp = oldString.substring(i, i + 1);
+          newString += temp;
+          i++;
+          if (i === oldString.length -1) {
+            clearInterval(quotationsRandom);
+          }
+          console.log('quotationsRandom', newString)
+        },
+        80,
+        i
+      );
+    },
     saveQuotations() {
       if(this.email === '') {
         Swal.fire({
