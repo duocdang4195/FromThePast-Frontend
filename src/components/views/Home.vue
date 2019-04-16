@@ -90,7 +90,7 @@ export default {
     }
   },
   created() {
-    this.createQuotations
+    this.getQuotations 
   },
   computed: {
     ...mapGetters(['quotationRandom']),
@@ -106,11 +106,11 @@ export default {
       let quotationsRandom = setInterval(
         function() {
           newString = oldString.substr(0, i);
+          i++;
           if (i === l) {
             clearInterval(quotationsRandom);
           }
           console.log('quotationsRandom', newString)
-          i++;
         },
         80
       );
