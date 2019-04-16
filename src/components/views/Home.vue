@@ -101,19 +101,18 @@ export default {
       await this.getQuotations()
       let oldString = this.quotationRandom
       let newString = '';
-      let i = 0;
+      let i = 0,
+          l = oldString.length;
       let quotationsRandom = setInterval(
         function() {
-          let temp = oldString.substring(i, i + 1);
-          newString += temp;
-          i++;
-          if (i === oldString.length -1) {
+          newString = oldString.substr(0, i);
+          if (i === l) {
             clearInterval(quotationsRandom);
           }
           console.log('quotationsRandom', newString)
+          i++;
         },
-        80,
-        i
+        80
       );
     },
     saveQuotations() {
