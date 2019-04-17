@@ -4,10 +4,10 @@ import router from './router';
 import store from './store';
 import './plugins/vuetify';
 import './plugins/vue-typer';
+import './plugins/vue-bootstrap'
+// import './plugins/v-tooltip'
 import 'bulma/css/bulma.css'
 import 'vuetify/dist/vuetify.min.css'
-import './plugins/vue-bootstrap.js'
-import './plugins/v-tooltip.js'
 
 Vue.config.productionTip = false
 

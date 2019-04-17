@@ -1,29 +1,65 @@
 <template>
-  <div class="menu">
-    <div class="menu__logo">
-      <img src="http://tuquakhu.com/img/logo-dark.svg" alt="">
-    </div>
-    <div class="menu__child">
-      <div class="menu__child--elm">
-        <router-link :to="{ name: 'home'}">home</router-link>
+  <div class="menu-wr">
+    <div @mouseover="showMenu" class="menuhover"></div>
+    <div @mouseleave="hideMenu" v-if="isShowMenu" class="menu">
+      <div class="menu__logo">
+        <router-link :to="{ name: 'home'}">
+          <img src="http://tuquakhu.com/img/logo-dark.svg" alt="">
+        </router-link>
       </div>
-      <div class="menu__child--elm">
-        <router-link :to="{ name: 'Emotion_view'}">emotion</router-link>
-      </div>
-      <div class="menu__child--elm">
-        <router-link :to="{ name: 'service'}">service</router-link>
-      </div>
-      <div class="menu__child--elm">
-        <router-link :to="{ name: 'Emotion_write'}">become a writer</router-link>
-      </div>
-      <div class="menu__child--elm">
-        <router-link :to="{ name: 'about_list'}">about</router-link>
+      <div class="menu__child">
+        <div class="menu__child--elm">
+          <router-link :to="{ name: 'home_root'}">home</router-link>
+        </div>
+        <div class="menu__child--elm">
+          <router-link :to="{ name: 'Emotion_view'}">emotion</router-link>
+        </div>
+        <div class="menu__child--elm">
+          <router-link :to="{ name: 'service'}">service</router-link>
+        </div>
+        <div class="menu__child--elm">
+          <router-link :to="{ name: 'Emotion_write'}">become a writer</router-link>
+        </div>
+        <div class="menu__child--elm">
+          <router-link :to="{ name: 'about_list'}">about</router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      isShowMenu: false
+    }
+  },
+  methods: {
+    showMenu() {
+      this.isShowMenu = true
+    },
+    hideMenu() {
+      this.isShowMenu = false
+    }
+  }
+}
+</script>
+
+
 <style lang="scss" scoped>
+.menu-wr {
+  display: inherit;
+  width: 100%;
+  position: fixed;
+  z-index: 999;
+  .menuhover {
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    z-index: 999; 
+    z-index: 999;
+  }
   .menu {
     position: fixed;
     z-index: 999;
@@ -40,14 +76,20 @@
     &__child {
       float: right;
       .menu__child--elm {
-        font-size: 18px;
-        display: inline-block;
         padding: 0 15px;
-        line-height: 70px;
-        text-transform: uppercase;
-        letter-spacing: 3.5;
+        display: inline-block;
+        a {
+          color: #0a0a0a;
+          text-decoration: none;
+          font-size: 18px;
+          display: inline-block;
+          line-height: 70px;
+          text-transform: uppercase;
+          letter-spacing: 3.5;
+        }
       }
     }
   }
+}
 </style>
 

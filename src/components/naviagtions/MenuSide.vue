@@ -1,29 +1,66 @@
 <template>
-  <div class="sidebar">
-    <div class="sidebar__child">
-      <div class="sidebar__child--elm">
-        my info
-      </div>
-      <div class="sidebar__child--elm">
-        my profit
-      </div>
-      <div class="sidebar__child--elm">
-        my writing
-      </div>
-      <div class="sidebar__child--elm">
-        my quotation
-      </div>
-      <div class="sidebar__child--elm">
-        my services
-      </div>
-      <div class="sidebar__child--elm">
-        my album
+  <div class="side-wr">
+    <div @mouseover="showSidebar" class="sidehover"></div>
+    <div @mouseleave="hideSideBar" v-if="isShowSideBar" class="sidebar">
+      <div class="sidebar__child">
+        <div class="sidebar__child--elm">
+          <router-link :to="{ name: 'my_info'}">my info</router-link>
+        </div>
+        <div class="sidebar__child--elm">
+          <router-link :to="{ name: 'my_profit'}">my profit</router-link>
+        </div>
+        <div class="sidebar__child--elm">
+          <router-link :to="{ name: 'my_writing'}">my writing</router-link>
+        </div>
+        <div class="sidebar__child--elm">
+          <router-link :to="{ name: 'my_quotation'}">my quotation</router-link>
+        </div>
+        <div class="sidebar__child--elm">
+          <router-link :to="{ name: 'service'}">my services</router-link>
+        </div>
+        <div class="sidebar__child--elm">
+          <router-link :to="{ name: 'my_info'}">my album</router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
+\
+<script>
+export default {
+  data() {
+    return {
+      isShowSideBar: false
+    }
+  },
+  methods: {
+    showSidebar() {
+      this.isShowSideBar = true
+    },
+    hideSideBar() {
+      this.isShowSideBar = false
+    }
+  }
+}
+</script>
+
 
 <style lang="scss" scoped>
+.side-wr{
+  display: inherit;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  .sidehover {
+    width: 60px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 999;
+  }
   .sidebar {
     z-index: 998;
     width: 300px;
@@ -41,12 +78,16 @@
       white-space: nowrap;
       text-transform: uppercase;
       .sidebar__child--elm {
-        color: #b8b7ad;
-        font-size: 20px;
-        margin-left: 10%;
         padding: 15px 10px;
+        a {
+          text-decoration: none;
+          color: #b8b7ad;
+          font-size: 20px;
+          margin-left: 10%;
+        }
       }
     }
   }
+}
 </style>
 
