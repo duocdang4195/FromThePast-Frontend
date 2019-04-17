@@ -1,4 +1,4 @@
 export default {
-    access_token: '',
-    newQuotations: []
+    newQuotations: [],
+    hasId: '',
 }

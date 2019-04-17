@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router';
 import store from './store';
 import './plugins/vuetify';
+import './plugins/vue-typer';
 import 'bulma/css/bulma.css'
 import 'vuetify/dist/vuetify.min.css'
 import './plugins/vue-bootstrap.js'

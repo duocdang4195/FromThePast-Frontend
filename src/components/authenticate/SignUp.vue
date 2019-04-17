@@ -24,12 +24,14 @@
     <div class="signup__input">
       <v-text-field
         v-model="password"
+        type="password"
         label="PASSWORD"
       ></v-text-field>
     </div>
     <div class="signup__input">
       <v-text-field
         v-model="password_confirmation"
+        type="password"
         label="CONFIRM PASSWORD"
       ></v-text-field>
     </div>
@@ -78,18 +80,21 @@ export default {
               title: 'please check fill feild',
               type: 'error',
             })
-          }
-          if (this.password_confirmation != this.password) {
+          } else if(this.userName.length < 6) {
             Swal.fire({
-              title: 'Password and Confirm Password Invalid',
-              type: 'error',
-            })
-          }
-          if (!validateEmail.test(this.email)) {
-            Swal.fire({
-              title: 'Email Invalid',
-              type: 'error',
-            })
+                title: 'UserName must be less 6 character',
+                type: 'error',
+              })
+          } else if (this.password_confirmation != this.password) {
+              Swal.fire({
+                title: 'Password and Confirm Password Invalid',
+                type: 'error',
+              })
+            } else if (!validateEmail.test(this.email)) {
+              Swal.fire({
+                title: 'Email Invalid',
+                type: 'error',
+              })
           }
     },
     register() {
@@ -101,6 +106,10 @@ export default {
         password_confirmation: this.password_confirmation,
         gender: Number(this.gender),
         name: this.name
+      }).then(res => {
+        if(res.ok) {
+          this.$router.push({name: 'home'})
+        }
       })
     },
   }
