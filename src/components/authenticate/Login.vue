@@ -7,12 +7,15 @@
       <v-text-field
         v-model="email"
         label="USER NAME"
+        @keydown.enter.prevent="signIn"
       ></v-text-field>
     </div>
     <div class="signup__input">
       <v-text-field
         v-model="password"
         label="PASSWORD"
+        type="password"
+        @keydown.enter.prevent="signIn"
       ></v-text-field>
     </div>
     <div class="login__btn">
@@ -47,6 +50,8 @@
               title: 'username or password invalid',
               type: 'error',
             })
+          } else {
+            this.$router.push({name: 'home'})
           }
         })
       }

@@ -19,6 +19,13 @@
         ></textarea>
         <textarea
           class="mr-input"
+          v-if="showUserName"
+          type="text"
+          maxlength="250"
+          :placeholder="email"
+        ></textarea>
+        <textarea
+          class="mr-input"
           v-model="password"
           label="Hi Ad. Password"
           v-if="isShowPassword"
@@ -27,7 +34,8 @@
           placeholder="pass"
           @keydown.enter.prevent="signIn"
         ></textarea>
-        <p class="mr-author">William Sheakper</p>
+        <p class="mr-author"  v-if="!showUserName"><router-link :to="{name: 'signup'}" > AUTHOR </router-link></p>
+        <p class="mr-author" v-if="showUserName">{{newUsername}}</p>
       </form>
       <div class="register">
         <div class="register__field" v-if="newEmail">
@@ -45,13 +53,6 @@
         <div class="register__field" v-if="confirmPassword">
           <h2>Confirm Password</h2>
           <input @keydown.enter.prevent="showGenderCheck" type="text" v-model="password_confirmation" >
-        </div>
-        <div class="register__field" v-if="genderCheck">
-          <h2 @click="register">Gender</h2>
-          <v-radio-group v-model="gender" row>
-            <v-radio :light="true" label="Male" value="1"></v-radio>
-            <v-radio label="Female" value="2"></v-radio>
-          </v-radio-group>
         </div>
       </div>
     </div>
@@ -78,14 +79,14 @@ export default {
       newPasswordText: '',
       password_confirmation: '',
       newUsername: '',
-      gender: '',
+      gender: '0',
       isShowEmail: true,
       isShowPassword: false,
       newEmail: false,
       newUserName: false,
       newPassword: false,
       confirmPassword: false,
-      genderCheck: false
+      showUserName: false
     }
   },
   methods: {
@@ -115,9 +116,9 @@ export default {
       }
     },
     showNewPassword() {
-      if(this.newUsername === '') {
+      if(this.newUsername === '' || this.newUsername.length < 6) {
         Swal.fire({
-          title: 'Please Fill User Name',
+          title: 'Please Fill User Name And Must Be At Least 6 Characters',
           type: 'error',
         })
       } else {
@@ -126,9 +127,9 @@ export default {
       }
     },
     showConfirmPassword() {
-      if(this.newPasswordText === '') {
+      if(this.newPasswordText === '' || this.newPasswordText.length < 6) {
         Swal.fire({
-          title: 'Please Fill Password',
+          title: 'Please Fill Password And The Password Must Be At Least 6 Characters',
           type: 'error',
         })
       } else {
@@ -143,24 +144,25 @@ export default {
           type: 'error',
         })
       } else {
-        this.confirmPassword = false,
-        this.genderCheck = true
+        this.confirmPassword = false
+        this.signUp({
+          username: this.newUsername,
+          email: this.email,
+          password: this.newPasswordText,
+          password_confirmation: this.password_confirmation,
+          gender: Number(this.gender),
+          name: this.name
+        }).then(res => {
+          if(res.ok) {
+            this.showUserName = true
+          }
+        })
       }
     },
     signIn() {
       this.logIn({
         email: this.email,
         password: this.password
-      })
-    },
-    register() {
-      this.signUp({
-        username: this.newUsername,
-        email: this.email,
-        password: this.newPasswordText,
-        password_confirmation: this.password_confirmation,
-        gender: Number(this.gender),
-        name: this.name
       })
     },
   }

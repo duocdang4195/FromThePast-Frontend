@@ -2,19 +2,24 @@
 import api from '@/plugins/axios';
 
 export default {
-	async logIn({}, input) {
+	async afterLogin({ commit }, profile) {
+    commit('accessToken', profile.id);
+  },
+	async logIn({dispatch}, input) {
 		try {
 			const response = await api.post('/auth/login', input);
-			return { ok: true};
+			console.log('ré', response)
+			await dispatch('afterLogin', response.data);
+			return { ok: true, data: response.data};
 		} catch (error) {
 			return { ok: false, error };
 		}
   },
-  async signUp({}, input) {
+  async signUp({ dispatch }, input) {
 		try {
       const response = await api.post('/auth/register', input);
       console.log(response)
-			return { ok: true};
+			return { ok: true, data: await dispatch('afterLogin', response.data)};
 		} catch (error) {
 			return { ok: false, error };
 		}
