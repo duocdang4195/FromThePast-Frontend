@@ -48,11 +48,11 @@
         </div>
         <div class="register__field" v-if="newPassword">
           <h2>New Password</h2>
-          <input @keydown.enter.prevent="showConfirmPassword" type="text" v-model="newPasswordText" >
+          <input @keydown.enter.prevent="showConfirmPassword" type="password" v-model="newPasswordText" >
         </div>
         <div class="register__field" v-if="confirmPassword">
           <h2>Confirm Password</h2>
-          <input @keydown.enter.prevent="showGenderCheck" type="text" v-model="password_confirmation" >
+          <input @keydown.enter.prevent="showGenderCheck" type="password" v-model="password_confirmation" >
         </div>
       </div>
     </div>
