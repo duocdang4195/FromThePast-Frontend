@@ -4,7 +4,9 @@
       <source src="@/assets/video/cloudSky.mp4" type="video/mp4">
     </video>
     <p class="mr_logo">
-      <img @click="randomQuotations" src="@/assets/images/logoHome.svg" alt>
+      <router-link :to="{ name: 'home_root'}">
+        <img @click="randomQuotations" src="@/assets/images/logoHome.svg" alt>
+      </router-link>
     </p>
     <div class="mr-body">
       <form action> 
@@ -14,15 +16,16 @@
           v-if="isShowEmail"
           type="text"
           maxlength="250"
-          placeholder="randomQuotaions"
-          @keydown.enter.prevent="saveQuotations"
+          placeholder=" Chào Anh!! Tâm Đẹp Trai =)))"
+          @keydown.enter.prevent="checkUser"
         ></textarea>
         <textarea
           class="mr-input"
           v-if="showUserName"
+          v-model="email"
           type="text"
-          maxlength="250"
-          :placeholder="email"
+          @keydown.enter.prevent="saveQuotations"
+          placeholder="your quotations"
         ></textarea>
         <textarea
           class="mr-input"
@@ -34,7 +37,7 @@
           placeholder="pass"
           @keydown.enter.prevent="signIn"
         ></textarea>
-        <p class="mr-author"  v-if="!showUserName"><router-link :to="{name: 'signup'}" > AUTHOR </router-link></p>
+        <p class="mr-author"  v-if="isShowEmail"><router-link :to="{name: 'signup'}" > AUTHOR </router-link></p>
         <p class="mr-author" v-if="showUserName">{{newUsername}}</p>
       </form>
       <div class="register">
@@ -52,7 +55,7 @@
         </div>
         <div class="register__field" v-if="confirmPassword">
           <h2>Confirm Password</h2>
-          <input @keydown.enter.prevent="showGenderCheck" type="password" v-model="password_confirmation" >
+          <input @keydown.enter.prevent="registerAccount" type="password" v-model="password_confirmation" >
         </div>
       </div>
     </div>
@@ -118,34 +121,25 @@ export default {
         80
       );
     },
-    saveQuotations() {
+    checkUser() {
       if(this.email === '') {
         Swal.fire({
           title: 'Field is required',
           type: 'error',
         })
       } else {
-        this.createQuotations({
-          content: this.email
+        this.checkAccount({
+          email: this.email,
         }).then(res => {
-          if(res.ok) {
-            this.email = ''
+          if (res.ok) {
+            this.isShowEmail = false
+            this.isShowPassword = true
+          } else {
+            this.isShowEmail = false
+            this.newEmail = true
           }
         })
       }
-    },
-    checkUser() {
-      this.checkAccount({
-        email: this.email,
-      }).then(res => {
-        if (res.ok) {
-          this.isShowEmail = false
-          this.isShowPassword = true
-        } else {
-          this.isShowEmail = false
-          this.newEmail = true
-        }
-      })
     },
     showNewUserName() {
       if(validateEmail.test(this.email.toLowerCase())) {
@@ -180,7 +174,7 @@ export default {
         this.confirmPassword = true
       }
     },
-    showGenderCheck() {
+    registerAccount() {
       if (this.password_confirmation != this.newPasswordText) {
         Swal.fire({
           title: 'Pasword And Confirm Passowrd Invalid',
@@ -197,7 +191,24 @@ export default {
           name: this.name
         }).then(res => {
           if(res.ok) {
+            this.saveQuotations()
             this.showUserName = true
+          }
+        })
+      }
+    },
+    saveQuotations() {
+      if(this.email === '' ) {
+        Swal.fire({
+          title: 'Quotations is required',
+          type: 'error',
+        })
+      } else {
+          this.createQuotations({
+          content: this.email
+        }).then(res => {
+          if(res.ok) {
+            this.email = ''
           }
         })
       }

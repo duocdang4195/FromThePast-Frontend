@@ -34,7 +34,8 @@ export default {
   },
   async createQuotations({ commit }, data) {
 		try {
-      const response = await api.post('/quotation', data);
+			const response = await api.post('/quotation', data);
+			console.log('res create', response)
       commit('updateQuotations', response.data[0].content)
 			return { ok: true};
 		} catch (error) {
