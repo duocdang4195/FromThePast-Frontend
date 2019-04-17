@@ -7,6 +7,7 @@ import './plugins/vue-typer';
 import 'bulma/css/bulma.css'
 import 'vuetify/dist/vuetify.min.css'
 import './plugins/vue-bootstrap.js'
+import './plugins/v-tooltip.js'
 
 Vue.config.productionTip = false
 

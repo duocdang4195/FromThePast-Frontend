@@ -4,7 +4,7 @@
       <source src="@/assets/video/cloudSky.mp4" type="video/mp4">
     </video>
     <p class="mr_logo">
-      <img src="@/assets/images/logoHome.svg" alt>
+      <img @click="randomQuotations" src="@/assets/images/logoHome.svg" alt>
     </p>
     <div class="mr-body">
       <form action> 
@@ -14,8 +14,8 @@
           v-if="isShowEmail"
           type="text"
           maxlength="250"
-          placeholder="Chào bạn đẹp trai xinh gái!!!"
-          @keydown.enter.prevent="checkUser"
+          placeholder="randomQuotaions"
+          @keydown.enter.prevent="saveQuotations"
         ></textarea>
         <textarea
           class="mr-input"
@@ -48,11 +48,11 @@
         </div>
         <div class="register__field" v-if="newPassword">
           <h2>New Password</h2>
-          <input @keydown.enter.prevent="showConfirmPassword" type="text" v-model="newPasswordText" >
+          <input @keydown.enter.prevent="showConfirmPassword" type="password" v-model="newPasswordText" >
         </div>
         <div class="register__field" v-if="confirmPassword">
           <h2>Confirm Password</h2>
-          <input @keydown.enter.prevent="showGenderCheck" type="text" v-model="password_confirmation" >
+          <input @keydown.enter.prevent="showGenderCheck" type="password" v-model="password_confirmation" >
         </div>
       </div>
     </div>
@@ -65,8 +65,9 @@
 </template>
 <script>
  
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import Swal from 'sweetalert2';
+import { setInterval } from 'timers';
 
   const validateEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
@@ -80,6 +81,8 @@ export default {
       password_confirmation: '',
       newUsername: '',
       gender: '0',
+      quotations: [],
+      quotationsStringRandom: '',
       isShowEmail: true,
       isShowPassword: false,
       newEmail: false,
@@ -89,8 +92,48 @@ export default {
       showUserName: false
     }
   },
+  created() {
+    this.getQuotations 
+  },
+  computed: {
+    ...mapGetters(['quotationRandom']),
+  },
   methods: {
-    ...mapActions(["checkAccount", "logIn", "signUp"]),
+    ...mapActions(["checkAccount", "logIn", "signUp", "createQuotations", "getQuotations"]),
+    async randomQuotations() {
+      await this.getQuotations()
+      let oldString = this.quotationRandom
+      let newString = '';
+      let i = 0,
+          l = oldString.length;
+      let quotationsRandom = setInterval(
+        function() {
+          newString = oldString.substr(0, i);
+          i++;
+          if (i === l) {
+            clearInterval(quotationsRandom);
+          }
+          console.log('quotationsRandom', newString)
+        },
+        80
+      );
+    },
+    saveQuotations() {
+      if(this.email === '') {
+        Swal.fire({
+          title: 'Field is required',
+          type: 'error',
+        })
+      } else {
+        this.createQuotations({
+          content: this.email
+        }).then(res => {
+          if(res.ok) {
+            this.email = ''
+          }
+        })
+      }
+    },
     checkUser() {
       this.checkAccount({
         email: this.email,
@@ -163,6 +206,10 @@ export default {
       this.logIn({
         email: this.email,
         password: this.password
+      }).then( res => {
+        if(res.ok) {
+          this.$router.push({ name: 'home'})
+        }
       })
     },
   }
@@ -315,6 +362,7 @@ export default {
   text-align: right;
   font-size: 20px;
   font-style: italic;
+  cursor: pointer;
 }
 .mr-body form .rh-heart-icon,
 .mr-body form .rh-infinity-icon {
