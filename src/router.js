@@ -13,6 +13,10 @@ import Emotion_write from './components/emotion/Emotion_write.vue';
 import Emotion_list from './components/emotion/Emotion_list.vue';
 import Emotion_view from './components/emotion/Emotion_view.vue';
 import service from './components/service/service.vue';
+import booking from './components/checkout/booking.vue';
+import checkout from './components/checkout/checkout.vue';
+import my_service from './components/my_page/my_service.vue';
+import finish_booking from './components/checkout/finish_booking.vue';
 
 Vue.use(Router);
 
@@ -88,6 +92,26 @@ export default new Router ({
 			path: '/service',
 			name: 'service',
 			component: service,
+		},
+		{
+			path: '/booking',
+			name: 'booking',
+			component: booking,
+		},
+		{
+			path: '/checkout',
+			name: 'checkout',
+			component: checkout,
+		},
+		{
+			path: '/my_service',
+			name: 'my_service',
+			component: my_service,
+		},
+		{
+			path: '/finish_booking',
+			name: 'finish_booking',
+			component: finish_booking,
 		},
 	]
 })

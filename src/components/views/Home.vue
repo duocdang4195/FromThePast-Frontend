@@ -313,6 +313,8 @@ export default {
   text-align: right;
   font-size: 20px;
   font-style: italic;
+  font-family: 'IBM Plex Sans', sans-serif !important;
+  font-weight: 300;
 }
 .mr-body form .rh-heart-icon,
 .mr-body form .rh-infinity-icon {

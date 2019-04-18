@@ -18,10 +18,14 @@ export default {
 
 <style>
 	@import url('https://cdn.linearicons.com/free/1.0.0/icon-font.min.css');
-	@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&subset=vietnamese');
-	body {
-		font-family: 'IBM Plex Sans', sans-serif !Important;
+	@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400&subset=vietnamese');
+	* {
+		font-family: 'IBM Plex Sans', sans-serif ;
 		font-weight: 300;
+		text-rendering:optimizelegibility;
+		text-size-adjust:100%;
+		-webkit-font-smoothing:antialiased;
+		-webkit-tap-highlight-color:rgba(0, 0, 0, 0);
 	}
 	/* width */
 	::-webkit-scrollbar {

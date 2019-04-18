@@ -215,7 +215,9 @@ export default {
 					width: 100%;
 					text-align: left;
 					font-size: 30px;
-					font-weight: bold;
+					font-weight: bold;					
+					text-transform: uppercase;
+					color: #3e3e3e;
 					font-family: "IBM Plex Sans", sans-serif;
 				}
 				ul {

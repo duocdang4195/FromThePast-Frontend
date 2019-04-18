@@ -17,27 +17,22 @@
 		</div><!-- ./. mr-quote  -->
 
 		<div class="mr-basicinfo mr-basic-profit">
-			<h5>My profit</h5>
+			<h5>My service</h5>
 			<ul class="mr-profit-board">
 				<li class="mr-head">
-					<span class="mr-col1">Subject</span>
-					<span class="mr-col2">Profit</span>
-					<span class="mr-col3">Purchases</span>
+					<span class="mr-col1">Service</span>
+					<span class="mr-col2">Date</span>
+					<span class="mr-col3">Fee</span>
 				</li>
 				<li>
-					<span class="mr-col1"><a href="#">Why So Many Americans Are Turning to Buddhism</a></span>
-					<span class="mr-col2">$23.00</span>
-					<span class="mr-col3">10 times</span>
+					<span class="mr-col1"><a href="#"> Hand-writing letter</a></span>
+					<span class="mr-col2">2019-12-09</span>
+					<span class="mr-col3">$23.00</span>
 				</li>
 				<li>
-					<span class="mr-col1"><a href="#">Why So Many Americans Are Turning to Buddhism</a></span>
-					<span class="mr-col2">$23.00</span>
-					<span class="mr-col3">10 times</span>
-				</li>
-				<li>
-					<span class="mr-col1"><a href="#">Why So Many Americans Are Turning to Buddhism</a></span>
-					<span class="mr-col2">$23.00</span>
-					<span class="mr-col3">10 times</span>
+					<span class="mr-col1"><a href="#">Save letter</a></span>
+					<span class="mr-col2">2019-12-09</span>
+					<span class="mr-col3">$15.00</span>
 				</li>
 			</ul>
 		</div><!-- ./. mr-basicinfo -->
@@ -288,7 +283,7 @@ export default {
 					}
 					
 					.mr-col1 {
-						width: 60%;
+						width: 40%;
 						text-align: left;
 
 						> a {
@@ -301,10 +296,10 @@ export default {
 						}
 					}
 					.mr-col2 {
-						width: 20%;
+						width: 30%;
 					}
 					.mr-col3 {
-						width: 20%;
+						width: 30%;
 					}
 				}
 			}
