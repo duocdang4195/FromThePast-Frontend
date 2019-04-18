@@ -9,8 +9,11 @@ import './plugins/vue-bootstrap'
 import 'bulma/css/bulma.css'
 import 'vuetify/dist/vuetify.min.css'
 
+import interceptorsSetup from './ultils/interceptorsSetup.js';
+
 Vue.config.productionTip = false
 
+interceptorsSetup();
 new Vue({
   store,
   router,

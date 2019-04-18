@@ -1,10 +1,13 @@
 import Vue from "vue";
 
 export default {
-  updateQuotations(state, newQuotations) {
-      state.newQuotations = newQuotations
+  logout(state) {
+    state.token = ''
   },
-  accessToken(state, hasId) {
-    state.hasId = hasId;
+  updateQuotations(state, newQuotations) {
+    state.newQuotations = newQuotations
+  },
+  accessToken(state, token) {
+    state.token = token;
   },
 }

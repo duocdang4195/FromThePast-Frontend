@@ -1,27 +1,52 @@
 <template>
-  <div>
-    <div class="mr-fullslider">
-      <div class="mr-mystatus">
-        <p>"Trên đỉnh núi thì thường cô đơn: Nếu muốn thành công, hãy sống một cuộc sống phi thường thay vì bình thường, an yên. Không phải tôi lựa chọn, mà đó là số phận của tôi. Cố lên! Hãy làm tròn số phận của mình!'</p>
-
-        <ul class="mr-cmt-slider">
-          <li>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            <span
-              class="mr-author"
-            >Mr.Author</span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="rh-footer">
-        <p>
-          <span class="mr-copyright">Copyright © 2020 by From The PAST Jsc,.</span>
-        </p>
-      </div>
+  <div class="mr-fullslider">
+    <div class="mr-mystatus">
+      <p>{{ contentQuotations }}</p>
+      <ul class="mr-cmt-slider">
+        <li>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          <span
+            class="mr-author"
+          >Mr.Author</span>
+        </li>
+      </ul>
+    </div>
+    <div class="rh-footer">
+      <span class="mr-copyright">Copyright © 2020 by From The PAST Jsc,.</span>
     </div>
   </div>
 </template>
+
+<script>
+  import { mapActions, mapGetters } from 'vuex';
+
+  export default {
+    data() {
+      return {
+        contentQuotations: '',
+        comments: ''
+      }
+    },
+    async created() {
+      await this.getQuotations()
+      await this.getCommentsQuotations()
+      this.contentQuotations = this.quotationRandom
+    },
+    computed: {
+      ...mapGetters(['quotationRandom',]),
+    },
+    methods: {
+      ...mapActions(['getQuotations', 'getCommentsQuotations']),
+      showQuotations() {
+        this.getQuotations().then(res => {
+          console.log('resssss', res)
+        })
+      }
+    },
+
+  }
+</script>
+
 
 
 
