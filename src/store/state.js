@@ -1,4 +1,4 @@
 export default {
     newQuotations: [],
-    hasId: '',
+    token: '',
 }

@@ -1,9 +1,14 @@
 
 import api from '@/plugins/axios';
+import { genFormData } from '@/ultils/formData.js';
 
 export default {
+	async logout({ commit }) {
+    commit('logout');
+  },
 	async afterLogin({ commit }, profile) {
-    commit('accessToken', profile.id);
+		console.log(profile)
+    commit('accessToken', profile.token);
   },
 	async logIn({dispatch}, input) {
 		try {
@@ -18,7 +23,6 @@ export default {
   async signUp({ dispatch }, input) {
 		try {
       const response = await api.post('/auth/register', input);
-      console.log(response)
 			return { ok: true, data: await dispatch('afterLogin', response.data)};
 		} catch (error) {
 			return { ok: false, error };
@@ -35,7 +39,6 @@ export default {
   async createQuotations({ commit }, data) {
 		try {
 			const response = await api.post('/quotation', data);
-			console.log('res create', response)
       commit('updateQuotations', response.data[0].content)
 			return { ok: true};
 		} catch (error) {
@@ -44,12 +47,35 @@ export default {
   },
   async getQuotations({ commit }) {
 		try {
-	  const response = await api.get('/quotation');
-	  console.log('ré', response)
-      commit('updateQuotations', response.data[0].content)
+		const response = await api.get('/quotation');
+			console.log('ress', response)
+			commit('updateQuotations', response.data[0].content)
 			return { ok: true};
 		} catch (error) {
 			return { ok: false, error };
 		}
 	},
+	async getCommentsQuotations({}) {
+		try {
+		const response = await api.get('/quotation_comment');
+			console.log('ress', response)
+			return { ok: true};
+		} catch (error) {
+			return { ok: false, error };
+		}
+	},
+	async createEmotions({}, { data }) {
+    const formData = genFormData(data);
+    try {
+      const response = await api.post(`/competition/addons/${competition_uuid}/photos/`, formData, {
+        headers: {
+          Accept: 'multipart/form-data',
+        },
+      });
+      const media = response.data;
+      return { ok: true, media };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
 }

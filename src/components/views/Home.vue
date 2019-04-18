@@ -96,10 +96,11 @@ export default {
     }
   },
   created() {
-    this.getQuotations 
+    this.getQuotations()
+    console.log('token', this.accessToken)
   },
   computed: {
-    ...mapGetters(['quotationRandom']),
+    ...mapGetters(['quotationRandom', 'accessToken']),
   },
   methods: {
     ...mapActions(["checkAccount", "logIn", "signUp", "createQuotations", "getQuotations"]),
