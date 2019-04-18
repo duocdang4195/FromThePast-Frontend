@@ -3,36 +3,31 @@
 
 	<div class="mr-myinformation">
 
-		<div class="mr-quote">
-			<p class="mr-greeting">Welcom Krum</p>
-			<div class="mr-wc-quotation">
-				<p>Choose your heroes or they will be chosen for you.
-					<br/>
-					<i>Author</i>
-				</p>
-			</div>
-			<div class="mr-welcomequestion">
-				<input type="text" placeholder="How are you today?">
-			</div>
-		</div><!-- ./. mr-quote  -->
+		
 
 		<div class="mr-basicinfo mr-basic-profit">
 			<h5>My service</h5>
 			<ul class="mr-profit-board">
 				<li class="mr-head">
+					<span class="mr-col0">Order code</span>
 					<span class="mr-col1">Service</span>
 					<span class="mr-col2">Date</span>
 					<span class="mr-col3">Fee</span>
+					<span class="mr-col4">Status</span>
 				</li>
 				<li>
+					<span class="mr-col0"><a href="#"> #1111111</a></span>
 					<span class="mr-col1"><a href="#"> Hand-writing letter</a></span>
 					<span class="mr-col2">2019-12-09</span>
 					<span class="mr-col3">$23.00</span>
+					<span class="mr-col4">Finished</span>
 				</li>
 				<li>
+					<span class="mr-col0"><a href="#">#2222222 </a></span>
 					<span class="mr-col1"><a href="#">Save letter</a></span>
 					<span class="mr-col2">2019-12-09</span>
 					<span class="mr-col3">$15.00</span>
+					<span class="mr-col4">Storing</span>
 				</li>
 			</ul>
 		</div><!-- ./. mr-basicinfo -->
@@ -200,7 +195,7 @@ export default {
 		min-height: 100vh;
 		flex-direction: row;
 		flex-wrap: wrap;
-		background: linear-gradient(100deg, #121212 50%, #ffffff 50%);
+		background: linear-gradient(100deg, #121212 20%, #ffffff 0%);
 		justify-content: center;
 		font-family: "IBM Plex Sans", sans-serif;
 
@@ -227,7 +222,9 @@ export default {
 		> .mr-myinformation {
 
 		.mr-basic-profit {
-			padding-left: 50px; 
+			padding-left: 0px; 
+			width: 80%;
+			margin-left: 20%;
 
 			h5 {
 				position: relative;
@@ -245,9 +242,12 @@ export default {
 				position: relative;
 				display: inline-block; 
 				width: 100%;
+				padding: 0;
+				background-color:rgba(255,255,255,0.95);
 				
 					
 				.mr-head {
+					font-weight: 400;
 					.mr-col1 {
 						text-align: center;
 					}
@@ -282,8 +282,11 @@ export default {
 						font-size: 19px;
 					}
 					
+					.mr-col0 {
+						width: 20%;
+					}
 					.mr-col1 {
-						width: 40%;
+						width: 20%;
 						text-align: left;
 
 						> a {
@@ -296,10 +299,13 @@ export default {
 						}
 					}
 					.mr-col2 {
-						width: 30%;
+						width: 20%;
 					}
 					.mr-col3 {
-						width: 30%;
+						width: 20%;
+					}
+					.mr-col4 {
+						width: 20%;
 					}
 				}
 			}
