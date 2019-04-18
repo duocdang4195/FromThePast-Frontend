@@ -5,7 +5,7 @@
     </video>
     <p class="mr_logo">
       <router-link :to="{ name: 'home_root'}">
-        <img @click="randomQuotations" src="@/assets/images/logoHome.svg" alt>
+        <img src="@/assets/images/logoHome.svg" alt>
       </router-link>
     </p>
     <div class="mr-body">
@@ -103,24 +103,24 @@ export default {
   },
   methods: {
     ...mapActions(["checkAccount", "logIn", "signUp", "createQuotations", "getQuotations"]),
-    async randomQuotations() {
-      await this.getQuotations()
-      let oldString = this.quotationRandom
-      let newString = '';
-      let i = 0,
-          l = oldString.length;
-      let quotationsRandom = setInterval(
-        function() {
-          newString = oldString.substr(0, i);
-          i++;
-          if (i === l) {
-            clearInterval(quotationsRandom);
-          }
-          console.log('quotationsRandom', newString)
-        },
-        80
-      );
-    },
+    // async randomQuotations() {
+    //   await this.getQuotations()
+    //   let oldString = this.quotationRandom
+    //   let newString = '';
+    //   let i = 0,
+    //       l = oldString.length;
+    //   let quotationsRandom = setInterval(
+    //     function() {
+    //       newString = oldString.substr(0, i);
+    //       i++;
+    //       if (i === l) {
+    //         clearInterval(quotationsRandom);
+    //       }
+    //       console.log('quotationsRandom', newString)
+    //     },
+    //     80
+    //   );
+    // },
     checkUser() {
       if(this.email === '') {
         Swal.fire({
