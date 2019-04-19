@@ -7,12 +7,12 @@ export default {
     commit('logout');
   },
 	async afterLogin({ commit }, profile) {
+		localStorage.setItem('token', profile.token);
     commit('saveToken', profile.token);
   },
 	async logIn({dispatch}, input) {
 		try {
 			const response = await api.post('/auth/login', input);
-			console.log('ré', response)
 			await dispatch('afterLogin', response.data);
 			return { ok: true, data: response.data};
 		} catch (error) {
@@ -21,8 +21,8 @@ export default {
   },
   async signUp({ dispatch }, input) {
 		try {
-      const response = await api.post('/auth/register', input);
-			return { ok: true, data: await dispatch('afterLogin', response.data)};
+			const response = await api.post('/auth/register', input);
+			return { ok: true, data: await dispatch('logIn', input)};
 		} catch (error) {
 			return { ok: false, error };
 		}
@@ -47,7 +47,6 @@ export default {
   async getQuotations({ commit }) {
 		try {
 		const response = await api.get('/quotation');
-			console.log('ress', response)
 			commit('updateQuotations', response.data[0].content)
 			return { ok: true};
 		} catch (error) {
