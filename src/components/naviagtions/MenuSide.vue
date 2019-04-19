@@ -21,12 +21,16 @@
         <div class="sidebar__child--elm">
           <router-link :to="{ name: 'my_info'}">my album</router-link>
         </div>
+        <div @click="onLogout" class="sidebar__child--elm">
+          <router-link :to="{ name: 'login'}">logout</router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
-\
+
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -34,11 +38,16 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['signOut']),
     showSidebar() {
       this.isShowSideBar = true
     },
     hideSideBar() {
       this.isShowSideBar = false
+    },
+    onLogout() {
+      this.signOut();
+      this.$router.push({name: 'login'})
     }
   }
 }

@@ -3,7 +3,7 @@ import api from '@/plugins/axios';
 import { genFormData } from '@/ultils/formData.js';
 
 export default {
-	async logout({ commit }) {
+	async signOut({ commit }) {
     commit('logout');
   },
 	async afterLogin({ commit }, profile) {
