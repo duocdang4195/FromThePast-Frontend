@@ -15,6 +15,8 @@ import Emotion_list from './components/emotion/Emotion_list.vue';
 import Emotion_view from './components/emotion/Emotion_view.vue';
 import service from './components/service/service.vue';
 
+import { ifNotAuthenticated, ifAuthenticated } from './plugins/authenticate-logic.js';
+
 Vue.use(Router);
 
 export default new Router ({
@@ -79,22 +81,25 @@ export default new Router ({
 					name: 'service',
 					component: service,
 				},
-			]
+      ],
+      beforeEnter: ifAuthenticated,
 		},
 		{
 			path: '/',
 			name: 'home',
-			component: Home,
+      component: Home,
 		},
 		{
 			path: '/login',
 			name: 'login',
-			component: AuthenticateForm,
+      component: AuthenticateForm,
+      beforeEnter: ifNotAuthenticated,
 		},
 		{
 			path: '/signup',
 			name: 'signup',
-			component: AuthenticateForm,
+      component: AuthenticateForm,
+      beforeEnter: ifNotAuthenticated,
 		},
 	]
 })
