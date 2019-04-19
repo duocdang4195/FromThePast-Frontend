@@ -7,7 +7,7 @@ export default {
   updateQuotations(state, newQuotations) {
     state.newQuotations = newQuotations
   },
-  accessToken(state, token) {
+  saveToken(state, token) {
     state.token = token;
   },
 }

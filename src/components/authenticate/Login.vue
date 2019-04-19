@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import Swal from 'sweetalert2';
 
   export default {

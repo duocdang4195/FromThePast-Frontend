@@ -7,8 +7,7 @@ export default {
     commit('logout');
   },
 	async afterLogin({ commit }, profile) {
-		console.log(profile)
-    commit('accessToken', profile.token);
+    commit('saveToken', profile.token);
   },
 	async logIn({dispatch}, input) {
 		try {
