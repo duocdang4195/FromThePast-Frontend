@@ -37,11 +37,6 @@
     },
     methods: {
       ...mapActions(['getQuotations', 'getCommentsQuotations']),
-      showQuotations() {
-        this.getQuotations().then(res => {
-          console.log('resssss', res)
-        })
-      }
     },
 
   }

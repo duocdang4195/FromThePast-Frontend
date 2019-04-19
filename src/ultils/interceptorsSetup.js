@@ -9,7 +9,7 @@ export const commonApiIntercept = (api) => {
         'Access-Control-Allow-Origin': '*', 
         'content-type': 'application/json',
         'common': {
-          'Authorization' : "Bearer "+localStorage.getItem('token')
+          'Authorization' :  `Bearer ${token}`
         }
       }
     }

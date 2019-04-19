@@ -72,7 +72,7 @@ export default {
   }
   .sidebar {
     z-index: 998;
-    width: 300px;
+    width: 200px;
     height: 100%;
     padding-top: 60px;
     position: fixed;
@@ -91,7 +91,7 @@ export default {
         a {
           text-decoration: none;
           color: #b8b7ad;
-          font-size: 20px;
+          font-size: 18px;
           margin-left: 10%;
         }
       }

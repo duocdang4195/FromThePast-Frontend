@@ -1,7 +1,7 @@
 <template>
   <div class="menu-wr">
     <div @mouseover="showMenu" class="menuhover"></div>
-    <div @mouseleave="hideMenu" v-if="isShowMenu" class="menu">
+    <div  v-if="isShowMenu" class="menu">
       <div class="menu__logo">
         <router-link :to="{ name: 'home'}">
           <img src="http://tuquakhu.com/img/logo-dark.svg" alt="">
@@ -72,6 +72,9 @@ export default {
       display: inline-block;
       line-height: 70px;
       width: 140px;
+      img {
+        width: 100%;
+      }
     }
     &__child {
       float: right;

@@ -97,7 +97,6 @@ export default {
   },
   created() {
     this.getQuotations()
-    console.log('token', this.accessToken)
   },
   computed: {
     ...mapGetters(['quotationRandom', 'accessToken']),

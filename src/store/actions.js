@@ -7,7 +7,7 @@ export default {
     commit('logout');
   },
 	async afterLogin({ commit }, profile) {
-		localStorage.setItem('token', profile.token);
+		// localStorage.setItem('token', profile.token);
     commit('saveToken', profile.token);
   },
 	async logIn({dispatch}, input) {
