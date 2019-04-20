@@ -42,21 +42,13 @@ export default {
     }
 	},
 	created() {
-		// this.getInfoMyQuotations()
-		// this.updateMyQuotations()
 		this.getMyQuotations()
 	},
 	computed: {
 		...mapGetters(['contentMyQuotations'])
 	},
 	methods: {
-		// ...mapMutations(['updateMyQuotations']),
 		...mapActions(['getMyQuotations']),
-		// getInfoMyQuotations() {
-		// 	this.getMyQuotations()
-		// 	this.content = this.contentMyQuotations
-		// 	console.log('this.content', this.content)
-		// }
 	}
 }
 </script>

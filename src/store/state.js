@@ -4,5 +4,8 @@ export default {
     token: '',
     comentQuotations: [],
     comentEmotions: [],
-    myQuotations: []
+    myQuotations: [],
+    allEmotions: [],
+    about: [],
+    aboutID: {}
 }

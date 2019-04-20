@@ -2,61 +2,37 @@
 	<div>
 		<div class="mr-fullslider" style="">
 			<div class="mr-mywriting-wr">
-				<ul>
+				<ul v-for="(item, index) in listEmotionsAll" :key="index">
 					<li>
-						<span class="mr-post-thumb" style="background-image:url('../../assets/images/bloom-blossoms-buds-87452.jpg');"></span>
+						<span class="mr-post-thumb" :style="item.photo ? 'background: url(/uploads/'+item.photo+')' : 'background-image:url(https://gemstatepatriot.com/blog/wp-content/uploads/2015/11/default.jpg)'"></span>
 						<div class="mr-content">
-							<h5>Title of Post</h5>
-							
-							<span class="mr-timer">Jan 20 2019</span>
-							<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							<h5>{{ item.title }}</h5>
+							<span class="mr-timer">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
+							<p>{{ item.content }}</p>
 						</div>
 					</li>
-					<li>
-						<span class="mr-post-thumb" style="background-image:url('../../assets/images/pexels-photo-386007.jpeg');"></span>
-						<div class="mr-content">
-							<h5>Title of Post</h5>
-							
-							<span class="mr-timer">Jan 20 2019</span>
-							<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						</div>
-					</li>
-					<li>
-						<span class="mr-post-thumb" style="background-image:url('../../assets/images/bulb-2124338.png');"></span>
-						<div class="mr-content">
-							<h5>Title of Post</h5>
-							
-							<span class="mr-timer">Jan 20 2019</span>
-							<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						</div>
-					</li>
-					<li>
-						<span class="mr-post-thumb"></span>
-						<div class="mr-content">
-							<h5>Title of Post</h5>
-							
-							<span class="mr-timer">Jan 20 2019</span>
-							<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						</div>
-					</li>
-					
 				</ul>
 			</div>
-		
-
 		</div><!-- ./. mr-fullslider -->
 	</div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
-
   name: 'my_writing',
-
   data () {
     return {
-
     }
+  },
+  created() {
+    this.getEmotionsAll()
+  },
+  computed: {
+    ...mapGetters(['listEmotionsAll'])
+  },
+  methods: {
+    ...mapActions(['getEmotionsAll'])
   }
 }
 </script>

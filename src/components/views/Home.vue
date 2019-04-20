@@ -116,7 +116,6 @@ export default {
     //       if (i === l) {
     //         clearInterval(quotationsRandom);
     //       }
-    //       console.log('quotationsRandom', newString)
     //     },
     //     80
     //   );
