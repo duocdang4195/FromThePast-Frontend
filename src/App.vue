@@ -17,7 +17,8 @@ export default {
 
 <style>
 	@import url('https://cdn.linearicons.com/free/1.0.0/icon-font.min.css');
-	@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&subset=vietnamese');
+	@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400&subset=vietnamese');
+	@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400&subset=vietnamese');
 	body {
 		font-family: 'IBM Plex Sans', sans-serif !Important;
 		font-weight: 300;
@@ -45,6 +46,14 @@ export default {
 	button::focus {
 		outline: none;
 		border: none;
+	}
+	ul {
+		padding: 0;
+		margin: 0;
+
+		li {
+			list-style: none;
+		}
 	}
 </style>
 

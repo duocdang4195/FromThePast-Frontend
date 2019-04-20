@@ -203,8 +203,8 @@
 
           <div class="mr-comment-wrapper mrg-top-50">
             <h3 class="mrg-btm-40">Comments(3)</h3>
-            <div class="comment">
-              <div class="avatar">
+            <div class="mr-comment">
+              <div class="mr-avatar">
                 <a href="#">
                   <img class="img-responsive" src="/img/mare-animal-nature-ride-45164.jpeg" alt>
                 </a>
@@ -232,8 +232,8 @@
             </div>
             <!-- /comment -->
 
-            <div class="comment">
-              <div class="avatar">
+            <div class="mr-comment">
+              <div class="mr-avatar">
                 <a href="#">
                   <img class="img-responsive" src="/img/pexels-photo-730896.jpeg" alt>
                 </a>
@@ -285,34 +285,234 @@
 
 
 <style lang="scss" scoped>
-.mr-section {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  width: 100vw;
-  max-width: 1170px;
-  min-width: 1080px;
-  margin-left: calc((100vw - 1170px) / 2);
-  color: #333;
-  font-family: "IBM Plex Sans", sans-serif !important;
-  font-weight: 300;
-
-  .blog-sidebar {
-    flex: 1 0 25%;
-  }
-  .mr-blog-content {
-    flex: 1 0 75%;
-  }
-  a {
-    color: #777;
-    text-decoration: none;
-
+%default-button {
+    margin: 0 10px;
+    background-color:#212121;
+    border: 1px solid #212121;
+    color: #fff;
+    text-transform:uppercase;
+    font-size:12px;
+    letter-spacing:1px;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
     &:hover {
-      text-decoration: none;
-    }
-  }
+            background-color: #fff;
+            color: #212121;
+        }
 }
-
+.mr-section {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    max-width: 1170px;
+    min-width: 1080px;
+    margin-left: calc((100vw - 1170px)/2);
+    padding-top: 100px;
+    color: #333;
+    font-family: 'IBM Plex Sans', sans-serif !important;
+    font-weight: 300;
+    .blog-sidebar {
+        flex: 1 0 25%;
+    }
+    .mr-blog-content {
+        flex: 1 0 75%;
+        .mr-post-content {
+            font-family: 'IBM Plex Sans', sans-serif !important;
+            font-weight: 300;
+            .mr-post-tittle {
+                margin-bottom: 10px;
+                font-size: 15px;
+                font-weight: 300;
+                text-transform: uppercase;
+                color:#3e3e3e;
+                a {
+                    font-family: 'Montserrat', sans-serif;
+                    text-transform: uppercase;
+                    color:#3e3e3e; 
+                    letter-spacing: 1px;
+                }
+            }
+            .mr-post-meta {
+                position: relative;
+                display: inline-block;
+                width: 100%;
+                
+                p {
+                    margin-bottom:25px;
+                    color:#aeaeae;
+                    font-weight:300;
+                    .pdd-horizon-5 {
+                        position:relative;
+                        display: inline-block;
+                        margin: 0 7px;
+                        font-size: 10px;
+                    }
+                    a.mr-author {
+                        text-transform:uppercase;
+                    }
+                    .mr-date {
+                        font-size: 12px;
+                    }
+                    .mr-cmt-sum {
+                        color:#aeaeae;
+                    }
+                }
+            }
+            .mr-writing-content {
+                margin-bottom:65px;
+                font-size: 16px;
+                line-height:1.5;
+            }
+            .mr-action-area {
+                position:relative;
+                display:inline-block;
+                width:100%;
+                h5 {
+                    position: relative;
+                    text-transform:uppercase;
+                    font-family: 'Montserrat', sans-serif;
+                    font-size:14px;
+                    letter-spacing:1px;
+                }
+                .social-icon {
+                    position:relative;
+                    display: inline-block;
+                    .btn-icon {
+                        position: relative;
+                        display: inline-block;
+                        width: 47px;
+                        height: 47px;
+                        line-height:46px;
+                        padding: 0;
+                        border: 0;
+                        border-radius: 50%;
+                        margin-right: 10px;
+                        text-align:center;
+                        transition: all 0.4s ease-in-out;
+                        -webkit-transition: all 0.4s ease-in-out;
+                        &:hover {
+                            color:#fff;
+                        }
+                       
+                    }
+                    .facebook {
+                         &:hover {
+                            background-color: #3B579D;                            
+                        }
+                    }
+                    
+                    .twitter {
+                         &:hover{
+                            background-color: #2CAAE1;
+                        }
+                    }
+                    .instagram {
+                         &:hover{
+                            background-color: #5d4a3b;
+                        }
+                    }
+                }
+                .mr-action-btn {
+                    button {
+                        padding: 15px 35px;
+                        @extend %default-button;
+                    }
+                }
+            }
+        }
+        .mr-comment-wrapper  {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            margin-top: 50px;
+            h3 {
+               font-family: 'Montserrat', sans-serif;
+               font-size:14px;
+               text-transform:uppercase;
+               letter-spacing:2px;
+               font-weight: 300; 
+               margin-bottom: 25px;
+            }
+            .mr-comment {
+                position: relative;
+                padding: 15px 0 30px;
+                display: flex;
+                flex-direction: row;
+                align-items: top;
+                .mr-avatar {
+                    width: 50px;
+                    height: 50px;
+                    a {
+                        position: relative;
+                        display: inline-block;
+                        width: 50px;
+                        height: 50px;
+                        border: 1px solid #d9d9d9;
+                        border-radius:50%;
+                        color: #fff;
+                        background-color: #999;
+                        font-size: 20px;
+                        font-weight: 300;
+                        text-align: center;
+                        line-height:48px;
+                        background-size: cover;
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                    }
+                }
+                .mr-comment-info {
+                    width: calc(100% - 50px);
+                    padding-left: 20px;
+                    .name {
+                        margin-bottom: 20px;
+                        font-family: 'Montserrat', sans-serif;
+                        font-weight: 300;
+                        letter-spacing:1px;
+                        font-size:13px;
+                        text-transform:uppercase;
+                        color:#3e3e3e;
+                    }
+                    .mr-content {
+                        margin-bottom:0;
+                    }
+                    .mr-like {
+                        margin-top: 10px;
+                        padding-right: 15px;
+                        color: #888;
+                    }
+                }
+            }
+        }
+        .mr-cmnt-wr {
+            textarea {
+                position: relative;
+                display: inline-block;
+                width: 100%;
+                height: 75px;
+                padding: 15px;
+                margin-top: 30px;
+                font-size:13px;
+                color: #777;
+                border: 1px solid #ddd;
+                border-radius: 0;
+            }
+        }
+        .mr-submitBtn {
+            @extend %default-button;
+            padding: 15px 35px;
+            margin-top: 20px;
+        }
+    }
+    a {
+        color:#777;
+        text-decoration: none;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
 .mr-emotion-view {
   .post-content {
     .post-inner-content {
