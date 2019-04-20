@@ -1,13 +1,13 @@
 <template>
   <div class="mr-fullslider">
     <div class="mr-mystatus">
-      <p>{{ contentQuotations }}</p>
+      <p>{{ quotationRandom }}</p>
       <ul class="mr-cmt-slider">
         <li>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          {{ comments.content }}
           <span
             class="mr-author"
-          >Mr.Author</span>
+          >{{ comments.user.name }}</span>
         </li>
       </ul>
     </div>
@@ -19,24 +19,32 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
+  import _ from 'lodash';
 
   export default {
     data() {
       return {
-        contentQuotations: '',
-        comments: ''
+        comments: {},
       }
     },
     async created() {
       await this.getQuotations()
       await this.getCommentsQuotations()
-      this.contentQuotations = this.quotationRandom
+      await this.getCommentsEmotions()
+      this.showComments
     },
     computed: {
-      ...mapGetters(['quotationRandom',]),
+      ...mapGetters(['quotationRandom', 'comentEmotionsList', 'comentQuotationsList']),
+      showComments() {
+        if(this.comentEmotionsList.length > 0 || this.comentQuotationsList.length) {
+          const listComments = _.union(this.comentQuotationsList, this.comentEmotionsList)
+          this.comments = listComments[Math.floor(Math.random() * listComments.length)];
+          console.log('this.comments', this.comments)
+        }
+      }
     },
     methods: {
-      ...mapActions(['getQuotations', 'getCommentsQuotations']),
+      ...mapActions(['getQuotations', 'getCommentsQuotations', 'getCommentsEmotions']),
     },
 
   }
