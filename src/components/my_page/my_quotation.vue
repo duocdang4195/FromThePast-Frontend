@@ -4,16 +4,16 @@
 			<ul class="mr-myQuotation" >
 				<li>
 					<span class="mr-timer">
-						<span class="mr-date">{{ content.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
+						<span class="mr-date">{{ contentMyQuotations.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
 					</span>
 					<div class="mr-content">
-						<p>{{ content.content }}</p>
+						<p>{{ contentMyQuotations.content }}</p>
 						<p class="rh-interactions">
-							<span class="mr-comment-count"><i class="ti-comment-alt"></i> {{ content.comments.length }} comments</span>
-							<span class="mr-likes"><i class="ti-heart"></i> {{ content.likes.length }} likes</span>
+							<span class="mr-comment-count"><i class="ti-comment-alt"></i> {{ contentMyQuotations.comments.length }} comments</span>
+							<span class="mr-likes"><i class="ti-heart"></i> {{ contentMyQuotations.likes.length }} likes</span>
 						</p>
 						<ul class="mr-comment">
-							<li v-for="(item, index) in content.comments" :key="index">							
+							<li v-for="(item, index) in contentMyQuotations.comments" :key="index">							
 								<span class="mr-cmt-author">  {{ item.user.name }} </span>
 								<span class="mr-cmt-time">{{ item.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
 								<br/>
@@ -42,20 +42,21 @@ export default {
     }
 	},
 	created() {
-		this.getInfoMyQuotations()
-		this.updateMyQuotations()
+		// this.getInfoMyQuotations()
+		// this.updateMyQuotations()
+		this.getMyQuotations()
 	},
 	computed: {
 		...mapGetters(['contentMyQuotations'])
 	},
 	methods: {
-		...mapMutations(['updateMyQuotations']),
+		// ...mapMutations(['updateMyQuotations']),
 		...mapActions(['getMyQuotations']),
-		getInfoMyQuotations() {
-			this.getMyQuotations()
-			this.content = this.contentMyQuotations
-			console.log('this.content', this.content)
-		}
+		// getInfoMyQuotations() {
+		// 	this.getMyQuotations()
+		// 	this.content = this.contentMyQuotations
+		// 	console.log('this.content', this.content)
+		// }
 	}
 }
 </script>
