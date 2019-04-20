@@ -3,36 +3,12 @@
 		<div class="mr-about-wr">
 			<div class="mr-aboutList">
 				<div class="mr-about-pos">
-					<div class="mr-aboutCol mr-col1">
-						<h3>Product</h3>
-						<ul>
-							<li><a href="#">Item 1</a></li>
-							<li><a href="#">Item 2</a></li>
-							<li><a href="#">Item 3</a></li>
-						</ul>
-					</div>
-					<div class="mr-aboutCol mr-col2">
-						<h3>Company</h3>
-						<ul>
-							<li><a href="#">Item 1</a></li>
-							<li><a href="#">Item 2</a></li>
-							<li><a href="#">Item 3</a></li>
-						</ul>
-					</div>
-					<div class="mr-aboutCol mr-col3">
-						<h3>Community</h3>
-						<ul>
-							<li><a href="#">Item 1</a></li>
-							<li><a href="#">Item 2</a></li>
-							<li><a href="#">Item 3</a></li>
-						</ul>
-					</div>
-					<div class="mr-aboutCol mr-col4">
-						<h3>Support</h3>
-						<ul>
-							<li><a href="#">Item 1</a></li>
-							<li><a href="#">Item 2</a></li>
-							<li><a href="#">Item 3</a></li>
+					<div class="mr-aboutCol mr-col1" v-for="(item, index) in getAbout" :key="index">
+						<h3>{{ item.name }}</h3>
+						<ul  v-for="(list, index) in item.about" :key="index">
+							<li>
+                <router-link :to="{name: 'about_view', params: { id: list.id }}">{{ list.title }}</router-link>
+              </li>
 						</ul>
 					</div>
 					<div class="mr-aboutCol mr-col5">
@@ -54,14 +30,27 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import AboutView from '@/components/about/AboutView.vue';
+
 export default {
-
   name: 'About_list',
-
+  components: {
+    AboutView
+  },
   data () {
     return {
 
     }
+  },
+  created() {
+    this.getAllAbout()
+  },
+  methods: {
+    ...mapActions(['getAllAbout', 'getAllAboutById'])
+  },
+  computed: {
+    ...mapGetters(['getAbout'])
   }
 }
 </script>

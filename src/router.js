@@ -5,7 +5,7 @@ import Home from './components/views/Home.vue';
 import main from './components/views/main.vue';
 import AuthenticateForm from './components/authenticate/AuthenticateForm.vue';
 import about_list from './components/about/about_list.vue';
-import about_view from './components/about/about_view.vue';
+import AboutView from './components/about/AboutView.vue';
 import my_info from './components/my_page/my_info.vue';
 import my_profit from './components/my_page/my_profit.vue';
 import my_quotation from './components/my_page/my_quotation.vue';
@@ -37,9 +37,9 @@ export default new Router ({
 					component: about_list,
 				},
 				{
-					path: '/about_view',
+					path: '/about_view/:id',
 					name: 'about_view',
-					component: about_view,
+					component: AboutView,
 				},
 				{
 					path: '/my_info',

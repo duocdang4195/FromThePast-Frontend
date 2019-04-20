@@ -65,11 +65,9 @@ export default {
   name: 'component_name',
   data () {
     return {
-
     }
   },
   created() {
-    console.log('getProfile', this.getProfile)
   },
   computed: {
 	...mapGetters(['getProfile'])
