@@ -7,7 +7,6 @@ export default {
     commit('logout');
   },
 	async afterLogin({ commit }, profile) {
-		// localStorage.setItem('token', profile.token);
     commit('saveToken', profile.token);
   },
 	async logIn({dispatch}, input) {
@@ -19,9 +18,10 @@ export default {
 			return { ok: false, error };
 		}
   },
-  async signUp({ dispatch }, input) {
+  async signUp({ commit, dispatch }, input) {
 		try {
 			const response = await api.post('/auth/register', input);
+			commit('profileUser', response.data)
 			return { ok: true, data: await dispatch('logIn', input)};
 		} catch (error) {
 			return { ok: false, error };
@@ -53,10 +53,19 @@ export default {
 			return { ok: false, error };
 		}
 	},
-	async getCommentsQuotations({}) {
+	async getMyQuotations({ commit }) {
+		try {
+		const response = await api.get('/quotations/62');
+			commit('updateMyQuotations', response.data)
+			return { ok: true};
+		} catch (error) {
+			return { ok: false, error };
+		}
+	},
+	async getCommentsQuotations({ commit }) {
 		try {
 		const response = await api.get('/quotation_comment');
-			console.log('ress', response)
+		commit('updateComentQuotations', response.data)
 			return { ok: true};
 		} catch (error) {
 			return { ok: false, error };
@@ -73,6 +82,31 @@ export default {
       const media = response.data;
       return { ok: true, media };
     } catch (error) {
+      return { ok: false, error };
+    }
+	},
+	async getCommentsEmotions({ commit }) {
+		try {
+		const response = await api.get('/emotion_comment');
+		commit('updateComentEmotions', response.data)
+			return { ok: true};
+		} catch (error) {
+			return { ok: false, error };
+		}
+	},
+	async createEmotions({}, { data }) {
+    // const formData = genFormData(data);
+    try {
+      const response = await api.post('/emotion', data, {
+        // headers: {
+        //   Accept: 'multipart/form-data',
+        // },
+      });
+			const media = response.data;
+			console.log('media', media)
+      return { ok: true, media };
+    } catch (error) {
+			console.log('error', error)
       return { ok: false, error };
     }
   },
