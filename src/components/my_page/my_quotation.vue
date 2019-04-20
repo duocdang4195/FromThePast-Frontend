@@ -1,58 +1,27 @@
 <template>
 	<div class="mr-fullslider">
 		<div class="mr-mywriting-wr">
-			<ul class="mr-myQuotation">
+			<ul class="mr-myQuotation" >
 				<li>
-					<span class="mr-timer">17:20<br/>
-						<span class="mr-date">Jan 20  2019</span>
+					<span class="mr-timer">
+						<span class="mr-date">{{ content.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
 					</span>
 					<div class="mr-content">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						
+						<p>{{ content.content }}</p>
 						<p class="rh-interactions">
-							<span class="mr-comment-count"><i class="ti-comment-alt"></i> 6 comments</span>
-							<span class="mr-likes"><i class="ti-heart"></i> 56 likes</span>
+							<span class="mr-comment-count"><i class="ti-comment-alt"></i> {{ content.comments.length }} comments</span>
+							<span class="mr-likes"><i class="ti-heart"></i> {{ content.likes.length }} likes</span>
 						</p>
-
 						<ul class="mr-comment">
-							<li>							
-								<span class="mr-cmt-author">Mr.Author</span>
-								<span class="mr-cmt-time">2019-01-12   17:20</span>
+							<li v-for="(item, index) in content.comments" :key="index">							
+								<span class="mr-cmt-author">  {{ item.user.name }} </span>
+								<span class="mr-cmt-time">{{ item.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
 								<br/>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+								<p> {{ item.content }} </p>
 							</li>
-							
-							<li>							
-								<span class="mr-cmt-author">Mr.Author</span>
-								<span class="mr-cmt-time">2019-01-12   17:20</span>
-								<br/>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-							</li>
-							
-							<li>							
-								<span class="mr-cmt-author">Mr.Author</span>
-								<span class="mr-cmt-time">2019-01-12   17:20</span>
-								<br/>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-							</li>
-						</ul><!-- ./. mr-comment  -->
-					</div><!-- /./. mr-content  -->
-				</li>
-				
-				<li>
-					<span class="mr-timer">17:20<br/>
-						<span class="mr-date">Jan 20  2019</span>
-					</span>
-					<div class="mr-content">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						
-						<p class="rh-interactions">
-							<span class="mr-comment-count"><i class="ti-comment-alt"></i> 6 comments</span>
-							<span class="mr-likes"><i class="ti-heart"></i> 16 likes</span>
-						</p>
+						</ul>
 					</div>
 				</li>
-				
 			</ul>
 		</div>
 		
@@ -61,15 +30,33 @@
 </template>
 
 <script>
+import { mapActions, mapGetters, mapMutations } from 'vuex';
+import moment from 'moment';
 export default {
 
   name: 'component_name',
 
   data () {
     return {
-
+			content: []
     }
-  }
+	},
+	created() {
+		this.getInfoMyQuotations()
+		this.updateMyQuotations()
+	},
+	computed: {
+		...mapGetters(['contentMyQuotations'])
+	},
+	methods: {
+		...mapMutations(['updateMyQuotations']),
+		...mapActions(['getMyQuotations']),
+		getInfoMyQuotations() {
+			this.getMyQuotations()
+			this.content = this.contentMyQuotations
+			console.log('this.content', this.content)
+		}
+	}
 }
 </script>
 

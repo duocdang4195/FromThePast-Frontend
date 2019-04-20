@@ -1,14 +1,14 @@
 <template>
  <div>
-  <div class="mr-emt-wrtie-wr">
-   <div class="mr-write-area">
-	<input type="text" class="mr-subj" placeholder="Subject ...">
-	<textarea name="" id="" class="mr-cntn" placeholder="How is your feeling today?"></textarea>
-	<input type="file" class="mr-upload-img">
-	<input type="text" class="mr-hashtag" placeholder="Hashtag">
-	<button class="mr-submit">Post</button>
-   </div>
-  </div><!-- ./.mr-emt-wrtie-wr  -->
+  <div class="mr-emt-wrtie-wr" :style="backgoundImage">
+		<div class="mr-write-area">
+		<input type="text" class="mr-subj" v-model="subject" placeholder="Subject ...">
+		<textarea name="" id="" class="mr-cntn" v-model="content" placeholder="How is your feeling today?"></textarea>
+		<input ref="file" @change="handleFileUpload" accept="image/jpeg, image/jpg, image/png, video/mp4" type="file" class="mr-upload-img">
+		<input type="text" class="mr-hashtag" placeholder="Hashtag">
+		<button class="mr-submit" @click="submit">Post</button>
+		</div>
+  </div>
   <div class="mr-search">
    <span class="mr-icon"><img  src="../../assets/images/logo-icon.svg" alt="from the past" class="mr-ft-logo"></span>
    <input type="text" class="mr-input-search" placeholder="What do you want to find?" style="display: none;">
@@ -16,7 +16,39 @@
  </div>
 </template>
 <script>
-	export default {		
+	import { mapActions } from 'vuex';
+
+	export default {	
+		data() {
+			return {
+				subject: '',
+				content: '',
+				tags: 'tag',
+				file: '',
+				backgoundImage: "background-image: url('https://preply.com/wp-content/uploads/2018/04/pexels-photo-100733.jpeg');",
+			}
+		},
+
+		methods: {
+			...mapActions(['createEmotions']),
+			handleFileUpload(){
+				this.file = this.$refs.file.files[0];
+				const reader = new FileReader();
+				reader.onload = () =>{
+					const imageData = reader.result;
+					this.backgoundImage = "background-image:url('"+imageData+"');";
+				}
+				reader.readAsDataURL(this.file);
+			},  	
+			submit() {
+				const data = new FormData();
+				data.append('img', this.file);
+				data.append('subject', this.subject);
+				data.append('content', this.content);
+				data.append('tags', this.tags);
+				this.createEmotions({data})
+			}
+		}
 	}
 </script>
 

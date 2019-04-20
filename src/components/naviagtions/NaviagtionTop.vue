@@ -1,7 +1,7 @@
 <template>
   <div class="menu-wr">
     <div @mouseover="showMenu" class="menuhover"></div>
-    <div  v-if="isShowMenu" class="menu">
+    <div @mouseleave="hideMenu" v-if="isShowMenu" class="menu">
       <div class="menu__logo">
         <router-link :to="{ name: 'home'}">
           <img src="http://tuquakhu.com/img/logo-dark.svg" alt="">

@@ -20,7 +20,7 @@
 					<ul>
 						<li>
 							<strong>Email:</strong>
-							<span>email@tuquakhu.com</span>
+							<span>{{ getProfile.email }}</span>
 						</li>
 						<li>
 							<strong>Phone:</strong>
@@ -59,14 +59,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-
   name: 'component_name',
-
   data () {
     return {
 
     }
+  },
+  created() {
+    console.log('getProfile', this.getProfile)
+  },
+  computed: {
+	...mapGetters(['getProfile'])
   }
 }
 </script>
