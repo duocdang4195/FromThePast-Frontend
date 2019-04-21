@@ -30,23 +30,48 @@
 
 		<div class="mr-article-wr">
 			<h3>My emotion</h3>
-			<div class="mr-current-post">
+			<div class="mr-current-post" @click="goto" >
 				<img  src="../../assets/images/pexels-photo-1051073-2560-1600.jpg" alt="" class="">
 				<div class="mr-header">
 					<span class="mr-ttl">
-						Is Sharing Your Feelings Always Healthy? Is Sharing Your Feelings Always Healthy?
+						{{ contentEmotions.title }}
 					</span>
-					<p class="rh-date">2018-12-25</p>
+					<p class="rh-date">{{ contentEmotions.updated_at | moment("dddd, MMMM Do YYYY")}}</p>
 				</div><!-- ./.mr-header  -->
-				<div class="mr-article-cntn">
-					In an influential study, a group of Stanford researchers asked pairs of unacquainted people to watch and then discuss a documentary about the World War II bombings of Hiroshima and Nagasaki. <br/>
-					As part of the study, some participants were asked to “behave in such a way that your partner does not know you are feeling any emotions at all.” Compared to the people who were free to express emotions, those who were told to hide their feelings experienced spikes in blood pressure and distraction. Also, compared to the pairs who were allowed to express themselves naturally, both people in the emotion “suppression” groups tended to feel less rapport and less positivity toward each other.
-				</div><!-- ./.mr-article-cntn -->
+				<div class="mr-article-cntn" v-html="contentEmotions.content"> {{ contentEmotions.content }} </div><!-- ./.mr-article-cntn -->
 			</div>
 		</div><!-- ./.mr-article-wr  -->
 		
 	</div>	 
 </template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex';
+
+export default {
+  data() {
+    return {
+      contentEmotions: {},
+    }
+  },
+  created() {
+    this.getMyEmotionsCreate()
+    this.contentEmotions = this.getAllMyQuotationsCreate[Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)];
+  },
+  computed: {
+    ...mapGetters(['getAllMyQuotationsCreate'])
+  },
+  methods: {
+    ...mapActions(['getMyEmotionsCreate']),
+    goto() {
+      const id = this.contentEmotions.id
+      this.$router.push(`/Emotion_view/${id}`);
+    }
+  }
+}
+</script>
+
+
 <style lang="scss" scoped>
 	%full-width {
 		position: relative;

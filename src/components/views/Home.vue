@@ -37,8 +37,20 @@
           placeholder="pass"
           @keydown.enter.prevent="signIn"
         ></textarea>
-        <p class="mr-author"  v-if="isShowEmail"><router-link :to="{name: 'signup'}" > AUTHOR </router-link></p>
         <p class="mr-author" v-if="showUserName">{{newUsername}}</p>
+        <p class="mr-author"  v-if="isShowEmail"><router-link :to="{name: 'signup'}" > AUTHOR </router-link></p>
+        <p class="mr-author">
+          <span></span>
+          <span></span>
+          <span class="rh-heart-icon"> <!-- Like button, when click, red heart appear---->
+            <img src="@/assets/images/heart-icon-white.svg" alt="" >
+            <img src="@/assets/images/heart-icon.svg" alt="red heart">
+          </span>
+          <span class="rh-infinity-icon"> <!--- when click this, text area for comment appear under, if the status has comment, the red icon appear -->
+            <img src="@/assets/images/infinity-icon-white.svg" alt="">
+            <img src="@/assets/images/infinity-icon.svg" alt="red infinity">
+          </span>
+        </p>
       </form>
       <div class="register">
         <div class="register__field" v-if="newEmail">

@@ -8,5 +8,7 @@ export default {
     allEmotions: [],
     about: [],
     aboutID: {},
-    allMyQuotations: []
+    allMyQuotations: [],
+    allMyQuotationsCreate: [],
+    allMyQuotationsCreateByID: {}
 }

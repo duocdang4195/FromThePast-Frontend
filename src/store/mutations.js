@@ -33,5 +33,11 @@ export default {
   },
   updateAllMyQuotations(state, allMyQuotations) {
     state.allMyQuotations = allMyQuotations
+  },
+  updateMyEmotionsCreate(state, allMyQuotationsCreate) {
+    state.allMyQuotationsCreate = allMyQuotationsCreate
+  },
+  updateMyEmotionsCreateByID(state, allMyQuotationsCreateByID) {
+    state.allMyQuotationsCreateByID = allMyQuotationsCreateByID
   }
 }

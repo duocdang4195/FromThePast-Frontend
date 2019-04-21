@@ -68,12 +68,12 @@ export default new Router ({
 					component: Emotion_write,
 				},
 				{
-					path: '/Emotion_list',
+        path: '/Emotion_list',
 					name: 'Emotion_list',
 					component: Emotion_list,
 				},
 				{
-					path: '/Emotion_view',
+					path: '/Emotion_view/:id',
 					name: 'Emotion_view',
 					component: Emotion_view,
 				},
