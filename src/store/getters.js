@@ -28,5 +28,8 @@ export default {
 	},
 	getAboutById(state) {
 		return state.aboutID
+	},
+	getAllMyQuotationsList(state) {
+		return state.allMyQuotations
 	}
 }

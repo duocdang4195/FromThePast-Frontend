@@ -53,6 +53,15 @@ export default {
 			return { ok: false, error };
 		}
 	},
+	async getAllMyQuotations({ commit }) {
+		try {
+		const response = await api.get('/quotations');
+			commit('updateAllMyQuotations', response.data)
+			return { ok: true};
+		} catch (error) {
+			return { ok: false, error };
+		}
+	},
 	async getMyQuotations({ commit }) {
 		try {
 		const response = await api.get('/quotations/62');
