@@ -48,6 +48,7 @@ export default {
 
 
 <style lang="scss" scoped>
+
 .menu-wr {
   display: inherit;
   width: 100%;
@@ -68,6 +69,12 @@ export default {
     box-shadow: 1px 3px 3px rgba(180, 180, 180, 0.3);
     background-color: rgba(255, 255, 255, 0.9);
     height: 70px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    color: #3e3e3e;
+    text-transform: uppercase;
+    font-size: 15px;
+    letter-spacing: 2px;
     &__logo {
       display: inline-block;
       line-height: 70px;
@@ -84,7 +91,7 @@ export default {
         a {
           color: #0a0a0a;
           text-decoration: none;
-          font-size: 18px;
+          font-size: 15px;
           display: inline-block;
           line-height: 70px;
           text-transform: uppercase;

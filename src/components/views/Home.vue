@@ -374,6 +374,39 @@ export default {
   font-style: italic;
   cursor: pointer;
 }
+.mr-body form .mr-author a {
+  position: relative;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 300;
+  text-transform: capitalize;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+}
+.mr-body form .mr-author a:after {
+  content:'You can be save as author if registring here';
+  position: absolute;
+  display: inline-block;
+  width: 0px;
+  height: fit-content;
+  padding: 7px;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 1px;
+  top: 20px;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.4;
+  font-style: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  opacity:0;
+}
+.mr-body form .mr-author a:hover  a:after  {
+  width: 200px;
+  opacity:1;
+  transition:opacity linear 0.5s;
+}
 .mr-body form .rh-heart-icon,
 .mr-body form .rh-infinity-icon {
   position: relative;
