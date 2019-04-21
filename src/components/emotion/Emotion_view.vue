@@ -59,8 +59,8 @@
       </div>
       <!-- /sidebar-widget -->
 
-      <div class="mr-sidebar">
-        <h4 class="mrg-btm-20">Seasons</h4>
+      <div class="mr-sidebar ">
+        <h4 class="mr-cat-2">Seasons</h4>
         <ul class="categories">
           <li>
             <a href="#">
@@ -203,61 +203,43 @@
 
           <div class="mr-comment-wrapper mrg-top-50">
             <h3 class="mrg-btm-40">Comments(3)</h3>
-            <div class="mr-comment">
-              <div class="mr-avatar">
-                <a href="#">
-                  <img class="img-responsive" src="/img/mare-animal-nature-ride-45164.jpeg" alt>
-                </a>
-              </div>
-              <!-- /avatar -->
-              <div class="comment-info">
-                <h4 class="name">
-                  <a href="#">John Louis</a>
-                </h4>
-                <span class="time">16 Feb 2016, 10:37 am</span>
-              </div>
-              <!-- /comment-info -->
-              <p
-                class="content"
-              >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam venenatis, ligula quis sagittis euismod, odio ante molestie tortor.</p>
-              <div class="mr-like">
-                <button class="mr-like-btn">
-                  <i class="ti-heart"></i>
-                </button>
-                <button class="mr-dislike-btn">
-                  <i class="ti-heart-broken"></i>
-                </button>
-              </div>
-              <!-- /reply -->
+             <div class="mr-comment">
+                <div class="mr-avatar">
+                    <a href="#">A</a>
+                </div>
+                <!-- /avatar -->
+                <div class="mr-comment-info">
+                    <h4 class="name"><a href="#">John Louis</a></h4>
+                    <p class="mr-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam venenatis, ligula quis sagittis euismod, odio ante molestie tortor.</p>
+                    <div class="mr-like">
+                        <button class="mr-like-btn"><i class="ti-heart"></i></button>
+                        <button class="mr-dislike-btn"><i class="ti-heart-broken"></i></button>
+                        <span class="time">16 Feb 2016, 10:37 am</span>
+                    </div>
+                    <!-- /like -->
+                </div>
+                <!-- /comment-info -->
+               
             </div>
             <!-- /comment -->
 
-            <div class="mr-comment">
-              <div class="mr-avatar">
-                <a href="#">
-                  <img class="img-responsive" src="/img/pexels-photo-730896.jpeg" alt>
-                </a>
-              </div>
-              <!-- /avatar -->
-              <div class="comment-info">
-                <h4 class="name">
-                  <a href="#">John Louis</a>
-                </h4>
-                <span class="time">16 Feb 2016, 10:37 am</span>
-              </div>
-              <!-- /comment-info -->
-              <p
-                class="content"
-              >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam venenatis, ligula quis sagittis euismod, odio ante molestie tortor.</p>
-              <div class="mr-like">
-                <button class="mr-like-btn">
-                  <i class="ti-heart"></i>
-                </button>
-                <button class="mr-dislike-btn">
-                  <i class="ti-heart-broken"></i>
-                </button>
-              </div>
-              <!-- /like -->
+             <div class="mr-comment">
+                <div class="mr-avatar">
+                    <a href="#">A</a>
+                </div>
+                <!-- /avatar -->
+                <div class="mr-comment-info">
+                    <h4 class="name"><a href="#">John Louis</a></h4>
+                    <p class="mr-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam venenatis, ligula quis sagittis euismod, odio ante molestie tortor.</p>
+                    <div class="mr-like">
+                        <button class="mr-like-btn"><i class="ti-heart"></i></button>
+                        <button class="mr-dislike-btn"><i class="ti-heart-broken"></i></button>
+                        <span class="time">16 Feb 2016, 10:37 am</span>
+                    </div>
+                    <!-- /like -->
+                </div>
+                <!-- /comment-info -->
+               
             </div>
             <!-- /comment -->
           </div>
@@ -269,8 +251,8 @@
           <!-- form-group -->
 
           <div class="clearfix text-right">
-            <button class="btn btn-lg btn-style-2" type="submit">SUMBIT</button>
-          </div>
+                <button class="mr-submitBtn" type="submit">SUMBIT</button>
+            </div>
           <!-- /clearfix -->
         </div>
         <!-- blog-wrapper -->
@@ -301,6 +283,14 @@
             color: #212121;
         }
 }
+ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+        list-style: none;
+    }
+}
 .mr-section {
     position: relative;
     display: flex;
@@ -318,6 +308,7 @@
     }
     .mr-blog-content {
         flex: 1 0 75%;
+        margin-bottom: 60px;
         .mr-post-content {
             font-family: 'IBM Plex Sans', sans-serif !important;
             font-weight: 300;
@@ -503,6 +494,7 @@
             @extend %default-button;
             padding: 15px 35px;
             margin-top: 20px;
+            float: right;
         }
     }
     a {
@@ -567,6 +559,17 @@
 }
 .blog-sidebar {
   .mr-sidebar {
+    h4 {
+        position: relative;
+        display: inline-block;
+        margin-top: 50px;
+        margin-bottom: 15px;
+        font-size: 15px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing:1px;
+    }
     ul.categories {
       padding-left: 0;
       li {
