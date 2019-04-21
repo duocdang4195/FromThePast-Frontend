@@ -53,6 +53,15 @@ export default {
 			return { ok: false, error };
 		}
 	},
+	async getAllMyQuotations({ commit }) {
+		try {
+		const response = await api.get('/quotations');
+			commit('updateAllMyQuotations', response.data)
+			return { ok: true};
+		} catch (error) {
+			return { ok: false, error };
+		}
+	},
 	async getMyQuotations({ commit }) {
 		try {
 		const response = await api.get('/quotations/62');
@@ -95,19 +104,47 @@ export default {
 		}
 	},
 	async createEmotions({}, { data }) {
-    // const formData = genFormData(data);
     try {
-      const response = await api.post('/emotion', data, {
-        // headers: {
-        //   Accept: 'multipart/form-data',
-        // },
-      });
-			const media = response.data;
-			console.log('media', media)
+      const response = await api.post('/emotion', data);
       return { ok: true, media };
     } catch (error) {
-			console.log('error', error)
       return { ok: false, error };
     }
-  },
+	},
+	async getEmotionsAll({ commit }) {
+		try {
+		const response = await api.get('/emotion');
+		commit('updateAllEmotions', response.data)
+			return { ok: true};
+		} catch (error) {
+			return { ok: false, error };
+		}
+	},
+	async getAllAbout({ commit }) {
+		try {
+		const response = await api.get('/about_category');
+		commit('allAbout', response.data)
+			return { ok: true};
+		} catch (error) {
+			return { ok: false, error };
+		}
+	},
+	async getAllAbout({ commit }) {
+		try {
+		const response = await api.get('/about_category');
+		commit('allAbout', response.data)
+			return { ok: true};
+		} catch (error) {
+			return { ok: false, error };
+		}
+	},
+	async getAllAboutById({ commit }, {id}) {
+		try {
+		const response = await api.get(`/about/${id}`);
+		commit('allAboutById', response.data)
+			return { ok: true};
+		} catch (error) {
+			return { ok: false, error };
+		}
+	},
 }

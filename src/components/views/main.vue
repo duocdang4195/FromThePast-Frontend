@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-fullslider">
+  <div class="mr-fullslider" v-if="comments.content">
     <div class="mr-mystatus">
       <p>{{ quotationRandom }}</p>
       <ul class="mr-cmt-slider">
@@ -39,7 +39,6 @@
         if(this.comentEmotionsList.length > 0 || this.comentQuotationsList.length) {
           const listComments = _.union(this.comentQuotationsList, this.comentEmotionsList)
           this.comments = listComments[Math.floor(Math.random() * listComments.length)];
-          console.log('this.comments', this.comments)
         }
       }
     },

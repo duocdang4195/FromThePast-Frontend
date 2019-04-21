@@ -23,7 +23,7 @@
 			return {
 				subject: '',
 				content: '',
-				tags: 'tag',
+				tags: '',
 				file: '',
 				backgoundImage: "background-image: url('https://preply.com/wp-content/uploads/2018/04/pexels-photo-100733.jpeg');",
 			}

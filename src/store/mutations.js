@@ -21,5 +21,17 @@ export default {
   },
   updateMyQuotations(state, myQuotations) {
     state.myQuotations = myQuotations
+  },
+  allAbout(state, about) {
+    state.about = about
+  },
+  allAboutById(state, aboutID) {
+    state.aboutID = aboutID
+  },
+  updateAllEmotions(state, allEmotions) {
+    state.allEmotions = allEmotions
+  },
+  updateAllMyQuotations(state, allMyQuotations) {
+    state.allMyQuotations = allMyQuotations
   }
 }

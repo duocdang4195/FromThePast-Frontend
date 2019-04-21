@@ -1,19 +1,10 @@
 <template>
 	<div class="mr-about-wr">
 		<div class="mr-about-view-cntn">
-			<h3>ABOUT </h3>
+			<h3>{{ getAboutById.title }}</h3>
 			<div class="mr-about-flexbox">
 				<div class="mr-cntnBox">
-					<h5>Vission</h5>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-				</div>
-				<div class="mr-cntnBox">
-					<h5>Mission</h5>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-				</div>
-				<div class="mr-cntnBox">
-					<h5>Core Value</h5>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p>{{ getAboutById.content }}</p>
 				</div>
 			</div>
 		</div>
@@ -21,14 +12,24 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
-
   name: 'about_view',
-
   data () {
     return {
 
     }
+	},
+	created() {
+		const id = this.$route.params.id
+		this.getAllAboutById({id})
+	},
+	computed: {
+		...mapGetters(['getAboutById'])
+	},
+  methods: {
+    ...mapActions(['getAllAboutById'])
   }
 }
 </script>

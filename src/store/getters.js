@@ -17,7 +17,19 @@ export default {
 	contentMyQuotations(state) {
 		return state.myQuotations;
 	},
+	listEmotionsAll(state) {
+		return state.allEmotions;
+	},
 	getProfile(state) {
 		return state.profile
+	},
+	getAbout(state) {
+		return state.about
+	},
+	getAboutById(state) {
+		return state.aboutID
+	},
+	getAllMyQuotationsList(state) {
+		return state.allMyQuotations
 	}
 }
