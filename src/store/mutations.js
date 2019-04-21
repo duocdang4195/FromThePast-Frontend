@@ -30,5 +30,8 @@ export default {
   },
   updateAllEmotions(state, allEmotions) {
     state.allEmotions = allEmotions
+  },
+  updateAllMyQuotations(state, allMyQuotations) {
+    state.allMyQuotations = allMyQuotations
   }
 }

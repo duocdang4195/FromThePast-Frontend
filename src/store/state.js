@@ -7,5 +7,6 @@ export default {
     myQuotations: [],
     allEmotions: [],
     about: [],
-    aboutID: {}
+    aboutID: {},
+    allMyQuotations: []
 }

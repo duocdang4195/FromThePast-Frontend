@@ -1,54 +1,49 @@
 <template>
 	<div class="mr-fullslider">
 		<div class="mr-mywriting-wr">
-			<ul class="mr-myQuotation" >
+			<ul class="mr-myQuotation" v-for="(item, index) in getAllMyQuotationsList" :key="index">
 				<li>
 					<span class="mr-timer">
-						<span class="mr-date">{{ contentMyQuotations.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
+						<span class="mr-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
 					</span>
 					<div class="mr-content">
-						<p>{{ contentMyQuotations.content }}</p>
+						<p class="mr-content__content--main">{{ item.content }}</p>
 						<p class="rh-interactions">
-							<span class="mr-comment-count"><i class="ti-comment-alt"></i> {{ contentMyQuotations.comments.length }} comments</span>
-							<span class="mr-likes"><i class="ti-heart"></i> {{ contentMyQuotations.likes.length }} likes</span>
+							<span class="mr-comment-count"><i class="ti-comment-alt"></i> {{ item.comments.length }} comments</span>
+							<span class="mr-likes"><i class="ti-heart"></i> {{ item.likes.length }} likes</span>
 						</p>
 						<ul class="mr-comment">
-							<li v-for="(item, index) in contentMyQuotations.comments" :key="index">							
-								<span class="mr-cmt-author">  {{ item.user.name }} </span>
-								<span class="mr-cmt-time">{{ item.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+							<li v-for="(listComment, index) in item.comments" :key="index">							
+								<span class="mr-cmt-author">  {{ listComment.user.name }} </span>
+								<span class="mr-cmt-time">{{ listComment.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
 								<br/>
-								<p> {{ item.content }} </p>
+								<p> {{ listComment.content }} </p>
 							</li>
 						</ul>
 					</div>
 				</li>
 			</ul>
 		</div>
-		
-
 </div><!-- ./. mr-fullslider -->
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import moment from 'moment';
 export default {
-
   name: 'component_name',
-
   data () {
     return {
-			content: []
     }
 	},
 	created() {
-		this.getMyQuotations()
+		this.getAllMyQuotations()
 	},
 	computed: {
-		...mapGetters(['contentMyQuotations'])
+		...mapGetters(['getAllMyQuotationsList'])
 	},
 	methods: {
-		...mapActions(['getMyQuotations']),
+		...mapActions(['getAllMyQuotations']),
 	}
 }
 </script>
@@ -123,14 +118,11 @@ export default {
 			.mr-content {
 				width: calc(100% - 300px);
 				padding-left: 20px;
-				cursor: pointer;
-
 				h5 {
 					font-size: 17px;
 					color: #333;
 					line-height: 1;
 					margin-bottom: 10px;
-					
 				}
 				&:hover  h5 {
 						font-weight: bold;
@@ -147,6 +139,9 @@ export default {
 					font-size: 16px;
 					color: #444;
 					line-height: 1.5;
+				}
+				.mr-content__content--main {
+					cursor: pointer;
 				}
 			}
 			
