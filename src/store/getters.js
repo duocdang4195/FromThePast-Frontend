@@ -31,5 +31,11 @@ export default {
 	},
 	getAllMyQuotationsList(state) {
 		return state.allMyQuotations
+	},
+	getAllMyQuotationsCreate(state) {
+		return state.allMyQuotationsCreate
+	},
+	getAllMyQuotationsCreateByID(state) {
+		return state.allMyQuotationsCreateByID
 	}
 }

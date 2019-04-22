@@ -4,7 +4,7 @@
 			<div class="mr-mywriting-wr">
 				<ul v-for="(item, index) in listEmotionsAll" :key="index">
 					<li>
-						<span class="mr-post-thumb" :style="item.photo ? 'background: url(/uploads/'+item.photo+')' : 'background-image:url(https://gemstatepatriot.com/blog/wp-content/uploads/2015/11/default.jpg)'"></span>
+						<span class="mr-post-thumb" :style="item.image ? 'background: url(/uploads/'+item.image+')' : 'background-image:url(https://gemstatepatriot.com/blog/wp-content/uploads/2015/11/default.jpg)'"></span>
 						<div class="mr-content">
 							<h5>{{ item.title }}</h5>
 							<span class="mr-timer">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>

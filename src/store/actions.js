@@ -80,15 +80,19 @@ export default {
 			return { ok: false, error };
 		}
 	},
-	async createEmotions({}, { data }) {
-    const formData = genFormData(data);
+	async getMyEmotionsCreate({ commit }) {
     try {
-      const response = await api.post(`/competition/addons/${competition_uuid}/photos/`, formData, {
-        headers: {
-          Accept: 'multipart/form-data',
-        },
-      });
-      const media = response.data;
+			const response = await api.get('/emotion');
+			commit('updateMyEmotionsCreate', response.data)
+      return { ok: true, media };
+    } catch (error) {
+      return { ok: false, error };
+    }
+	},
+	async getMyEmotionsByID({ commit }, {id}) {
+    try {
+			const response = await api.get(`/emotion/${id}`);
+			commit('updateMyEmotionsCreateByID', response.data)
       return { ok: true, media };
     } catch (error) {
       return { ok: false, error };
@@ -119,6 +123,15 @@ export default {
 		} catch (error) {
 			return { ok: false, error };
 		}
+	},
+	async createCommentEmotions({commit}, data) {
+    try {
+			const response = await api.post('/emotion_comment', data);
+			commit('updateComentEmotions', response.data)
+      return { ok: true, data: response.data };
+    } catch (error) {
+      return { ok: false, error };
+    }
 	},
 	async getAllAbout({ commit }) {
 		try {

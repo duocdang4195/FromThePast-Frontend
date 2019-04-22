@@ -37,8 +37,22 @@
           placeholder="pass"
           @keydown.enter.prevent="signIn"
         ></textarea>
-        <p class="mr-author"  v-if="isShowEmail"><router-link :to="{name: 'signup'}" > AUTHOR </router-link></p>
-        <p class="mr-author" v-if="showUserName">{{newUsername}}</p>
+        <div class="like-coment" v-show="isShowEmail">
+          <p class="like-coment__user"> {{ accessToken ? 'ADMIN' : 'HIDDEN' }} </p>
+          <icon
+            class="like-coment__icon--like" name="heart" 
+          />
+          <icon class="like-coment__icon--comments" name="comments" />
+        </div>
+        <div class="author-content" v-show="!accessToken && ( email !== '' )">
+          <router-link 
+            class="btn btn-default rh-author-reg" 
+            v-tooltip="'Bạn có thể lưu thành tên tác giá nếu đăng ký'" tag="button"
+            :to="{name: 'signup'}"
+          >
+						Author
+					</router-link>
+        </div>
       </form>
       <div class="register">
         <div class="register__field" v-if="newEmail">
@@ -92,17 +106,23 @@ export default {
       newUserName: false,
       newPassword: false,
       confirmPassword: false,
-      showUserName: false
+      showUserName: false,
+      isShowAuhor: false, 
+      isLike: false
     }
   },
   created() {
     this.getQuotations()
+    console.log('accessToken', this.accessToken)
   },
   computed: {
     ...mapGetters(['quotationRandom', 'accessToken']),
   },
   methods: {
     ...mapActions(["checkAccount", "logIn", "signUp", "createQuotations", "getQuotations"]),
+    like() {
+      this.isLike = !this.islike
+    },
     // async randomQuotations() {
     //   await this.getQuotations()
     //   let oldString = this.quotationRandom
@@ -228,6 +248,22 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.like-coment {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  .like-coment__user {
+    margin: 0;
+    margin-right: 10px;
+    a {
+      text-decoration: none;
+    }
+  }
+  .like-coment__icon--like {
+    margin-right: 10px;
+  }
+}
 
 .register {
   width: 500px;
