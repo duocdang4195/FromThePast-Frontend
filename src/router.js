@@ -14,6 +14,7 @@ import Emotion_write from './components/emotion/Emotion_write.vue';
 import Emotion_list from './components/emotion/Emotion_list.vue';
 import Emotion_view from './components/emotion/Emotion_view.vue';
 import service from './components/service/service.vue';
+import become_writer from './components/service/become_writer.vue';
 import search from './components/views/search.vue';
 
 import { ifNotAuthenticated, ifAuthenticated } from './plugins/authenticate-logic.js';
@@ -86,6 +87,11 @@ export default new Router ({
 					path: '/search',
 					name: 'search',
 					component: search,
+				},
+				{
+					path: '/become_writer',
+					name: 'become_writer',
+					component: become_writer,
 				},
       ],
       beforeEnter: ifAuthenticated,
