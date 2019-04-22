@@ -1,30 +1,36 @@
 <template>
   <div class="menu-wr">
     <div @mouseover="showMenu" class="menuhover"></div>
-    <div @mouseleave="hideMenu" v-if="isShowMenu" class="menu">
-      <div class="menu__logo">
-        <router-link :to="{ name: 'home'}">
-          <img src="http://tuquakhu.com/img/logo-dark.svg" alt="">
-        </router-link>
+    <transition 
+      name="slide"    
+      enter-active-class="slideInDown"
+      leave-active-class="slideOutUp"      
+    >
+      <div @mouseleave="hideMenu" v-if="isShowMenu" class="menu">
+        <div class="menu__logo" style="line-height:60px; vertical-align: middle;">
+          <router-link :to="{ name: 'home'}">
+            <img src="http://tuquakhu.com/img/logo-dark.svg" alt="">
+          </router-link>
+        </div>
+        <div class="menu__child">
+          <div class="menu__child--elm">
+            <router-link :to="{ name: 'home_root'}">home</router-link>
+          </div>
+          <div class="menu__child--elm">
+            <router-link :to="{ name: 'Emotion_list'}">emotion</router-link>
+          </div>
+          <div class="menu__child--elm">
+            <router-link :to="{ name: 'service'}">service</router-link>
+          </div>
+          <div class="menu__child--elm">
+            <router-link :to="{ name: 'Emotion_write'}">become a writer</router-link>
+          </div>
+          <div class="menu__child--elm">
+            <router-link :to="{ name: 'about_list'}">about</router-link>
+          </div>
+        </div>
       </div>
-      <div class="menu__child">
-        <div class="menu__child--elm">
-          <router-link :to="{ name: 'home_root'}">home</router-link>
-        </div>
-        <div class="menu__child--elm">
-          <router-link :to="{ name: 'Emotion_list'}">emotion</router-link>
-        </div>
-        <div class="menu__child--elm">
-          <router-link :to="{ name: 'service'}">service</router-link>
-        </div>
-        <div class="menu__child--elm">
-          <router-link :to="{ name: 'Emotion_write'}">become a writer</router-link>
-        </div>
-        <div class="menu__child--elm">
-          <router-link :to="{ name: 'about_list'}">about</router-link>
-        </div>
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 

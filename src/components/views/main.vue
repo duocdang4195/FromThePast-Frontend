@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-fullslider" v-if="comments.content">
+  <div class="mr-fullslider" v-if="comments.content" v-cloak>
     <div class="mr-mystatus">
       <p>{{ quotationRandom }}</p>
       <ul class="mr-cmt-slider">

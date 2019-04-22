@@ -3,7 +3,9 @@
     <NaviagtionTop />
     <MenuSide />
     <v-content>
-      <router-view></router-view>
+      <transition name="fade">
+        <router-view></router-view>
+      </transition>
     </v-content>
   </div>
 </template>

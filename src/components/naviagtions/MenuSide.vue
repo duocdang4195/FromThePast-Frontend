@@ -1,31 +1,31 @@
 <template>
   <div class="side-wr">
     <div @mouseover="showSidebar" class="sidehover"></div>
-    <div @mouseleave="hideSideBar" v-if="isShowSideBar" class="sidebar">
-      <div class="sidebar__child">
-        <div class="sidebar__child--elm">
-          <router-link :to="{ name: 'my_info'}">my info</router-link>
+    <transition name="slideRight">
+      <div @mouseleave="hideSideBar" v-if="isShowSideBar" class="sidebar">
+        <div class="sidebar__child">
+          <div class="sidebar__child--elm">
+            <router-link :to="{ name: 'my_info'}">my info</router-link>
+          </div>
+          <div class="sidebar__child--elm">
+            <router-link :to="{ name: 'my_profit'}">my profit</router-link>
+          </div>
+          <div class="sidebar__child--elm">
+            <router-link :to="{ name: 'my_writing'}">my writing</router-link>
+          </div>
+          <div class="sidebar__child--elm">
+            <router-link :to="{ name: 'my_quotation'}">my quotation</router-link>
+          </div>
+          <div class="sidebar__child--elm">
+            <router-link :to="{ name: 'service'}">my services</router-link>
+          </div>
+          <div @click="onLogout" class="sidebar__child--elm">
+            <router-link :to="{ name: 'login'}">logout</router-link>
+          </div>
         </div>
-        <div class="sidebar__child--elm">
-          <router-link :to="{ name: 'my_profit'}">my profit</router-link>
-        </div>
-        <div class="sidebar__child--elm">
-          <router-link :to="{ name: 'my_writing'}">my writing</router-link>
-        </div>
-        <div class="sidebar__child--elm">
-          <router-link :to="{ name: 'my_quotation'}">my quotation</router-link>
-        </div>
-        <div class="sidebar__child--elm">
-          <router-link :to="{ name: 'service'}">my services</router-link>
-        </div>
-        <div class="sidebar__child--elm">
-          <router-link :to="{ name: 'my_info'}">my album</router-link>
-        </div>
-        <div @click="onLogout" class="sidebar__child--elm">
-          <router-link :to="{ name: 'login'}">logout</router-link>
-        </div>
+
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 

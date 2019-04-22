@@ -4,11 +4,11 @@
 			<div class="mr-mywriting-wr">
 				<ul v-for="(item, index) in listEmotionsAll" :key="index">
 					<li>
-						<span class="mr-post-thumb" :style="item.image ? 'background: url(/uploads/'+item.image+')' : 'background-image:url(https://gemstatepatriot.com/blog/wp-content/uploads/2015/11/default.jpg)'"></span>
+						<img class="mr-post-thumb" :src="checkImage(item.image)" />
 						<div class="mr-content">
 							<h5>{{ item.title }}</h5>
 							<span class="mr-timer">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
-							<p>{{ item.content }}</p>
+							<p v-html="item.content" >{{ item.content }}</p>
 						</div>
 					</li>
 				</ul>
@@ -27,12 +27,20 @@ export default {
   },
   created() {
     this.getEmotionsAll()
+    console.log('listEmotionsAll', this.listEmotionsAll)
   },
   computed: {
     ...mapGetters(['listEmotionsAll'])
   },
   methods: {
-    ...mapActions(['getEmotionsAll'])
+    ...mapActions(['getEmotionsAll']),
+    checkImage(image) {
+      if(!image) {
+        return 'https://gemstatepatriot.com/blog/wp-content/uploads/2015/11/default.jpg'
+      } else {
+        return image
+      }
+    }
   }
 }
 </script>
