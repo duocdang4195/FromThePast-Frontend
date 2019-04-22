@@ -18,10 +18,11 @@
 
 <style lang="scss" scoped>
   .authenticate-wr {
-    background: url('https://image.shutterstock.com/image-photo/wood-wall-bulb-lights-lamp-260nw-551746348.jpg') no-repeat center center fixed; 
-    background-size: cover;
     width: 100%;
     height: 100%;
     padding: 100px 0;
+  }
+  .theme--light.application {
+    background-color: #fff;
   }
 </style>
