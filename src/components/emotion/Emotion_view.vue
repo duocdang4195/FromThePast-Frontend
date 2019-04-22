@@ -145,33 +145,28 @@
       <div class="mr-emotion-view">
         <div class="blog-wrapper">
           <div class="blog-img">
-            <img class="img-responsive" src="/img/pexels-photo-1051073.jpeg" alt>
+            <img class="img-responsive" :src="getAllMyQuotationsCreateByID.image" alt>
           </div>
           <!-- blog-img -->
 
           <div class="mr-post-content">
             <h3 class="mr-post-tittle">
-              <a href="#">Look at this Standard Post</a>
+              <a href="#">{{ getAllMyQuotationsCreateByID.title }}</a>
             </h3>
 
             <div class="mr-post-meta">
               <p>
                 By
-                <a href="#">Admin</a>
+                <span>{{ getAllMyQuotationsCreateByID.user.name }}</span>
                 <span class="pdd-horizon-5">/</span>
                 <i class="ti-time pdd-right-5"></i>
-                <span>02 JANUARY 2016</span>
+                <span>{{ getAllMyQuotationsCreateByID.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
                 <span class="pdd-horizon-5">/</span>
                 <i class="ti-comment pdd-right-5"></i>
-                <a href="#">3 Comments</a>
+                <a href="#"> {{ getAllMyQuotationsCreateByID.comment.length }} Comments</a>
               </p>
             </div>
-            <!-- /post-meta -->
-
-            <p class="mr-writing-content">
-              <span class="mr-dropcap">L</span>orem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id commodo nulla. In tempor magna vel tortor varius interdum. Quisque eleifend rutrum diam, sit amet gravida nisl aliquet vitae. Praesent cursus est iaculis, consectetur ligula id, sodales nunc. Vestibulum facilisis suscipit sem, sit amet pretium augue facilisis sed. Sed erat libero, iaculis sit amet sodales eget, porttitor in odio. Suspendisse pellentesque tortor sed odio posuere, id dapibus tortor vulputate. Quisque non ligula id lorem vulputate viverra scelerisque ut dui. Praesent urna ex, efficitur eget tortor vitae, malesuada malesuada purus. Aenean ut eros sit amet enim vestibulum rutrum quis quis felis. Vivamus laoreet nisi quis sapien interdum, at cursus metus luctus. Vivamus id nulla vitae mi pretium laoreet vitae molestie augue. Sed vitae diam eu urna sodales venenatis.
-            </p>
-
+            <p class="mr-writing-content" v-html="getAllMyQuotationsCreateByID.content" > {{ getAllMyQuotationsCreateByID.content }} </p>
             <div class="mr-action-area">
               <div class="share mrg-top-50">
                 <h5 class="mrg-btm-15">Share Post :</h5>
@@ -201,57 +196,34 @@
           </div>
           <!-- /post-content -->
 
-          <div class="mr-comment-wrapper mrg-top-50">
-            <h3 class="mrg-btm-40">Comments(3)</h3>
-             <div class="mr-comment">
+          <div class="mr-comment-wrapper mrg-top-50" v-if="getAllMyQuotationsCreateByID.comment" >
+            <h3 class="mrg-btm-40">Comments( {{ getAllMyQuotationsCreateByID.comment.length }} )</h3>
+             <div class="mr-comment" v-for=" (item, index) in getAllMyQuotationsCreateByID.comment" :key="index">
                 <div class="mr-avatar">
-                    <a href="#">A</a>
+                    <a> {{ showAvt(item.user.name) }} </a>
                 </div>
                 <!-- /avatar -->
                 <div class="mr-comment-info">
-                    <h4 class="name"><a href="#">John Louis</a></h4>
-                    <p class="mr-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam venenatis, ligula quis sagittis euismod, odio ante molestie tortor.</p>
+                    <h4 class="name"><a href="#"> {{ item.user.name }} </a></h4>
+                    <p class="mr-content"> {{ item.content }} </p>
                     <div class="mr-like">
                         <button class="mr-like-btn"><i class="ti-heart"></i></button>
                         <button class="mr-dislike-btn"><i class="ti-heart-broken"></i></button>
-                        <span class="time">16 Feb 2016, 10:37 am</span>
+                        <span class="time">{{ item.updated_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
                     </div>
                     <!-- /like -->
                 </div>
                 <!-- /comment-info -->
-               
-            </div>
-            <!-- /comment -->
-
-             <div class="mr-comment">
-                <div class="mr-avatar">
-                    <a href="#">A</a>
-                </div>
-                <!-- /avatar -->
-                <div class="mr-comment-info">
-                    <h4 class="name"><a href="#">John Louis</a></h4>
-                    <p class="mr-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam venenatis, ligula quis sagittis euismod, odio ante molestie tortor.</p>
-                    <div class="mr-like">
-                        <button class="mr-like-btn"><i class="ti-heart"></i></button>
-                        <button class="mr-dislike-btn"><i class="ti-heart-broken"></i></button>
-                        <span class="time">16 Feb 2016, 10:37 am</span>
-                    </div>
-                    <!-- /like -->
-                </div>
-                <!-- /comment-info -->
-               
             </div>
             <!-- /comment -->
           </div>
           <!-- /comment-wrapper -->
-
           <div class="form-group mr-cmnt-wr">
-            <textarea class="form-control" name="message" placeholder="Write a comment"></textarea>
+            <textarea v-model="content" class="form-control" name="message" placeholder="Write a comment"></textarea>
           </div>
           <!-- form-group -->
-
           <div class="clearfix text-right">
-                <button class="mr-submitBtn" type="submit">SUMBIT</button>
+                <button class="mr-submitBtn" @click="submitComment">SUMBIT</button>
             </div>
           <!-- /clearfix -->
         </div>
@@ -264,6 +236,53 @@
   <!-- ./.mr-section  -->
 </template>
 
+<script>
+import { mapActions, mapGetters } from 'vuex';
+
+export default {
+  data() {
+    return {
+      emotion_id: '',
+      content: '',
+      userName: ''
+    }
+  },
+  created() {
+    const id = this.$route.params.id
+    this.getMyEmotionsByID({id})
+  },
+  computed: {
+    ...mapGetters(['getAllMyQuotationsCreateByID']),
+  },
+  methods: {
+    ...mapActions(['getMyEmotionsByID', 'createCommentEmotions']),
+    showAvt(str) {
+      let textFirst = str.slice(0, 1).toUpperCase();
+      return textFirst;
+    },
+    submitComment() {
+      this.createCommentEmotions({
+        emotion_id: Number(this.$route.params.id),
+        content: this.content
+      }).then(res => {
+        if(res.ok) {
+          this.getAllMyQuotationsCreateByID.comment.push(res.data)
+          this.content = ''
+        }
+      })
+    },
+    // stringToHslColor(s, l) {
+    //   const str = this.getAllMyQuotationsCreateByID.comment.user.name
+    //   var hash = 0;
+    //   for (var i = 0; i < str.length; i++) {
+    //     hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    //   }
+    //   var h = hash % 360;
+    //   return 'hsl('+h+', '+s+'%, '+l+'%)';
+    // }
+  }
+}
+</script>
 
 
 <style lang="scss" scoped>
@@ -443,7 +462,6 @@ ul {
                         border: 1px solid #d9d9d9;
                         border-radius:50%;
                         color: #fff;
-                        background-color: #999;
                         font-size: 20px;
                         font-weight: 300;
                         text-align: center;
