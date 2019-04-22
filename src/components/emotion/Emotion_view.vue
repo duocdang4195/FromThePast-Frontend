@@ -248,13 +248,13 @@ export default {
     }
   },
   created() {
-    const vm = this;
     const id = this.$route.params.id
     this.getMyEmotionsByID({id})
     this.contentEmotions = this.getAllMyQuotationsCreateByID
   },
   computed: {
-    ...mapGetters(['getAllMyQuotationsCreateByID'])
+    ...mapGetters(['getAllMyQuotationsCreateByID']),
+    showAvt()
   },
   methods: {
     ...mapActions(['getMyEmotionsByID', 'createCommentEmotions']),
@@ -264,10 +264,9 @@ export default {
         content: this.content
       }).then(res => {
         if(res.ok) {
-          vm.contentEmotions.push(res.data)
+          this.contentEmotions.comment.push(res.data)
         }
       })
-      
     }
   }
 }

@@ -127,7 +127,6 @@ export default {
 	async createCommentEmotions({commit}, data) {
     try {
 			const response = await api.post('/emotion_comment', data);
-			console.log('api', response)
 			commit('updateComentEmotions', response.data)
       return { ok: true, data: response.data };
     } catch (error) {
