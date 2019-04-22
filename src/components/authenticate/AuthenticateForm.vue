@@ -22,4 +22,7 @@
     height: 100%;
     padding: 100px 0;
   }
+  .theme--light.application {
+    background-color: #fff;
+  }
 </style>
