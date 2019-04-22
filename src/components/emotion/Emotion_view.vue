@@ -145,28 +145,28 @@
       <div class="mr-emotion-view">
         <div class="blog-wrapper">
           <div class="blog-img">
-            <img class="img-responsive" src="/img/pexels-photo-1051073.jpeg" alt>
+            <img class="img-responsive" :src="getAllMyQuotationsCreateByID.image" alt>
           </div>
           <!-- blog-img -->
 
           <div class="mr-post-content">
             <h3 class="mr-post-tittle">
-              <a href="#">{{ contentEmotions.title }}</a>
+              <a href="#">{{ getAllMyQuotationsCreateByID.title }}</a>
             </h3>
 
             <div class="mr-post-meta">
               <p>
                 By
-                <span>{{ contentEmotions.user.name }}</span>
+                <span>{{ getAllMyQuotationsCreateByID.user.name }}</span>
                 <span class="pdd-horizon-5">/</span>
                 <i class="ti-time pdd-right-5"></i>
-                <span>{{ contentEmotions.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
+                <span>{{ getAllMyQuotationsCreateByID.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
                 <span class="pdd-horizon-5">/</span>
                 <i class="ti-comment pdd-right-5"></i>
-                <a href="#"> {{ contentEmotions.comment.length }} Comments</a>
+                <a href="#"> {{ getAllMyQuotationsCreateByID.comment.length }} Comments</a>
               </p>
             </div>
-            <p class="mr-writing-content" v-html="contentEmotions.content" > {{ contentEmotions.content }} </p>
+            <p class="mr-writing-content" v-html="getAllMyQuotationsCreateByID.content" > {{ getAllMyQuotationsCreateByID.content }} </p>
             <div class="mr-action-area">
               <div class="share mrg-top-50">
                 <h5 class="mrg-btm-15">Share Post :</h5>
@@ -196,11 +196,11 @@
           </div>
           <!-- /post-content -->
 
-          <div class="mr-comment-wrapper mrg-top-50">
-            <h3 class="mrg-btm-40">Comments( {{ contentEmotions.comment.length }} )</h3>
-             <div class="mr-comment" v-for=" (item, index) in contentEmotions.comment" :key="index">
+          <div class="mr-comment-wrapper mrg-top-50" v-if="getAllMyQuotationsCreateByID.comment" >
+            <h3 class="mrg-btm-40">Comments( {{ getAllMyQuotationsCreateByID.comment.length }} )</h3>
+             <div class="mr-comment" v-for=" (item, index) in getAllMyQuotationsCreateByID.comment" :key="index">
                 <div class="mr-avatar">
-                    <a href="#">A</a>
+                    <a> {{ showAvt(item.user.name) }} </a>
                 </div>
                 <!-- /avatar -->
                 <div class="mr-comment-info">
@@ -244,30 +244,42 @@ export default {
     return {
       emotion_id: '',
       content: '',
-      contentEmotions: []
+      userName: ''
     }
   },
   created() {
     const id = this.$route.params.id
     this.getMyEmotionsByID({id})
-    this.contentEmotions = this.getAllMyQuotationsCreateByID
   },
   computed: {
     ...mapGetters(['getAllMyQuotationsCreateByID']),
-    showAvt()
   },
   methods: {
     ...mapActions(['getMyEmotionsByID', 'createCommentEmotions']),
+    showAvt(str) {
+      let textFirst = str.slice(0, 1).toUpperCase();
+      return textFirst;
+    },
     submitComment() {
       this.createCommentEmotions({
         emotion_id: Number(this.$route.params.id),
         content: this.content
       }).then(res => {
         if(res.ok) {
-          this.contentEmotions.comment.push(res.data)
+          this.getAllMyQuotationsCreateByID.comment.push(res.data)
+          this.content = ''
         }
       })
-    }
+    },
+    // stringToHslColor(s, l) {
+    //   const str = this.getAllMyQuotationsCreateByID.comment.user.name
+    //   var hash = 0;
+    //   for (var i = 0; i < str.length; i++) {
+    //     hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    //   }
+    //   var h = hash % 360;
+    //   return 'hsl('+h+', '+s+'%, '+l+'%)';
+    // }
   }
 }
 </script>
@@ -450,7 +462,6 @@ ul {
                         border: 1px solid #d9d9d9;
                         border-radius:50%;
                         color: #fff;
-                        background-color: #999;
                         font-size: 20px;
                         font-weight: 300;
                         text-align: center;

@@ -37,20 +37,6 @@
           placeholder="pass"
           @keydown.enter.prevent="signIn"
         ></textarea>
-        <p class="mr-author" v-if="showUserName">{{newUsername}}</p>
-        <p class="mr-author"  v-if="isShowEmail"><router-link :to="{name: 'signup'}" > AUTHOR </router-link></p>
-        <p class="mr-author">
-          <span></span>
-          <span></span>
-          <span class="rh-heart-icon"> <!-- Like button, when click, red heart appear---->
-            <img src="@/assets/images/heart-icon-white.svg" alt="" >
-            <img src="@/assets/images/heart-icon.svg" alt="red heart">
-          </span>
-          <span class="rh-infinity-icon"> <!--- when click this, text area for comment appear under, if the status has comment, the red icon appear -->
-            <img src="@/assets/images/infinity-icon-white.svg" alt="">
-            <img src="@/assets/images/infinity-icon.svg" alt="red infinity">
-          </span>
-        </p>
       </form>
       <div class="register">
         <div class="register__field" v-if="newEmail">
@@ -70,6 +56,11 @@
           <input @keydown.enter.prevent="registerAccount" type="password" v-model="password_confirmation" >
         </div>
       </div>
+    </div>
+    <div class="like-coment">
+      <p class="like-coment__user"  v-if="isShowEmail"><router-link :to="{name: 'signup'}" > AUTHOR </router-link></p>
+      <icon class="like-coment__icon--like" name="heart" />
+      <icon class="like-coment__icon--comments" name="comments" />
     </div>
     <div class="rh-footer">
       <p>
@@ -240,6 +231,22 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.like-coment {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  .like-coment__user {
+    margin: 0;
+    margin-right: 10px;
+    a {
+      text-decoration: none;
+    }
+  }
+  .like-coment__icon--like {
+    margin-right: 10px;
+  }
+}
 
 .register {
   width: 500px;
