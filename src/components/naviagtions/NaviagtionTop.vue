@@ -17,7 +17,7 @@
             <router-link :to="{ name: 'home_root'}">home</router-link>
           </div>
           <div class="menu__child--elm">
-            <router-link :to="{ name: 'Emotion_view'}">emotion</router-link>
+            <router-link :to="{ name: 'Emotion_list'}">emotion</router-link>
           </div>
           <div class="menu__child--elm">
             <router-link :to="{ name: 'service'}">service</router-link>

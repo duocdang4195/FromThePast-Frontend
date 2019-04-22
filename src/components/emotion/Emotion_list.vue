@@ -23,15 +23,14 @@
 			</div><!-- ./.mr-writing-box  -->
 
 			<div class="mr-controller">
-				<span class="mr-pre"><img  src="../../assets/images/chevron-left.svg" alt="" class=""> Previous</span>
-				<span class="mr-next">Next <img  src="../../assets/images/chevron-right.svg" alt="" class=""></span>
+				<span @click="randomEmotions" class="mr-next">Next <img  src="../../assets/images/chevron-right.svg" alt="" class=""></span>
 			</div><!-- ./.mr-controller -->
 		</div><!-- ./.mr-featured-post  -->
 
 		<div class="mr-article-wr">
 			<h3>My emotion</h3>
 			<div class="mr-current-post" @click="goto" >
-				<img  src="../../assets/images/pexels-photo-1051073-2560-1600.jpg" alt="" class="">
+				<img  :src="contentEmotions.image" alt="" class="">
 				<div class="mr-header">
 					<span class="mr-ttl">
 						{{ contentEmotions.title }}
@@ -57,7 +56,8 @@ export default {
   created() {
     this.getMyEmotionsCreate()
     this.contentEmotions = this.getAllMyQuotationsCreate[Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)];
-  },
+		console.log('contentEmotions', this.contentEmotions)
+	},
   computed: {
     ...mapGetters(['getAllMyQuotationsCreate'])
   },
@@ -66,7 +66,10 @@ export default {
     goto() {
       const id = this.contentEmotions.id
       this.$router.push(`/Emotion_view/${id}`);
-    }
+		},
+		randomEmotions() {
+			this.contentEmotions = this.getAllMyQuotationsCreate[Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)];
+		}
   }
 }
 </script>

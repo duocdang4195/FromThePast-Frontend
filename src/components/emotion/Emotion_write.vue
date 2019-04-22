@@ -46,7 +46,11 @@
 				data.append('subject', this.subject);
 				data.append('content', this.content);
 				data.append('tags', this.tags);
-				this.createEmotions({data})
+				this.createEmotions({data}).then(res => {
+					if(res.ok) {
+						this.$router.push({ path: '/Emotion_list'});
+					}
+				})
 			}
 		}
 	}

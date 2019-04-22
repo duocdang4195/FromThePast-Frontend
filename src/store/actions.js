@@ -110,7 +110,7 @@ export default {
 	async createEmotions({}, { data }) {
     try {
       const response = await api.post('/emotion', data);
-      return { ok: true, media };
+      return { ok: true, data };
     } catch (error) {
       return { ok: false, error };
     }

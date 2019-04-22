@@ -250,6 +250,7 @@ export default {
   created() {
     const id = this.$route.params.id
     this.getMyEmotionsByID({id})
+    console.log('getAllMyQuotationsCreateByID', this.getAllMyQuotationsCreateByID)
   },
   computed: {
     ...mapGetters(['getAllMyQuotationsCreateByID']),
@@ -459,7 +460,8 @@ ul {
                         display: inline-block;
                         width: 50px;
                         height: 50px;
-                        border: 1px solid #d9d9d9;
+                        border: 1px solid #fceded;
+                        background-color: #919191;
                         border-radius:50%;
                         color: #fff;
                         font-size: 20px;

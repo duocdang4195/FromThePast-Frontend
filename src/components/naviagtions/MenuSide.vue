@@ -19,9 +19,6 @@
           <div class="sidebar__child--elm">
             <router-link :to="{ name: 'service'}">my services</router-link>
           </div>
-          <div class="sidebar__child--elm">
-            <router-link :to="{ name: 'my_info'}">my album</router-link>
-          </div>
           <div @click="onLogout" class="sidebar__child--elm">
             <router-link :to="{ name: 'login'}">logout</router-link>
           </div>
