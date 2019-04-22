@@ -9,6 +9,7 @@ import './plugins/vue-moment';
 // import './plugins/v-tooltip'
 // import 'bulma/css/bulma.css'
 import 'vuetify/dist/vuetify.min.css'
+require('vue2-animate/dist/vue2-animate.min.css')
 
 import interceptorsSetup from './ultils/interceptorsSetup.js';
 
