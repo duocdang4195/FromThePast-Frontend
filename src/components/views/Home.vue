@@ -37,6 +37,22 @@
           placeholder="pass"
           @keydown.enter.prevent="signIn"
         ></textarea>
+        <div class="like-coment" v-show="isShowEmail">
+          <p class="like-coment__user"> {{ accessToken ? 'ADMIN' : 'HIDDEN' }} </p>
+          <icon
+            class="like-coment__icon--like" name="heart" 
+          />
+          <icon class="like-coment__icon--comments" name="comments" />
+        </div>
+        <div class="author-content" v-show="!accessToken && ( email !== '' )">
+          <router-link 
+            class="btn btn-default rh-author-reg" 
+            v-tooltip="'Bạn có thể lưu thành tên tác giá nếu đăng ký'" tag="button"
+            :to="{name: 'signup'}"
+          >
+						Author
+					</router-link>
+        </div>
       </form>
       <div class="register">
         <div class="register__field" v-if="newEmail">
@@ -56,11 +72,6 @@
           <input @keydown.enter.prevent="registerAccount" type="password" v-model="password_confirmation" >
         </div>
       </div>
-    </div>
-    <div class="like-coment">
-      <p class="like-coment__user"  v-if="isShowEmail"><router-link :to="{name: 'signup'}" > AUTHOR </router-link></p>
-      <icon class="like-coment__icon--like" name="heart" />
-      <icon class="like-coment__icon--comments" name="comments" />
     </div>
     <div class="rh-footer">
       <p>
@@ -95,17 +106,23 @@ export default {
       newUserName: false,
       newPassword: false,
       confirmPassword: false,
-      showUserName: false
+      showUserName: false,
+      isShowAuhor: false, 
+      isLike: false
     }
   },
   created() {
     this.getQuotations()
+    console.log('accessToken', this.accessToken)
   },
   computed: {
     ...mapGetters(['quotationRandom', 'accessToken']),
   },
   methods: {
     ...mapActions(["checkAccount", "logIn", "signUp", "createQuotations", "getQuotations"]),
+    like() {
+      this.isLike = !this.islike
+    },
     // async randomQuotations() {
     //   await this.getQuotations()
     //   let oldString = this.quotationRandom

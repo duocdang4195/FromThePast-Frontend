@@ -7,7 +7,7 @@ import './plugins/vue-moment';
 import './plugins/vue-awesome';
 // import './plugins/vue-typer';
 // import './plugins/vue-bootstrap'
-// import './plugins/v-tooltip'
+import './plugins/v-tooltip'
 // import 'bulma/css/bulma.css'
 import 'vuetify/dist/vuetify.min.css'
 
