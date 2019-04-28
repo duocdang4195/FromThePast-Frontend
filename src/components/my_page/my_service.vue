@@ -59,7 +59,7 @@ export default {
 		min-height: 100vh;
 		flex-direction: row;
 		flex-wrap: wrap;
-		background: linear-gradient(100deg, #121212 50%, #ffffff 50%);
+		background: #fff;
 		justify-content: center;
 		font-family: "IBM Plex Sans", sans-serif;
 		font-weight: 300;
@@ -195,7 +195,7 @@ export default {
 		min-height: 100vh;
 		flex-direction: row;
 		flex-wrap: wrap;
-		background: linear-gradient(100deg, #121212 20%, #ffffff 0%);
+		background: #fff;
 		justify-content: center;
 		font-family: "IBM Plex Sans", sans-serif;
 
@@ -223,8 +223,7 @@ export default {
 
 		.mr-basic-profit {
 			padding-left: 0px; 
-			width: 80%;
-			margin-left: 20%;
+			width: 100%;
 
 			h5 {
 				position: relative;
@@ -279,7 +278,7 @@ export default {
 						margin: 0;
 						padding: 10px 0;
 						border-bottom: 1px solid #a9a9a9;
-						font-size: 19px;
+						font-size: 14px;
 					}
 					
 					.mr-col0 {
@@ -291,7 +290,7 @@ export default {
 
 						> a {
 							color: #333;
-							font-size: 20px;
+							font-size: 14px;
 
 							&:hover {
 								color: #333;
