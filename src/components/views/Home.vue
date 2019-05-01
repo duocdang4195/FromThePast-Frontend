@@ -248,13 +248,14 @@ export default {
 
 
 <style lang="scss" scoped>
-
 .like-coment {
   position:relative;
   display: flex;
   width: 100%;
   align-items: flex-end;
   text-align: right;
+  justify-content: flex-end;
+  
   .like-coment__user {
     position:relative;
     display: inline-block;

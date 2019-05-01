@@ -4,6 +4,10 @@
 		<v-layout row wrap>
 			<v-flex xs12>
   				<h5>Order detail</h5>
+  				<h6>
+  					<span class="mr-order-num">#01236547895</span> -
+  					<span class="mr-order-stt">Pending</span>
+  				</h6>
 			</v-flex>
   		</v-layout row wrap>
   		<v-layout row wrap>
@@ -34,7 +38,7 @@
 			  		<ul>
 			  			<li>
 			  				<strong>Name:</strong>
-			  				<span>Reciver</span>
+			  				<span>Người gửi</span>
 			  			</li>
 			  			<li>
 			  				<strong>Address:</strong>
@@ -59,16 +63,8 @@
 			  				<span>COD</span>
 			  			</li>
 			  			<li>
-			  				<strong>Payer:</strong>
-			  				<span>Payer name</span>
-			  			</li>
-			  			<li>
-			  				<strong>Payment address:</strong>
-			  				<span>184 Nguyễn Xí, Ward 25, Binh Thanh District, Ho Chi Minh City</span>
-			  			</li>
-			  			<li>
-			  				<strong>Email:</strong>
-			  				<span>recipient@email.com</span>
+			  				<strong>Payer status:</strong>
+			  				<span>Success</span>
 			  			</li>
 			  		</ul>
 			  	</div>
@@ -77,8 +73,19 @@
 		  	<v-flex xs6 class="mr-right-col">
 		  		<div class="mr-service">
 		  			<h6>Service detail</h6>
-		  			<ul>
+		  			<ul class="mr-time-info">
 		  				<li>
+		  					<span>Booking date</span>
+		  					<strong>2019-05-01</strong>
+		  				</li>
+		  				<li>
+		  					<span>Sending date</span>
+		  					<strong>2021-05-01</strong>
+		  				</li>
+		  			</ul>
+		  			<ul class="mr-money">
+		  				<li>
+		  					<span>Letter name</span>
 		  					<strong>The New Anxiety Therapy That’s All About Accepting Your Fears</strong>
 		  				</li>
 		  				<li>
@@ -101,7 +108,7 @@
 		  		</div><!-- ./.mr-service -->
 
 			  	<v-layout row wrap>
-			  		<v-btn class="mr-backBtn" color="rgba(0,0,0,0.5)">Back to list</v-btn>
+			  		<v-btn class="mr-backBtn" color="rgba(0,0,0)">Back to list</v-btn>
 			  	</v-layout>
 
 		  	</v-flex><!-- ./.v-flex -->
@@ -117,7 +124,6 @@
 		display: inline-block;
 		width: 100%;
 		font-family: 'Montserrat', sans-serif;
-		font-weight: 300;
 		color: #3e3e3e;
 		text-transform: uppercase;
 		font-size: 15px;
@@ -153,12 +159,13 @@
 	    color: #fff;
 	    text-transform:uppercase;
 	    font-size:12px;
-	    letter-spacing:1px;
+	    letter-spacing:2px;
 	    font-family: 'Montserrat', sans-serif;
 	    transition: all 0.4s ease-in-out;
 	    -webkit-transition: all 0.4s ease-in-out;
 	    &:hover {
-	            background-color: #fff;
+	            background-color: #fff !important;
+	            border: 0 !important;
 	            color: #212121;
 	        }
 	}
@@ -172,14 +179,24 @@
 		h5 {
 			position: relative;
 			display: inline-block;
-			margin-top: 100px;
-			margin-bottom: 30px;
 			width: 100%;
 			font-size: 30px;
-			font-family: "IBM Plex Sans", sans-serif;
+			font-weight: bold;
 			text-transform: uppercase;
-			font-weight: 400;
-			letter-spacing: 1px;
+			color: #3e3e3e;
+			font-family: "IBM Plex Sans", sans-serif;
+			text-align: center;
+		}
+		h6 {
+			position: relative;
+			margin-bottom: 50px;
+			font-weight: 300;
+			font-size: 16px;
+
+			.mr-order-num {
+				color: #4473fb;
+				font-style: italic;
+			}
 		}
 		.mr-orderer-info {
 			position: relative;
@@ -210,17 +227,7 @@
 					}
 				}
 			}
-			.mr-backBtn {
-				position:relative;
-				display: inline-block;
-				width: 130px;
-				height: 47px;
-				line-height: 47px;
-				color:#fff;
-				background-color: #000;
-				@extend %default-button;
-
-			}
+			
 		}
 		.mr-right-col {
 			padding: 0 15px;
@@ -252,20 +259,16 @@
 
 						span {
 							align-self: flex-start;
-							width: 50%;
+							width: 30%;
 						}
 						strong {
 							align-self: flex-end;
 							text-align: right;
-							width: 50%;
+							width: 70%;
 						}
 
 						&:first-child {
 							padding-top: 0;
-							strong {
-								width: 100%;
-								text-align: left;
-							}
 						}
 
 						&:last-child {
@@ -274,7 +277,37 @@
 							font-size: 16px;
 						}
 					}
+					&.mr-time-info {
+						margin-bottom: 50px;
+						li {
+							&:first-child {
+								padding-top: 0;
+								strong {
+									width: 100%;
+									text-align: right;
+								}
+							}
+							&:last-child{
+								border-bottom: 1px solid #d9d9d9;
+								font-size: 14px;
+								font-weight: 300;
+							}
+						}
+					}
 				}
+			}
+			.mr-backBtn {
+				position:relative;
+				display: inline-block;
+				width: 100%;
+				height: 47px;
+				margin-right: 0;
+				margin-top: 30px;
+				line-height: 47px;
+				color:#fff;
+				background-color: #000;
+				@extend %default-button;
+
 			}
 		}
 		
