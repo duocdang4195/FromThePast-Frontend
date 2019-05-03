@@ -9,7 +9,7 @@
       </router-link>
     </p>
     <div class="mr-body">
-      <form action> 
+      <form action>
         <textarea
           class="mr-input"
           v-model="email"
@@ -18,6 +18,7 @@
           maxlength="250"
           placeholder=" Chào Anh!! Tâm Đẹp Trai =)))"
           @keydown.enter.prevent="checkUser"
+          autofocus
         ></textarea>
         <textarea
           class="mr-input"
@@ -26,6 +27,7 @@
           type="text"
           @keydown.enter.prevent="saveQuotations"
           placeholder="your quotations"
+          autofocus
         ></textarea>
         <textarea
           class="mr-input"
@@ -36,40 +38,53 @@
           maxlength="250"
           placeholder="pass"
           @keydown.enter.prevent="signIn"
+          autofocus
         ></textarea>
         <div class="like-coment" v-show="isShowEmail">
-          <p class="like-coment__user"> {{ accessToken ? 'ADMIN' : 'HIDDEN' }} </p>
-          <icon
-            class="like-coment__icon--like" name="heart" 
-          />
-          <icon class="like-coment__icon--comments" name="comments" />
+          <p class="like-coment__user">{{ accessToken ? 'ADMIN' : 'HIDDEN' }}</p>
+          <icon class="like-coment__icon--like" name="heart"/>
+          <icon class="like-coment__icon--comments" name="comments"/>
         </div>
         <div class="author-content" v-show="!accessToken && ( email !== '' )">
-          <router-link 
-            class="btn btn-default rh-author-reg" 
-            v-tooltip="'Bạn có thể lưu thành tên tác giá nếu đăng ký'" tag="button"
+          <router-link
+            class="btn btn-default rh-author-reg"
+            v-tooltip="'Bạn có thể lưu thành tên tác giá nếu đăng ký'"
+            tag="button"
             :to="{name: 'signup'}"
-          >
-						Author
-					</router-link>
+          >Author</router-link>
         </div>
       </form>
       <div class="register">
         <div class="register__field" v-if="newEmail">
           <h2>Hi, is that your email ?</h2>
-          <input @keydown.enter.prevent="showNewUserName" type="text" v-model="email" >
+          <input @keydown.enter.prevent="showNewUserName" type="text" v-model="email" autofocus>
         </div>
         <div class="register__field" v-if="newUserName">
           <h2>New User Name</h2>
-          <input @keydown.enter.prevent="showNewPassword" type="text" v-model="newUsername" >
+          <input
+            @keydown.enter.prevent="showNewPassword"
+            type="text"
+            v-model="newUsername"
+            autofocus
+          >
         </div>
         <div class="register__field" v-if="newPassword">
           <h2>New Password</h2>
-          <input @keydown.enter.prevent="showConfirmPassword" type="password" v-model="newPasswordText" >
+          <input
+            @keydown.enter.prevent="showConfirmPassword"
+            type="password"
+            v-model="newPasswordText"
+            autofocus
+          >
         </div>
         <div class="register__field" v-if="confirmPassword">
           <h2>Confirm Password</h2>
-          <input @keydown.enter.prevent="registerAccount" type="password" v-model="password_confirmation" >
+          <input
+            @keydown.enter.prevent="registerAccount"
+            type="password"
+            v-model="password_confirmation"
+            autofocus
+          >
         </div>
       </div>
     </div>
@@ -81,25 +96,24 @@
   </div>
 </template>
 <script>
- 
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-import Swal from 'sweetalert2';
-import { setInterval } from 'timers';
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import Swal from "sweetalert2";
+import { setInterval } from "timers";
 
-  const validateEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const validateEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
-	data() {
+  data() {
     return {
-      name: 'Tâm Đẹp Trai',
-      userName: '',
-      password: '',
-      email: '',
-      newPasswordText: '',
-      password_confirmation: '',
-      newUsername: '',
-      gender: '0',
+      name: "Tâm Đẹp Trai",
+      userName: "",
+      password: "",
+      email: "",
+      newPasswordText: "",
+      password_confirmation: "",
+      newUsername: "",
+      gender: "0",
       quotations: [],
-      quotationsStringRandom: '',
+      quotationsStringRandom: "",
       isShowEmail: true,
       isShowPassword: false,
       newEmail: false,
@@ -107,21 +121,27 @@ export default {
       newPassword: false,
       confirmPassword: false,
       showUserName: false,
-      isShowAuhor: false, 
+      isShowAuhor: false,
       isLike: false
-    }
+    };
   },
   created() {
-    this.getQuotations()
-    console.log('accessToken', this.accessToken)
+    this.getQuotations();
+    console.log("accessToken", this.accessToken);
   },
   computed: {
-    ...mapGetters(['quotationRandom', 'accessToken']),
+    ...mapGetters(["quotationRandom", "accessToken"])
   },
   methods: {
-    ...mapActions(["checkAccount", "logIn", "signUp", "createQuotations", "getQuotations"]),
+    ...mapActions([
+      "checkAccount",
+      "logIn",
+      "signUp",
+      "createQuotations",
+      "getQuotations"
+    ]),
     like() {
-      this.isLike = !this.islike
+      this.isLike = !this.islike;
     },
     // async randomQuotations() {
     //   await this.getQuotations()
@@ -141,66 +161,64 @@ export default {
     //   );
     // },
     checkUser() {
-      if(this.email === '') {
+      if (this.email === "") {
         Swal.fire({
-          title: 'Field is required',
-          type: 'error',
-        })
+          title: "Field is required",
+          type: "error"
+        });
       } else {
         this.checkAccount({
-          email: this.email,
+          email: this.email
         }).then(res => {
           if (res.ok) {
-            this.isShowEmail = false
-            this.isShowPassword = true
+            this.isShowEmail = false;
+            this.isShowPassword = true;
           } else {
-            this.isShowEmail = false
-            this.newEmail = true
+            this.isShowEmail = false;
+            this.newEmail = true;
           }
-        })
+        });
       }
     },
     showNewUserName() {
-      if(validateEmail.test(this.email.toLowerCase())) {
-        this.newEmail = false,
-        this.newUserName = true
+      if (validateEmail.test(this.email.toLowerCase())) {
+        (this.newEmail = false), (this.newUserName = true);
       } else {
         Swal.fire({
-          title: 'Email invalid',
-          type: 'error',
-        })
+          title: "Email invalid",
+          type: "error"
+        });
       }
     },
     showNewPassword() {
-      if(this.newUsername === '' || this.newUsername.length < 6) {
+      if (this.newUsername === "" || this.newUsername.length < 6) {
         Swal.fire({
-          title: 'Please Fill User Name And Must Be At Least 6 Characters',
-          type: 'error',
-        })
+          title: "Please Fill User Name And Must Be At Least 6 Characters",
+          type: "error"
+        });
       } else {
-        this.newUserName = false,
-        this.newPassword = true
+        (this.newUserName = false), (this.newPassword = true);
       }
     },
     showConfirmPassword() {
-      if(this.newPasswordText === '' || this.newPasswordText.length < 6) {
+      if (this.newPasswordText === "" || this.newPasswordText.length < 6) {
         Swal.fire({
-          title: 'Please Fill Password And The Password Must Be At Least 6 Characters',
-          type: 'error',
-        })
+          title:
+            "Please Fill Password And The Password Must Be At Least 6 Characters",
+          type: "error"
+        });
       } else {
-        this.newPassword = false,
-        this.confirmPassword = true
+        (this.newPassword = false), (this.confirmPassword = true);
       }
     },
     registerAccount() {
       if (this.password_confirmation != this.newPasswordText) {
         Swal.fire({
-          title: 'Pasword And Confirm Passowrd Invalid',
-          type: 'error',
-        })
+          title: "Pasword And Confirm Passowrd Invalid",
+          type: "error"
+        });
       } else {
-        this.confirmPassword = false
+        this.confirmPassword = false;
         this.signUp({
           username: this.newUsername,
           email: this.email,
@@ -209,46 +227,45 @@ export default {
           gender: Number(this.gender),
           name: this.name
         }).then(res => {
-          if(res.ok) {
-            this.saveQuotations()
-            this.showUserName = true
+          if (res.ok) {
+            this.saveQuotations();
+            this.showUserName = true;
           }
-        })
+        });
       }
     },
     saveQuotations() {
-      if(this.email === '' ) {
+      if (this.email === "") {
         Swal.fire({
-          title: 'Quotations is required',
-          type: 'error',
-        })
+          title: "Quotations is required",
+          type: "error"
+        });
       } else {
-          this.createQuotations({
+        this.createQuotations({
           content: this.email
         }).then(res => {
-          if(res.ok) {
-            this.email = ''
+          if (res.ok) {
+            this.email = "";
           }
-        })
+        });
       }
     },
     signIn() {
       this.logIn({
         email: this.email,
         password: this.password
-      }).then( res => {
-        if(res.ok) {
-          this.$router.push({ name: 'home'})
+      }).then(res => {
+        if (res.ok) {
+          this.$router.push({ name: "home" });
         }
-      })
-    },
+      });
+    }
   }
-}
+};
 </script>
 
 
 <style lang="scss" scoped>
-
 .like-coment {
   width: 100%;
   display: flex;
@@ -291,6 +308,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100%;
 }
 .mr-home-wr {
   width: 100%;
@@ -416,17 +434,17 @@ export default {
   font-size: 14px;
   font-weight: 300;
   text-transform: capitalize;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 300;
 }
 .mr-body form .mr-author a:after {
-  content:'You can be save as author if registring here';
+  content: "You can be save as author if registring here";
   position: absolute;
   display: inline-block;
   width: 0px;
   height: fit-content;
   padding: 7px;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 1px;
   top: 20px;
   right: 0;
@@ -436,12 +454,12 @@ export default {
   font-style: normal;
   text-overflow: ellipsis;
   overflow: hidden;
-  opacity:0;
+  opacity: 0;
 }
-.mr-body form .mr-author a:hover  a:after  {
+.mr-body form .mr-author a:hover a:after {
   width: 200px;
-  opacity:1;
-  transition:opacity linear 0.5s;
+  opacity: 1;
+  transition: opacity linear 0.5s;
 }
 .mr-body form .rh-heart-icon,
 .mr-body form .rh-infinity-icon {
