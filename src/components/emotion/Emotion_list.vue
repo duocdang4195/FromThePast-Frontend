@@ -62,16 +62,16 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
-			contentEmotions: [],
-			recentPost: [],
+      contentEmotions: [],
+      recentPost: []
     };
   },
   created() {
     this.getMyEmotionsCreate();
     this.contentEmotions = this.getAllMyQuotationsCreate[
       Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)
-		];
-		console.log('getAllMyQuotationsCreate', this.getAllMyQuotationsCreate)
+    ];
+    this.recentPost.push(this.contentEmotions);
   },
   computed: {
     ...mapGetters(["getAllMyQuotationsCreate"])
@@ -85,12 +85,23 @@ export default {
     randomEmotions() {
       this.contentEmotions = this.getAllMyQuotationsCreate[
         Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)
-			];
-			this.recentPost.unshift(this.contentEmotions)
-		},
-		preEmotions() {
-			this.contentEmotions = this.recentPost[0]
-			this.recentPost.shift();
+      ];
+      this.recentPost.push(this.contentEmotions);
+      console.log('before', this.contentEmotions)
+    },
+    preEmotions() {
+      for(var i = 0; i < this.recentPost.length; i++) {
+        if(this.recentPost.length > 1) {
+          this.contentEmotions = this.recentPost.pop();
+        }
+      }
+      // let temp = this.recentPost.shift();
+      // if (temp !== this.recentPost) {
+      //   this.contentEmotions = temp;
+      //   console.log('after', this.contentEmotions)
+      // } else {
+      //   this.contentEmotions = this.recentPost.shift();
+      // }
     }
   }
 };

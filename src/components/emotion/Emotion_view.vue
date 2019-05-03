@@ -230,11 +230,9 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import Comment from "@/components/emotion/Comment.vue";
 
 export default {
   components: {
-    Comment
   },
   data() {
     return {
