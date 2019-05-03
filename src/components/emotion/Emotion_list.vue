@@ -22,14 +22,16 @@
 				</div> <!-- ./.mr-content  -->
 			</div><!-- ./.mr-writing-box  -->
 
-			<div class="mr-controller">
-				<span @click="randomEmotions" class="mr-next">Next <img  src="../../assets/images/chevron-right.svg" alt="" class=""></span>
-			</div><!-- ./.mr-controller -->
+			
 		</div><!-- ./.mr-featured-post  -->
 
 		<div class="mr-article-wr">
 			<h3>My emotion</h3>
+			<div class="mr-controller">
+				<span @click="randomEmotions" class="mr-next">Next <img  src="../../assets/images/chevron-right.svg" alt="" class=""></span>
+			</div><!-- ./.mr-controller -->
 			<div class="mr-current-post" @click="goto" >
+				<div class="mr-post-img"></div>
 				<img  :src="contentEmotions.image" alt="" class="">
 				<div class="mr-header">
 					<span class="mr-ttl">
@@ -38,7 +40,7 @@
 					<p class="rh-date">{{ contentEmotions.updated_at | moment("dddd, MMMM Do YYYY")}}</p>
 				</div><!-- ./.mr-header  -->
 				<div class="mr-article-cntn" v-html="contentEmotions.content"> {{ contentEmotions.content }} </div><!-- ./.mr-article-cntn -->
-			</div>
+			</div><!-- ./. mr-current-post  -->
 		</div><!-- ./.mr-article-wr  -->
 		
 	</div>	 
@@ -149,10 +151,13 @@ export default {
 			> div {
 				flex: 1;
 				width: calc(50% - 20px);
+				height: 100%;
 				padding: 15px;
 				margin: 0 10px;
 				background-color: #fff;
 				box-shadow: 2px 2px 4px 1px rgba(180, 180, 180, 0.4);
+				overflow: hidden;
+				border-bottom: 15px solid #fff;
 
 				> img {
 					position: relative;
@@ -181,7 +186,7 @@ export default {
 				}
 				.mr-content {
 					position: relative;
-					height: 105px;
+					height: auto;
 					overflow: hidden;
 					text-overflow:ellipsis;
 					text-align: justify;
@@ -200,9 +205,41 @@ export default {
 				}
 			}
 
+			
+		}
+		.mr-article-wr {
+			position: relative;
+			display: inline-block;
+			width: 40vw;
+			height: 80vh;
+			min-height: 500px;
+			cursor: pointer;
+
+			h3 {
+				position: relative;
+				display: inline-block;
+				width:auto;
+				margin-bottom: 20px;
+			    font-weight: 300;
+			    text-transform: uppercase;
+
+			     &:after {
+			    	position: absolute;
+			    	content:'';
+			    	bottom: -2px;
+			    	left: 0;
+			    	width: 30px;
+			    	height: 1px;
+			    	border-bottom: 1px solid #3e3e3e;
+			    }
+			}
 			.mr-controller {
-				margin-top: 20px;
+				position:relative;
+				display: inline-block;
+				top: 10px;
+				float: right;
 				padding: 0;
+				width:auto;
 				background-color: transparent;
 				box-shadow: none;
 
@@ -232,31 +269,6 @@ export default {
 					float: right;
 				}
 			}
-		}
-		.mr-article-wr {
-			position: relative;
-			display: inline-block;
-			width: 40vw;
-			height: 80vh;
-			min-height: 500px;
-			cursor: pointer;
-
-			h3 {
-				position: relative;
-				margin-bottom: 20px;
-			    font-weight: 300;
-			    text-transform: uppercase;
-
-			     &:after {
-			    	position: absolute;
-			    	content:'';
-			    	bottom: -2px;
-			    	left: 0;
-			    	width: 30px;
-			    	height: 1px;
-			    	border-bottom: 1px solid #3e3e3e;
-			    }
-			}
 
 			.mr-current-post {	
 				padding: 20px;			
@@ -267,9 +279,18 @@ export default {
 			    overflow: hidden;
 			    text-align: justify;
 
+			    .mr-post-img {
+			    	position: relative;
+			    	width: 100%;
+			    	height:50%;
+			    	background-size: cover;
+			    	background-position: center center;
+			    	background-repeat: no-repeat;
+			    	border: 1px solid #ececec;
+			    }
 				> img {
 					position: relative;
-					display: inline-block;
+					display: none;
 					width: 100%;
 				}
 
