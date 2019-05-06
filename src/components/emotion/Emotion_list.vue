@@ -2,29 +2,12 @@
   <div class="mr-emotion-list">
     <div class="mr-featured-post">
       <h3>Featured writing</h3>
-      <div class="mr-writing-box">
-        <img src="../../assets/images/pexels-photo-1051073-2560-1600.jpg" alt class>
-        <h4>Why We Spend Our Brief Lives Indoors, Alone, and Typing</h4>
-        <p class="rh-date">2018-12-25</p>
-        <div class="mr-content">
-          I worry about what to tell Kate.
-          For most of my students, knowing how to write well will just be an unfair advantage in whatever career they choose — I tell them it’s like being rich, or pretty. But Kate takes art personally: she loves the Dadaists but also thinks they’re a bit cliqueish and silly; in her emails she quotes Rilke and Hurston. She’s one of those students so passionate about writing and literature it makes me feel, briefly, younger to be around her. It also secretly breaks my heart. I once unprofessionally confessed to Kate my misgivings about training her in an art form as archaic as stained glass. She tells me she still thinks about this all the time.
-        </div>
-        <!-- ./.mr-content  -->
+      <div class="mr-writing-box" v-for="(item, index) in showPostAdmin" :key="index">
+        <img :src="item.image" alt class>
+        <h4>{{ item.title }}</h4>
+        <p class="rh-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</p>
+        <div class="mr-content" v-html="item.content">{{ item.content }}</div>
       </div>
-      <!-- ./.mr-writing-box  -->
-      <div class="mr-writing-box">
-        <img src="../../assets/images/pexels-photo-1051073-2560-1600.jpg" alt class>
-        <h4>Working Out Is Powerful Brain Training</h4>
-        <p class="rh-date">2018-12-25</p>
-        <div class="mr-content">
-          Life is hard, and you’ll be better off if you practice doing hard things — like making your body purposefully uncomfortable.
-          Last year, I fell on my face more times than I had in all the previous years of my life combined. Over time, my body became peppered with tiny bruises as I crashed to the floor again and again.
-        </div>
-        <!-- ./.mr-content  -->
-      </div>
-      <!-- ./.mr-writing-box  -->
-
       <div class="mr-controller">
         <span @click="randomEmotions" class="mr-next">
           Next
@@ -63,7 +46,8 @@ export default {
   data() {
     return {
       contentEmotions: [],
-      recentPost: []
+      recentPost: [],
+      disable: false
     };
   },
   created() {
@@ -71,10 +55,16 @@ export default {
     this.contentEmotions = this.getAllMyQuotationsCreate[
       Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)
     ];
-    this.recentPost.push(this.contentEmotions);
+    this.recentPost.unshift(this.contentEmotions);
   },
   computed: {
-    ...mapGetters(["getAllMyQuotationsCreate"])
+    ...mapGetters(["getAllMyQuotationsCreate"]),
+    showPostAdmin() {
+      let postAdmin = this.getAllMyQuotationsCreate.filter(item => {
+        return item.selected === 1;
+      });
+      return postAdmin;
+    }
   },
   methods: {
     ...mapActions(["getMyEmotionsCreate"]),
@@ -86,22 +76,20 @@ export default {
       this.contentEmotions = this.getAllMyQuotationsCreate[
         Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)
       ];
-      this.recentPost.push(this.contentEmotions);
-      console.log('before', this.contentEmotions)
+      this.recentPost.unshift(this.contentEmotions);
+      console.log("before", this.recentPost);
     },
     preEmotions() {
-      for(var i = 0; i < this.recentPost.length; i++) {
-        if(this.recentPost.length > 1) {
-          this.contentEmotions = this.recentPost.pop();
-        }
+      if(this.recentPost.length === 1) {
+        this.contentEmotions = this.recentPost[0]
+        this.recentPost.shift()
+        this.disable = false
+      } else {
+        this.disable = true
+        this.contentEmotions = this.recentPost[1]
+				console.log("after", this.contentEmotions)
+        this.recentPost.shift()
       }
-      // let temp = this.recentPost.shift();
-      // if (temp !== this.recentPost) {
-      //   this.contentEmotions = temp;
-      //   console.log('after', this.contentEmotions)
-      // } else {
-      //   this.contentEmotions = this.recentPost.shift();
-      // }
     }
   }
 };
@@ -331,12 +319,21 @@ export default {
       .mr-article-cntn {
         position: relative;
         width: 100%;
-        height: 75px;
         line-height: 1.5;
         font-size: 16px;
         overflow-y: scroll;
         text-overflow: ellipsis;
         color: #525252;
+        img {
+          width: 95%;
+          height: auto;
+        }
+        p {
+          img {
+            width: 95%;
+            height: auto;
+          }
+        }
       }
     }
   }
