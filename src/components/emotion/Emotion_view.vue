@@ -201,7 +201,7 @@
 
           <div class="mr-comment-wrapper mrg-top-50" v-if="getAllMyQuotationsCreateByID.comment">
             <h3 class="mrg-btm-40">Comments( {{ getAllMyQuotationsCreateByID.comment.length }} )</h3>
-            <Comment v-for=" (comment, index) in getAllMyQuotationsCreateByID.comment" :key="index" :item="comment"/>
+            <Comments v-for=" (comment, index) in getAllMyQuotationsCreateByID.comment" :key="index" :item="comment"/>
             <!-- /comment -->
           </div>
           <!-- /comment-wrapper -->
@@ -211,6 +211,7 @@
               class="form-control"
               name="message"
               placeholder="Write a comment"
+              @keydown.enter.prevent="submitComment"
             ></textarea>
           </div>
           <!-- form-group -->
@@ -230,9 +231,11 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Comments from '@/components/emotion/Comments.vue'
 
 export default {
   components: {
+    Comments
   },
   data() {
     return {
@@ -253,27 +256,6 @@ export default {
   },
   methods: {
     ...mapActions(["getMyEmotionsByID", "createCommentEmotions"]),
-    showAvt(str) {
-      let textFirst = str.slice(0, 1).toUpperCase();
-      return textFirst;
-    },
-    stringToHslColor() {
-      console.log(
-        "getAllMyQuotationsCreateByID",
-        this.getAllMyQuotationsCreateByID
-      );
-      const str = this.getAllMyQuotationsCreateByID.comment;
-      var hash = 0;
-      for (var i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
-      }
-      var h = hash % 360;
-      const haha = {
-        background: `hsla(${h},80%, 30%)`
-      };
-      return "red";
-      return `hsla(${h},80%, 30%)`;
-    },
     submitComment() {
       this.createCommentEmotions({
         emotion_id: Number(this.$route.params.id),
@@ -456,54 +438,6 @@ ul {
         letter-spacing: 2px;
         font-weight: 300;
         margin-bottom: 25px;
-      }
-      .mr-comment {
-        position: relative;
-        padding: 15px 0 30px;
-        display: flex;
-        flex-direction: row;
-        align-items: top;
-        .mr-avatar {
-          width: 50px;
-          height: 50px;
-          a {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border: 1px solid #fceded;
-            border-radius: 50%;
-            color: #fff;
-            font-size: 20px;
-            font-weight: 300;
-            text-align: center;
-            line-height: 48px;
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
-          }
-        }
-        .mr-comment-info {
-          width: calc(100% - 50px);
-          padding-left: 20px;
-          .name {
-            margin-bottom: 20px;
-            font-family: "Montserrat", sans-serif;
-            font-weight: 300;
-            letter-spacing: 1px;
-            font-size: 13px;
-            text-transform: uppercase;
-            color: #3e3e3e;
-          }
-          .mr-content {
-            margin-bottom: 0;
-          }
-          .mr-like {
-            margin-top: 10px;
-            padding-right: 15px;
-            color: #888;
-          }
-        }
       }
     }
     .mr-cmnt-wr {

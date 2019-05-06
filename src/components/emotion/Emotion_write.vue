@@ -3,14 +3,7 @@
     <div class="mr-emt-wrtie-wr" :style="backgoundImage">
       <div class="mr-write-area">
         <input type="text" class="mr-subj" v-model="subject" placeholder="Subject ...">
-				<vue-editor style="height:350px;" v-model="content" :editorOptions="editorOption" ></vue-editor>
-        <!-- <textarea
-          name
-          id
-          class="mr-cntn"
-          v-model="content"
-          placeholder="How is your feeling today?"
-        ></textarea> -->
+				<vue-editor style="height:300px;" v-model="content" :editorOptions="editorOption" ></vue-editor>
         <input
           ref="file"
           @change="handleFileUpload"
@@ -18,7 +11,16 @@
           type="file"
           class="mr-upload-img"
         >
-        <input type="text" class="mr-hashtag" placeholder="Hashtag">
+        <v-combobox
+          class="mr-hashtag"
+          v-model="tags"
+          :items="items"
+          placeholder="Add Tag"
+          hide-selected
+          multiple
+          small-chips
+        >
+        </v-combobox>
         <button class="mr-submit" @click="submit">Post</button>
       </div>
     </div>
@@ -38,21 +40,23 @@
 <script>
 import { mapActions } from "vuex";
 import { VueEditor } from "vue2-editor";
+import 'quill/dist/quill.bubble.css'
 
 export default {
 	components: {
-		VueEditor
+    VueEditor,
 	},
   data() {
     return {
       subject: "",
       content: "",
-      tags: "",
+      tags: [],
       file: "",
+      items: ["Sad", "Happy", "Cry", "Love", "Like"],
       backgoundImage:
         "background-image: url('https://preply.com/wp-content/uploads/2018/04/pexels-photo-100733.jpeg');",
       editorOption: {
-        // theme: "bubble",
+        theme: "bubble",
         placeholder: "How do you feel today?",
         modules: {
           toolbar: [
@@ -117,7 +121,7 @@ export default {
 .mr-emt-wrtie-wr .mr-write-area {
   position: relative;
   display: inline-block;
-  width: 50%;
+  width: 65%;
   min-width: 500px;
   height: auto;
   background-color: #fff;

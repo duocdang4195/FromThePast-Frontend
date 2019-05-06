@@ -87,7 +87,6 @@ export default {
       } else {
         this.disable = true
         this.contentEmotions = this.recentPost[1]
-				console.log("after", this.contentEmotions)
         this.recentPost.shift()
       }
     }
