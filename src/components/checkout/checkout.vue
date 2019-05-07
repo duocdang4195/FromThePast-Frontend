@@ -12,14 +12,11 @@
             <!-- column -->
             <!-- column -->
             <div class="col-sm-6">
-              <label class="mrg-top-30">Country</label>
+              <label class="mrg-top-30">City</label>
               <v-autocomplete
-                v-model="select"
-                :items="items"
-                :search-input.sync="search"
+                v-model="selectCity"
+                :items="listCity"
                 flat
-                hide-no-data
-                hide-details
                 append-icon=""
                 background-color="#ededed"
                 color="#333"
@@ -27,8 +24,17 @@
               ></v-autocomplete>
             </div>
             <div class="col-sm-6">
-              <label class="mrg-top-30">City</label>
-
+              <label class="mrg-top-30">Ward</label>
+              <v-autocomplete
+                v-model="selectWard"
+                :items="getListWard"
+                flat
+                append-icon=""
+                background-color="#ededed"
+                color="#333"
+                :disabled="hideWard"
+                solo-inverted
+              ></v-autocomplete>
             </div>
             <div class="col-sm-6">
               <label class="mrg-top-30">Ward</label>
@@ -148,44 +154,46 @@ export default {
   },
   data() {
     return {
-      loading: false,
-      items: [],
-      search: null,
-      select: null,
-      listCity: []
+      listCity: [],
+      listWard: [],
+      selectCity: '',
+      idCity: {},
+      selectWard: '',
+      hideWard: true
     };
   },
    async created() {
-    let arr = []
-    let id = []
     let { response } = await this.getListCity()
     this.listCity = response.data
-    this.listCity.forEach(item => {
-      arr.push(item.text)
-      id.push(item.id)
-    })
-    console.log('arr', arr)
-    console.log('id', id)
   },
   watch: {
-    search (val) {
-      val && val !== this.select && this.querySelections(val)
+    selectCity(value) {
+      if(value) {
+        this.hideWard = false
+        this.idCity = this.listCity.find(item => {
+          return item.text === value
+        })
+      } else {
+        this.hideWard = true
+        this.idCity = ''
+      }
     }
   },
   computed: {
-
+    getListWard() {
+      if(this.idCity) {
+        let id = this.idCity.id
+        console.log('here', this.idCity)
+        this.getListDist({id: id}).then(res => {
+          if(res.ok) {
+            return res.response.data
+          }
+        })
+      }
+    }
   },
   methods: {
-    ...mapActions(["getListCity"]),
-    querySelections (v) {
-      this.loading = true
-      setTimeout(() => {
-        this.items = this.listCity.name.filter(e => {
-          return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
-        })
-        this.loading = false
-      }, 500)
-    }
+    ...mapActions(["getListCity", "getListDist"]),
   }
 };
 </script>

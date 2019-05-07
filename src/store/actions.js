@@ -168,4 +168,13 @@ export default {
 			return { ok: false, error };
 		}
 	},
+	async getListDist({id}) {
+		console.log('id', id)
+		try {
+		const response = await api.get(`/getDist/${id}`);
+			return { ok: true, response};
+		} catch (error) {
+			return { ok: false, error };
+		}
+	},
 }
