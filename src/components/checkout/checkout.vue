@@ -13,21 +13,26 @@
             <!-- column -->
             <div class="col-sm-6">
               <label class="mrg-top-30">Country</label>
-              <ComboboxSearch 
-                :item="listCountry"
-              />
+              <v-autocomplete
+                v-model="select"
+                :items="items"
+                :search-input.sync="search"
+                flat
+                hide-no-data
+                hide-details
+                append-icon=""
+                background-color="#ededed"
+                color="#333"
+                solo-inverted
+              ></v-autocomplete>
             </div>
             <div class="col-sm-6">
               <label class="mrg-top-30">City</label>
-              <ComboboxSearch 
-                :item="listDictricts"
-              />
+
             </div>
             <div class="col-sm-6">
               <label class="mrg-top-30">Ward</label>
-              <ComboboxSearch 
-                :item="listWards"
-              />
+
             </div>
             <div class="col-sm-12">
               <label class="mrg-top-30">Address</label>
@@ -134,24 +139,53 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
 import ComboboxSearch from "@/components/checkout/ComboboxSearch.vue";
-import { listDictricts } from "@/ultils/District.js";
-import { listWards } from "@/ultils/Ward.js";
-import { listCountry } from "@/ultils/Country.js";
-import getCountry from "@/ultils/Country.js";
+
 export default {
   components: {
     ComboboxSearch
   },
-  created() {
-    getCountry()
-  },
   data() {
     return {
-      listDictricts,
-      listWards,
-      listCountry
+      loading: false,
+      items: [],
+      search: null,
+      select: null,
+      listCity: []
     };
+  },
+   async created() {
+    let arr = []
+    let id = []
+    let { response } = await this.getListCity()
+    this.listCity = response.data
+    this.listCity.forEach(item => {
+      arr.push(item.text)
+      id.push(item.id)
+    })
+    console.log('arr', arr)
+    console.log('id', id)
+  },
+  watch: {
+    search (val) {
+      val && val !== this.select && this.querySelections(val)
+    }
+  },
+  computed: {
+
+  },
+  methods: {
+    ...mapActions(["getListCity"]),
+    querySelections (v) {
+      this.loading = true
+      setTimeout(() => {
+        this.items = this.listCity.name.filter(e => {
+          return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+        })
+        this.loading = false
+      }, 500)
+    }
   }
 };
 </script>

@@ -160,4 +160,12 @@ export default {
 			return { ok: false, error };
 		}
 	},
+	async getListCity() {
+		try {
+		const response = await api.get(`/getCity`);
+			return { ok: true, response};
+		} catch (error) {
+			return { ok: false, error };
+		}
+	},
 }
