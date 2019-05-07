@@ -7,29 +7,31 @@
           <div class="row">
             <div class="col-sm-12">
               <label>Full name</label>
-              <input class="mr-input" type="text" placeholder="Victor Hooddy">
+              <input type="text" placeholder="Victor Hooddy">
             </div>
             <!-- column -->
-
+            <!-- column -->
+            <div class="col-sm-6">
+              <label class="mrg-top-30">Country</label>
+              <ComboboxSearch 
+                :item="listCountry"
+              />
+            </div>
+            <div class="col-sm-6">
+              <label class="mrg-top-30">City</label>
+              <ComboboxSearch 
+                :item="listDictricts"
+              />
+            </div>
+            <div class="col-sm-6">
+              <label class="mrg-top-30">Ward</label>
+              <ComboboxSearch 
+                :item="listWards"
+              />
+            </div>
             <div class="col-sm-12">
               <label class="mrg-top-30">Address</label>
               <input class="mr-input" type="text" placeholder="230 An Nam Street">
-            </div>
-            <!-- column -->
-
-            <div class="col-sm-6">
-              <label class="mrg-top-30">District *</label>
-              <select name="country" id="country" class="mr-input" required>
-                <option value selected>Select District</option>
-                <option value="244">Aaland Islands</option>
-              </select>
-            </div>
-            <div class="col-sm-6">
-              <label class="mrg-top-30">City *</label>
-              <select name="country" id="country" class="mr-input" required>
-                <option value selected>Select District</option>
-                <option value="244">Aaland Islands</option>
-              </select>
             </div>
             <!-- /column -->
 
@@ -131,6 +133,30 @@
     <!-- /Checkout -->
   </div>
 </template>
+<script>
+import ComboboxSearch from "@/components/checkout/ComboboxSearch.vue";
+import { listDictricts } from "@/ultils/District.js";
+import { listWards } from "@/ultils/Ward.js";
+import { listCountry } from "@/ultils/Country.js";
+import getCountry from "@/ultils/Country.js";
+export default {
+  components: {
+    ComboboxSearch
+  },
+  created() {
+    getCountry()
+  },
+  data() {
+    return {
+      listDictricts,
+      listWards,
+      listCountry
+    };
+  }
+};
+</script>
+
+
 <style  lang="scss" scoped>
 %mr-heading {
   position: relative;

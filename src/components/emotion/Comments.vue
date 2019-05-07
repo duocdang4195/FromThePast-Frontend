@@ -1,7 +1,7 @@
 <template>
   <div class="mr-comment">
     <div class="mr-avatar">
-      <a :style="{'background': stringToHslColor}">{{ showNameAvt(item.user.name) }}</a>
+      <a :style="{background: stringToHslColor}">{{ showNameAvt(item.user.name) }}</a>
     </div>
     <!-- /avatar -->
     <div class="mr-comment-info">
@@ -30,28 +30,23 @@ export default {
     item: Object
   },
   created() {
-     console.log(
-        "getAllMyQuotationsCreateByID",
-        this.stringToHslColor()
-      );
+    console.log("getAllMyQuotationsCreateByID", this.stringToHslColor());
   },
-  methods: {
-    showNameAvt(str) {
-      let textFirst = str.slice(0, 1).toUpperCase();
-      return textFirst;
-    },
+  computed: {
     stringToHslColor() {
-      const str = this.item.user.name
+      const str = this.item.user.name;
       var hash = 0;
       for (var i = 0; i < str.length; i++) {
         hash = str.charCodeAt(i) + ((hash << 5) - hash);
       }
       var h = hash % 360;
-      // const style = {
-      //   background: `hsla(${h},80%, 30%)`
-      // };
-      return `red`
       return `hsla(${h},80%, 30%)`;
+    }
+  },
+  methods: {
+    showNameAvt(str) {
+      let textFirst = str.slice(0, 1).toUpperCase();
+      return textFirst;
     }
   }
 };

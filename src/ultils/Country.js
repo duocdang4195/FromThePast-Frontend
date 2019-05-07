@@ -441,3 +441,11 @@ export const listCountry = {
     code: "06"
   }
 };
+
+export default function getCountry() {
+  // const result = Object.keys(obj).map(function(key) {
+
+  //   return [Number(key), obj[key]];
+  // });
+  return console.log('listCountry', listCountry)
+}
