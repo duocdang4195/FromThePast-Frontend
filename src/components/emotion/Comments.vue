@@ -29,9 +29,6 @@ export default {
   props: {
     item: Object
   },
-  created() {
-    console.log("getAllMyQuotationsCreateByID", this.stringToHslColor());
-  },
   computed: {
     stringToHslColor() {
       const str = this.item.user.name;

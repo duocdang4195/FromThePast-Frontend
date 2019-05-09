@@ -17,9 +17,22 @@
                 v-model="selectCity"
                 :items="listCity"
                 flat
-                append-icon=""
+                append-icon
                 background-color="#ededed"
                 color="#333"
+                solo-inverted
+              ></v-autocomplete>
+            </div>
+            <div class="col-sm-6">
+              <label class="mrg-top-30">District</label>
+              <v-autocomplete
+                v-model="selectDistrict"
+                :items="listDisttrict"
+                flat
+                append-icon
+                background-color="#ededed"
+                color="#333"
+                :disabled="hideDist"
                 solo-inverted
               ></v-autocomplete>
             </div>
@@ -27,22 +40,18 @@
               <label class="mrg-top-30">Ward</label>
               <v-autocomplete
                 v-model="selectWard"
-                :items="getListWard"
+                :items="listWard"
                 flat
-                append-icon=""
+                append-icon
                 background-color="#ededed"
                 color="#333"
                 :disabled="hideWard"
                 solo-inverted
               ></v-autocomplete>
             </div>
-            <div class="col-sm-6">
-              <label class="mrg-top-30">Ward</label>
-
-            </div>
             <div class="col-sm-12">
               <label class="mrg-top-30">Address</label>
-              <input class="mr-input" type="text" placeholder="230 An Nam Street">
+              <input v-model="street" class="mr-input" type="text" placeholder="230 An Nam Street">
             </div>
             <!-- /column -->
 
@@ -55,6 +64,37 @@
             <div class="col-sm-12">
               <label class="mrg-top-30">Email *</label>
               <input class="mr-input" type="email" placeholder="your@email.com">
+            </div>
+            <div class="col-sm-12">
+              <label class="mrg-top-30">Time End</label>
+              <v-menu
+                ref="menu"
+                v-model="menu"
+                :scrollable="true"
+                :close-on-content-click="false"
+                :return-value.sync="date"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="date"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="date" no-title scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                  <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+                </v-date-picker>
+              </v-menu>
+            </div>
+            <div class="mr-action-btn">
+              <a href="#" @click="checkPrice">Check Price</a>
             </div>
             <!-- column -->
           </div>
@@ -70,7 +110,7 @@
                   <span></span>
                 </label>
               </div>
-              <div class="col-sm-12">
+              <!-- <div class="col-sm-12">
                 <label class="mr-radio-style" for="ib">
                   Internet banking
                   <input type="radio" id="ib" name="payment">
@@ -83,7 +123,7 @@
                   <input type="radio" id="visa" name="payment">
                   <span></span>
                 </label>
-              </div>
+              </div> -->
               <!-- column -->
             </div>
             <!-- /row -->
@@ -108,29 +148,29 @@
                 </tr>
 
                 <tr>
-                  <th>Service name</th>
+                  <th>distance price</th>
                   <td>
-                    <b>Hand writing letter</b>
+                    <b>{{ distancePrice }}</b>
                   </td>
                 </tr>
 
                 <tr>
-                  <th>Stored time</th>
+                  <th>security price</th>
                   <td>
-                    <b>1.5 years</b>
+                    <b>{{ securityPrice }}</b>
                   </td>
                 </tr>
 
                 <tr>
-                  <th>Distance</th>
+                  <th>time price</th>
                   <td>
-                    <b>15km</b>
+                    <b>{{ timePrice }}</b>
                   </td>
                 </tr>
 
                 <tr class="grand-total">
-                  <th class>Order Total</th>
-                  <td class>$ 118</td>
+                  <th class>total price</th>
+                  <td class>{{ totalPrice }}</td>
                 </tr>
               </tbody>
             </table>
@@ -145,55 +185,91 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
-import ComboboxSearch from "@/components/checkout/ComboboxSearch.vue";
+import { mapActions } from "vuex";
+import Swal from 'sweetalert2';
 
 export default {
-  components: {
-    ComboboxSearch
-  },
   data() {
     return {
       listCity: [],
+      listDisttrict: [],
       listWard: [],
-      selectCity: '',
       idCity: {},
-      selectWard: '',
-      hideWard: true
+      idDist: {},
+      selectCity: "",
+      selectDistrict: "",
+      selectWard: "",
+      street: '',
+      hideWard: true,
+      hideDist: true,
+      date: new Date().toISOString().substr(0, 10),
+      menu: false,
+      distancePrice: '0',
+      securityPrice: '0',
+      timePrice: '0',
+      totalPrice: '0',
     };
   },
-   async created() {
-    let { response } = await this.getListCity()
-    this.listCity = response.data
+  async created() {
+    let { response } = await this.getListCity();
+    this.listCity = response.data;
   },
   watch: {
     selectCity(value) {
-      if(value) {
-        this.hideWard = false
+      if (value) {
+        this.hideDist = false;
         this.idCity = this.listCity.find(item => {
-          return item.text === value
-        })
-      } else {
-        this.hideWard = true
-        this.idCity = ''
-      }
-    }
-  },
-  computed: {
-    getListWard() {
-      if(this.idCity) {
-        let id = this.idCity.id
-        console.log('here', this.idCity)
-        this.getListDist({id: id}).then(res => {
-          if(res.ok) {
-            return res.response.data
+          return item.text === value;
+        });
+        this.getListDist(this.idCity.id).then(response => {
+          if (response.ok) {
+            this.listDisttrict = response.response.data;
           }
-        })
+        });
+      } else {
+        this.hideDist = true;
+        this.idCity = {};
+      }
+    },
+    selectDistrict(value) {
+      console.log('value', value)
+      if (value) {
+        this.hideWard = false;
+        this.idDist = this.listDisttrict.find(item => {
+          return item.text === value;
+        });
+        console.log('idDist', this.idDist)
+        this.getListWard(this.idDist.id).then(response => {
+          if (response.ok) {
+            console.log('this.listWard', response)
+            this.listWard = response.response.data;
+          }
+        });
+      } else {
+        this.hideWard = true;
+        this.this = {};
       }
     }
   },
   methods: {
-    ...mapActions(["getListCity", "getListDist"]),
+    ...mapActions(["getListCity", "getListDist", "getListWard", "getPrice"]),
+    checkPrice() {
+      this.getPrice({
+        time_end: this.date,
+        city: this.selectCity,
+        dist: this.selectCity,
+        ward: this.selectWard,
+        address: this.street
+      }).then(res => {
+        if(res.ok) {
+          let data = res.response.data
+          this.distancePrice = data.distance_price
+          this.securityPrice = data.security_price
+          this.timePrice = data.time_price
+          this.totalPrice = data.total_price
+        }
+      })
+    }
   }
 };
 </script>

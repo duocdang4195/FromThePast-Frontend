@@ -6,7 +6,7 @@ export const composeApi = (options = {}) => {
     baseURL: `http://tuquakhu.com/api`,
     timeout: 120000,
     headers: {
-      'Access-Control-Allow-Origin': '*', 'content-type': 'application/json'
+      'Access-Control-Allow-Origin': '*', 'content-type': 'application/json', accept: 'application/json',
     },
   });
   instance.interceptors.response.use(
