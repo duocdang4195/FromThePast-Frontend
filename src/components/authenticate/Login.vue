@@ -30,14 +30,14 @@
           <v-btn @click="signIn" :block="true" >LOGIN</v-btn>
         </div><!-- ./.login__btn  -->
 
-
+        <a class="mr_login_forgot_pass"> Forgot password! </a>
       </div><!-- ./.login_form -->
 
       <div class="mr-sns-form">
-        <router-link :to="{ name: 'home'}" class="mr-logo-1">
-          <img src="@/assets/images/logo-dark.svg">
-        </router-link>
         <router-link :to="{ name: 'home'}" class="mr-logo-2">
+          <img src="@/assets/images/pasness_logo_no_border.svg">
+        </router-link>
+        <router-link :to="{ name: 'home'}" class="mr-logo-1">
           <img src="@/assets/images/logo-dark.svg">
         </router-link>
         
@@ -147,7 +147,14 @@
           display: none !important;
          }
       }
-     
+    }
+    .mr_login_forgot_pass {
+      position: relative;
+      display: inline-block;
+      margin-top: 15px;
+      width: 100%;
+      text-align: left;
+      color: #333;
     }
   }
    .flex-wrap {
@@ -195,12 +202,18 @@
         a {
           position: relative;
           display: inline-block;
-          margin: 10px 0;
+          margin: 15px 0;
 
            img {
             position: relative;
             width: 100%;
            }
+        }
+        .mr-logo-2 {
+          text-align: left;
+          img {
+            width: 100%;
+          }
         }
       }
       .login_form {

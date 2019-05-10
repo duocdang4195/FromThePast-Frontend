@@ -31,7 +31,7 @@
 
       <div class="mr-sns-form">
         <router-link :to="{ name: 'home'}" class="mr-logo-1">
-          <img src="@/assets/images/logo-dark.svg">
+          <img src="@/assets/images/pasness_logo_no_border.svg">
         </router-link>
         <router-link :to="{ name: 'home'}" class="mr-logo-2">
           <img src="@/assets/images/logo-dark.svg">
