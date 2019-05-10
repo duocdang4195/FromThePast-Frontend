@@ -7,7 +7,7 @@
           <div class="row">
             <div class="col-sm-12">
               <label>Full name</label>
-              <input type="text" placeholder="Victor Hooddy">
+              <input v-model="fullname" type="text" placeholder="Victor Hooddy">
             </div>
             <!-- column -->
             <!-- column -->
@@ -57,13 +57,13 @@
 
             <div class="col-sm-12">
               <label class="mrg-top-30">Phone *</label>
-              <input class="mr-input" type="text" placeholder>
+              <input v-model="numberPhone" class="mr-input" type="text" placeholder>
             </div>
             <!-- column -->
 
             <div class="col-sm-12">
               <label class="mrg-top-30">Email *</label>
-              <input class="mr-input" type="email" placeholder="your@email.com">
+              <input v-model="email" class="mr-input" type="email" placeholder="your@email.com">
             </div>
             <div class="col-sm-12">
               <label class="mrg-top-30">Time End</label>
@@ -130,7 +130,7 @@
           </div>
           <!-- ./. mr-payment-method  -->
           <div class="mr-action-btn">
-            <a href="#" class>Order</a>
+            <a href="#" @click="orderBooking">Order</a>
           </div>
         </div>
         <!-- ./. mr-left-col -->
@@ -185,9 +185,11 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import Swal from 'sweetalert2';
+import moment from 'moment';
 
+const validateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
   data() {
     return {
@@ -200,6 +202,10 @@ export default {
       selectDistrict: "",
       selectWard: "",
       street: '',
+      fullname: '',
+      numberPhone: '',
+      email: '',
+      type: '3',
       hideWard: true,
       hideDist: true,
       date: new Date().toISOString().substr(0, 10),
@@ -208,6 +214,7 @@ export default {
       securityPrice: '0',
       timePrice: '0',
       totalPrice: '0',
+      compareDay: moment().add(3, 'days').format("DD-MM-YYYY")
     };
   },
   async created() {
@@ -232,16 +239,13 @@ export default {
       }
     },
     selectDistrict(value) {
-      console.log('value', value)
       if (value) {
         this.hideWard = false;
         this.idDist = this.listDisttrict.find(item => {
           return item.text === value;
         });
-        console.log('idDist', this.idDist)
         this.getListWard(this.idDist.id).then(response => {
           if (response.ok) {
-            console.log('this.listWard', response)
             this.listWard = response.response.data;
           }
         });
@@ -251,8 +255,11 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(['getIdEmotion'])
+  },
   methods: {
-    ...mapActions(["getListCity", "getListDist", "getListWard", "getPrice"]),
+    ...mapActions(["getListCity", "getListDist", "getListWard", "getPrice", "createBooking"]),
     checkPrice() {
       this.getPrice({
         time_end: this.date,
@@ -268,6 +275,57 @@ export default {
           this.timePrice = data.time_price
           this.totalPrice = data.total_price
         }
+      })
+    },
+    validateOrder() {
+      if(validateEmail.test(this.email)) {
+        Swal.fire({
+          title: "Invalid Email !",
+          type: "error"
+        });
+        return false
+      }
+      if(this.compareDay > this.date) {
+        Swal.fire({
+          title: "Please select a receipt date after 3 days",
+          type: "error"
+        });
+        return false
+      }
+      if(
+        this.date === '' ||
+        this.selectCity === '' ||
+        this.selectDistrict === '' ||
+        this.selectWard === '' ||
+        this.street === '' ||
+        this.fullname === '' ||
+        this.numberPhone === '' ||
+        this.email === '' ||
+        this.type === ''
+      ) {
+        Swal.fire({
+          title: "Invalid Data, Please Check Again !!!",
+          type: "error"
+        });
+        return false
+      }
+      return true
+    },
+    orderBooking() {
+      if(this.validateOrder) return
+      this.createBooking({
+        time_end: this.date,
+        city: this.selectCity,
+        dist: this.selectDistrict,
+        ward: this.selectWard,
+        address: this.street,
+        name: this.fullname,
+        phone: this.numberPhone,
+        email: this.email,
+        type: this.type,
+        content: this.getIdEmotion
+      }).then(res => {
+        console.log('res', res)
       })
     }
   }

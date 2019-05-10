@@ -92,6 +92,7 @@ export default {
     try {
       const response = await api.get(`/emotion/${id}`);
       commit("updateMyEmotionsCreateByID", response.data);
+      commit("getIdBookEmotions",  response.data.id)
       return { ok: true, media };
     } catch (error) {
       return { ok: false, error };
@@ -183,11 +184,25 @@ export default {
       return { ok: false, error };
     }
   },
+  async getProfit({},) {
+    try {
+      const response = await api.get(`/profit`);
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
   async getPrice({}, data) {
-		console.log('data', data)
     try {
 			const response = await api.post(`/booking_price`, data);
-			console.log('res', response)
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async createBooking({}, data) {
+    try {
+			const response = await api.post(`/booking`, data);
       return { ok: true, response };
     } catch (error) {
       return { ok: false, error };

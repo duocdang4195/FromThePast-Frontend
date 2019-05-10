@@ -39,5 +39,8 @@ export default {
   },
   updateMyEmotionsCreateByID(state, allMyQuotationsCreateByID) {
     state.allMyQuotationsCreateByID = allMyQuotationsCreateByID
+  },
+  getIdBookEmotions(state, idEmotion) {
+    state.idEmotion = idEmotion
   }
 }

@@ -189,8 +189,8 @@
                 </div>
                 <!-- /social-icon -->
                 <div class="mr-action-btn">
-                  <button class="btn btn-lg btn-style-2 mr-book-service">Book service</button>
-                  <button class="btn btn-lg btn-style-2 mr-write-post">Write</button>
+                  <button class="btn btn-lg btn-style-2 mr-book-service" @click="orderEmotion">Book service</button>
+                  <button class="btn btn-lg btn-style-2 mr-write-post" @click="goTo">Write</button>
                 </div>
               </div>
               <!-- /share -->
@@ -266,6 +266,12 @@ export default {
           this.content = "";
         }
       });
+    },
+    goTo() {
+      this.$router.push({name: 'Emotion_write'})
+    },
+    orderEmotion() {
+      this.$router.push({name: 'checkout'})
     }
   }
 };

@@ -13,7 +13,6 @@ export const commonApiIntercept = (api) => {
         }
       }
     }
-    // config.headers['Cache-Control'] = 'no-cache,no-store,must-revalidate,max-age=-1,private';
     return config;
   }, err => Promise.reject(err));
 };

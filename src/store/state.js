@@ -10,5 +10,6 @@ export default {
     aboutID: {},
     allMyQuotations: [],
     allMyQuotationsCreate: [],
-    allMyQuotationsCreateByID: {}
+    allMyQuotationsCreateByID: {},
+    idEmotion: ''
 }

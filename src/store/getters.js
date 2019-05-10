@@ -37,5 +37,8 @@ export default {
 	},
 	getAllMyQuotationsCreateByID(state) {
 		return state.allMyQuotationsCreateByID
+	},
+	getIdEmotion(state) {
+		return state.idEmotion
 	}
 }
