@@ -22,6 +22,7 @@
     </div>
     <!-- ./.mr-featured-post  -->
 
+<<<<<<< HEAD
     <div class="mr-article-wr">
       <h3>My emotion</h3>
       <div class="mr-current-post" @click="goto">
@@ -37,6 +38,43 @@
     </div>
     <!-- ./.mr-article-wr  -->
   </div>
+=======
+					For most of my students, knowing how to write well will just be an unfair advantage in whatever career they choose — I tell them it’s like being rich, or pretty. But Kate takes art personally: she loves the Dadaists but also thinks they’re a bit cliqueish and silly; in her emails she quotes Rilke and Hurston. She’s one of those students so passionate about writing and literature it makes me feel, briefly, younger to be around her. It also secretly breaks my heart. I once unprofessionally confessed to Kate my misgivings about training her in an art form as archaic as stained glass. She tells me she still thinks about this all the time.
+				</div><!-- ./.mr-content  -->
+			</div> <!-- ./.mr-writing-box  -->
+			<div class="mr-writing-box">
+				<img  src="../../assets/images/pexels-photo-1051073-2560-1600.jpg" alt="" class="">
+				<h4>Working Out Is Powerful Brain Training</h4>
+				<p class="rh-date">2018-12-25</p>
+				<div class="mr-content">
+					Life is hard, and you’ll be better off if you practice doing hard things — like making your body purposefully uncomfortable.
+					Last year, I fell on my face more times than I had in all the previous years of my life combined. Over time, my body became peppered with tiny bruises as I crashed to the floor again and again.
+				</div> <!-- ./.mr-content  -->
+			</div><!-- ./.mr-writing-box  -->
+
+			
+		</div><!-- ./.mr-featured-post  -->
+
+		<div class="mr-article-wr">
+			<h3>My emotion</h3>
+			<div class="mr-controller">
+				<span @click="randomEmotions" class="mr-next">Next <img  src="../../assets/images/chevron-right.svg" alt="" class=""></span>
+			</div><!-- ./.mr-controller -->
+			<div class="mr-current-post" @click="goto" >
+				<div class="mr-post-img"></div>
+				<img  :src="contentEmotions.image" alt="" class="">
+				<div class="mr-header">
+					<span class="mr-ttl">
+						{{ contentEmotions.title }}
+					</span>
+					<p class="rh-date">{{ contentEmotions.updated_at | moment("dddd, MMMM Do YYYY")}}</p>
+				</div><!-- ./.mr-header  -->
+				<div class="mr-article-cntn" v-html="contentEmotions.content"> {{ contentEmotions.content }} </div><!-- ./.mr-article-cntn -->
+			</div><!-- ./. mr-current-post  -->
+		</div><!-- ./.mr-article-wr  -->
+		
+	</div>	 
+>>>>>>> ffd7673a50d209b93d6ed12457b7c790e78bb8a8
 </template>
 
 <script>
@@ -172,11 +210,24 @@ export default {
       background-color: #fff;
       box-shadow: 2px 2px 4px 1px rgba(180, 180, 180, 0.4);
 
+<<<<<<< HEAD
       > img {
         position: relative;
         display: inline-block;
         width: 100%;
       }
+=======
+			> div {
+				flex: 1;
+				width: calc(50% - 20px);
+				height: 100%;
+				padding: 15px;
+				margin: 0 10px;
+				background-color: #fff;
+				box-shadow: 2px 2px 4px 1px rgba(180, 180, 180, 0.4);
+				overflow: hidden;
+				border-bottom: 15px solid #fff;
+>>>>>>> ffd7673a50d209b93d6ed12457b7c790e78bb8a8
 
       h4 {
         position: relative;
@@ -205,6 +256,7 @@ export default {
         text-align: justify;
         color: #525252;
 
+<<<<<<< HEAD
         &:after {
           content: "...";
           position: absolute;
@@ -217,6 +269,20 @@ export default {
         }
       }
     }
+=======
+				.rh-date {
+					text-align:right;
+					color: #aaa;
+					font-size:14px;
+				}
+				.mr-content {
+					position: relative;
+					height: auto;
+					overflow: hidden;
+					text-overflow:ellipsis;
+					text-align: justify;
+					color: #525252;
+>>>>>>> ffd7673a50d209b93d6ed12457b7c790e78bb8a8
 
     .mr-controller {
       margin-top: 20px;
@@ -224,6 +290,7 @@ export default {
       background-color: transparent;
       box-shadow: none;
 
+<<<<<<< HEAD
       .mr-pre,
       .mr-next {
         font-family: "Montserrat", sans-serif;
@@ -234,6 +301,45 @@ export default {
         cursor: pointer;
         transition: all 0.4s ease-in-out;
         -webkit-transition: all 0.4s ease-in-out;
+=======
+			
+		}
+		.mr-article-wr {
+			position: relative;
+			display: inline-block;
+			width: 40vw;
+			height: 80vh;
+			min-height: 500px;
+			cursor: pointer;
+
+			h3 {
+				position: relative;
+				display: inline-block;
+				width:auto;
+				margin-bottom: 20px;
+			    font-weight: 300;
+			    text-transform: uppercase;
+
+			     &:after {
+			    	position: absolute;
+			    	content:'';
+			    	bottom: -2px;
+			    	left: 0;
+			    	width: 30px;
+			    	height: 1px;
+			    	border-bottom: 1px solid #3e3e3e;
+			    }
+			}
+			.mr-controller {
+				position:relative;
+				display: inline-block;
+				top: 10px;
+				float: right;
+				padding: 0;
+				width:auto;
+				background-color: transparent;
+				box-shadow: none;
+>>>>>>> ffd7673a50d209b93d6ed12457b7c790e78bb8a8
 
         &:hover {
           font-weight: 400;
@@ -260,6 +366,7 @@ export default {
     min-height: 500px;
     cursor: pointer;
 
+<<<<<<< HEAD
     h3 {
       position: relative;
       margin-bottom: 20px;
@@ -285,6 +392,24 @@ export default {
       height: 100%;
       overflow: hidden;
       text-align: justify;
+=======
+					&:hover {
+						font-weight: 400;
+					}
+					img {
+						position: relative;
+						width: 13px;
+						top: 1px;
+					}
+				}
+				.mr-pre {
+					float: left;
+				}
+				.mr-next  {
+					float: right;
+				}
+			}
+>>>>>>> ffd7673a50d209b93d6ed12457b7c790e78bb8a8
 
       > img {
         position: relative;
@@ -292,11 +417,28 @@ export default {
         width: 100%;
       }
 
+<<<<<<< HEAD
       .mr-header {
         @extend %full-width;
         font-size: 18px;
         color: #333;
         margin: 0 0 15px 0;
+=======
+			    .mr-post-img {
+			    	position: relative;
+			    	width: 100%;
+			    	height:50%;
+			    	background-size: cover;
+			    	background-position: center center;
+			    	background-repeat: no-repeat;
+			    	border: 1px solid #ececec;
+			    }
+				> img {
+					position: relative;
+					display: none;
+					width: 100%;
+				}
+>>>>>>> ffd7673a50d209b93d6ed12457b7c790e78bb8a8
 
         span {
           position: relative;

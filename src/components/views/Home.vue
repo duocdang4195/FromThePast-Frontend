@@ -267,10 +267,17 @@ export default {
 
 <style lang="scss" scoped>
 .like-coment {
-  width: 100%;
+  position:relative;
   display: flex;
-  align-items: center;
+  width: 100%;
+  align-items: flex-end;
+  text-align: right;
+  justify-content: flex-end;
+  
   .like-coment__user {
+    position:relative;
+    display: inline-block;
+    width: fit-content;
     margin: 0;
     margin-right: 10px;
     a {
@@ -283,7 +290,7 @@ export default {
 }
 
 .register {
-  width: 500px;
+  width: 1000px;
   margin: auto;
   text-align: left;
   &__field {
@@ -330,7 +337,7 @@ export default {
 }
 .mr-body {
   position: absolute;
-  width: 500px;
+  width: 1000px;
   height: 355px;
   top: 0;
   left: 0;
@@ -382,10 +389,10 @@ export default {
 .mr-body form .mr-input {
   position: relative;
   display: inline-block;
-  width: 200%;
+  width: 100%;
   height: 130px;
   padding: 7px;
-  margin-left: -50%;
+  margin-left: 0;
   font-size: 30px;
   border: 0;
   font-weight: 300;

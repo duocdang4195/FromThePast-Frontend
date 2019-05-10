@@ -237,11 +237,11 @@ export default {
 
 						strong {
 							color: #121212;
-							font-size: 25px;
+							font-size: 20px;
 						}
 						span {
 							color: #999;
-							font-size: 22px;
+							font-size: 19px;
 							font-weight: 300;
 							margin-left: 7px;
 

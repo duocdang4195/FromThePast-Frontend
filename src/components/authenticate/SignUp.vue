@@ -52,14 +52,12 @@
     </div><!-- ./.signup_form  -->
 
     <div class="mr-sns-form">
-      <div class="mr-fb">
-        <span class="mr-sns-icon"><i data-v-715ff4e2="" class="fab fa-facebook-f"></i></span>
-        <span class="mr-label"> Continue with Facebook</span>
-      </div><!-- ./.mr-fb -->
-      <div class="mr-gg">
-        <span class="mr-sns-icon"><img  src="../../assets/images/icon-google.svg" alt="" class=""></span>
-        <span class="mr-label"> Continue with Google</span>
-      </div><!-- ./.mr-gg -->
+      <router-link :to="{ name: 'home'}" class="mr-logo-1">
+          <img src="@/assets/images/pasness_logo_no_border.svg">
+        </router-link>
+        <router-link :to="{ name: 'home'}" class="mr-logo-2">
+          <img src="@/assets/images/logo-dark.svg">
+        </router-link>
     </div><!-- ./.mr-sns-form -->
   </div> <!-- ./. flex-wrap -->
   <div class="mr-agree">
@@ -215,27 +213,15 @@ export default {
 
           }
         }
-        .mr-fb {
-          background-color: #29487d;
-          color: #fff;
+        a {
+          position: relative;
+          display: inline-block;
+          margin: 10px 0;
 
-          .mr-sns-icon {
-            color: #29487d;
-            font-size:25px;
-          }
-        }
-        .mr-gg {
-          background-color: rgb(66, 133, 244);
-          color: #fff;
-          .mr-sns-icon {
-            background-color: #fff;
-            img {
-              position: relative;
-              top: 6px;
-              width: 25px;
-              height: 25px;
-            }
-          }
+           img {
+            position: relative;
+            width: 100%;
+           }
         }
       }
       .signup_form {

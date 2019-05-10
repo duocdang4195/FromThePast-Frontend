@@ -20,7 +20,7 @@ export default {
 	@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400&subset=vietnamese');
 	@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400&subset=vietnamese');
 	body {
-		font-family: 'IBM Plex Sans', sans-serif !Important;
+		font-family: 'IBM Plex Sans', sans-serif !important;
 		font-weight: 300;
 	}
 	/* width */

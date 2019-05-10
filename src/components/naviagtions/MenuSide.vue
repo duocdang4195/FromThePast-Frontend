@@ -135,9 +135,12 @@ export default {
         padding: 15px 10px;
         a {
           text-decoration: none;
-          color: #b8b7ad;
-          font-size: 18px;
+          color: #fff;
+          font-size: 14px;
           margin-left: 10%;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 300;
+          letter-spacing: 1px;
         }
       }
     }
