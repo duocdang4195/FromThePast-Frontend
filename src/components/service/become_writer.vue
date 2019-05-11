@@ -14,29 +14,23 @@
 						<div class="">
 							<div class="">
 					          <v-text-field
-					            v-model="Name"
 					            label="Name"
            						color="rgba(0,0,0,0.9)"
-					            @keydown.enter.prevent="signIn"
 					          ></v-text-field>
 					        </div>
 
 					        <div class="">
 					          <v-text-field
-					            v-model="email"
 					            label="Email"
            						color="rgba(0,0,0,0.9)"
-					            @keydown.enter.prevent="signIn"
 					          ></v-text-field>
 					        </div>
 
 					        <div class="signup__input">
 					          <v-text-field
-					            v-model="phone_number"
 					            label="Phone number"
            						color="rgba(0,0,0,0.9)"
 					            type="text"
-					            @keydown.enter.prevent="signIn"
 					          ></v-text-field>
 					        </div>
 					        <v-textarea class="mr-sample-blog"

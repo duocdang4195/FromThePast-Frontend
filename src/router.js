@@ -24,6 +24,7 @@ import order_detail from './components/checkout/order_detail.vue';
 import finish_booking from './components/checkout/finish_booking.vue';
 import service from './components/service/service.vue';
 import become_writer from './components/service/become_writer.vue';
+import Writer from '@/components/emotion/Writer.vue'
 
 import {
   ifNotAuthenticated,
@@ -82,7 +83,12 @@ export default new Router ({
 				{
 					path: '/Emotion_write',
 					name: 'Emotion_write',
-					component: Emotion_write,
+					component: Writer,
+				},
+				{
+					path: '/become_writer',
+					name: 'become_writer',
+					component: Writer,
 				},
 				{
        				 path: '/Emotion_list',
@@ -103,11 +109,6 @@ export default new Router ({
 					path: '/search',
 					name: 'search',
 					component: search,
-				},
-				{
-					path: '/become_writer',
-					name: 'become_writer',
-					component: become_writer,
 				},
 				{
 					path: '/booking',

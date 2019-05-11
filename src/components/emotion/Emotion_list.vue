@@ -50,8 +50,8 @@ export default {
       disable: false
     };
   },
-  created() {
-    this.getMyEmotionsCreate();
+  async created() {
+    await this.getMyEmotionsCreate()
     this.contentEmotions = this.getAllMyQuotationsCreate[
       Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)
     ];

@@ -9,51 +9,56 @@
       </router-link>
     </p>
     <div class="mr-body">
-      <form action>
-        <textarea
-          class="mr-input"
-          v-model="email"
-          v-if="isShowEmail"
-          type="text"
-          maxlength="250"
-          placeholder=" Chào Anh!! Tâm Đẹp Trai =)))"
-          @keydown.enter.prevent="checkUser"
-          autofocus
-        ></textarea>
-        <textarea
-          class="mr-input"
-          v-if="showUserName"
-          v-model="email"
-          type="text"
-          @keydown.enter.prevent="saveQuotations"
-          placeholder="your quotations"
-          autofocus
-        ></textarea>
-        <textarea
-          class="mr-input"
-          v-model="password"
-          label="Hi Ad. Password"
-          v-if="isShowPassword"
-          type="text"
-          maxlength="250"
-          placeholder="pass"
-          @keydown.enter.prevent="signIn"
-          autofocus
-        ></textarea>
-        <div class="like-coment" v-show="isShowEmail">
-          <p class="like-coment__user">{{ accessToken ? 'ADMIN' : 'HIDDEN' }}</p>
-          <icon class="like-coment__icon--like" name="heart"/>
-          <icon class="like-coment__icon--comments" name="comments"/>
+      <textarea
+        class="mr-input"
+        v-model="email"
+        v-if="isShowEmail"
+        type="text"
+        maxlength="250"
+        placeholder=" Chào Anh!! Tâm Đẹp Trai =)))"
+        @keydown.enter.prevent="checkUser"
+        autofocus
+      ></textarea>
+      <textarea
+        class="mr-input"
+        v-if="showUserName"
+        v-model="email"
+        type="text"
+        @keydown.enter.prevent="saveQuotations"
+        placeholder="your quotations"
+        autofocus
+      ></textarea>
+      <textarea
+        class="mr-input"
+        v-model="password"
+        label="Hi Ad. Password"
+        v-if="isShowPassword"
+        type="text"
+        maxlength="250"
+        placeholder="pass"
+        @keydown.enter.prevent="signIn"
+        autofocus
+      ></textarea>
+      <div class="like-coment" v-show="isShowEmail">
+        <p class="like-coment__user">admin</p>
+        <div
+          @click="onClickLike"
+          :class="isLike ? 'like-coment__icon--like' : 'like-coment__icon--UnLike' "
+        >
+          <icon name="heart"/>
         </div>
-        <div class="author-content" v-show="!accessToken && ( email !== '' )">
-          <router-link
-            class="btn btn-default rh-author-reg"
-            v-tooltip="'Bạn có thể lưu thành tên tác giá nếu đăng ký'"
-            tag="button"
-            :to="{name: 'signup'}"
-          >Author</router-link>
+        <div class="like-coment__icon--comments">
+          <icon name="comments"/>
         </div>
-      </form>
+      </div>
+      <div class="author-content" v-show="!accessToken && ( email !== '' )">
+        <router-link
+          class="btn btn-default rh-author-reg"
+          v-tooltip="'Bạn có thể lưu thành tên tác giá nếu đăng ký'"
+          tag="button"
+          :to="{name: 'signup'}"
+        >Author</router-link>
+      </div>
       <div class="register">
         <div class="register__field" v-if="newEmail">
           <h2>Hi, is that your email ?</h2>
@@ -89,9 +94,7 @@
       </div>
     </div>
     <div class="rh-footer">
-      <p>
-        <span class="mr-copyright">Copyright © 2020 by From The PAST Jsc,.</span>
-      </p>
+      <span class="mr-copyright">Copyright © 2020 by From The PAST Jsc,.</span>
     </div>
   </div>
 </template>
@@ -139,8 +142,9 @@ export default {
       "createQuotations",
       "getQuotations"
     ]),
-    like() {
+    onClickLike() {
       this.isLike = !this.islike;
+      console.log("test", this.isLike);
     },
     // async randomQuotations() {
     //   await this.getQuotations()
@@ -266,15 +270,15 @@ export default {
 
 <style lang="scss" scoped>
 .like-coment {
-  position:relative;
+  position: relative;
   display: flex;
   width: 100%;
   align-items: flex-end;
   text-align: right;
   justify-content: flex-end;
-  
+
   .like-coment__user {
-    position:relative;
+    position: relative;
     display: inline-block;
     width: fit-content;
     margin: 0;
@@ -283,8 +287,20 @@ export default {
       text-decoration: none;
     }
   }
+  .like-coment__icon--comments {
+    display: inline-flex;
+    position: relative;
+  }
   .like-coment__icon--like {
     margin-right: 10px;
+    display: inline-flex;
+    svg {
+      color: red;
+    }
+  }
+  .like-coment__icon--UnLike {
+    margin-right: 10px;
+    display: inline-flex;
   }
 }
 
@@ -381,15 +397,14 @@ export default {
   text-transform: uppercase;
   color: #fff;
 }
-.mr-body form {
-  position: relative;
-  margin-top: 30px;
-}
-.mr-body form .mr-input {
+// .mr-body form {
+//   position: relative;
+//   margin-top: 30px;
+// }
+.mr-body .mr-input {
   position: relative;
   display: inline-block;
   width: 100%;
-  height: 130px;
   padding: 7px;
   margin-left: 0;
   font-size: 30px;
@@ -401,30 +416,30 @@ export default {
   text-align: right;
   resize: none;
 }
-.mr-body form .mr-input:focus {
+.mr-body .mr-input:focus {
   outline: none;
 }
-.mr-body form .mr-input::placeholder {
+.mr-body .mr-input::placeholder {
   color: #fafafa;
   font-weight: 200;
   font-size: 30px;
 }
-.mr-body form .mr-input::-webkit-input-placeholder {
+.mr-body .mr-input::-webkit-input-placeholder {
   color: #fafafa;
   font-weight: 200;
   font-size: 30px;
 }
-.mr-body form .mr-input::-moz-placeholder {
+.mr-body .mr-input::-moz-placeholder {
   color: #fafafa;
   font-weight: 200;
   font-size: 30px;
 }
-.mr-body form .mr-input::-ms-input-placeholder {
+.mr-body .mr-input::-ms-input-placeholder {
   color: #fafafa;
   font-weight: 200;
   font-size: 30px;
 }
-.mr-body form .mr-author {
+.mr-body .mr-author {
   position: relative;
   display: inline-block;
   width: 200%;
@@ -434,7 +449,7 @@ export default {
   font-style: italic;
   cursor: pointer;
 }
-.mr-body form .mr-author a {
+.mr-body .mr-author a {
   position: relative;
   text-decoration: none;
   font-size: 14px;
@@ -443,7 +458,7 @@ export default {
   font-family: "Montserrat", sans-serif;
   font-weight: 300;
 }
-.mr-body form .mr-author a:after {
+.mr-body .mr-author a:after {
   content: "You can be save as author if registring here";
   position: absolute;
   display: inline-block;
@@ -462,18 +477,18 @@ export default {
   overflow: hidden;
   opacity: 0;
 }
-.mr-body form .mr-author a:hover a:after {
+.mr-body .mr-author a:hover a:after {
   width: 200px;
   opacity: 1;
   transition: opacity linear 0.5s;
 }
-.mr-body form .rh-heart-icon,
-.mr-body form .rh-infinity-icon {
+.mr-body .rh-heart-icon,
+.mr-body .rh-infinity-icon {
   position: relative;
   display: inline-block;
   bottom: -2px;
 }
-.mr-body form button.mr-submit {
+.mr-body button.mr-submit {
   position: absolute;
   display: none;
   width: 45px;
@@ -486,7 +501,7 @@ export default {
   letter-spacing: 1px;
   cursor: pointer;
 }
-.mr-body form button.mr-submit .mr-submit-logo {
+.mr-body button.mr-submit .mr-submit-logo {
   position: relative;
   width: 20px;
   animation: rotate 5s linear infinite;
@@ -542,14 +557,14 @@ export default {
     padding: 20px;
     text-align: center;
   }
-  .mr-body form {
+  .mr-body {
     position: relative;
     display: inline-block;
     width: 80%;
     min-width: 250px;
     max-width: 400px;
   }
-  .mr-body form .mr-input {
+  .mr-body .mr-input {
     font-size: 16px;
   }
   .rh-footer p .mr-copyright {

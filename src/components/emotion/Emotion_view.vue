@@ -143,7 +143,7 @@
 
     <div class="mr-blog-content">
       <div class="mr-emotion-view">
-        <div class="blog-wrapper">
+        <div class="blog-wrapper" v-if="getAllMyQuotationsCreateByID" v-cloak>
           <div class="blog-img">
             <img class="img-responsive" :src="getAllMyQuotationsCreateByID.image" alt>
           </div>

@@ -1,5 +1,4 @@
 import api from "@/plugins/axios";
-import { genFormData } from "@/ultils/formData.js";
 
 export default {
   async signOut({ commit }) {
@@ -38,7 +37,7 @@ export default {
     try {
       const response = await api.post("/quotation", data);
       commit("updateQuotations", response.data[0].content);
-      return { ok: true };
+      return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
     }
@@ -83,7 +82,7 @@ export default {
     try {
       const response = await api.get("/emotion");
       commit("updateMyEmotionsCreate", response.data);
-      return { ok: true, media };
+      return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
     }

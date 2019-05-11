@@ -38,7 +38,7 @@
       showComments() {
         if(this.comentEmotionsList.length > 0 || this.comentQuotationsList.length) {
           const listComments = _.union(this.comentQuotationsList, this.comentEmotionsList)
-          this.comments = listComments[Math.floor(Math.random() * listComments.length)];
+          return this.comments = listComments[Math.floor(Math.random() * listComments.length)];
         }
       }
     },
