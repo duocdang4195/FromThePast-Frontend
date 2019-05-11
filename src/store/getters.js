@@ -21,7 +21,7 @@ export default {
 		return state.allEmotions;
 	},
 	getProfile(state) {
-		return state.profile
+		return state.userProfile
 	},
 	getAbout(state) {
 		return state.about

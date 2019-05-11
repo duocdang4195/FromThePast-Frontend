@@ -81,12 +81,12 @@ export default new Router ({
 					component: my_writing,
 				},
 				{
-					path: '/Emotion_write',
+					path: '/writer',
 					name: 'Emotion_write',
 					component: Writer,
 				},
 				{
-					path: '/become_writer',
+					path: '/writer',
 					name: 'become_writer',
 					component: Writer,
 				},
@@ -136,11 +136,6 @@ export default new Router ({
 					component: contact_list,
 				},
 				{
-					path: '/verify_account',
-					name: 'verify_account',
-					component: verify_account,
-				},
-				{
 					path: '/setup_pass',
 					name: 'setup_pass',
 					component: setup_pass,
@@ -164,6 +159,12 @@ export default new Router ({
       name: "signup",
       component: AuthenticateForm,
       beforeEnter: ifNotAuthenticated
-    }
+	},
+	{
+		path: '/verify_account',
+		name: 'verify_account',
+		component: verify_account,
+		beforeEnter: ifNotAuthenticated
+	},
   ]
 });

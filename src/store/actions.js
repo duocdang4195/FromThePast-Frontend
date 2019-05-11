@@ -16,11 +16,29 @@ export default {
       return { ok: false, error };
     }
   },
+  async changePassword({ dispatch }, input) {
+    try {
+      const response = await api.post("/profile/change_password", input);
+      console.log('response', response)
+      return { ok: true };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
   async signUp({ commit, dispatch }, input) {
     try {
       const response = await api.post("/auth/register", input);
-      commit("profileUser", response.data);
+      commit("getToken", response.data);
       return { ok: true, data: await dispatch("logIn", input) };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async getProfileUser( { commit }, ) {
+    try {
+      const response = await api.get("/profile");
+      commit('profileUser', response.data)
+      return { ok: true };
     } catch (error) {
       return { ok: false, error };
     }
@@ -28,7 +46,7 @@ export default {
   async checkAccount({}, input) {
     try {
       const response = await api.post("/auth/check", input);
-      return { ok: true };
+      return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
     }

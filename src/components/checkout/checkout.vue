@@ -53,6 +53,10 @@
               <label class="mrg-top-30">Address</label>
               <input v-model="street" class="mr-input" type="text" placeholder="230 An Nam Street">
             </div>
+            <div class="col-sm-12">
+              <label class="mrg-top-30">identity card</label>
+              <input v-model="cmndID" class="mr-input" type="text" placeholder="3526785">
+            </div>
             <!-- /column -->
 
             <div class="col-sm-12">
@@ -204,6 +208,7 @@ export default {
       street: '',
       fullname: '',
       numberPhone: '',
+      cmndID: '',
       email: '',
       type: '3',
       hideWard: true,
@@ -301,7 +306,8 @@ export default {
         this.fullname === '' ||
         this.numberPhone === '' ||
         this.email === '' ||
-        this.type === ''
+        this.type === '' ||
+        this.cmndID === ''
       ) {
         Swal.fire({
           title: "Invalid Data, Please Check Again !!!",
@@ -323,7 +329,8 @@ export default {
         phone: this.numberPhone,
         email: this.email,
         type: this.type,
-        content: this.getIdEmotion
+        content: this.getIdEmotion,
+        citizenID: this.cmndID
       }).then(res => {
         console.log('res', res)
       })

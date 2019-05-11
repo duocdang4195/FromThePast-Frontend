@@ -248,6 +248,7 @@ export default {
     };
   },
   created() {
+    this.getProfileUser()
     const id = this.$route.params.id;
     this.getMyEmotionsByID({ id });
   },
@@ -255,7 +256,7 @@ export default {
     ...mapGetters(["getAllMyQuotationsCreateByID"])
   },
   methods: {
-    ...mapActions(["getMyEmotionsByID", "createCommentEmotions"]),
+    ...mapActions(["getMyEmotionsByID", "createCommentEmotions", "getProfileUser"]),
     submitComment() {
       this.createCommentEmotions({
         emotion_id: Number(this.$route.params.id),

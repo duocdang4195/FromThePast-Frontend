@@ -13,17 +13,16 @@
 
         <div class="signup__input">
           <v-text-field
-            v-model="password"
+            v-model="code"
             label="Verify code"
-            type="Inut your code here"
             color="rgba(0,0,0,0.9)"
             border-color="rgba(0,0,0,0.5)"
-            @keydown.enter.prevent="signIn"
+            @keydown.enter.prevent="getCode"
           ></v-text-field>
         </div>
 
         <div class="login__btn">
-          <v-btn @click="signIn" :block="true" >Send</v-btn>
+          <v-btn @click="getCode" :block="true" >Send</v-btn>
         </div><!-- ./.login__btn  -->
 
 
@@ -42,6 +41,23 @@
   </div><!-- ./.login  -->
 </template>
 
+<script>
+import { mapActions } from 'vuex';
+
+export default {
+  data() {
+    return {
+      code: ''
+    }
+  },
+  methods: {
+    ...mapActions(['changePassword']),
+    getCode() {
+      this.changePassword()
+    }
+  }
+}
+</script>
 
 
 <style lang="scss" scoped>

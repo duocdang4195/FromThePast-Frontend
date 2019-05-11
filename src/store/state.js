@@ -1,5 +1,6 @@
 export default {
     profile: {},
+    userProfile: [],
     newQuotations: [],
     token: '',
     comentQuotations: [],

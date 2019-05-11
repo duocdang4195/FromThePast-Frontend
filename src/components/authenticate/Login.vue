@@ -29,8 +29,7 @@
         <div class="login__btn">
           <v-btn @click="signIn" :block="true" >LOGIN</v-btn>
         </div><!-- ./.login__btn  -->
-
-        <a class="mr_login_forgot_pass"> Forgot password! </a>
+        <router-link class="mr_login_forgot_pass" :to="{name: 'verify_account'}" > Forgot password! </router-link>
       </div><!-- ./.login_form -->
 
       <div class="mr-sns-form">
@@ -58,7 +57,7 @@
       }
     }, 
     methods: {
-      ...mapActions(["logIn"]),
+      ...mapActions(["logIn", "changePassword"]),
       signIn() {
         this.logIn({
           email: this.email,
