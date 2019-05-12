@@ -22,7 +22,7 @@
             <router-link :to="{ name: 'my_quotation'}">my quotation</router-link>
           </div>
           <div class="sidebar__child--elm">
-            <router-link :to="{ name: 'service'}">my services</router-link>
+            <router-link :to="{ name: 'my_service'}">my booking</router-link>
           </div>
           <div @click="onLogout" class="sidebar__child--elm">
             <router-link :to="{ name: 'login'}">logout</router-link>

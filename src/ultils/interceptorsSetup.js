@@ -7,7 +7,8 @@ export const commonApiIntercept = (api) => {
     if (token) {
       config.headers =  {
         'Access-Control-Allow-Origin': '*', 
-        'content-type': 'application/json',
+        'Content-Type': 'application/json',
+        'Accept' : 'application/json',
         'common': {
           'Authorization' :  `Bearer ${token}`
         }

@@ -19,7 +19,6 @@ export default {
   async changePassword({ dispatch }, input) {
     try {
       const response = await api.post("/profile/change_password", input);
-      console.log('response', response)
       return { ok: true };
     } catch (error) {
       return { ok: false, error };
@@ -54,7 +53,6 @@ export default {
   async createQuotations({ commit }, data) {
     try {
       const response = await api.post("/quotation", data);
-      commit("updateQuotations", response.data[0].content);
       return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
@@ -64,7 +62,15 @@ export default {
     try {
       const response = await api.get("/quotation");
       commit("updateQuotations", response.data[0].content);
-      return { ok: true };
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async getAllQuotations({ commit }) {
+    try {
+      const response = await api.get("/all_quotation");
+      return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
     }
@@ -217,9 +223,41 @@ export default {
       return { ok: false, error };
     }
   },
+  async becomeWriter({}, data) {
+    try {
+      const response = await api.post(`/become_writer`, data);
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
   async createBooking({}, data) {
     try {
 			const response = await api.post(`/booking`, data);
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async getBooking({}, id) {
+    try {
+			const response = await api.get(`/booking/${id}`);
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async getOrderDetail({},) {
+    try {
+			const response = await api.get(`/booking`);
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async searchAll({}, input) {
+    try {
+			const response = await api.post(`/search`, input);
       return { ok: true, response };
     } catch (error) {
       return { ok: false, error };

@@ -118,6 +118,8 @@
   	</v-container><!-- ./.mr-orderer-detail  -->
   </div><!-- ./.mr-order-detail-wr  -->
 </template>
+
+
 <style lang="scss" scoped>
 	%mr-heading {
 		position: relative;

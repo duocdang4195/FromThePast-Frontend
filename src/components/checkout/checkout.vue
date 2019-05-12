@@ -5,9 +5,31 @@
         <div class="mr-left-col">
           <h3 class="mr-heading-left">Payment information</h3>
           <div class="row">
+            <div class="col-sm-12" v-if="false">
+              <label>Content</label>
+              <vue-editor style="height:300px;" :editorOptions="editorOption"></vue-editor>
+            </div>
+            <div class="col-sm-12" v-if="false">
+              <label>Mailing address</label>
+              <v-text-field
+                v-model="fullname"
+                placeholder="Mailing address"
+                background-color="#ededed"
+                color="#333"
+                solo-inverted
+                flat
+              ></v-text-field>
+            </div>
             <div class="col-sm-12">
               <label>Full name</label>
-              <input v-model="fullname" type="text" placeholder="Victor Hooddy">
+              <v-text-field
+                v-model="fullname"
+                placeholder="Full name"
+                background-color="#ededed"
+                color="#333"
+                solo-inverted
+                flat
+              ></v-text-field>
             </div>
             <!-- column -->
             <!-- column -->
@@ -18,6 +40,7 @@
                 :items="listCity"
                 flat
                 append-icon
+                placeholder="City"
                 background-color="#ededed"
                 color="#333"
                 solo-inverted
@@ -30,6 +53,7 @@
                 :items="listDisttrict"
                 flat
                 append-icon
+                placeholder="District"
                 background-color="#ededed"
                 color="#333"
                 :disabled="hideDist"
@@ -41,6 +65,7 @@
               <v-autocomplete
                 v-model="selectWard"
                 :items="listWard"
+                placeholder="Ward"
                 flat
                 append-icon
                 background-color="#ededed"
@@ -51,23 +76,51 @@
             </div>
             <div class="col-sm-12">
               <label class="mrg-top-30">Address</label>
-              <input v-model="street" class="mr-input" type="text" placeholder="230 An Nam Street">
+              <v-text-field
+                v-model="street"
+                placeholder="230 An Nam Street"
+                background-color="#ededed"
+                color="#333"
+                solo-inverted
+                flat
+              ></v-text-field>
             </div>
             <div class="col-sm-12">
               <label class="mrg-top-30">identity card</label>
-              <input v-model="cmndID" class="mr-input" type="text" placeholder="3526785">
+              <v-text-field
+                v-model="cmndID"
+                placeholder="352678565"
+                background-color="#ededed"
+                color="#333"
+                solo-inverted
+                flat
+              ></v-text-field>
             </div>
             <!-- /column -->
 
             <div class="col-sm-12">
               <label class="mrg-top-30">Phone *</label>
-              <input v-model="numberPhone" class="mr-input" type="text" placeholder>
+              <v-text-field
+                v-model="numberPhone"
+                placeholder="0975446575"
+                background-color="#ededed"
+                color="#333"
+                solo-inverted
+                flat
+              ></v-text-field>
             </div>
             <!-- column -->
 
             <div class="col-sm-12">
               <label class="mrg-top-30">Email *</label>
-              <input v-model="email" class="mr-input" type="email" placeholder="your@email.com">
+              <v-text-field
+                v-model="email"
+                placeholder="your@email.com"
+                background-color="#ededed"
+                color="#333"
+                solo-inverted
+                flat
+              ></v-text-field>
             </div>
             <div class="col-sm-12">
               <label class="mrg-top-30">Time End</label>
@@ -86,8 +139,12 @@
                 <template v-slot:activator="{ on }">
                   <v-text-field
                     v-model="date"
-                    readonly
+                    placeholder="Date Recive"
+                    background-color="#ededed"
+                    color="#333"
                     v-on="on"
+                    solo-inverted
+                    flat
                   ></v-text-field>
                 </template>
                 <v-date-picker v-model="date" no-title scrollable>
@@ -110,7 +167,7 @@
               <div class="col-sm-12">
                 <label class="mr-radio-style" for="cod">
                   Cash on delivery
-                  <input type="radio" id="cod" name="payment">
+                  <input type="radio" id="cod" checked="checked" name="payment">
                   <span></span>
                 </label>
               </div>
@@ -127,14 +184,14 @@
                   <input type="radio" id="visa" name="payment">
                   <span></span>
                 </label>
-              </div> -->
+              </div>-->
               <!-- column -->
             </div>
             <!-- /row -->
           </div>
           <!-- ./. mr-payment-method  -->
           <div class="mr-action-btn">
-            <a href="#" @click="orderBooking">Order</a>
+            <a @click.prevent="orderBooking">Order</a>
           </div>
         </div>
         <!-- ./. mr-left-col -->
@@ -190,11 +247,17 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import Swal from 'sweetalert2';
-import moment from 'moment';
+import { VueEditor } from "vue2-editor";
+import Swal from "sweetalert2";
+import moment from "moment";
+
+import "quill/dist/quill.bubble.css";
 
 const validateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
+  components: {
+    VueEditor
+  },
   data() {
     return {
       listCity: [],
@@ -205,21 +268,39 @@ export default {
       selectCity: "",
       selectDistrict: "",
       selectWard: "",
-      street: '',
-      fullname: '',
-      numberPhone: '',
-      cmndID: '',
-      email: '',
-      type: '3',
+      street: "",
+      fullname: "",
+      numberPhone: "",
+      cmndID: "",
+      email: "",
+      type: "3",
       hideWard: true,
       hideDist: true,
       date: new Date().toISOString().substr(0, 10),
       menu: false,
-      distancePrice: '0',
-      securityPrice: '0',
-      timePrice: '0',
-      totalPrice: '0',
-      compareDay: moment().add(3, 'days').format("DD-MM-YYYY")
+      distancePrice: "0",
+      securityPrice: "0",
+      timePrice: "0",
+      totalPrice: "0",
+      compareDay: moment()
+        .add(3, "days")
+        .format("YYYY-MM-DD"),
+      editorOption: {
+        theme: "bubble",
+        placeholder: "Your Emotions ( ^.^ )",
+        modules: {
+          toolbar: [
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            [{ color: [] }, { background: [] }],
+            [{ font: [] }],
+            [{ align: [] }],
+            ["link", "image"],
+            ["clean"]
+          ]
+        }
+      }
     };
   },
   async created() {
@@ -261,11 +342,41 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getIdEmotion'])
+    ...mapGetters(["getIdEmotion"])
   },
   methods: {
-    ...mapActions(["getListCity", "getListDist", "getListWard", "getPrice", "createBooking"]),
+    ...mapActions([
+      "getListCity",
+      "getListDist",
+      "getListWard",
+      "getPrice",
+      "createBooking"
+    ]),
+    validateCheckPrice() {
+      if (
+        !this.date ||
+        !this.selectCity ||
+        !this.selectDistrict ||
+        !this.selectWard ||
+        !this.street
+      ) {
+        Swal.fire({
+          title: "Invalid Data, Please Check Again !!!",
+          type: "error"
+        });
+        return false;
+      }
+      if (this.compareDay > this.date) {
+        Swal.fire({
+          title: "Please select a receipt date after 3 days",
+          type: "error"
+        });
+        return false;
+      }
+      return true;
+    },
     checkPrice() {
+      if (!this.validateCheckPrice()) return;
       this.getPrice({
         time_end: this.date,
         city: this.selectCity,
@@ -273,52 +384,59 @@ export default {
         ward: this.selectWard,
         address: this.street
       }).then(res => {
-        if(res.ok) {
-          let data = res.response.data
-          this.distancePrice = data.distance_price
-          this.securityPrice = data.security_price
-          this.timePrice = data.time_price
-          this.totalPrice = data.total_price
+        if (res.ok) {
+          let data = res.response.data;
+          this.distancePrice = data.distance_price;
+          this.securityPrice = data.security_price;
+          this.timePrice = data.time_price;
+          this.totalPrice = data.total_price;
         }
-      })
+      });
     },
     validateOrder() {
-      if(validateEmail.test(this.email)) {
-        Swal.fire({
-          title: "Invalid Email !",
-          type: "error"
-        });
-        return false
-      }
-      if(this.compareDay > this.date) {
-        Swal.fire({
-          title: "Please select a receipt date after 3 days",
-          type: "error"
-        });
-        return false
-      }
-      if(
-        this.date === '' ||
-        this.selectCity === '' ||
-        this.selectDistrict === '' ||
-        this.selectWard === '' ||
-        this.street === '' ||
-        this.fullname === '' ||
-        this.numberPhone === '' ||
-        this.email === '' ||
-        this.type === '' ||
-        this.cmndID === ''
+      if (
+        !this.date ||
+        !this.selectCity ||
+        !this.selectDistrict ||
+        !this.selectWard ||
+        !this.street ||
+        !this.fullname ||
+        !this.numberPhone ||
+        !this.email ||
+        !this.type ||
+        !this.cmndID
       ) {
         Swal.fire({
           title: "Invalid Data, Please Check Again !!!",
           type: "error"
         });
-        return false
+        return false;
       }
-      return true
+      if (!validateEmail.test(this.email)) {
+        Swal.fire({
+          title: "Invalid Email !",
+          type: "error"
+        });
+        return false;
+      }
+      if (this.cmndID.length < 9) {
+        Swal.fire({
+          title: "Indentity Card Invalid",
+          type: "error"
+        });
+        return false;
+      }
+      if (this.compareDay > this.date) {
+        Swal.fire({
+          title: "Please select a receipt date after 3 days",
+          type: "error"
+        });
+        return false;
+      }
+      return true;
     },
     orderBooking() {
-      if(this.validateOrder) return
+      if (!this.validateOrder()) return;
       this.createBooking({
         time_end: this.date,
         city: this.selectCity,
@@ -330,10 +448,12 @@ export default {
         email: this.email,
         type: this.type,
         content: this.getIdEmotion,
-        citizenID: this.cmndID
+        citizen: this.cmndID
       }).then(res => {
-        console.log('res', res)
-      })
+        if(res.ok) {
+          this.$router.push({name: 'finish_booking'})
+        }
+      });
     }
   }
 };

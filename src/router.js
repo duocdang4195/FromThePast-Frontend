@@ -15,7 +15,6 @@ import my_quotation from './components/my_page/my_quotation.vue';
 import my_writing from './components/my_page/my_writing.vue';
 import my_service from './components/my_page/my_service.vue';
 import contact_list from './components/my_page/contact_list.vue';
-import Emotion_write from './components/emotion/Emotion_write.vue';
 import Emotion_list from './components/emotion/Emotion_list.vue';
 import Emotion_view from './components/emotion/Emotion_view.vue';
 import booking from './components/checkout/booking.vue';
@@ -23,7 +22,6 @@ import checkout from './components/checkout/checkout.vue';
 import order_detail from './components/checkout/order_detail.vue';
 import finish_booking from './components/checkout/finish_booking.vue';
 import service from './components/service/service.vue';
-import become_writer from './components/service/become_writer.vue';
 import Writer from '@/components/emotion/Writer.vue'
 
 import {

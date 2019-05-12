@@ -28,6 +28,7 @@
       }
     },
     async created() {
+      await this.getProfileUser()
       await this.getQuotations()
       await this.getCommentsQuotations()
       await this.getCommentsEmotions()
@@ -43,7 +44,7 @@
       }
     },
     methods: {
-      ...mapActions(['getQuotations', 'getCommentsQuotations', 'getCommentsEmotions']),
+      ...mapActions(['getQuotations', 'getCommentsQuotations', 'getCommentsEmotions', 'getProfileUser']),
     },
 
   }
