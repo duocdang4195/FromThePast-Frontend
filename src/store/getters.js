@@ -21,7 +21,7 @@ export default {
 		return state.allEmotions;
 	},
 	getProfile(state) {
-		return state.profile
+		return state.userProfile
 	},
 	getAbout(state) {
 		return state.about
@@ -37,5 +37,8 @@ export default {
 	},
 	getAllMyQuotationsCreateByID(state) {
 		return state.allMyQuotationsCreateByID
+	},
+	getIdEmotion(state) {
+		return state.idEmotion
 	}
 }

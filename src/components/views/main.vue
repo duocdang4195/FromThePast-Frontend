@@ -28,6 +28,7 @@
       }
     },
     async created() {
+      await this.getProfileUser()
       await this.getQuotations()
       await this.getCommentsQuotations()
       await this.getCommentsEmotions()
@@ -38,12 +39,12 @@
       showComments() {
         if(this.comentEmotionsList.length > 0 || this.comentQuotationsList.length) {
           const listComments = _.union(this.comentQuotationsList, this.comentEmotionsList)
-          this.comments = listComments[Math.floor(Math.random() * listComments.length)];
+          return this.comments = listComments[Math.floor(Math.random() * listComments.length)];
         }
       }
     },
     methods: {
-      ...mapActions(['getQuotations', 'getCommentsQuotations', 'getCommentsEmotions']),
+      ...mapActions(['getQuotations', 'getCommentsQuotations', 'getCommentsEmotions', 'getProfileUser']),
     },
 
   }

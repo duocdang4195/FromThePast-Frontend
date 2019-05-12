@@ -7,13 +7,13 @@ export const commonApiIntercept = (api) => {
     if (token) {
       config.headers =  {
         'Access-Control-Allow-Origin': '*', 
-        'content-type': 'application/json',
+        'Content-Type': 'application/json',
+        'Accept' : 'application/json',
         'common': {
           'Authorization' :  `Bearer ${token}`
         }
       }
     }
-    // config.headers['Cache-Control'] = 'no-cache,no-store,must-revalidate,max-age=-1,private';
     return config;
   }, err => Promise.reject(err));
 };

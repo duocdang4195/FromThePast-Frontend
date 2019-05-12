@@ -15,7 +15,6 @@ import my_quotation from './components/my_page/my_quotation.vue';
 import my_writing from './components/my_page/my_writing.vue';
 import my_service from './components/my_page/my_service.vue';
 import contact_list from './components/my_page/contact_list.vue';
-import Emotion_write from './components/emotion/Emotion_write.vue';
 import Emotion_list from './components/emotion/Emotion_list.vue';
 import Emotion_view from './components/emotion/Emotion_view.vue';
 import booking from './components/checkout/booking.vue';
@@ -23,9 +22,12 @@ import checkout from './components/checkout/checkout.vue';
 import order_detail from './components/checkout/order_detail.vue';
 import finish_booking from './components/checkout/finish_booking.vue';
 import service from './components/service/service.vue';
-import become_writer from './components/service/become_writer.vue';
+import Writer from '@/components/emotion/Writer.vue'
 
-import { ifNotAuthenticated, ifAuthenticated } from './plugins/authenticate-logic.js';
+import {
+  ifNotAuthenticated,
+  ifAuthenticated
+} from "./plugins/authenticate-logic.js";
 
 Vue.use(Router);
 
@@ -77,9 +79,14 @@ export default new Router ({
 					component: my_writing,
 				},
 				{
-					path: '/Emotion_write',
+					path: '/writer',
 					name: 'Emotion_write',
-					component: Emotion_write,
+					component: Writer,
+				},
+				{
+					path: '/writer',
+					name: 'become_writer',
+					component: Writer,
 				},
 				{
        				 path: '/Emotion_list',
@@ -100,11 +107,6 @@ export default new Router ({
 					path: '/search',
 					name: 'search',
 					component: search,
-				},
-				{
-					path: '/become_writer',
-					name: 'become_writer',
-					component: become_writer,
 				},
 				{
 					path: '/booking',
@@ -132,34 +134,35 @@ export default new Router ({
 					component: contact_list,
 				},
 				{
-					path: '/verify_account',
-					name: 'verify_account',
-					component: verify_account,
-				},
-				{
 					path: '/setup_pass',
 					name: 'setup_pass',
 					component: setup_pass,
 				},
       ],
-      beforeEnter: ifAuthenticated,
-		},
-		{
-			path: '/',
-			name: 'home',
-      component: Home,
-		},
-		{
-			path: '/login',
-			name: 'login',
+      beforeEnter: ifAuthenticated
+    },
+    {
+      path: "/",
+      name: "home",
+      component: Home
+    },
+    {
+      path: "/login",
+      name: "login",
       component: AuthenticateForm,
-      beforeEnter: ifNotAuthenticated,
-		},
-		{
-			path: '/signup',
-			name: 'signup',
+      beforeEnter: ifNotAuthenticated
+    },
+    {
+      path: "/signup",
+      name: "signup",
       component: AuthenticateForm,
-      beforeEnter: ifNotAuthenticated,
-		},
-	]
-})
+      beforeEnter: ifNotAuthenticated
+	},
+	{
+		path: '/verify_account',
+		name: 'verify_account',
+		component: verify_account,
+		beforeEnter: ifNotAuthenticated
+	},
+  ]
+});

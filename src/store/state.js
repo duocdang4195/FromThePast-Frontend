@@ -1,5 +1,6 @@
 export default {
     profile: {},
+    userProfile: [],
     newQuotations: [],
     token: '',
     comentQuotations: [],
@@ -10,5 +11,6 @@ export default {
     aboutID: {},
     allMyQuotations: [],
     allMyQuotationsCreate: [],
-    allMyQuotationsCreateByID: {}
+    allMyQuotationsCreateByID: {},
+    idEmotion: ''
 }

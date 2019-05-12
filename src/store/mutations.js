@@ -4,8 +4,11 @@ export default {
   logout(state) {
     state.token = ''
   },
-  profileUser(state, profile) {
+  getToken(state, profile) {
     state.profile = profile
+  },
+  profileUser(state, userProfile) {
+    state.userProfile = userProfile
   },
   updateQuotations(state, newQuotations) {
     state.newQuotations = newQuotations
@@ -39,5 +42,8 @@ export default {
   },
   updateMyEmotionsCreateByID(state, allMyQuotationsCreateByID) {
     state.allMyQuotationsCreateByID = allMyQuotationsCreateByID
+  },
+  getIdBookEmotions(state, idEmotion) {
+    state.idEmotion = idEmotion
   }
 }
