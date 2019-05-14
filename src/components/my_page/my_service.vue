@@ -20,7 +20,7 @@
                 <a href="#" v-text="getType(item.type)"></a>
               </span>
               <span class="mr-col2">{{ item.time_end | moment("MMMM Do YYYY") }}</span>
-              <span class="mr-col3">{{ item.total_price.toFixed(3).replace(/\d(?=(\d{3})+\.)/g, '$&,') }}</span>
+              <span class="mr-col3">{{ item.total_price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) }}</span>
               <span class="mr-col4" v-text="checkStatus(item.state)"></span>
             </li>
           </ul>

@@ -102,6 +102,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.ql-bubble * {
+  z-index: 999 !important;
+}
 .mr-emt-wrtie-wr {
   background-image: url("../../assets/images/sea-3438648_1920.jpg");
   position: relative;

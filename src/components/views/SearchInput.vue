@@ -1,6 +1,6 @@
 <template>
   <div class="search-wr">
-    <v-text-field v-model="search" @keydown.enter.prevent="searchData" label="Search" solo></v-text-field>
+    <v-text-field v-model="keyword" @keydown.enter.prevent="searchData" label="Search" solo></v-text-field>
   </div>
 </template>
 
@@ -9,15 +9,16 @@ import { mapActions } from 'vuex';
 export default {
   data() {
     return {
-      search: ''
+      keyword: ''
     }
   },
   methods: {
     ...mapActions(['searchAll']),
     searchData() {
-      console.log('here')
-      this.searchAll(this.search).then(res => {
+      this.searchAll({keyword: this.keyword}).then(res => {
         if(res.ok) {
+          this.$router.push({name: 'search'})
+          this.keyword = ''
           console.log('res', res)
         }
       })

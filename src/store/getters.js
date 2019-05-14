@@ -40,5 +40,11 @@ export default {
 	},
 	getIdEmotion(state) {
 		return state.idEmotion
+	},
+	getDataSearch(state) {
+		return state.search
+	},
+	getDetailOrder(state) {
+		return state.detailOrder
 	}
 }

@@ -5,8 +5,8 @@
 			<v-flex xs12>
   				<h5>Order detail</h5>
   				<h6>
-  					<span class="mr-order-num">#01236547895</span> -
-  					<span class="mr-order-stt">Pending</span>
+  					<span class="mr-order-num">#{{getDetailOrder.id}}</span> -
+  					<span class="mr-order-stt" v-text="checkStatus(getDetailOrder.state)"></span>
   				</h6>
 			</v-flex>
   		</v-layout row wrap>
@@ -17,19 +17,19 @@
 			  		<ul>
 			  			<li>
 			  				<strong>Name:</strong>
-			  				<span>Người nhận</span>
+			  				<span>{{getDetailOrder.name}}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Address:</strong>
-			  				<span>184 Nguyễn Xí, Ward 25, Binh Thanh District, Ho Chi Minh City</span>
+			  				<span>{{getDetailOrder.address}}, {{getDetailOrder.ward}}, {{getDetailOrder.dist}}, {{getDetailOrder.city}}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Phone:</strong>
-			  				<span>0868822947</span>
+			  				<span>{{getDetailOrder.phone}}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Email:</strong>
-			  				<span>recipient@email.com</span>
+			  				<span>{{getDetailOrder.email}}</span>
 			  			</li>
 			  		</ul>
 			  	</div>
@@ -76,11 +76,11 @@
 		  			<ul class="mr-time-info">
 		  				<li>
 		  					<span>Booking date</span>
-		  					<strong>2019-05-01</strong>
+		  					<strong>{{getDetailOrder.created_at | moment("dddd, MMMM Do YYYY")}}</strong>
 		  				</li>
 		  				<li>
-		  					<span>Sending date</span>
-		  					<strong>2021-05-01</strong>
+		  					<span>Delivering date</span>
+		  					<strong>{{getDetailOrder.time_end | moment("dddd, MMMM Do YYYY")}}</strong>
 		  				</li>
 		  			</ul>
 		  			<ul class="mr-money">
@@ -118,6 +118,42 @@
   	</v-container><!-- ./.mr-orderer-detail  -->
   </div><!-- ./.mr-order-detail-wr  -->
 </template>
+
+<script>
+import { mapGetters } from 'vuex';
+export default {
+	data() {
+		return {
+			type: ''
+		}
+	},
+	created() {
+		console.log('getDetailOrder', this.getDetailOrder)
+	},
+	computed: {
+		...mapGetters(['getDetailOrder'])
+	},
+	methods: {
+		checkStatus(state) {
+      if(state === '1') {
+        return this.type = 'submit'
+      }
+      if(state === '2') {
+        return this.type = 'payment'
+      }
+      if(state === '3') {
+        return this.type = 'paid '
+      }
+      if(state === '4') {
+        return this.type = 'delivering'
+      }
+      if(state === '5') {
+        return this.type = 'complete '
+      }
+    }
+	}
+}
+</script>
 
 
 <style lang="scss" scoped>

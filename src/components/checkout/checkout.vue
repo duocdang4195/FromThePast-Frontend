@@ -5,11 +5,11 @@
         <div class="mr-left-col">
           <h3 class="mr-heading-left">Payment information</h3>
           <div class="row">
-            <div class="col-sm-12" v-if="false">
+            <div class="col-sm-12" v-if="handWrite">
               <label>Content</label>
               <vue-editor style="height:300px;" :editorOptions="editorOption"></vue-editor>
             </div>
-            <div class="col-sm-12" v-if="false">
+            <div class="col-sm-12" v-if="handWrite">
               <label>Mailing address</label>
               <v-text-field
                 v-model="fullname"
@@ -171,20 +171,6 @@
                   <span></span>
                 </label>
               </div>
-              <!-- <div class="col-sm-12">
-                <label class="mr-radio-style" for="ib">
-                  Internet banking
-                  <input type="radio" id="ib" name="payment">
-                  <span></span>
-                </label>
-              </div>
-              <div class="col-sm-12">
-                <label class="mr-radio-style" for="visa">
-                  Visa, master card
-                  <input type="radio" id="visa" name="payment">
-                  <span></span>
-                </label>
-              </div>-->
               <!-- column -->
             </div>
             <!-- /row -->
@@ -273,7 +259,8 @@ export default {
       numberPhone: "",
       cmndID: "",
       email: "",
-      type: "3",
+      type: "",
+      handWrite: false,
       hideWard: true,
       hideDist: true,
       date: new Date().toISOString().substr(0, 10),
@@ -304,6 +291,8 @@ export default {
     };
   },
   async created() {
+    this.type = this.$store.state.type
+		console.log("TCL: created -> this.$store.state.type", this.$store.state.type)
     let { response } = await this.getListCity();
     this.listCity = response.data;
   },

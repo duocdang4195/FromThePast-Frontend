@@ -35,6 +35,7 @@ export default {
   async created() {
     let { response } = await this.getBooking(this.getIdEmotion)
     this.data = response.data
+		console.log("TCL: created -> this.data", this.data)
     if(this.data.type === 1) {
       this.type = 'handwriting'
     }

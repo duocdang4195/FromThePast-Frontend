@@ -12,5 +12,8 @@ export default {
     allMyQuotations: [],
     allMyQuotationsCreate: [],
     allMyQuotationsCreateByID: {},
-    idEmotion: ''
+    idEmotion: '',
+    search: [],
+    type: '',
+    detailOrder: []
 }

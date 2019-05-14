@@ -239,9 +239,10 @@ export default {
       return { ok: false, error };
     }
   },
-  async getBooking({}, id) {
+  async getBooking({ commit }, id) {
     try {
-			const response = await api.get(`/booking/${id}`);
+      const response = await api.get(`/booking/${id}`);
+      commit('updateOrderDetail', response.data)
       return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
@@ -255,12 +256,30 @@ export default {
       return { ok: false, error };
     }
   },
-  async searchAll({}, input) {
+  async searchAll({ commit }, { keyword }) {
     try {
-			const response = await api.post(`/search`, input);
+      const response = await api.post(`/search`, {keyword});
+      let search = response.data
+      commit('updateSearchAll', search)
       return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
     }
-  }
+  },
+  async getHandWrite({},) {
+    try {
+			const response = await api.get(`/handwrite`);
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async getLetterPrint({},) {
+    try {
+			const response = await api.get(`/print`);
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
 };

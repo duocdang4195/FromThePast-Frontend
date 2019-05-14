@@ -45,5 +45,11 @@ export default {
   },
   getIdBookEmotions(state, idEmotion) {
     state.idEmotion = idEmotion
+  },
+  updateSearchAll(state, search) {
+    state.search = search
+  },
+  updateOrderDetail(state, detailOrder) {
+    state.detailOrder = detailOrder
   }
 }

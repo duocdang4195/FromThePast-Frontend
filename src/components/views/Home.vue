@@ -13,6 +13,7 @@
         <textarea
           cols="80"
           autofocus
+          placeholder="Tam Handsome ^.^"
           v-model="quotaion"
           @keydown.enter.prevent="checkUserProfile"
         >
@@ -66,14 +67,33 @@
           <span>Bạn có thể lưu thành tên tác giá nếu đăng ký</span>
         </v-tooltip>
       </div>
-      <div class="content__actions" v-if="quotaion && isAuthenticated">
-        <span>admin</span>
-        <div class=" actions content__actions--like">
-          <icon name="heart" />
+      <div class="content__actions" v-if="isAuthenticated">
+        <span>{{!getProfile.user.name ? getProfile.user.name : getProfile.user.email}}</span>
+        <div :class="classLike">
+          <span @click="likeStt"><icon name="heart" /></span>
         </div>
-        <div class="actions content__actions--comments">
-          <icon name="comments" />
+        <div :class="classComment">
+          <span @click="showComment"><icon name="comments" /></span>
           <textarea
+            v-if="isHideComment"
+            class="content__actions--comments--input"
+            placeholder="Enter your idea here"
+            cols="80"
+            autofocus
+          >
+          </textarea>
+        </div>
+      </div>
+      <div class="content__actions" v-if="!isAuthenticated">
+        <span>Hidden</span>
+        <div :class="classLike">
+          <span @click="toSignUp"><icon name="heart" /></span>
+        </div>
+        <div :class="classComment">
+          <span @click="showComment"><icon name="comments" /></span>
+          <textarea
+            @click="toSignUp"
+            v-if="isHideComment"
             class="content__actions--comments--input"
             placeholder="Enter your idea here"
             cols="80"
@@ -87,6 +107,7 @@
 </template>
 <script>
 import { mapActions, mapGetters, mapMutations } from "vuex";
+import classnames from 'classnames';
 import Swal from "sweetalert2";
 import { setInterval } from "timers";
 
@@ -106,14 +127,35 @@ export default {
       notUser: false,
       signupUserName: false,
       signupPassword: false,
-      signupConfirmPassword: false
+      signupConfirmPassword: false,
+      isHideComment: false,
+      isLike: false,
+      isComment: false
     };
   },
   created() {
     this.getQuotations();
   },
   computed: {
-    ...mapGetters(["quotationRandom", "isAuthenticated"])
+    ...mapGetters(["quotationRandom", "isAuthenticated", "getProfile"]),
+    classLike() {
+      return classnames(
+        'actions',
+        'content__actions--like', 
+        {
+          'liked': this.isLike === true,
+        }
+      )
+    },
+    classComment() {
+      return classnames(
+        'actions',
+        'content__actions--comments', 
+        {
+          'commented': this.isComment === true,
+        }
+      )
+    }
   },
   methods: {
     ...mapActions([
@@ -196,6 +238,13 @@ export default {
           }
         })
       }
+    },
+    likeStt() {
+      this.isLike = !this.isLike
+    },
+    showComment() {
+      this.isComment = !this.isComment
+      this.isHideComment = !this.isHideComment
     }
     // async randomQuotations() {
     //   await this.getQuotations()
@@ -330,11 +379,22 @@ export default {
         }
         .content__actions--like {
           margin-right: 5px;
+          svg {
+            cursor: pointer;
+          }
+        }
+        .liked, .commented {
+          svg {
+            color: red;
+          }
         }
         .content__actions--comments {
+          svg {
+            cursor: pointer;
+          }
         }
+
         .content__actions--comments--input {
-          display: none;
           position: absolute;
           top: 25px;
           right: 0;

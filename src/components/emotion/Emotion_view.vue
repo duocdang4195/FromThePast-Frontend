@@ -272,6 +272,7 @@ export default {
       this.$router.push({name: 'Emotion_write'})
     },
     orderEmotion() {
+      this.$store.state.type = '3'
       this.$router.push({name: 'checkout'})
     }
   }

@@ -61,7 +61,7 @@
             </li>
             <li>
               <strong>Your budget:</strong>
-              <span>{{ getProfile.profit }}</span>
+              <span>{{ getProfile.profit.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) }}</span>
             </li>
             <li>
               <strong>Contact list:</strong>
@@ -74,7 +74,7 @@
               <strong>Your order:</strong>
               <span>
                 {{ getProfile.booking_number }}
-                <a href="#">(See list)</a>
+                <router-link :to="{name: 'my_service'}"> See List </router-link>
               </span>
             </li>
             <li style="display: none;">
