@@ -14,7 +14,7 @@
             </li>
             <li v-for="(item, index) in history " :key="index">
               <span class="mr-col0">
-                <a href="#">#{{ item.id }}</a>
+                <span class="number-payment" @click="goToOrderDetail(item.id)">#{{ item.id }}</span>
               </span>
               <span class="mr-col1">
                 <a href="#" v-text="getType(item.type)"></a>
@@ -50,6 +50,9 @@ export default {
 	},
 	methods: {
     ...mapActions(['getOrderDetail']),
+    goToOrderDetail(id) {
+      this.$router.push(`/order_detail/${id}`);
+    },
     getType(type) {
       if(type === 1) {
         return this.type = 'handwriting'
@@ -83,6 +86,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.number-payment {
+  color: #333;
+  cursor: pointer;
+  text-decoration: underline;
+}
 .mr-myinformation-wr {
   position: relative;
   display: flex;
