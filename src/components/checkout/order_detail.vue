@@ -5,8 +5,8 @@
 			<v-flex xs12>
   				<h5>Order detail</h5>
   				<h6>
-  					<span class="mr-order-num">#{{getDetailOrder.id}}</span> -
-  					<span class="mr-order-stt" v-text="checkStatus(getDetailOrder.state)"></span>
+  					<span class="mr-order-num">#{{orderDetail.id}}</span> -
+  					<span class="mr-order-stt" v-text="checkStatus(orderDetail.state)"></span>
   				</h6>
 			</v-flex>
   		</v-layout row wrap>
@@ -17,19 +17,19 @@
 			  		<ul>
 			  			<li>
 			  				<strong>Name:</strong>
-			  				<span>{{getDetailOrder.name}}</span>
+			  				<span>{{orderDetail.name}}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Address:</strong>
-			  				<span>{{getDetailOrder.address}}, {{getDetailOrder.ward}}, {{getDetailOrder.dist}}, {{getDetailOrder.city}}</span>
+			  				<span>{{orderDetail.address}}, {{orderDetail.ward}}, {{orderDetail.dist}}, {{orderDetail.city}}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Phone:</strong>
-			  				<span>{{getDetailOrder.phone}}</span>
+			  				<span>{{orderDetail.phone}}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Email:</strong>
-			  				<span>{{getDetailOrder.email}}</span>
+			  				<span>{{orderDetail.email}}</span>
 			  			</li>
 			  		</ul>
 			  	</div>
@@ -38,19 +38,19 @@
 			  		<ul>
 			  			<li>
 			  				<strong>Name:</strong>
-			  				<span>{{ getDetailOrder.from_name }}</span>
+			  				<span>{{ orderDetail.from_name }}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Address:</strong>
-			  				<span>{{getDetailOrder.from_address}}, {{getDetailOrder.from_ward}}, {{getDetailOrder.from_dist}}, {{getDetailOrder.from_city}}</span>
+			  				<span>{{orderDetail.from_address}}, {{orderDetail.from_ward}}, {{orderDetail.from_dist}}, {{orderDetail.from_city}}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Phone:</strong>
-			  				<span>{{getDetailOrder.from_phone}}</span>
+			  				<span>{{orderDetail.from_phone}}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Email:</strong>
-			  				<span>{{getDetailOrder.from_email}}</span>
+			  				<span>{{orderDetail.from_email}}</span>
 			  			</li>
 			  		</ul>
 			  	</div>
@@ -64,7 +64,7 @@
 			  			</li>
 			  			<li>
 			  				<strong>Payer status:</strong>
-			  				<span v-text="checkStatusPay(getDetailOrder.state)"></span>
+			  				<span v-text="checkStatusPay(orderDetail.state)"></span>
 			  			</li>
 			  		</ul>
 			  	</div>
@@ -76,25 +76,25 @@
 		  			<ul class="mr-time-info">
 		  				<li>
 		  					<span>Booking date</span>
-		  					<strong>{{getDetailOrder.created_at | moment("dddd, MMMM Do YYYY")}}</strong>
+		  					<strong>{{orderDetail.created_at | moment("MMMM Do YYYY")}}</strong>
 		  				</li>
 		  				<li>
 		  					<span>Delivering date</span>
-		  					<strong>{{getDetailOrder.time_end | moment("dddd, MMMM Do YYYY")}}</strong>
+		  					<strong>{{orderDetail.time_end | moment("MMMM Do YYYY")}}</strong>
 		  				</li>
 		  			</ul>
 		  			<ul class="mr-money">
 		  				<li>
 		  					<span>Stored time</span>
-		  					<strong>{{ getDetailOrder.store_time }} day</strong>
+		  					<strong>{{ orderDetail.store_time }} day</strong>
 		  				</li>
 		  				<li>
 		  					<span>Delivery distance</span>
-		  					<strong>{{ getDetailOrder.distance }} km</strong>
+		  					<strong>{{ orderDetail.distance }} km</strong>
 		  				</li>
 		  				<li>
 		  					<span>Total</span>
-		  					<strong>{{ getDetailOrder.total_price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) }}</strong>
+		  					<strong v-text="showPrice"></strong>
 		  				</li>
 		  			</ul>
 		  		</div><!-- ./.mr-service -->
@@ -112,24 +112,37 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
 	data() {
 		return {
 			type: '',
-			showSender: false
+			showSender: false,
+			orderDetail: {}
 		}
 	},
 	created() {
-		this.type = this.$store.state.type;
-    if (this.type === "1") {
+    if (this.orderDetail.type === "1") {
       this.showSender = true;
-    }
+		}
+		this.getOrderDetail().then(res => {
+			if(res.ok) {
+				let detail = res.response.data
+				this.orderDetail = detail.find(item => {
+					return item.id == this.$route.params.id
+				})
+			}
+		})
 	},
 	computed: {
-		...mapGetters(['getDetailOrder'])
+		showPrice() {
+			if(this.orderDetail.total_price) {
+				return this.orderDetail.total_price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+			}
+		}
 	},
 	methods: {
+		...mapActions(['getOrderDetail']),
 		backToList() {
 			this.$router.push({name: 'Emotion_list'})
 		},

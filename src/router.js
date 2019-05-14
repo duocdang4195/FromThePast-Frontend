@@ -124,7 +124,7 @@ export default new Router ({
 					component: finish_booking,
 				},
 				{
-					path: '/order_detail',
+					path: '/order_detail/:id',
 					name: 'order_detail',
 					component: order_detail,
 				},
