@@ -58,8 +58,7 @@
         <!-- /categories -->
       </div>
       <!-- /sidebar-widget -->
-
-      <div class="mr-sidebar">
+      <div class="mr-sidebar" v-if="false">
         <h4 class="mr-cat-2">Seasons</h4>
         <ul class="categories">
           <li>
@@ -143,33 +142,33 @@
 
     <div class="mr-blog-content">
       <div class="mr-emotion-view">
-        <div class="blog-wrapper" v-if="getAllMyQuotationsCreateByID" v-cloak>
+        <div class="blog-wrapper" v-if="viewEmotion" v-cloak>
           <div class="blog-img">
-            <img class="img-responsive" :src="getAllMyQuotationsCreateByID.image" alt>
+            <img class="img-responsive" :src="viewEmotion.image" alt>
           </div>
           <!-- blog-img -->
 
           <div class="mr-post-content">
             <h3 class="mr-post-tittle">
-              <a href="#">{{ getAllMyQuotationsCreateByID.title }}</a>
+              <a href="#">{{ viewEmotion.title }}</a>
             </h3>
 
             <div class="mr-post-meta">
-              <p v-if="getAllMyQuotationsCreateByID.user">
+              <p v-if="viewEmotion.user">
                 By
-                <span>{{ getAllMyQuotationsCreateByID.user.name }}</span>
+                <span>{{ viewEmotion.user.name }}</span>
                 <span class="pdd-horizon-5">/</span>
                 <i class="ti-time pdd-right-5"></i>
-                <span>{{ getAllMyQuotationsCreateByID.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
+                <span>{{ viewEmotion.updated_at | moment("MMMM Do YYYY")}}</span>
                 <span class="pdd-horizon-5">/</span>
                 <i class="ti-comment pdd-right-5"></i>
-                <a href="#">{{ getAllMyQuotationsCreateByID.comment.length }} Comments</a>
+                <a href="#">{{ viewEmotion.comment.length }} Comments</a>
               </p>
             </div>
             <p
               class="mr-writing-content"
-              v-html="getAllMyQuotationsCreateByID.content"
-            >{{ getAllMyQuotationsCreateByID.content }}</p>
+              v-html="viewEmotion.content"
+            >{{ viewEmotion.content }}</p>
             <div class="mr-action-area">
               <div class="share mrg-top-50">
                 <h5 class="mrg-btm-15">Share Post :</h5>
@@ -199,9 +198,9 @@
           </div>
           <!-- /post-content -->
 
-          <div class="mr-comment-wrapper mrg-top-50" v-if="getAllMyQuotationsCreateByID.comment">
-            <h3 class="mrg-btm-40">Comments( {{ getAllMyQuotationsCreateByID.comment.length }} )</h3>
-            <Comments v-for=" (comment, index) in getAllMyQuotationsCreateByID.comment" :key="index" :item="comment"/>
+          <div class="mr-comment-wrapper mrg-top-50" v-if="viewEmotion.comment">
+            <h3 class="mrg-btm-40">Comments( {{ viewEmotion.comment.length }} )</h3>
+            <Comments v-for=" (comment, index) in viewEmotion.comment" :key="index" :item="comment"/>
             <!-- /comment -->
           </div>
           <!-- /comment-wrapper -->
@@ -235,7 +234,7 @@ import Comments from '@/components/emotion/Comments.vue'
 
 export default {
   components: {
-    Comments
+    Comments,
   },
   data() {
     return {
@@ -244,13 +243,17 @@ export default {
       userName: "",
       testObj: {
         background: "red"
-      }
+      },
+      viewEmotion: {},
     };
   },
   created() {
     this.getProfileUser()
-    const id = this.$route.params.id;
-    this.getMyEmotionsByID({ id });
+    this.getMyEmotionsByID(this.$route.params.id).then(res => {
+      if(res.ok) {
+        this.viewEmotion = res.response.data
+      }
+    })
   },
   computed: {
     ...mapGetters(["getAllMyQuotationsCreateByID"])
