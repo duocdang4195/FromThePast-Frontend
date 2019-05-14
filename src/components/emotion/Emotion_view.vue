@@ -155,7 +155,7 @@
             </h3>
 
             <div class="mr-post-meta">
-              <p>
+              <p v-if="getAllMyQuotationsCreateByID.user">
                 By
                 <span>{{ getAllMyQuotationsCreateByID.user.name }}</span>
                 <span class="pdd-horizon-5">/</span>

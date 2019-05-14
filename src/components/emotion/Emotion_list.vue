@@ -31,7 +31,7 @@
           <p class="rh-date">{{ contentEmotions.updated_at | moment("dddd, MMMM Do YYYY")}}</p>
         </div>
         <!-- ./.mr-header  -->
-        <div class="mr-article-cntn" v-html="contentEmotions.content">{{ contentEmotions.content }}</div>
+        <div class="mr-article-cntn" v-html="delTagImg">{{ contentEmotions.content }}</div>
         <!-- ./.mr-article-cntn -->
       </div>
     </div>
@@ -42,6 +42,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 
+const validateTagImg = /<img[^>]+src="?([^"\s]+)"?\s*\/>/g;
 export default {
   data() {
     return {
@@ -64,6 +65,12 @@ export default {
         return item.selected === 1;
       });
       return postAdmin;
+    },
+    delTagImg() {
+      if(this.contentEmotions.content) {
+return this.contentEmotions.content.replace(/<img[^>]+src="?([^"\s]+)"?\s*\/>/gm)
+      }
+      
     }
   },
   methods: {
@@ -77,7 +84,6 @@ export default {
         Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)
       ];
       this.recentPost.unshift(this.contentEmotions);
-      console.log("before", this.recentPost);
     },
     preEmotions() {
       if(this.recentPost.length === 1) {

@@ -5,7 +5,7 @@ import store from './store';
 import './plugins/vuetify';
 import './plugins/vue-moment';
 import './plugins/vue-awesome';
-// import './plugins/vue-typer';
+import './plugins/vue-typer';
 // import './plugins/vue-bootstrap'
 import './plugins/v-tooltip'
 // import 'bulma/css/bulma.css'

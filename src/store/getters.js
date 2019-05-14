@@ -46,5 +46,8 @@ export default {
 	},
 	getDetailOrder(state) {
 		return state.detailOrder
+	},
+	getIdBooking(state) {
+		return state.idBooking
 	}
 }

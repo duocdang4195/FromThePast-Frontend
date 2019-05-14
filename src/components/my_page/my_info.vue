@@ -67,7 +67,6 @@
               <strong>Contact list:</strong>
               <span>
                 {{ getProfile.address_count }}
-                <a href="#">(See list)</a>
               </span>
             </li>
             <li>
@@ -94,6 +93,16 @@
 import { mapGetters, mapActions } from "vuex";
 import Swal from "sweetalert2";
 import moment from "moment";
+import * as firebase from 'firebase';
+
+var fb = firebase.initializeApp({
+        apiKey: "AIzaSyDz48Py1okqAqqlMHkMALnw2Gpvgx9mJNI",
+        authDomain: "tuquakhu-9fcc5.firebaseapp.com",
+        databaseURL: "https://tuquakhu-9fcc5.firebaseio.com",
+        projectId: "tuquakhu-9fcc5",
+        storageBucket: "tuquakhu-9fcc5.appspot.com",
+        messagingSenderId: "840825466857"
+});
 
 export default {
   name: "component_name",
@@ -110,7 +119,7 @@ export default {
   },
   async created() {
     let { response } = await this.getQuotations();
-    this.showQuotaions = response.data[0];
+    this.showQuotaions = response.data;
   },
   computed: {
     ...mapGetters(["getProfile", "quotationRandom"]),

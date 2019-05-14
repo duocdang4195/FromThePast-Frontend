@@ -3,7 +3,13 @@
     <div class="mr-emt-wrtie-wr" :style="backgoundImage">
       <div class="mr-write-area">
         <input type="text" class="mr-subj" v-model="subject" placeholder="Subject ...">
-				<vue-editor style="height:300px;" v-model="content" :editorOptions="editorOption" ></vue-editor>
+        <vue-editor
+          style="height:300px;"
+          :useCustomImageHandler="true"
+          @imageAdded="handleImageAdded"
+          v-model="content"
+          :editorOptions="editorOption"
+        ></vue-editor>
         <input
           ref="file"
           @change="handleFileUpload"
@@ -19,8 +25,7 @@
           hide-selected
           multiple
           small-chips
-        >
-        </v-combobox>
+        ></v-combobox>
         <button class="mr-submit" @click="submit">Post</button>
       </div>
     </div>
@@ -38,21 +43,22 @@
   </div>
 </template>
 <script>
+import api from "@/plugins/axios";
 import { mapActions } from "vuex";
 import { VueEditor } from "vue2-editor";
-import 'quill/dist/quill.bubble.css'
+import "quill/dist/quill.bubble.css";
 
 export default {
-	components: {
-    VueEditor,
-	},
+  components: {
+    VueEditor
+  },
   data() {
     return {
       subject: "",
       content: "",
       tags: [],
       file: "",
-      items: ["Sad", "Happy", "Cry", "Love", "Like"],
+      items: [],
       backgoundImage:
         "background-image: url('https://preply.com/wp-content/uploads/2018/04/pexels-photo-100733.jpeg');",
       editorOption: {
@@ -73,9 +79,38 @@ export default {
       }
     };
   },
-
+  async created() {
+    let res = await this.getTagEmotions().then(res => {
+      if (res.ok) {
+        this.items = res.response.data;
+      }
+    });
+  },
   methods: {
-    ...mapActions(["createEmotions"]),
+    ...mapActions(["createEmotions", "getTagEmotions"]),
+    handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      if (file > 2e6) {
+        Swal.fire({
+          title: "Image must be less than 2mb",
+          type: "error"
+        });
+      } else {
+        var formData = new FormData();
+        formData.append("img", file);
+        api({
+          url: "/uploads",
+          method: "POST",
+          data: formData
+        })
+          .then(result => {
+            let url = result.data.url; // Get url from response
+            Editor.insertEmbed(cursorLocation, "image", url);
+            resetUploader();
+          })
+          .catch(err => {
+          });
+      }
+    },
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
       const reader = new FileReader();

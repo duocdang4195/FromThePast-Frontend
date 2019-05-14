@@ -9,8 +9,8 @@
           <a href="#">#{{ data.id }}</a> for
           <b>{{ type }}</b>.
           <br>Your order will be process on
-          <b>{{ data.time_start | moment("MMMM Do YYYY") }}</b>, delivery to
-          <b>{{ data.name }}</b>.
+          <b>{{ data.time_start | moment("MMMM Do YYYY") }}</b>,
+           <span v-if="data.from_name">delivery to <b>{{ data.from_name }}</b>.</span>
           <br>You can check the process of the service in the
           <router-link :to="{name: 'order_detail'}" >order detail</router-link>
 .
@@ -33,9 +33,8 @@ export default {
     }
   },
   async created() {
-    let { response } = await this.getBooking(this.getIdEmotion)
+    let { response } = await this.getBooking(this.getIdBooking.id)
     this.data = response.data
-		console.log("TCL: created -> this.data", this.data)
     if(this.data.type === 1) {
       this.type = 'handwriting'
     }
@@ -45,10 +44,9 @@ export default {
     if(this.data.type === 3) {
       this.type = 'Emotion '
     }
-    console.log('res', this.data)
   },
   computed: {
-    ...mapGetters(["getIdEmotion"]),
+    ...mapGetters(["getIdBooking"]),
   },
   methods: {
     ...mapActions(["getBooking"])

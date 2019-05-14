@@ -8,14 +8,14 @@ export const composeApi = (options = {}) => {
     timeout: 120000,
     headers: {
       'Access-Control-Allow-Origin': '*', 
-      'content-type': 'application/json',
+      'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
   });
   instance.interceptors.response.use(
     res => res,
     err => {
-      if (err.response.status === 401) {
+      if (err.response.status === 400) {
         store.dispatch('logout');
       }
       return Promise.reject(err);

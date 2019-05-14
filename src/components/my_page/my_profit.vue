@@ -43,7 +43,6 @@ export default {
   async created() {
     const res = await this.getProfit()
     this.proFit = res.response.data
-    console.log('this.proFit',res)
   },
   methods: {
     ...mapActions(['getProfit'])

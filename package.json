@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "firebase": "^6.0.2",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
     "qs": "^6.7.0",
@@ -20,6 +21,7 @@
     "vue-moment": "^4.0.0",
     "vue-router": "^3.0.2",
     "vue-sweetalert2": "^1.6.4",
+    "vue-typer": "^1.2.0",
     "vue2-animate": "^2.1.0",
     "vue2-editor": "^2.6.6",
     "vuetify": "^1.5.8",

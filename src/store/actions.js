@@ -50,9 +50,33 @@ export default {
       return { ok: false, error };
     }
   },
-  async createQuotations({ commit }, data) {
+  async createQuotations({}, data) {
     try {
       const response = await api.post("/quotation", data);
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async commentQuotations({}, {quotation_id, content}) {
+    try {
+      const response = await api.post("/quotation_comment", {quotation_id, content});
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async likeQuotations({}, data) {
+    try {
+      const response = await api.post("/quotation_like", data);
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async unLikeQuotations({}, {id}) {
+    try {
+      const response = await api.delete(`/quotation_like/${id}`);
       return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
@@ -61,7 +85,7 @@ export default {
   async getQuotations({ commit }) {
     try {
       const response = await api.get("/quotation");
-      commit("updateQuotations", response.data[0].content);
+      commit("updateQuotations", response.data);
       return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
@@ -75,11 +99,19 @@ export default {
       return { ok: false, error };
     }
   },
+  async getAllQuotationsRealtions({}) {
+    try {
+      const response = await api.get("/quotations?relation=true")
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
   async getAllMyQuotations({ commit }) {
     try {
       const response = await api.get("/quotations");
       commit("updateAllMyQuotations", response.data);
-      return { ok: true };
+      return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
     }
@@ -106,6 +138,14 @@ export default {
     try {
       const response = await api.get("/emotion");
       commit("updateMyEmotionsCreate", response.data);
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async getTagEmotions( {}, ) {
+    try {
+      const response = await api.get("/emotion_tags");
       return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
@@ -231,9 +271,10 @@ export default {
       return { ok: false, error };
     }
   },
-  async createBooking({}, data) {
+  async createBooking({ commit }, data) {
     try {
-			const response = await api.post(`/booking`, data);
+      const response = await api.post(`/booking`, data);
+      commit('updateIdBooking', response.data)
       return { ok: true, response };
     } catch (error) {
       return { ok: false, error };

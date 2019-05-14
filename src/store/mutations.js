@@ -51,5 +51,8 @@ export default {
   },
   updateOrderDetail(state, detailOrder) {
     state.detailOrder = detailOrder
+  },
+  updateIdBooking(state, idBooking) {
+    state.idBooking = idBooking
   }
 }

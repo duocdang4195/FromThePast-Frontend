@@ -47,7 +47,6 @@ export default {
 	async created() {
     let { response } = await this.getOrderDetail()
     this.history = response.data
-		console.log('getOrderDetail', this.history)
 	},
 	methods: {
     ...mapActions(['getOrderDetail']),

@@ -50,10 +50,9 @@ export default {
 	ul {
 		padding: 0;
 		margin: 0;
-
-		li {
-			list-style: none;
-		}
+	}
+	.vue-typer .custom.char.typed {
+		color: #fff;
 	}
 </style>
 

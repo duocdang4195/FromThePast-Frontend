@@ -33,24 +33,24 @@
 			  			</li>
 			  		</ul>
 			  	</div>
-			  	<div class="mr-orderer-info">
+			  	<div class="mr-orderer-info" v-if="showSender">
 			  		<h6>Sender</h6>
 			  		<ul>
 			  			<li>
 			  				<strong>Name:</strong>
-			  				<span>Người gửi</span>
+			  				<span>{{ getDetailOrder.from_name }}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Address:</strong>
-			  				<span>184 Nguyễn Xí, Ward 25, Binh Thanh District, Ho Chi Minh City</span>
+			  				<span>{{getDetailOrder.from_address}}, {{getDetailOrder.from_ward}}, {{getDetailOrder.from_dist}}, {{getDetailOrder.from_city}}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Phone:</strong>
-			  				<span>0868822947</span>
+			  				<span>{{getDetailOrder.from_phone}}</span>
 			  			</li>
 			  			<li>
 			  				<strong>Email:</strong>
-			  				<span>recipient@email.com</span>
+			  				<span>{{getDetailOrder.from_email}}</span>
 			  			</li>
 			  		</ul>
 			  	</div>
@@ -64,7 +64,7 @@
 			  			</li>
 			  			<li>
 			  				<strong>Payer status:</strong>
-			  				<span>Success</span>
+			  				<span v-text="checkStatusPay(getDetailOrder.state)"></span>
 			  			</li>
 			  		</ul>
 			  	</div>
@@ -85,30 +85,22 @@
 		  			</ul>
 		  			<ul class="mr-money">
 		  				<li>
-		  					<span>Letter name</span>
-		  					<strong>The New Anxiety Therapy That’s All About Accepting Your Fears</strong>
-		  				</li>
-		  				<li>
-		  					<span>Hand writing letter</span>
-		  					<strong>$$</strong>
-		  				</li>
-		  				<li>
 		  					<span>Stored time</span>
-		  					<strong>1.5 years - $$</strong>
+		  					<strong>{{ getDetailOrder.store_time }} day</strong>
 		  				</li>
 		  				<li>
 		  					<span>Delivery distance</span>
-		  					<strong>5km - $$</strong>
+		  					<strong>{{ getDetailOrder.distance }} km</strong>
 		  				</li>
 		  				<li>
 		  					<span>Total</span>
-		  					<strong>$$</strong>
+		  					<strong>{{ getDetailOrder.total_price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) }}</strong>
 		  				</li>
 		  			</ul>
 		  		</div><!-- ./.mr-service -->
 
 			  	<v-layout row wrap>
-			  		<v-btn class="mr-backBtn" color="rgba(0,0,0)">Back to list</v-btn>
+			  		<v-btn @click="backToList" class="mr-backBtn" color="rgba(0,0,0)">Back to list</v-btn>
 			  	</v-layout>
 
 		  	</v-flex><!-- ./.v-flex -->
@@ -124,16 +116,23 @@ import { mapGetters } from 'vuex';
 export default {
 	data() {
 		return {
-			type: ''
+			type: '',
+			showSender: false
 		}
 	},
 	created() {
-		console.log('getDetailOrder', this.getDetailOrder)
+		this.type = this.$store.state.type;
+    if (this.type === "1") {
+      this.showSender = true;
+    }
 	},
 	computed: {
 		...mapGetters(['getDetailOrder'])
 	},
 	methods: {
+		backToList() {
+			this.$router.push({name: 'Emotion_list'})
+		},
 		checkStatus(state) {
       if(state === '1') {
         return this.type = 'submit'
@@ -150,7 +149,14 @@ export default {
       if(state === '5') {
         return this.type = 'complete '
       }
-    }
+		},
+		checkStatusPay(state) {
+			if(state > parseInt("3")) {
+        return this.type = 'paid'
+      } else {
+				return this.type = 'not paid'
+			}
+		}
 	}
 }
 </script>

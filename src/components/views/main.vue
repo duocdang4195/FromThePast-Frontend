@@ -1,7 +1,7 @@
 <template>
   <div class="mr-fullslider" v-if="comments.content" v-cloak>
     <div class="mr-mystatus">
-      <p>{{ quotationRandom }}</p>
+      <p>{{ quotationRandom.content }}</p>
       <ul class="mr-cmt-slider">
         <li>
           {{ comments.content }}

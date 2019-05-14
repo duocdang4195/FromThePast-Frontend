@@ -7,18 +7,87 @@
           <div class="row">
             <div class="col-sm-12" v-if="handWrite">
               <label>Content</label>
-              <vue-editor style="height:300px;" :editorOptions="editorOption"></vue-editor>
+              <vue-editor
+                v-model="content"
+                :useCustomImageHandler="true"
+                @imageAdded="handleImageAdded"
+                style="height:300px;"
+                :editorOptions="editorOption"
+              ></vue-editor>
             </div>
-            <div class="col-sm-12" v-if="handWrite">
-              <label>Mailing address</label>
+            <div class="col-sm-12" v-if="handPrint">
+              <label>Full name sender</label>
               <v-text-field
-                v-model="fullname"
-                placeholder="Mailing address"
+                v-model="fullnameSender"
+                placeholder="Full name"
                 background-color="#ededed"
                 color="#333"
                 solo-inverted
                 flat
               ></v-text-field>
+              <div class="col-sm-12">
+                <label class="mrg-top-30">Email *</label>
+                <v-text-field
+                  v-model="emailSender"
+                  placeholder="your@email.com"
+                  background-color="#ededed"
+                  color="#333"
+                  solo-inverted
+                  flat
+                ></v-text-field>
+              </div>
+              <div class="col-sm-6">
+                <label class="mrg-top-30">The City Receives</label>
+                <v-autocomplete
+                  v-model="selectCitySender"
+                  :items="listCity"
+                  flat
+                  append-icon
+                  placeholder="City"
+                  background-color="#ededed"
+                  color="#333"
+                  solo-inverted
+                ></v-autocomplete>
+              </div>
+              <div class="col-sm-6">
+                <label class="mrg-top-30">The District Receives</label>
+                <v-autocomplete
+                  v-model="selectDistrictSender"
+                  :items="listDisttrict"
+                  flat
+                  append-icon
+                  placeholder="District"
+                  background-color="#ededed"
+                  color="#333"
+                  :disabled="hideDistSender"
+                  solo-inverted
+                ></v-autocomplete>
+              </div>
+              <div class="col-sm-6">
+                <label class="mrg-top-30">The Ward Receives</label>
+                <v-autocomplete
+                  v-model="selectWardSender"
+                  :items="listWard"
+                  placeholder="Ward"
+                  flat
+                  append-icon
+                  background-color="#ededed"
+                  color="#333"
+                  :disabled="hideWardSender"
+                  solo-inverted
+                ></v-autocomplete>
+              </div>
+              <div class="col-sm-12">
+                <label class="mrg-top-30">The Address Receives</label>
+                <v-text-field
+                  v-model="streetSender"
+                  placeholder="230 An Nam Street"
+                  background-color="#ededed"
+                  color="#333"
+                  solo-inverted
+                  flat
+                ></v-text-field>
+              </div>
             </div>
             <div class="col-sm-12">
               <label>Full name</label>
@@ -232,6 +301,7 @@
   </div>
 </template>
 <script>
+import api from "@/plugins/axios";
 import { mapActions, mapGetters } from "vuex";
 import { VueEditor } from "vue2-editor";
 import Swal from "sweetalert2";
@@ -251,18 +321,30 @@ export default {
       listWard: [],
       idCity: {},
       idDist: {},
+      idCitySender: {},
+      idDistSender: {},
       selectCity: "",
+      selectCitySender: "",
       selectDistrict: "",
+      selectDistrictSender: "",
       selectWard: "",
+      selectWardSender: "",
       street: "",
+      streetSender: "",
       fullname: "",
+      fullnameSender: "",
       numberPhone: "",
       cmndID: "",
       email: "",
+      emailSender: "",
       type: "",
+      content: "",
       handWrite: false,
+      handPrint: false,
       hideWard: true,
+      hideWardSender: false,
       hideDist: true,
+      hideDistSender: false,
       date: new Date().toISOString().substr(0, 10),
       menu: false,
       distancePrice: "0",
@@ -291,8 +373,16 @@ export default {
     };
   },
   async created() {
-    this.type = this.$store.state.type
-		console.log("TCL: created -> this.$store.state.type", this.$store.state.type)
+    this.email = this.getProfile.user.email
+    this.fullname = this.getProfile.user.username
+    this.numberPhone = this.getProfile.user.phone
+    this.type = this.$store.state.type;
+    if (this.type === "1") {
+      this.handPrint = true;
+    }
+    if (this.type === "2") {
+      this.handWrite = true;
+    }
     let { response } = await this.getListCity();
     this.listCity = response.data;
   },
@@ -328,10 +418,42 @@ export default {
         this.hideWard = true;
         this.this = {};
       }
+    },
+    selectCitySender(value) {
+      if (value) {
+        this.hideDistSender = false;
+        this.idCitySender = this.listCity.find(item => {
+          return item.text === value;
+        });
+        this.getListDist(this.idCitySender.id).then(response => {
+          if (response.ok) {
+            this.listDisttrict = response.response.data;
+          }
+        });
+      } else {
+        this.hideDistSender = true;
+        this.idCitySender = {};
+      }
+    },
+    selectDistrictSender(value) {
+      if (value) {
+        this.hideWardSender = false;
+        this.idDistSender = this.listDisttrict.find(item => {
+          return item.text === value;
+        });
+        this.getListWard(this.idDistSender.id).then(response => {
+          if (response.ok) {
+            this.listWard = response.response.data;
+          }
+        });
+      } else {
+        this.hideWardSender = true;
+        this.idDistSender = {};
+      }
     }
   },
   computed: {
-    ...mapGetters(["getIdEmotion"])
+    ...mapGetters(["getIdEmotion", "getProfile"])
   },
   methods: {
     ...mapActions([
@@ -341,6 +463,29 @@ export default {
       "getPrice",
       "createBooking"
     ]),
+    handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      if (file > 2e6) {
+        Swal.fire({
+          title: "Image must be less than 2mb",
+          type: "error"
+        });
+      } else {
+        var formData = new FormData();
+        formData.append("img", file);
+        api({
+          url: "/uploads",
+          method: "POST",
+          data: formData
+        })
+          .then(result => {
+            let url = result.data.url; // Get url from response
+            Editor.insertEmbed(cursorLocation, "image", url);
+            resetUploader();
+          })
+          .catch(err => {
+          });
+      }
+    },
     validateCheckPrice() {
       if (
         !this.date ||
@@ -382,6 +527,41 @@ export default {
         }
       });
     },
+    validateOrderWrite() {
+        if (!this.content) {
+          Swal.fire({
+            title: "Invalid Content, Please Check Again !!!",
+            type: "error"
+          });
+          return false;
+        }
+        return true;
+    },
+    validateOrderPrint() {
+      if (
+        !this.fullnameSender ||
+        !this.selectCitySender ||
+        !this.selectDistrictSender ||
+        !this.selectWardSender ||
+        !this.streetSender ||
+        !this.emailSender
+      ) {
+        Swal.fire({
+          title: "Invalid Data Sender, Please Check Again !!!",
+          type: "error"
+        });
+        return false;
+      }
+      return true;
+      if (!validateEmail.test(this.emailSender)) {
+        Swal.fire({
+          title: "Invalid Email Sender !",
+          type: "error"
+        });
+        return false;
+      }
+      return true;
+    },
     validateOrder() {
       if (
         !this.date ||
@@ -392,7 +572,6 @@ export default {
         !this.fullname ||
         !this.numberPhone ||
         !this.email ||
-        !this.type ||
         !this.cmndID
       ) {
         Swal.fire({
@@ -425,6 +604,12 @@ export default {
       return true;
     },
     orderBooking() {
+      if (this.type === "1") {
+        if (!this.validateOrderPrint()) return;
+      }
+      if (this.type === "2") {
+        if (!this.validateOrderWrite()) return;
+      }
       if (!this.validateOrder()) return;
       this.createBooking({
         time_end: this.date,
@@ -436,11 +621,17 @@ export default {
         phone: this.numberPhone,
         email: this.email,
         type: this.type,
-        content: this.getIdEmotion,
-        citizen: this.cmndID
+        content: this.content,
+        citizen: this.cmndID,
+        from_city: this.selectCitySender,
+        from_dist: this.selectDistrictSender,
+        from_ward: this.selectWardSender,
+        from_address: this.streetSender,
+        from_email: this.emailSender,
+        from_name: this.fullnameSender
       }).then(res => {
-        if(res.ok) {
-          this.$router.push({name: 'finish_booking'})
+        if (res.ok) {
+          this.$router.push({ name: "finish_booking" });
         }
       });
     }

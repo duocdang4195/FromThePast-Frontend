@@ -19,7 +19,6 @@ export default {
         if(res.ok) {
           this.$router.push({name: 'search'})
           this.keyword = ''
-          console.log('res', res)
         }
       })
     }

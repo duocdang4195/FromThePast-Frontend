@@ -15,5 +15,6 @@ export default {
     idEmotion: '',
     search: [],
     type: '',
-    detailOrder: []
+    detailOrder: [],
+    idBooking: ''
 }

@@ -144,10 +144,10 @@
 
     <div class="mr-blog-content">
        <div class="blog-post single-post mr-search-result">
-            <div class="mr-search-ttl">
+            <div class="mr-search-ttl" v-if="false">
               <input type="text" placeholder="Keywords" class="mr-inputkeyword">
             </div><!--./.mr-search-ttl  -->
-            <div class="mr-img-search-result">
+            <div class="mr-img-search-result" v-if="false">
                 <h5>Images for result </h5>   
                 <ul>
                   <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
@@ -166,35 +166,43 @@
             <div class="mr-text-result">
               <ul>
                 <li>
-                  <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                  <div class="mr-postcntn">The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</div>
-                  <p class="mr-post-author"><span>Mr.Author</span></p>
+                  <h5 class="mr-post-ttl">about</h5>
+                  <div class="search-content" v-if="aboutList.length > 0" v-for="(item, index) in aboutList" :key="index">
+                    <div class="mr-postcntn">{{  }}</div>
+                    <p class="mr-post-author"><span>Mr.Author</span></p>
+                  </div>
+                  <div class="search-content" v-else>
+                    <p class="mr-post-author"><span>No Results</span></p>
+                  </div>
                 </li>
                 <li>
-                  <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                  <div class="mr-postcntn">The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</div>
-                  <p class="mr-post-author"><span>Mr.Author</span></p>
+                  <h5 class="mr-post-ttl">emotions</h5>
+                  <div class="search-content" v-if="emotionList.length > 0" v-for="(item, index) in emotionList" :key="index">
+                    <div class="mr-postcntn">{{ item.title }}</div>
+                  </div>
+                  <div class="search-content" v-else>
+                    <p class="mr-post-author"><span>No Results</span></p>
+                  </div>
                 </li>
                 <li>
-                  <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                  <div class="mr-postcntn">The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</div>
-                  <p class="mr-post-author"><span>Mr.Author</span></p>
+                  <h5 class="mr-post-ttl">quotations</h5>
+                  <div class="search-content" v-if="quotationList.length > 0" v-for="(item, index) in quotationList" :key="index">
+                    <div class="mr-postcntn">{{ item.content }}</div>
+                  </div>
+                  <div class="search-content" v-else>
+                    <p class="mr-post-author"><span>No Results</span></p>
+                  </div>
                 </li>
                 <li>
-                  <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                  <div class="mr-postcntn">The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</div>
-                  <p class="mr-post-author"><span>Mr.Author</span></p>
+                  <h5 class="mr-post-ttl">user</h5>
+                  <div class="search-content" v-if="userList.length > 0" v-for="(item, index) in userList" :key="index">
+                    <div class="mr-postcntn">{{ item.email }}</div>
+                  </div>
+                  <div class="search-content" v-else>
+                    <p class="mr-post-author"><span>No Results</span></p>
+                  </div>
                 </li>
-                <li>
-                  <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                  <div class="mr-postcntn">The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</div>
-                  <p class="mr-post-author"><span>Mr.Author</span></p>
-                </li>
-                <li>
-                  <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                  <div class="mr-postcntn">The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</div>
-                  <p class="mr-post-author"><span>Mr.Author</span></p>
-                </li>
+
               </ul>
             </div><!-- ./. mr-text-result -->
             </div><!-- /blog-post -->
@@ -206,6 +214,30 @@
   <!-- ./.mr-section  -->
 </template>
 
+<script>
+import { mapGetters } from 'vuex';
+export default {
+  data() {
+    return{
+      aboutList: [],
+      emotionList: [],
+      quotationList: [],
+      userList: []
+    }
+    
+  },
+  created() {
+    this.aboutList = this.getDataSearch.about
+    this.emotionList = this.getDataSearch.emotion
+    this.quotationList = this.getDataSearch.quotation
+    this.userList = this.getDataSearch.user
+  },
+  computed: {
+    ...mapGetters(['getDataSearch']),
+
+  }
+}
+</script>
 
 
 <style lang="scss" scoped>
