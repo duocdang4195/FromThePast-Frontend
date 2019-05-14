@@ -37,7 +37,7 @@
           caret-animation="blink"
         ></vue-typer>
       </div>
-      <div class="content__input--quotaion" v-if="isAuthenticated">
+      <div class="content__input--quotaion" v-if="isAuthenticated && isLogin">
         <textarea
           v-show="createEvent"
           cols="80"
@@ -50,7 +50,7 @@
       <div class="content__input--user">
         <div class="content__input--user--check" v-if="isUser">
           <p>Password</p>
-          <input autofocus>
+          <input @keydown.enter.prevent="signIn" type="password" v-model="passWordUser" autofocus>
         </div>
         <!-- show Password -->
         <div class="content__input--user--check" v-if="notUser">
@@ -65,12 +65,12 @@
         <!-- show User Name -->
         <div class="content__input--user--check" v-if="signupPassword">
           <p>SET YOUR PASSWORD</p>
-          <input autofocus v-model="password" @keydown.enter.prevent="fillPassword">
+          <input type="password" autofocus v-model="password" @keydown.enter.prevent="fillPassword">
         </div>
         <!-- show User Password -->
         <div class="content__input--user--check" v-if="signupConfirmPassword">
           <p>RE-TYPE YOUR PASSWORD</p>
-          <input autofocus v-model="confirmPassword" @keydown.enter.prevent="registerAccount">
+          <input type="password" autofocus v-model="confirmPassword" @keydown.enter.prevent="registerAccount">
         </div>
         <!-- show User Confirm Password -->
       </div>
@@ -141,6 +141,7 @@ export default {
       name: "Taam Dep trai",
       quotaion: "",
       checkAuthen: "",
+      passWordUser: "",
       email: "",
       userName: "",
       password: "",
@@ -158,7 +159,8 @@ export default {
       isComment: false,
       clickPost: true,
       createEvent: false,
-      createUser: false
+      createUser: false,
+      isLogin: false
     };
   },
   created() {
@@ -211,6 +213,7 @@ export default {
       this.clickPost = false;
       this.createEvent = true;
       this.createUser = true;
+      this.isLogin = true
     },
     postQuotations() {
       this.createQuotations({ content: this.quotaion }).then(res => {
@@ -219,6 +222,7 @@ export default {
           this.quotaion = "";
           this.clickPost = true;
           this.createEvent = false;
+          this.clickCreateQuotation = false
         }
       });
     },
@@ -238,7 +242,6 @@ export default {
       } else {
         this.checkAccount({ email: this.checkAuthen }).then(res => {
           if (res.ok) {
-            this.checkAuthen = "";
             this.checkUser = false;
             this.isUser = true;
           } else {
@@ -248,6 +251,17 @@ export default {
           }
         });
       }
+    },
+    signIn() {
+      this.logIn({
+        email: this.checkAuthen,
+        password: this.passWordUser
+      }).then(res => {
+        if(res.ok) {
+          this.isUser = false
+          this.clickPost = true
+        }
+      })
     },
     fillEmail() {
       if (validateEmail.test(this.email.toLowerCase())) {
