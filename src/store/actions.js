@@ -151,12 +151,12 @@ export default {
       return { ok: false, error };
     }
   },
-  async getMyEmotionsByID({ commit }, { id }) {
+  async getMyEmotionsByID({ commit }, id) {
     try {
       const response = await api.get(`/emotion/${id}`);
       commit("updateMyEmotionsCreateByID", response.data);
       commit("getIdBookEmotions",  response.data.id)
-      return { ok: true, media };
+      return { ok: true, response };
     } catch (error) {
       return { ok: false, error };
     }
