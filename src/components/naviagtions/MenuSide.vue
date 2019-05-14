@@ -1,13 +1,12 @@
 <template>
   <div class="side-wr">
-    <div @click="showSidebar" class="btn-menu">
-      <input type="checkbox">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div class="menu-block">
+      <span @click="openLockMenuSide" v-if="blockMenu"><icon name="lock" /></span>
+      <span @click="lockMenuSide" v-if="openkMenu"><icon name="lock-open" /></span>
     </div>
+    <div @mouseover="showSidebar" v-if="showSideHover" class="event-wr"></div>
     <transition name="slideRight">
-      <div v-if="isShowSideBar" class="sidebar">
+      <div v-if="isShowSideBar" class="sidebar" @mouseleave="hideSideBar">
         <div class="sidebar__child">
           <div class="sidebar__child--elm">
             <router-link :to="{ name: 'my_info'}">my info</router-link>
@@ -38,13 +37,26 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      isShowSideBar: false
+      isShowSideBar: false,
+      blockMenu: false,
+      openkMenu: true,
+      showSideHover: true
     };
   },
   methods: {
     ...mapActions(["signOut"]),
+    lockMenuSide() {
+      this.showSideHover = false
+      this.blockMenu = true,
+      this.openkMenu = false
+    },
+    openLockMenuSide() {
+      this.showSideHover = true
+      this.blockMenu = false,
+      this.openkMenu = true
+    },
     showSidebar() {
-      this.isShowSideBar = !this.isShowSideBar;
+      this.isShowSideBar = true;
     },
     hideSideBar() {
       this.isShowSideBar = false;
@@ -65,59 +77,26 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 999;
-  .btn-menu {
-    position: absolute;
-    top: 60px;
-    right: 30px;
+  z-index: 991;
+  .menu-block {
+    position: fixed;
     z-index: 999;
-    input {
-      display: block;
-      width: 40px;
-      height: 32px;
-      position: absolute;
-      top: -7px;
-      left: -5px;
+    right: 45px;
+    top: 50px;
+    opacity: 0.3;
+    svg {
       cursor: pointer;
-      opacity: 0;
-      z-index: 999;
-      -webkit-touch-callout: none;
-    }
-    span {
-      display: block;
-      width: 33px;
-      height: 4px;
-      margin-bottom: 5px;
-      position: relative;
-      background: #cdcdcd;
-      border-radius: 3px;
-      z-index: 1;
-      transform-origin: 4px 0px;
-      transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
-        background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
-    }
-    span:first-child {
-      transform-origin: 0% 0%;
-    }
-    span:nth-last-child(2) {
-      transform-origin: 0% 100%;
-    }
-    input:checked ~ span {
-      opacity: 1;
-      transform: rotate(45deg) translate(-22px, -1px);
-      background: #232323;
-    }
-    input:checked ~ span:nth-last-child(3) {
-      opacity: 0;
-      transform: rotate(0deg) scale(0.2, 0.2);
-    }
-    input:checked ~ span:nth-last-child(2) {
-      transform: rotate(-45deg) translate(-18px, -1px);
     }
   }
+  .event-wr {
+    height: 100%;
+    width: 40px;
+    position: fixed;
+    right: 0;
+  }
   .sidebar {
-    z-index: 998;
-    width: 200px;
+    z-index: 990;
+    width: 130px;
     height: 100%;
     padding-top: 60px;
     position: fixed;
@@ -132,14 +111,14 @@ export default {
       white-space: nowrap;
       text-transform: uppercase;
       .sidebar__child--elm {
-        padding: 15px 10px;
+        padding: 15px 5px;
         a {
           text-decoration: none;
           color: #fff;
-          font-size: 14px;
-          margin-left: 10%;
+          font-size: 12px;
+          margin-left: 5%;
           font-family: 'Montserrat', sans-serif;
-          font-weight: 300;
+          font-weight: 500;
           letter-spacing: 1px;
         }
       }
