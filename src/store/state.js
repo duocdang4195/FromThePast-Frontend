@@ -16,5 +16,6 @@ export default {
     search: [],
     type: '',
     detailOrder: [],
-    idBooking: ''
+    idBooking: '',
+    backgroundPage: {}
 }

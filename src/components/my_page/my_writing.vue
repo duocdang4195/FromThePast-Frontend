@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mr-fullslider" >
+    <div :style="getBackground" class="mr-fullslider" >
       <div class="mr-mywriting-wr">
         <ul v-for="(item, index) in listEmotionsAll" :key="index">
           <li>
@@ -23,19 +23,23 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "my_writing",
   data() {
-    return {};
+    return {
+    };
   },
   created() {
-		this.getEmotionsAll();
+    this.getEmotionsAll();
   },
   computed: {
-    ...mapGetters(["listEmotionsAll"])
+    ...mapGetters(["listEmotionsAll", "getBackgound"]),
+    getBackground() {
+      return "background-image:url('"+this.getBackgound.my_quotation_background+"');"
+    }
   },
   methods: {
     ...mapActions(["getEmotionsAll"]),
     checkImage(image) {
       if (!image) {
-        return "https://gemstatepatriot.com/blog/wp-content/uploads/2015/11/default.jpg";
+        return this.getBackgound.logo_dark
       } else {
         return image;
       }

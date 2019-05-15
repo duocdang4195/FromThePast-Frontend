@@ -54,5 +54,8 @@ export default {
   },
   updateIdBooking(state, idBooking) {
     state.idBooking = idBooking
+  },
+  updateBackground(state, backgroundPage) {
+    state.backgroundPage = backgroundPage
   }
 }

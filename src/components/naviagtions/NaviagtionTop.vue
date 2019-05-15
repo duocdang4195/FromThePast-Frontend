@@ -1,15 +1,11 @@
 <template>
   <div class="menu-wr">
     <div @mouseover="showMenu" class="menuhover"></div>
-    <transition 
-      name="slide"    
-      enter-active-class="slideInDown"
-      leave-active-class="slideOutUp"      
-    >
+    <transition name="slide" enter-active-class="slideInDown" leave-active-class="slideOutUp">
       <div @mouseleave="hideMenu" v-if="isShowMenu" class="menu">
         <div class="menu__logo" style="line-height:60px; vertical-align: middle;">
           <router-link :to="{ name: 'home'}">
-            <img src="http://tuquakhu.com/img/logo-dark.svg" alt="">
+            <img :src="getBackgound.logo_dark" alt>
           </router-link>
         </div>
         <div class="menu__child">
@@ -35,26 +31,29 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       isShowMenu: false
-    }
+    };
+  },
+  computed: {
+    ...mapGetters(["getBackgound"]),
   },
   methods: {
     showMenu() {
-      this.isShowMenu = true
+      this.isShowMenu = true;
     },
     hideMenu() {
-      this.isShowMenu = false
+      this.isShowMenu = false;
     }
   }
-}
+};
 </script>
 
 
 <style lang="scss" scoped>
-
 .menu-wr {
   display: inherit;
   width: 100%;
@@ -64,7 +63,7 @@ export default {
     width: 100%;
     height: 60px;
     position: fixed;
-    z-index: 999; 
+    z-index: 999;
     z-index: 999;
   }
   .menu {
@@ -75,7 +74,7 @@ export default {
     box-shadow: 1px 3px 3px rgba(180, 180, 180, 0.3);
     background-color: rgba(255, 255, 255, 0.9);
     height: 70px;
-    font-family: 'Montserrat', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-weight: 300;
     color: #3e3e3e;
     text-transform: uppercase;
