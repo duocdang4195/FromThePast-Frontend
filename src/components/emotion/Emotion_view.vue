@@ -380,6 +380,16 @@ ul {
         margin-bottom: 65px;
         font-size: 16px;
         line-height: 1.5;
+
+        > p { 
+          font-size: 16px;
+          > img {
+            position:relative;
+            display: inline-block;
+            width: auto;
+            max-width: 100%;
+          }
+        }
       }
       .mr-action-area {
         position: relative;
