@@ -1,7 +1,7 @@
 
 
 <template>
-  <div class="mr-emotion-list mr-serviceList-wr">
+  <div :style="getBackground" class="mr-emotion-list mr-serviceList-wr">
     <button class="mr-pre">
       <img @click="previousPage" src="../../assets/images/chevron-left.svg" alt>
     </button>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   data() {
@@ -59,6 +59,12 @@ export default {
         this.letterPrint = res.response.data
       }
     })
+  },
+  computed: {
+    ...mapGetters(['getBackgound']),
+    getBackground() {
+      return "background-image:url('"+this.getBackgound.becomewriter_background+"');"
+    }
   },
   methods: {
     ...mapActions(["getHandWrite", "getLetterPrint"]),

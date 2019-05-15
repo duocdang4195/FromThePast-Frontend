@@ -5,13 +5,25 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
 	name: 'app',
   data () {
     return {
       //
     }
-  }
+	},
+	async created() {
+		await this.getBackground()
+		await this.getProfileUser()
+		await this.getQuotations()
+		await this.getCommentsQuotations()
+		await this.getCommentsEmotions()
+  },
+	methods: {
+		...mapActions(['getBackground', 'getProfileUser', 'getQuotations', 'getCommentsQuotations', 'getCommentsEmotions'])
+	}
 }
 </script>
 

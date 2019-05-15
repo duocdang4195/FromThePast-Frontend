@@ -1,7 +1,6 @@
 
-import { mapActions } from 'vuex';
 <template>
-  <div class="mr-emotion-list mr-serviceList-wr">
+  <div :style="getBackground" class="mr-emotion-list mr-serviceList-wr">
     <div class="mr-article-wr">
       <div class="col-md-12">
         <div class="mr-serviceList">
@@ -48,7 +47,7 @@ import { mapActions } from 'vuex';
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 
 const validateEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -59,8 +58,14 @@ export default {
       name: "",
       email: "",
       phone: "",
-      content: ""
+      content: "",
     };
+  },
+  computed: {
+    ...mapGetters(['getBackgound']),
+    getBackground() {
+      return "background-image:url('"+this.getBackgound.becomewriter_background+"');"
+    }
   },
   methods: {
     ...mapActions(["becomeWriter"]),
@@ -194,7 +199,6 @@ export default {
   }
 }
 .mr-serviceList-wr {
-  background-image: url("../../assets/images/watchmen-1613267.png");
   .mr-article-wr {
     max-height: calc(100vh - 120px);
     overflow: auto;

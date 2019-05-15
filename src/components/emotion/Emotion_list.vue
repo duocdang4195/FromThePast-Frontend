@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-emotion-list">
+  <div :style="getBackground" class="mr-emotion-list">
     <div class="mr-featured-post">
       <h3>Featured writing</h3>
       <div class="mr-writing-box" v-for="(item, index) in showPostAdmin" :key="index">
@@ -59,12 +59,15 @@ export default {
     this.recentPost.unshift(this.contentEmotions);
   },
   computed: {
-    ...mapGetters(["getAllMyQuotationsCreate"]),
+    ...mapGetters(["getAllMyQuotationsCreate", "getBackgound"]),
     showPostAdmin() {
       let postAdmin = this.getAllMyQuotationsCreate.filter(item => {
         return item.selected === 1;
       });
       return postAdmin;
+    },
+    getBackground() {
+      return "background-image:url('"+this.getBackgound.becomewriter_background+"');"
     },
     delTagImg() {
       if(this.contentEmotions.content) {

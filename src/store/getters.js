@@ -49,5 +49,8 @@ export default {
 	},
 	getIdBooking(state) {
 		return state.idBooking
+	},
+	getBackgound(state) {
+		return state.backgroundPage
 	}
 }

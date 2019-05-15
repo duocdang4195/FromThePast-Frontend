@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-fullslider">
+  <div :style="getBackground" class="mr-fullslider">
     <div class="mr-mywriting-wr">
       <div class="my-quotation-tab">
         <div @click="showYourQuotation" class="my-quotation-tab__elm">Your Quotation</div>
@@ -98,6 +98,12 @@ export default {
         this.listQuotations = res.response.data;
       }
     });
+  },
+  computed: {
+    ...mapGetters(['getBackgound']),
+    getBackground() {
+      return "background-image:url('"+this.getBackgound.my_quotation_background+"');"
+    }
   },
   methods: {
     ...mapActions(["getAllMyQuotations", "getAllQuotationsRealtions"]),
