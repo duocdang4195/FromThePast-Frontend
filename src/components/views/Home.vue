@@ -24,7 +24,7 @@
         v-if="clickPost"
       >
         <vue-typer
-          :text="quotationRandom.content"
+          :text="showTypeText"
           :repeat="0"
           :shuffle="false"
           initial-action="typing"
@@ -74,7 +74,7 @@
         </div>
         <!-- show User Confirm Password -->
       </div>
-      <div class="content__actions content__author" v-if="quotaion.length > 0 && !isAuthenticated">
+      <div class="content__actions content__author" v-if="checkAuthen.length > 0 && !isAuthenticated">
         <v-tooltip top>
           <template v-slot:activator="{ on }">
             <p dark v-on="on" @click="toSignUp">Author</p>
@@ -82,7 +82,10 @@
           <span>Bạn có thể lưu thành tên tác giá nếu đăng ký</span>
         </v-tooltip>
       </div>
-      <div class="content__actions" v-if="isAuthenticated && getProfile">
+      <div class="content__actions content__author" v-if="quotaion.length > 0 && isAuthenticated">
+          <p>{{ getProfile.user.username }}</p>
+      </div>
+      <div class="content__actions" v-if="isAuthenticated && getProfile && quotaion.length == 0">
         <span>{{!getProfile.user.name ? getProfile.user.name : getProfile.user.email}}</span>
         <div :class="classLike">
           <span @click="likeStt">
@@ -104,7 +107,7 @@
           ></textarea>
         </div>
       </div>
-      <div class="content__actions" v-if="!isAuthenticated && quotaion.length == 0">
+      <div class="content__actions" v-if="!isAuthenticated && checkAuthen.length == 0">
         <span>Hidden</span>
         <div :class="classLike">
           <span @click="toSignUp">
@@ -148,6 +151,7 @@ export default {
       confirmPassword: "",
       comment: "",
       gender: "0",
+      showTypeText: [],
       checkUser: true,
       isUser: false,
       notUser: false,
@@ -160,12 +164,13 @@ export default {
       clickPost: true,
       createEvent: false,
       createUser: false,
-      isLogin: false
+      isLogin: false,
     };
   },
   created() {
     this.getQuotations();
     this.getProfileUser();
+    this.showTypeText = this.quotationRandom.content
   },
   computed: {
     ...mapGetters(["quotationRandom", "isAuthenticated", "getProfile"]),
@@ -179,23 +184,6 @@ export default {
         commented: this.isComment === true
       });
     }
-    // randomQuotations() {
-    //   let oldString = this.quotationRandom
-    //   let newString = '';
-    //   let i = 0,
-    //       l = oldString.length;
-    //   let quotationsRandom = setInterval(
-    //     function() {
-    //       newString = oldString.substr(0, i);
-    //       i++;
-    //       if (i === l) {
-    //         clearInterval(quotationsRandom);
-    //       }
-    //     },
-    //     80
-    //   );
-    //   return quotationsRandom;
-    // },
   },
   methods: {
     ...mapActions([
@@ -313,10 +301,8 @@ export default {
           gender: Number(this.gender)
         }).then(res => {
           if (res.ok) {
-            Swal.fire({
-              title: "Signup Success",
-              type: "success"
-            });
+            this.clickPost = true
+            this.showTypeText = `Welocome to ${this.userName} Passness`
           }
         });
       }

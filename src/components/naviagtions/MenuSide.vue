@@ -82,10 +82,15 @@ export default {
     position: fixed;
     z-index: 999;
     right: 45px;
-    top: 50px;
-    opacity: 0.3;
+    top: 55px;
+    opacity: 0.1;
+    transition: all 0.6s ease-in;
     svg {
       cursor: pointer;
+    }
+    &:hover {
+      opacity: 0.8;
+      transition: all 0.4s ease-in;
     }
   }
   .event-wr {
