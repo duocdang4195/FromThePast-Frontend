@@ -4,6 +4,7 @@ import HomeRoot from './components/HomeRoot.vue'
 import Home from './components/views/Home.vue';
 import main from './components/views/main.vue';
 import search from './components/views/search.vue';
+import search_skin from './components/views/search_skin.vue';
 import AuthenticateForm from './components/authenticate/AuthenticateForm.vue';
 import setup_pass from './components/authenticate/setup_pass.vue';
 import verify_account from './components/authenticate/verify_account.vue';
@@ -17,6 +18,7 @@ import my_service from './components/my_page/my_service.vue';
 import contact_list from './components/my_page/contact_list.vue';
 import Emotion_list from './components/emotion/Emotion_list.vue';
 import Emotion_view from './components/emotion/Emotion_view.vue';
+import recommend_list from './components/emotion/recommend_list.vue';
 import booking from './components/checkout/booking.vue';
 import checkout from './components/checkout/checkout.vue';
 import order_detail from './components/checkout/order_detail.vue';
@@ -137,6 +139,16 @@ export default new Router ({
 					path: '/setup_pass',
 					name: 'setup_pass',
 					component: setup_pass,
+				},
+				{
+					path: '/recommend_list',
+					name: 'recommend_list',
+					component: recommend_list,
+				},
+				{
+					path: '/search_skin',
+					name: 'search_skin',
+					component: search_skin,
 				},
       ],
       beforeEnter: ifAuthenticated

@@ -201,12 +201,15 @@
         a {
           position: relative;
           display: inline-block;
-          margin: 15px 0;
+          margin: 5px 0;
 
            img {
             position: relative;
-            width: 100%;
+            width: 50%;
            }
+        }
+        .mr-logo-1 {
+          text-align: right;
         }
         .mr-logo-2 {
           text-align: left;

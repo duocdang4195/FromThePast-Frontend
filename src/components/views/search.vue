@@ -1,217 +1,219 @@
 <template>
-  <div class="mr-section">
+  <div class="v-content__recomment_list">
+    <div class="mr-section">
 
-    <div class="blog-sidebar">
-      <div class="mr-sidebar">
-        <h4 class="mrg-btm-20">Emotions</h4>
-        <ul class="categories">
-          <li>
-            <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Happiness
-              <span>(40)</span>
-            </a>
-            <ul class="mr-sub-cat">
-              <li>
-                <a href="#">Laetus</a>
-              </li>
-              <li>
-                <a href="#">Felix</a>
-              </li>
-              <li>
-                <a href="#">Beatitudo</a>
-              </li>
-              <li>
-                <a href="#">Sublime Beatitudo.</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Sadness
-              <span>(35)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Anger
-              <span>(53)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Surprise
-              <span>(30)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Fear
-              <span>(24)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Disgust
-              <span>(19)</span>
-            </a>
-          </li>
-        </ul>
-        <!-- /categories -->
-      </div>
-      <!-- /sidebar-widget -->
-
-      <div class="mr-sidebar ">
-        <h4 class="mr-cat-2">Seasons</h4>
-        <ul class="categories">
-          <li>
-            <a href="#">
-              Jan
-              <span>(40)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Feb
-              <span>(35)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Mar
-              <span>(53)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Apr
-              <span>(40)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              May
-              <span>(35)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Jun
-              <span>(53)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Jul
-              <span>(40)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Aug
-              <span>(35)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Sep
-              <span>(53)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Oct
-              <span>(40)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Nov
-              <span>(35)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Dec
-              <span>(53)</span>
-            </a>
-          </li>
-        </ul>
-        <!-- /categories -->
-      </div>
-      <!-- /sidebar-widget -->
-    </div>
-    <!-- /blog-sidebar -->
-
-    <div class="mr-blog-content">
-       <div class="blog-post single-post mr-search-result">
-            <div class="mr-search-ttl" v-if="false">
-              <input type="text" placeholder="Keywords" class="mr-inputkeyword">
-            </div><!--./.mr-search-ttl  -->
-            <div class="mr-img-search-result" v-if="false">
-                <h5>Images for result </h5>   
-                <ul>
-                  <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
-                  <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
-                  <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
-                  <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
-                  <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
-                  <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
-                  <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
-                  <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
-                  <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
-                  <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
-                </ul>
-                <p>More images results for  <b>Searck keyword</b></p>
-            </div><!-- ./. mr-img-search-result -->
-            <div class="mr-text-result">
-              <ul>
+      <div class="blog-sidebar">
+        <div class="mr-sidebar">
+          <h4 class="mrg-btm-20">Emotions</h4>
+          <ul class="categories">
+            <li>
+              <a href="#">
+                <i class="mr-circle-mark">&#9675;</i>Happiness
+                <span>(40)</span>
+              </a>
+              <ul class="mr-sub-cat">
                 <li>
-                  <h5 class="mr-post-ttl">about</h5>
-                  <div class="search-content" v-if="aboutList.length > 0" v-for="(item, index) in aboutList" :key="index">
-                    <div class="mr-postcntn">{{  }}</div>
-                    <p class="mr-post-author"><span>Mr.Author</span></p>
-                  </div>
-                  <div class="search-content" v-else>
-                    <p class="mr-post-author"><span>No Results</span></p>
-                  </div>
+                  <a href="#">Laetus</a>
                 </li>
                 <li>
-                  <h5 class="mr-post-ttl">emotions</h5>
-                  <div class="search-content" v-if="emotionList.length > 0" v-for="(item, index) in emotionList" :key="index">
-                    <div class="mr-postcntn">{{ item.title }}</div>
-                  </div>
-                  <div class="search-content" v-else>
-                    <p class="mr-post-author"><span>No Results</span></p>
-                  </div>
+                  <a href="#">Felix</a>
                 </li>
                 <li>
-                  <h5 class="mr-post-ttl">quotations</h5>
-                  <div class="search-content" v-if="quotationList.length > 0" v-for="(item, index) in quotationList" :key="index">
-                    <div class="mr-postcntn">{{ item.content }}</div>
-                  </div>
-                  <div class="search-content" v-else>
-                    <p class="mr-post-author"><span>No Results</span></p>
-                  </div>
+                  <a href="#">Beatitudo</a>
                 </li>
                 <li>
-                  <h5 class="mr-post-ttl">user</h5>
-                  <div class="search-content" v-if="userList.length > 0" v-for="(item, index) in userList" :key="index">
-                    <div class="mr-postcntn">{{ item.email }}</div>
-                  </div>
-                  <div class="search-content" v-else>
-                    <p class="mr-post-author"><span>No Results</span></p>
-                  </div>
+                  <a href="#">Sublime Beatitudo.</a>
                 </li>
-
               </ul>
-            </div><!-- ./. mr-text-result -->
-            </div><!-- /blog-post -->
+            </li>
+            <li>
+              <a href="#">
+                <i class="mr-circle-mark">&#9675;</i>Sadness
+                <span>(35)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="mr-circle-mark">&#9675;</i>Anger
+                <span>(53)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="mr-circle-mark">&#9675;</i>Surprise
+                <span>(30)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="mr-circle-mark">&#9675;</i>Fear
+                <span>(24)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="mr-circle-mark">&#9675;</i>Disgust
+                <span>(19)</span>
+              </a>
+            </li>
+          </ul>
+          <!-- /categories -->
         </div>
-        <!-- /column -->
+        <!-- /sidebar-widget -->
+
+        <div class="mr-sidebar ">
+          <h4 class="mr-cat-2">Seasons</h4>
+          <ul class="categories">
+            <li>
+              <a href="#">
+                Jan
+                <span>(40)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Feb
+                <span>(35)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Mar
+                <span>(53)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Apr
+                <span>(40)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                May
+                <span>(35)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Jun
+                <span>(53)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Jul
+                <span>(40)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Aug
+                <span>(35)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Sep
+                <span>(53)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Oct
+                <span>(40)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Nov
+                <span>(35)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                Dec
+                <span>(53)</span>
+              </a>
+            </li>
+          </ul>
+          <!-- /categories -->
+        </div>
+        <!-- /sidebar-widget -->
+      </div>
+      <!-- /blog-sidebar -->
+
+      <div class="mr-blog-content">
+         <div class="blog-post single-post mr-search-result">
+              <div class="mr-search-ttl" v-if="false">
+                <input type="text" placeholder="Keywords" class="mr-inputkeyword">
+              </div><!--./.mr-search-ttl  -->
+              <div class="mr-img-search-result" v-if="false">
+                  <h5>Images for result </h5>   
+                  <ul>
+                    <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
+                    <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
+                    <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
+                    <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
+                    <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
+                    <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
+                    <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
+                    <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
+                    <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
+                    <li><span class="mr-search-img" style="background-image:url('../../assests/images/coffee-2085314.png');"></span></li>
+                  </ul>
+                  <p>More images results for  <b>Searck keyword</b></p>
+              </div><!-- ./. mr-img-search-result -->
+              <div class="mr-text-result">
+                <ul>
+                  <li>
+                    <h5 class="mr-post-ttl">about</h5>
+                    <div class="search-content" v-if="aboutList.length > 0" v-for="(item, index) in aboutList" :key="index">
+                      <div class="mr-postcntn">{{  }}</div>
+                      <p class="mr-post-author"><span>Mr.Author</span></p>
+                    </div>
+                    <div class="search-content" v-else>
+                      <p class="mr-post-author"><span>No Results</span></p>
+                    </div>
+                  </li>
+                  <li>
+                    <h5 class="mr-post-ttl">emotions</h5>
+                    <div class="search-content" v-if="emotionList.length > 0" v-for="(item, index) in emotionList" :key="index">
+                      <div class="mr-postcntn">{{ item.title }}</div>
+                    </div>
+                    <div class="search-content" v-else>
+                      <p class="mr-post-author"><span>No Results</span></p>
+                    </div>
+                  </li>
+                  <li>
+                    <h5 class="mr-post-ttl">quotations</h5>
+                    <div class="search-content" v-if="quotationList.length > 0" v-for="(item, index) in quotationList" :key="index">
+                      <div class="mr-postcntn">{{ item.content }}</div>
+                    </div>
+                    <div class="search-content" v-else>
+                      <p class="mr-post-author"><span>No Results</span></p>
+                    </div>
+                  </li>
+                  <li>
+                    <h5 class="mr-post-ttl">user</h5>
+                    <div class="search-content" v-if="userList.length > 0" v-for="(item, index) in userList" :key="index">
+                      <div class="mr-postcntn">{{ item.email }}</div>
+                    </div>
+                    <div class="search-content" v-else>
+                      <p class="mr-post-author"><span>No Results</span></p>
+                    </div>
+                  </li>
+
+                </ul>
+              </div><!-- ./. mr-text-result -->
+              </div><!-- /blog-post -->
+          </div>
+          <!-- /column -->
+      </div>
+      <!-- /mr-blog-content -->
     </div>
-    <!-- /mr-blog-content -->
+    <!-- ./.mr-section  -->
   </div>
-  <!-- ./.mr-section  -->
 </template>
 
 <script>
@@ -273,18 +275,23 @@ ul {
 a {
   text-decoration: none;
 }
+.v-content__recomment_list {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 .mr-section {
     position: relative;
     display: flex;
     flex-direction: row;
     width: 100vw;
     max-width: 1170px;
-    min-width: 1080px;
-    margin-left: calc((100vw - 1170px)/2);
+    min-width: 970px;
     padding-top: 100px;
     color: #333;
     font-family: 'IBM Plex Sans', sans-serif !important;
     font-weight: 300;
+    align-self: center;
     .blog-sidebar {
         flex: 1 0 25%;
     }
