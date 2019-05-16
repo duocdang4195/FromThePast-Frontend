@@ -5,7 +5,7 @@
       <ul class="mr-cmt-slider">
         <li>
           {{ comments.content }}
-          <span class="mr-author">{{ comments.user.name }}</span>
+          <span class="mr-author" v-if="comments.user.name">{{ comments.user.name }}</span>
         </li>
       </ul>
     </div>
