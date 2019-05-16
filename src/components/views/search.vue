@@ -287,6 +287,7 @@ a {
     width: 100vw;
     max-width: 1170px;
     min-width: 970px;
+    padding: 15px;
     padding-top: 100px;
     color: #333;
     font-family: 'IBM Plex Sans', sans-serif !important;

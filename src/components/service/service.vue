@@ -1,34 +1,32 @@
 
 
 <template>
-  <div class="mr-emotion-list mr-serviceList-wr">
+  <div class="mr-serviceList-wr">
     <button class="mr-pre">
       <img @click="previousPage" src="../../assets/images/chevron-left.svg" alt>
     </button>
 
-    <div class="mr-article-wr">
-      <div class="col-md-12">
+    <div class="mr-service-wr">
         <div class="mr-serviceList">
           <ul>
             <li v-if="pre">
+              <h3>{{ handwrite.title }}</h3>
               <div class="mr-servicntn">
-                <h3>{{ handwrite.title }}</h3>
                 <p v-html="handwrite.content"> {{ handwrite.content }} </p>
               </div>
               <button @click="bookHandWite" class="mr-bookservice">Book Hand Write</button>
             </li>
             <li v-if="next">
+              <h3>{{ letterPrint.title }}</h3>
               <div class="mr-servicntn">
-                <h3>{{ letterPrint.title }}</h3>
                 <p v-html="letterPrint.content"> {{ handwrite.content }} </p>
               </div>
               <button @click="bookPrint" class="mr-bookservice">Book Letter Print</button>
             </li>
           </ul>
         </div>
-      </div>
     </div>
-    <!-- ./.mr-article-wr  -->
+    <!-- ./.mr-service-wr  -->
 
     <button class="mr-next">
       <img @click="nextPage" src="../../assets/images/chevron-right.svg" alt>
@@ -83,7 +81,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 %full-width {
   position: relative;
   display: inline-block;
@@ -93,7 +91,7 @@ button::focus {
   outline: none;
   border: none;
 }
-.mr-emotion-list {
+.mr-serviceList-wr {
   position: relative;
   display: -webkit-flex;
   display: -moz-flex;
@@ -104,7 +102,7 @@ button::focus {
   min-height: 100vh;
   height: 100%;
   background-size: cover;
-  bacground-position: center center;
+  background-position: center center;
   background-repeat: no-repeat;
   justify-content: center;
   flex-direction: row;
@@ -144,7 +142,7 @@ button::focus {
       height: 100px;
     }
   }
-  .mr-article-wr {
+  .mr-service-wr {
     position: relative;
     display: inline-block;
     width: 60vw;
@@ -153,7 +151,6 @@ button::focus {
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent;
     padding: 60px;
-    overflow: auto;
     cursor: pointer;
 
     .mr-header {
@@ -185,21 +182,23 @@ button::focus {
 }
 .mr-serviceList-wr {
   background-image: url("../../assets/images/watchmen-1613267.png");
-  .mr-article-wr {
+  .mr-service-wr {
     max-height: calc(100vh - 120px);
-    overflow: auto;
     border: 60px solid transparent;
     border-left: 0;
     border-right: 0;
-    padding: 0 60px;
+    padding: 0;
   }
 
   .mr-serviceList {
     @extend %full-width;
+    height: 100%;
 
     ul {
       @extend %full-width;
       margin: 0;
+      padding: 0;
+      height: 100%;
 
       li {
         position: relative;
@@ -209,6 +208,7 @@ button::focus {
         display: -o-flex;
         display: flex;
         flex-direction: column;
+        height: 100%;
 
         .mr-serviceList-img {
           flex: 1 0 100%;
@@ -221,17 +221,31 @@ button::focus {
             max-width: 100%;
           }
         }
+        h3 {
+          position: relative;
+          display: inline-block;
+          font-size: 25px;
+          font-weight: 700;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+          text-align: center;
+        }
         .mr-servicntn {
           flex: 1 0 100%;
-          margin-top: 50px;
-          h3 {
-            position: relative;
-            display: inline-block;
-            font-size: 30px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-transform: uppercase;
+          height: calc(100% - 50px);
+          margin-top: 0px;
+          padding: 0 60px;
+          overflow-y: auto;
+          p {
+            margin-bottom: 0;
           }
+
+          img {
+              position: relative;
+              display: inline-block;
+              max-width: 100% !important;
+              width: auto;
+            }
 
           p {
             font-size: 20px;
@@ -239,26 +253,45 @@ button::focus {
             text-align: justify;
             display: inline-block;
             width: 100%;
+
+            img {
+              position: relative;
+              display: inline-block;
+              max-width: 100%;
+              width: auto;
+            }
+          }
+          .ql-align-center img {
+              position: relative;
+              display: inline-block;
+              max-width: 100%;
+              width: auto;
+
           }
         }
         .mr-servicntn img {
-          width: 100%;
+          position: relative;
+          display: inline-block;
+          max-width: 100%;
+          width: auto;
           height: auto;
         }
         .mr-bookservice {
           position: relative;
           display: inline-block;
           float: right;
-          width: 150px;
-          height: 40px;
-          background-color: #456789;
+          width: fit-content;
+          background-color: #101010;
           color: #fff;
           border: 0;
-          font-size: 17px;
+          font-size: 14px;
           text-transform: uppercase;
+          padding: 10px 15px;
           margin-top: 25px;
           order: 2;
           margin-left: auto;
+           font-family: "Montserrat", sans-serif;
+           letter-spacing: 2px;
         }
       }
     }

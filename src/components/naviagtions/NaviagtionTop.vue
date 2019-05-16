@@ -9,7 +9,7 @@
       <div @mouseleave="hideMenu" v-if="isShowMenu" class="menu">
         <div class="menu__logo" style="line-height:60px; vertical-align: middle;">
           <router-link :to="{ name: 'home'}">
-            <img src="http://tuquakhu.com/img/logo-dark.svg" alt="">
+            <img src="@/assets/images/pasness_logo_no_border.svg">
           </router-link>
         </div>
         <div class="menu__child">
@@ -53,7 +53,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 .menu-wr {
   display: inherit;
@@ -86,6 +86,8 @@ export default {
       line-height: 70px;
       width: 140px;
       img {
+        position: relative;
+        top: 20px;
         width: 100%;
       }
     }

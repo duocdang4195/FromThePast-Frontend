@@ -1,45 +1,48 @@
 
 import { mapActions } from 'vuex';
 <template>
-  <div class="mr-emotion-list mr-serviceList-wr">
+  <div class="mr-serviceList-wr">
     <div class="mr-article-wr">
       <div class="col-md-12">
         <div class="mr-serviceList">
-          <div class="mr-servicntn">
             <h3>Become writer</h3>
+          <div class="mr-servicntn">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
-          <div class="mr-regiter-writer">
-            <div class>
+            <div class="mr-regiter-writer">
               <div class>
-                <v-text-field v-model="name" label="Name" color="rgba(0,0,0,0.9)"></v-text-field>
-              </div>
-              <div class>
-                <v-text-field v-model="email" label="Email" color="rgba(0,0,0,0.9)"></v-text-field>
-              </div>
-              <div class="signup__input">
-                <v-text-field
-                  v-model="phone"
-                  label="Phone number"
+                <div class>
+                  <v-text-field v-model="name" label="Name" color="rgba(0,0,0,0.9)"></v-text-field>
+                </div>
+                <div class>
+                  <v-text-field v-model="email" label="Email" color="rgba(0,0,0,0.9)"></v-text-field>
+                </div>
+                <div class="signup__input">
+                  <v-text-field
+                    v-model="phone"
+                    label="Phone number"
+                    color="rgba(0,0,0,0.9)"
+                    type="number"
+                  ></v-text-field>
+                </div>
+                <v-textarea
+                  class="mr-sample-blog"
+                  v-model="content"
+                  name="input-7-1"
+                  label="Write your article here"
                   color="rgba(0,0,0,0.9)"
-                  type="number"
-                ></v-text-field>
+                  resize="false"
+                ></v-textarea>
+                <!-- ./.login__btn  -->
               </div>
-              <v-textarea
-                class="mr-sample-blog"
-                v-model="content"
-                name="input-7-1"
-                label="Write your article here"
-                color="rgba(0,0,0,0.9)"
-                resize="false"
-              ></v-textarea>
-              <div class="reg__btn">
-                <v-btn :block="true" @click="registerWriter">Send</v-btn>
-              </div>
-              <!-- ./.login__btn  -->
             </div>
-          </div>
           <!-- ./.mr-regiter-writer -->
+
+          </div>
+           
+
+        <div class="reg__btn">
+          <v-btn :block="true" @click="registerWriter">Send</v-btn>
+        </div>
         </div>
       </div>
     </div>
@@ -125,7 +128,7 @@ export default {
     color: #212121;
   }
 }
-.mr-emotion-list {
+.mr-serviceList-wr {
   position: relative;
   display: -webkit-flex;
   display: -moz-flex;
@@ -166,6 +169,12 @@ export default {
     overflow: auto;
     cursor: pointer;
 
+    .col-md-12 {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
     .mr-header {
       @extend %full-width;
       font-size: 20px;
@@ -201,36 +210,43 @@ export default {
     border: 60px solid transparent;
     border-left: 0;
     border-right: 0;
-    padding: 0 60px;
+    padding: 0;
   }
 
   .mr-serviceList {
     @extend %full-width;
+    height: 100%;
 
-    .mr-regiter-writer {
-      .mr-sample-blog {
-        textarea {
-          resize: none;
-        }
-      }
+    
+   h3 {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      font-size: 25px;
+      font-weight: 400;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      text-align: center;
     }
     .mr-servicntn {
       flex: 1 0 100%;
-
-      h3 {
-        position: relative;
-        display: inline-block;
-        font-size: 30px;
-        font-weight: 400;
-        margin-bottom: 20px;
-        text-transform: uppercase;
-      }
+      height: calc(100% - 105px);
+      padding: 0 60px;
+      overflow-y: auto;
+     
 
       p {
         font-size: 16px;
         line-height: 1.5;
         text-align: justify;
       }
+      .mr-regiter-writer {
+      .mr-sample-blog {
+        textarea {
+          resize: none;
+        }
+      }
+    } 
     }
     .mr-bookservice {
       position: relative;
@@ -250,6 +266,11 @@ export default {
   }
 }
 .reg__btn {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  padding: 0 60px;
+  top: 20px;
   button {
     margin-left: 0;
     color: #fff;

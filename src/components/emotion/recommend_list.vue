@@ -233,6 +233,7 @@ ul {
   position: relative;
   display: flex;
   flex-direction: row;
+  padding: 15px;
   width: 100vw;
   max-width: 1170px;
   min-width: 970px;

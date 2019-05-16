@@ -6,7 +6,7 @@
     <div class="content">
       <div class="content__logo">
         <router-link :to="{ name: 'home_root'}">
-          <img src="@/assets/images/logoHome.svg" alt>
+          <img src="@/assets/images/pasness_logo_no_border_white.svg" alt>
         </router-link>
       </div>
       <div class="content__input--quotaion" v-if="checkUser && !isAuthenticated && createUser">
