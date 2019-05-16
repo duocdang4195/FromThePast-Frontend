@@ -1,59 +1,16 @@
 <template>
-  <div class="mr-section">
+  <div class="mr-section" v-cloak>
     <div class="blog-sidebar">
       <div class="mr-sidebar">
         <h4 class="mrg-btm-20">Emotions</h4>
         <ul class="categories">
-          <li>
+          <li v-for="tag in viewEmotion.tags">
             <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Happiness
-              <span>(40)</span>
-            </a>
-            <ul class="mr-sub-cat">
-              <li>
-                <a href="#">Laetus</a>
-              </li>
-              <li>
-                <a href="#">Felix</a>
-              </li>
-              <li>
-                <a href="#">Beatitudo</a>
-              </li>
-              <li>
-                <a href="#">Sublime Beatitudo.</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Sadness
-              <span>(35)</span>
+              <i class="mr-circle-mark">&#9675;</i> {{tag}}
+              <!-- <span>(40)</span> -->
             </a>
           </li>
-          <li>
-            <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Anger
-              <span>(53)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Surprise
-              <span>(30)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Fear
-              <span>(24)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="mr-circle-mark">&#9675;</i>Disgust
-              <span>(19)</span>
-            </a>
-          </li>
+
         </ul>
         <!-- /categories -->
       </div>

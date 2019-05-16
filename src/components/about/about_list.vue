@@ -1,5 +1,4 @@
 <template>
-	<div>
 		<div class="mr-about-wr">
 			<div class="mr-aboutList">
 				<div class="mr-about-pos">
@@ -26,7 +25,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </template>
 
 <script>
@@ -55,7 +53,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+	ul {
+		padding-left:0 !important;
+	}
 	.mr-about-wr {position: relative; display: inline-block; width: 100%; height: auto;min-height: 100vh; margin: 0; padding: 0; background-color: #f1f1f1;}
 	.mr-aboutList {position: relative; display: block; width: 100%; max-width: 1010px; min-width: 320px; padding: 0 15px; margin: 200px auto 100px;  -webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

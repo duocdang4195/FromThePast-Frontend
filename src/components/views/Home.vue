@@ -343,7 +343,6 @@ export default {
   height: 100%;
   position: relative;
   .background {
-    position: fixed;
     right: 0;
     bottom: 0;
     min-width: 100%;

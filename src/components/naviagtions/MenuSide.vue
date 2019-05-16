@@ -101,10 +101,11 @@ export default {
   }
   .sidebar {
     z-index: 990;
-    width: 130px;
+    width: 142px;
     height: 100%;
     padding-top: 60px;
     position: fixed;
+    padding-left:12px;
     top: 0;
     right: 0;
     transition: 0.5s;
