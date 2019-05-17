@@ -1,4 +1,6 @@
 <template>
+
+ <div class="v-content__insider">
   <div class="mr-section" v-cloak>
     <div class="blog-sidebar">
       <div class="mr-sidebar">
@@ -10,7 +12,6 @@
               <!-- <span>(40)</span> -->
             </a>
           </li>
-
         </ul>
         <!-- /categories -->
       </div>
@@ -93,96 +94,96 @@
         </ul>
         <!-- /categories -->
       </div>
-      <!-- /sidebar-widget -->
-    </div>
-    <!-- /column -->
+      <!-- /column -->
 
-    <div class="mr-blog-content">
-      <div class="mr-emotion-view">
-        <div class="blog-wrapper" v-if="viewEmotion" v-cloak>
-          <div class="blog-img">
-            <img class="img-responsive" :src="viewEmotion.image" alt>
-          </div>
-          <!-- blog-img -->
-
-          <div class="mr-post-content">
-            <h3 class="mr-post-tittle">
-              <a href="#">{{ viewEmotion.title }}</a>
-            </h3>
-
-            <div class="mr-post-meta">
-              <p v-if="viewEmotion.user">
-                By
-                <span>{{ viewEmotion.user.name }}</span>
-                <span class="pdd-horizon-5">/</span>
-                <i class="ti-time pdd-right-5"></i>
-                <span>{{ viewEmotion.updated_at | moment("MMMM Do YYYY")}}</span>
-                <span class="pdd-horizon-5">/</span>
-                <i class="ti-comment pdd-right-5"></i>
-                <a href="#">{{ viewEmotion.comment.length }} Comments</a>
-              </p>
+      <div class="mr-blog-content">
+        <div class="mr-emotion-view">
+          <div class="blog-wrapper" v-if="viewEmotion" v-cloak>
+            <div class="blog-img">
+              <img class="img-responsive" :src="viewEmotion.image" alt>
             </div>
-            <p
-              class="mr-writing-content"
-              v-html="viewEmotion.content"
-            >{{ viewEmotion.content }}</p>
-            <div class="mr-action-area">
-              <div class="share mrg-top-50">
-                <h5 class="mrg-btm-15">Share Post :</h5>
-                <div class="social-icon mrg-top-15">
-                  <a href="#" class="btn btn-icon facebook border no-border circle text-gray">
-                    <i data-v-715ff4e2 class="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#" class="btn btn-icon twitter border no-border circle text-gray">
-                    <i data-v-715ff4e2 class="fab fa-twitter"></i>
-                  </a>
-                  <a href="#" class="btn btn-icon instagram border no-border circle text-gray">
-                    <i data-v-715ff4e2 class="fab fa-instagram"></i>
-                  </a>
-                  <a href="#" class="btn btn-icon google border no-border circle text-gray">
-                    <i data-v-715ff4e2 class="fab fa-google-plus-g"></i>
-                  </a>
-                </div>
-                <!-- /social-icon -->
-                <div class="mr-action-btn">
-                  <button class="btn btn-lg btn-style-2 mr-book-service" @click="orderEmotion">Book service</button>
-                  <button class="btn btn-lg btn-style-2 mr-write-post" @click="goTo">Write</button>
-                </div>
+            <!-- blog-img -->
+
+            <div class="mr-post-content">
+              <h3 class="mr-post-tittle">
+                <a href="#">{{ viewEmotion.title }}</a>
+              </h3>
+
+              <div class="mr-post-meta">
+                <p v-if="viewEmotion.user">
+                  By
+                  <span>{{ viewEmotion.user.name }}</span>
+                  <span class="pdd-horizon-5">/</span>
+                  <i class="ti-time pdd-right-5"></i>
+                  <span>{{ viewEmotion.updated_at | moment("MMMM Do YYYY")}}</span>
+                  <span class="pdd-horizon-5">/</span>
+                  <i class="ti-comment pdd-right-5"></i>
+                  <a href="#">{{ viewEmotion.comment.length }} Comments</a>
+                </p>
               </div>
-              <!-- /share -->
+              <p
+                class="mr-writing-content"
+                v-html="viewEmotion.content"
+              >{{ viewEmotion.content }}</p>
+              <div class="mr-action-area">
+                <div class="share mrg-top-50">
+                  <h5 class="mrg-btm-15">Share Post :</h5>
+                  <div class="social-icon mrg-top-15">
+                    <a href="#" class="btn btn-icon facebook border no-border circle text-gray">
+                      <i data-v-715ff4e2 class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="btn btn-icon twitter border no-border circle text-gray">
+                      <i data-v-715ff4e2 class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="btn btn-icon instagram border no-border circle text-gray">
+                      <i data-v-715ff4e2 class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="btn btn-icon google border no-border circle text-gray">
+                      <i data-v-715ff4e2 class="fab fa-google-plus-g"></i>
+                    </a>
+                  </div>
+                  <!-- /social-icon -->
+                  <div class="mr-action-btn">
+                    <button class="btn btn-lg btn-style-2 mr-book-service" @click="orderEmotion">Book service</button>
+                    <button class="btn btn-lg btn-style-2 mr-write-post" @click="goTo">Write</button>
+                  </div>
+                </div>
+                <!-- /share -->
+              </div>
+              <!-- /post-bottom -->
             </div>
-            <!-- /post-bottom -->
-          </div>
-          <!-- /post-content -->
+            <!-- /post-content -->
 
-          <div class="mr-comment-wrapper mrg-top-50" v-if="viewEmotion.comment">
-            <h3 class="mrg-btm-40">Comments( {{ viewEmotion.comment.length }} )</h3>
-            <Comments v-for=" (comment, index) in viewEmotion.comment" :key="index" :item="comment"/>
-            <!-- /comment -->
+            <div class="mr-comment-wrapper mrg-top-50" v-if="viewEmotion.comment">
+              <h3 class="mrg-btm-40">Comments( {{ viewEmotion.comment.length }} )</h3>
+              <Comments v-for=" (comment, index) in viewEmotion.comment" :key="index" :item="comment"/>
+              <!-- /comment -->
+            </div>
+            <!-- /comment-wrapper -->
+            <div class="form-group mr-cmnt-wr">
+              <textarea
+                v-model="content"
+                class="form-control"
+                name="message"
+                placeholder="Write a comment"
+                @keydown.enter.prevent="submitComment"
+              ></textarea>
+            </div>
+            <!-- form-group -->
+            <div class="clearfix text-right">
+              <button class="mr-submitBtn" @click="submitComment">SUMBIT</button>
+            </div>
+            <!-- /clearfix -->
           </div>
-          <!-- /comment-wrapper -->
-          <div class="form-group mr-cmnt-wr">
-            <textarea
-              v-model="content"
-              class="form-control"
-              name="message"
-              placeholder="Write a comment"
-              @keydown.enter.prevent="submitComment"
-            ></textarea>
-          </div>
-          <!-- form-group -->
-          <div class="clearfix text-right">
-            <button class="mr-submitBtn" @click="submitComment">SUMBIT</button>
-          </div>
-          <!-- /clearfix -->
+          <!-- blog-wrapper -->
         </div>
-        <!-- blog-wrapper -->
+        <!-- /blog-post -->
       </div>
-      <!-- /blog-post -->
+      <!-- /column -->
     </div>
-    <!-- /column -->
-  </div>
-  <!-- ./.mr-section  -->
+    <!-- ./.mr-section  -->
+  </div><!-- ./. v-content__insider  -->
+ </div>
 </template>
 
 <script>
@@ -240,7 +241,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 %default-button {
   margin: 0 10px;
   background-color: #212121;
@@ -265,18 +266,24 @@ ul {
     list-style: none;
   }
 }
+.v-content__insider {
+  position: relative;
+  display:flex;
+  width: 100%;
+  justify-content: center;
+}
 .mr-section {
   position: relative;
   display: flex;
   flex-direction: row;
   width: 100vw;
   max-width: 1170px;
-  min-width: 1080px;
-  margin-left: calc((100vw - 1170px) / 2);
+  min-width: 970px;
+  padding: 15px;
   padding-top: 100px;
   color: #333;
-  font-family: "IBM Plex Sans", sans-serif !important;
   font-weight: 300;
+  align-self: center;
   .blog-sidebar {
     flex: 1 0 25%;
   }
@@ -292,12 +299,12 @@ ul {
       }
     }
     .mr-post-content {
-      font-family: "IBM Plex Sans", sans-serif !important;
       font-weight: 300;
       .mr-post-tittle {
+        margin-top: 30px;
         margin-bottom: 10px;
-        font-size: 15px;
-        font-weight: 300;
+        font-size: 22px;
+        font-weight: 700;
         text-transform: uppercase;
         color: #3e3e3e;
         a {
@@ -346,6 +353,12 @@ ul {
             width: auto;
             max-width: 100%;
           }
+        }
+        > p > img {
+          position:relative;
+          display: inline-block;
+          width: auto;
+          max-width: 100%;
         }
       }
       .mr-action-area {
@@ -508,7 +521,7 @@ ul {
       margin-bottom: 15px;
       font-size: 15px;
       font-family: "Montserrat", sans-serif;
-      font-weight: 300;
+      font-weight: 400;
       text-transform: uppercase;
       letter-spacing: 1px;
     }

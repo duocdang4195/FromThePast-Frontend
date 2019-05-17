@@ -2,7 +2,7 @@
   <div :style="getBackground" class="mr-fullslider">
     <div class="mr-myquote-wr">
       <div class="my-quotation-tab">
-        <div @click="showYourQuotation" class="my-quotation-tab__elm">Your Quotation</div>
+        <div @click="showYourQuotation" class="my-quotation-tab__elm active">Your Quotation</div>
         <div @click="showYourQuotationRelation" class="my-quotation-tab__elm">Quotation Relation</div>
       </div>
       <ul>
@@ -133,16 +133,8 @@ export default {
   align-items: center;
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 300;
-  .my-quotation-tab {
-    display: flex;
-    align-items: center;
-    .my-quotation-tab__elm {
-      width: 150px;
-      text-align-last: center;
-      border: 1px solid #000;
-			cursor: pointer;
-    }
-  }
+  padding: 0 15px;
+
   .mr-mystatus {
     position: relative;
     height: auto;
@@ -160,16 +152,14 @@ export default {
   position: relative;
   display: inline-block;
   max-width: 1200px;
-  height: auto;
-  max-height: calc(100vh - 160px);
+  height: calc(100vh - 160px);
   margin-top: 40px;
   margin-bottom: 40px;
   width: 100%;
-  padding: 50px;
+  padding: 50px 0;
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid #e3e3e3;
   box-shadow: 1px 3px 5px rgba(180, 180, 180, 0.5);
-  overflow: auto;
 
   ul {
     > li {
@@ -227,7 +217,36 @@ export default {
     }
   }
 }
+
+
 .mr-myquote-wr {
+  .my-quotation-tab {
+    position: absolute;
+    display: flex;
+    top: -1px;
+    width: 100%;
+    align-items: center;
+    .my-quotation-tab__elm {
+      width: 50%;
+      text-align-last: center;
+      border: 1px solid #000;
+      cursor: pointer;
+    }
+    .active {
+      background: rgba(0,0,0,0.5);
+      color: #ffffff90;
+    }
+  }
+  .mr-myquote-wr-list {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: calc(100% - 30px);
+    overflow: auto;
+    padding: 0 50px;  
+    word-break: break-word;
+  }
+
   .mr-myQuotation {
     > li {
       .mr-timer {

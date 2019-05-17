@@ -216,12 +216,18 @@ export default {
         a {
           position: relative;
           display: inline-block;
-          margin: 10px 0;
+          margin: 5px 0;
 
            img {
             position: relative;
             width: 100%;
            }
+        }
+        .mr-logo-2 {
+          text-align: right;
+          img {
+            width: 50%;
+          }
         }
       }
       .signup_form {
