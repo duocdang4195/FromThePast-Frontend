@@ -36,8 +36,14 @@
             </li>
             <li>
               <strong>Phone:</strong>
-              <span class="mr-underline">Add your number</span>
-              <span style="display: none;">0946 89 89 89</span>
+              <span class="mr-underline" v-if="!getProfile.user.phone" @click="showInputPhone = true">Add your number</span>
+                <v-text-field  v-model="phoneNumber" placeholder="Phone number" v-show="!getProfile.user.phone && showInputPhone"></v-text-field>
+                <div class="mr-action-btn" id="sign-in-button" @click="confirmPhone" v-show="!getProfile.user.phone && showInputPhone">Send Verify</div>
+                <!-- <button id="sign-in-button" @click="confirmPhone">Send Verify</button> -->
+                <v-text-field v-model="verifyCode" placeholder="Verify Code" v-show="!getProfile.user.phone && showInputVerify"></v-text-field>
+                <div class="mr-action-btn" @click="phoneVerify" v-show="!getProfile.user.phone && showInputVerify">Verify</div>
+
+              <span v-show="getProfile.user.phone">{{getProfile.user.phone}}</span>
             </li>
             <li v-if="false">
               <strong>Address:</strong>
@@ -93,6 +99,19 @@
 import { mapGetters, mapActions } from "vuex";
 import Swal from "sweetalert2";
 import moment from "moment";
+import * as firebase from 'firebase';
+import api from "@/plugins/axios";
+//Firebase initiate
+var config = {
+  apiKey: "AIzaSyDz48Py1okqAqqlMHkMALnw2Gpvgx9mJNI",
+  authDomain: "tuquakhu-9fcc5.firebaseapp.com",
+  databaseURL: "https://tuquakhu-9fcc5.firebaseio.com",
+  projectId: "tuquakhu-9fcc5",
+  storageBucket: "tuquakhu-9fcc5.appspot.com",
+  messagingSenderId: "840825466857"
+};
+firebase.initializeApp(config);
+
 
 export default {
   name: "component_name",
@@ -104,12 +123,29 @@ export default {
       confirmNewPassword: "",
       showChangePassword: false,
       showTextChange: true,
-      showQuotaions: []
+      showQuotaions: [],
+      //Firebase
+      showInputPhone: false,
+      showInputVerify: false,
+      phoneNumber: '',
+      verifyCode: null
     };
   },
   async created() {
     let { response } = await this.getQuotations();
     this.showQuotaions = response.data;
+  },
+  mounted(){
+    setTimeout(()=>{
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+            'size': 'invisible',
+            'callback': function(response) {
+              // reCAPTCHA solved, allow signInWithPhoneNumber.
+              onSignInSubmit();
+            }
+          }); 
+        }, 2000);
+
   },
   computed: {
     ...mapGetters(["getProfile", "quotationRandom"]),
@@ -137,6 +173,30 @@ export default {
       this.showChangePassword = true;
       this.showTextChange = false;
     },
+    confirmPhone() {
+        let phoneNumber = this.phoneNumber;
+        let appVerifier = window.recaptchaVerifier;
+        let self = this;
+        firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+            .then(function (confirmationResult) {
+              self.showInputVerify = true;
+              window.confirmationResult = confirmationResult;
+            }).catch(function (error) {
+              // Error; SMS not sent
+              // ...
+              Swal('Check your phone number');
+            }); 
+    },  
+    phoneVerify(){
+      let that = this;
+      window.confirmationResult.confirm(this.verifyCode).then(()=>{
+        //Update API
+        api.post("user/update_phone_number", { phoneNumber: this.phoneNumber}).then((rs)=>{
+          Swal('Update success');
+          this.getProfile.user.phone = this.phoneNumber;
+        });
+      });
+    },      
     getNewPassword() {
       if (this.confirmNewPassword !== this.newPaswword) {
         Swal.fire({
