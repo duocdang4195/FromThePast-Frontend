@@ -1,6 +1,6 @@
 <template>
   <div :style="getBackground" class="mr-fullslider">
-    <div class="mr-mywriting-wr">
+    <div class="mr-myquote-wr">
       <div class="my-quotation-tab">
         <div @click="showYourQuotation" class="my-quotation-tab__elm">Your Quotation</div>
         <div @click="showYourQuotationRelation" class="my-quotation-tab__elm">Quotation Relation</div>
@@ -158,7 +158,7 @@ export default {
     padding: 60px;
   }
 }
-.mr-mywriting-wr {
+.mr-myquote-wr {
   position: relative;
   display: inline-block;
   max-width: 1200px;
@@ -229,7 +229,7 @@ export default {
     }
   }
 }
-.mr-mywriting-wr {
+.mr-myquote-wr {
   .mr-myQuotation {
     > li {
       .mr-timer {
