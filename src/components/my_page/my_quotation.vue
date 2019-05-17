@@ -2,74 +2,76 @@
   <div :style="getBackground" class="mr-fullslider">
     <div class="mr-mywriting-wr">
       <div class="my-quotation-tab">
-        <div @click="showYourQuotation" class="my-quotation-tab__elm">Your Quotation</div>
+        <div @click="showYourQuotation" class="my-quotation-tab__elm active">Your Quotation</div>
         <div @click="showYourQuotationRelation" class="my-quotation-tab__elm">Quotation Relation</div>
       </div>
-      <ul
-        v-if="yourQuotations"
-        class="mr-myQuotation"
-        v-for="(item, index) in listQuotations"
-        :key="index"
-      >
-        <li>
-          <span class="mr-timer">
-            <span class="mr-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
-          </span>
-          <div class="mr-content">
-            <p class="mr-content__content--main">{{ item.content }}</p>
-            <p class="rh-interactions">
-              <span class="mr-comment-count">
-                <i class="ti-comment-alt"></i>
-                {{ item.comments.length }} comments
-              </span>
-              <span class="mr-likes">
-                <i class="ti-heart"></i>
-                {{ item.likes.length }} likes
-              </span>
-            </p>
-            <ul class="mr-comment">
-              <li v-for="(listComment, index) in item.comments" :key="index">
-                <span v-if="listComment.user" class="mr-cmt-author">{{ listComment.user.name }}</span>
-                <span
-                  class="mr-cmt-time"
-                >{{ listComment.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
-                <br>
-                <p>{{ listComment.content }}</p>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-      <ul v-else class="mr-myQuotation" v-for="(item) in quotationsRelation">
-        <li>
-          <span class="mr-timer">
-            <span class="mr-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
-          </span>
-          <div class="mr-content">
-            <p class="mr-content__content--main">{{ item.content }}</p>
-            <p class="rh-interactions">
-              <span class="mr-comment-count">
-                <i class="ti-comment-alt"></i>
-                {{ item.comments.length }} comments
-              </span>
-              <span class="mr-likes">
-                <i class="ti-heart"></i>
-                {{ item.likes.length }} likes
-              </span>
-            </p>
-            <ul class="mr-comment">
-              <li v-for="(listComment, index) in item.comments" :key="index">
-                <span v-if="listComment.user" class="mr-cmt-author">{{ listComment.user.name }}</span>
-                <span
-                  class="mr-cmt-time"
-                >{{ listComment.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
-                <br>
-                <p>{{ listComment.content }}</p>
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
+     <div class="mr-mywriting-wr-list">
+       <ul
+          v-if="yourQuotations"
+          class="mr-myQuotation"
+          v-for="(item, index) in listQuotations"
+          :key="index"
+        >
+          <li>
+            <span class="mr-timer">
+              <span class="mr-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
+            </span>
+            <div class="mr-content">
+              <p class="mr-content__content--main">{{ item.content }}</p>
+              <p class="rh-interactions">
+                <span class="mr-comment-count">
+                  <i class="ti-comment-alt"></i>
+                  {{ item.comments.length }} comments
+                </span>
+                <span class="mr-likes">
+                  <i class="ti-heart"></i>
+                  {{ item.likes.length }} likes
+                </span>
+              </p>
+              <ul class="mr-comment">
+                <li v-for="(listComment, index) in item.comments" :key="index">
+                  <span v-if="listComment.user" class="mr-cmt-author">{{ listComment.user.name }}</span>
+                  <span
+                    class="mr-cmt-time"
+                  >{{ listComment.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+                  <br>
+                  <p>{{ listComment.content }}</p>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <ul v-else class="mr-myQuotation" v-for="(item) in quotationsRelation">
+          <li>
+            <span class="mr-timer">
+              <span class="mr-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
+            </span>
+            <div class="mr-content">
+              <p class="mr-content__content--main">{{ item.content }}</p>
+              <p class="rh-interactions">
+                <span class="mr-comment-count">
+                  <i class="ti-comment-alt"></i>
+                  {{ item.comments.length }} comments
+                </span>
+                <span class="mr-likes">
+                  <i class="ti-heart"></i>
+                  {{ item.likes.length }} likes
+                </span>
+              </p>
+              <ul class="mr-comment">
+                <li v-for="(listComment, index) in item.comments" :key="index">
+                  <span v-if="listComment.user" class="mr-cmt-author">{{ listComment.user.name }}</span>
+                  <span
+                    class="mr-cmt-time"
+                  >{{ listComment.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+                  <br>
+                  <p>{{ listComment.content }}</p>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
   <!-- ./. mr-fullslider -->
@@ -135,16 +137,8 @@ export default {
   align-items: center;
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 300;
-  .my-quotation-tab {
-    display: flex;
-    align-items: center;
-    .my-quotation-tab__elm {
-      width: 150px;
-      text-align-last: center;
-      border: 1px solid #000;
-			cursor: pointer;
-    }
-  }
+  padding: 0 15px;
+
   .mr-mystatus {
     position: relative;
     height: auto;
@@ -162,16 +156,14 @@ export default {
   position: relative;
   display: inline-block;
   max-width: 1200px;
-  height: auto;
-  max-height: calc(100vh - 160px);
+  height: calc(100vh - 160px);
   margin-top: 40px;
   margin-bottom: 40px;
   width: 100%;
-  padding: 50px;
+  padding: 50px 0;
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid #e3e3e3;
   box-shadow: 1px 3px 5px rgba(180, 180, 180, 0.5);
-  overflow: auto;
 
   ul {
     > li {
@@ -229,7 +221,34 @@ export default {
     }
   }
 }
+
 .mr-mywriting-wr {
+  .my-quotation-tab {
+    position: absolute;
+    display: flex;
+    top: -1px;
+    width: 100%;
+    align-items: center;
+    .my-quotation-tab__elm {
+      width: 50%;
+      text-align-last: center;
+      border: 1px solid #000;
+      cursor: pointer;
+    }
+    .active {
+      background: rgba(0,0,0,0.5);
+      color: #ffffff90;
+    }
+  }
+  .mr-mywriting-wr-list {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: calc(100% - 30px);
+    overflow: auto;
+    padding: 0 50px;  
+    word-break: break-word;
+  }
   .mr-myQuotation {
     > li {
       .mr-timer {

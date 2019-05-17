@@ -14,7 +14,7 @@
             <li  v-for="(item, index) in proFit" :key="index">
               <span class="mr-col0">1</span>
               <span class="mr-col1">
-                <p href="#">{{ item.title }}</p>
+                <a href="#">{{ item.title }}</a>
               </span>
               <span class="mr-col2">{{ item.profit }}</span>
               <span class="mr-col3">{{ item.purchased }}</span>
