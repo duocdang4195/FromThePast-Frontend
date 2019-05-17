@@ -64,7 +64,7 @@ export default {
       let postAdmin = this.getAllMyQuotationsCreate.filter(item => {
         return item.selected === 1;
       });
-      return postAdmin;
+      return postAdmin.slice(0,2);
     },
     getBackground() {
       return "background-image:url('"+this.getBackgound.becomewriter_background+"');"

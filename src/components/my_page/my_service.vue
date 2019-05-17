@@ -12,9 +12,9 @@
               <span class="mr-col3">Fee</span>
               <span class="mr-col4">Status</span>
             </li>
-            <li v-for="(item, index) in history " :key="index">
+            <li v-for="(item, index) in history " :key="index"  @click="goToOrderDetail(item.id)">
               <span class="mr-col0">
-                <span class="number-payment" @click="goToOrderDetail(item.id)">#{{ item.id }}</span>
+                <span class="number-payment">#{{ item.id }}</span>
               </span>
               <span class="mr-col1">
                 <a href="#" v-text="getType(item.type)"></a>

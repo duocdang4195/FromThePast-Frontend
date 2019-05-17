@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 	.mr-about-view-wr {position: relative; display: inline-block; width: 100%; height: auto; min-height: 100%; margin: 0; padding: 0;background-color: #f1f1f1;}
 	.mr-about-view-cntn {position: relative; display: inline-block; width: calc(100% - 30px); padding: 15px; margin: 15px;font-family: 'Karla', sans-serif;-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
