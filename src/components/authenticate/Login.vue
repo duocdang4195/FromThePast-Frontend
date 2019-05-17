@@ -57,7 +57,7 @@
       }
     }, 
     methods: {
-      ...mapActions(["logIn", "changePassword"]),
+      ...mapActions(["logIn"]),
       signIn() {
         this.logIn({
           email: this.email,

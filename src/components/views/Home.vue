@@ -14,6 +14,7 @@
           cols="80"
           autofocus
           v-model="checkAuthen"
+          ref="check"
           @keydown.enter.prevent="checkUserProfile"
         ></textarea>
       </div>
@@ -50,27 +51,27 @@
       <div class="content__input--user">
         <div class="content__input--user--check" v-if="isUser">
           <p>Password</p>
-          <input @keydown.enter.prevent="signIn" type="password" v-model="passWordUser" autofocus>
+          <input ref="password" @keydown.enter.prevent="signIn" type="password" v-model="passWordUser" autofocus>
         </div>
         <!-- show Password -->
         <div class="content__input--user--check" v-if="notUser">
           <p>HI, IS THAT YOUR EMAIL ?</p>
-          <input autofocus v-model="email" @keydown.enter.prevent="fillEmail">
+          <input ref="email" autofocus v-model="email" @keydown.enter.prevent="fillEmail">
         </div>
         <!-- show Email Signup -->
         <div class="content__input--user--check" v-if="signupUserName">
           <p>HI, IS THAT YOUR USERNAME ?</p>
-          <input autofocus v-model="userName" @keydown.enter.prevent="fillUserName">
+          <input ref="username" autofocus v-model="userName" @keydown.enter.prevent="fillUserName">
         </div>
         <!-- show User Name -->
         <div class="content__input--user--check" v-if="signupPassword">
           <p>SET YOUR PASSWORD</p>
-          <input type="password" autofocus v-model="password" @keydown.enter.prevent="fillPassword">
+          <input ref="newPassword" type="password" autofocus v-model="password" @keydown.enter.prevent="fillPassword">
         </div>
         <!-- show User Password -->
         <div class="content__input--user--check" v-if="signupConfirmPassword">
           <p>RE-TYPE YOUR PASSWORD</p>
-          <input type="password" autofocus v-model="confirmPassword" @keydown.enter.prevent="registerAccount">
+          <input ref="cònirmPass" type="password" autofocus v-model="confirmPassword" @keydown.enter.prevent="registerAccount">
         </div>
         <!-- show User Confirm Password -->
       </div>
@@ -197,6 +198,9 @@ export default {
       "commentQuotations",
       "getProfileUser"
     ]),
+    setFocus() {
+      this.$refs.search.focus();
+    },
     clickCreateQuotation() {
       this.clickPost = false;
       this.createEvent = true;
@@ -343,6 +347,7 @@ export default {
   height: 100%;
   position: relative;
   .background {
+    position: fixed;
     right: 0;
     bottom: 0;
     min-width: 100%;

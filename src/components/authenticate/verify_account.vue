@@ -10,7 +10,7 @@
       <div class="login_form">     
         <div class="signup__input">
           <v-text-field
-            v-model="code"
+            v-model="email"
             label="Your Email"
             color="rgba(0,0,0,0.9)"
             border-color="rgba(0,0,0,0.5)"
@@ -44,13 +44,13 @@ import { mapActions } from 'vuex';
 export default {
   data() {
     return {
-      code: ''
+      email: ''
     }
   },
   methods: {
-    ...mapActions(['changePassword']),
+    ...mapActions(['forgotPassword']),
     getCode() {
-      this.changePassword()
+      this.forgotPassword(this.email)
     }
   }
 }

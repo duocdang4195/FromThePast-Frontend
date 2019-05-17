@@ -24,6 +24,15 @@ export default {
       return { ok: false, error };
     }
   },
+  async forgotPassword({}, input) {
+    try {
+      const response = await api.post("/forget", input);
+      console.log('ré', response)
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
   async signUp({ commit, dispatch }, input) {
     try {
       const response = await api.post("/auth/register", input);
