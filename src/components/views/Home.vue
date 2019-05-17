@@ -14,6 +14,7 @@
           cols="80"
           autofocus
           v-model="checkAuthen"
+          ref="check"
           @keydown.enter.prevent="checkUserProfile"
         ></textarea>
       </div>
@@ -43,6 +44,7 @@
           cols="80"
           autofocus
           v-model="quotaion"
+          ref="quotation"
           @keydown.enter.prevent="postQuotations"
         ></textarea>
       </div>
@@ -50,32 +52,32 @@
       <div class="content__input--user">
         <div class="content__input--user--check" v-if="isUser">
           <p>Password</p>
-          <input @keydown.enter.prevent="signIn" type="password" v-model="passWordUser" autofocus>
+          <input ref="password" @keydown.enter.prevent="signIn" type="password" v-model="passWordUser" autofocus>
         </div>
         <!-- show Password -->
         <div class="content__input--user--check" v-if="notUser">
           <p>HI, IS THAT YOUR EMAIL ?</p>
-          <input autofocus v-model="email" @keydown.enter.prevent="fillEmail">
+          <input ref="email" autofocus v-model="email" @keydown.enter.prevent="fillEmail">
         </div>
         <!-- show Email Signup -->
         <div class="content__input--user--check" v-if="signupUserName">
           <p>HI, IS THAT YOUR USERNAME ?</p>
-          <input autofocus v-model="userName" @keydown.enter.prevent="fillUserName">
+          <input ref="username" autofocus v-model="userName" @keydown.enter.prevent="fillUserName">
         </div>
         <!-- show User Name -->
         <div class="content__input--user--check" v-if="signupPassword">
           <p>SET YOUR PASSWORD</p>
-          <input type="password" autofocus v-model="password" @keydown.enter.prevent="fillPassword">
+          <input ref="newPassword" type="password" autofocus v-model="password" @keydown.enter.prevent="fillPassword">
         </div>
         <!-- show User Password -->
         <div class="content__input--user--check" v-if="signupConfirmPassword">
           <p>RE-TYPE YOUR PASSWORD</p>
-          <input type="password" autofocus v-model="confirmPassword" @keydown.enter.prevent="registerAccount">
+          <input ref="confirmPass" type="password" autofocus v-model="confirmPassword" @keydown.enter.prevent="registerAccount">
         </div>
         <!-- show User Confirm Password -->
       </div>
       <div class="content__actions content__author" v-if="checkAuthen.length > 0 && !isAuthenticated">
-        <v-tooltip top>
+        <v-tooltip v-if="showAuthor" top>
           <template v-slot:activator="{ on }">
             <p dark v-on="on" @click="toSignUp">Author</p>
           </template>
@@ -107,26 +109,28 @@
           ></textarea>
         </div>
       </div>
-      <div class="content__actions" v-if="!isAuthenticated && checkAuthen.length == 0">
-        <span>Hidden</span>
-        <div :class="classLike">
-          <span @click="toSignUp">
-            <icon name="heart"/>
-          </span>
-        </div>
-        <div :class="classComment">
-          <span @click="showComment">
-            <icon name="comments"/>
-          </span>
-          <textarea
-            @click="toSignUp"
-            v-if="isHideComment"
-            class="content__actions--comments--input"
-            placeholder="Enter your idea here"
-            cols="80"
-            autofocus
-          ></textarea>
-        </div>
+      <div class="content__actions" v-show="notAuthen">
+        <span v-if="!isAuthenticated && checkAuthen.length == 0">
+          <span>Hidden</span>
+          <div :class="classLike">
+            <span @click="toSignUp">
+              <icon name="heart"/>
+            </span>
+          </div>
+          <div :class="classComment">
+            <span @click="showComment">
+              <icon name="comments"/>
+            </span>
+            <textarea
+              @click="toSignUp"
+              v-if="isHideComment"
+              class="content__actions--comments--input"
+              placeholder="Enter your idea here"
+              cols="80"
+              autofocus
+            ></textarea>
+          </div>
+        </span>
       </div>
     </div>
   </div>
@@ -152,6 +156,7 @@ export default {
       comment: "",
       gender: "0",
       showTypeText: [],
+      showAuthor: true,
       checkUser: true,
       isUser: false,
       notUser: false,
@@ -165,6 +170,7 @@ export default {
       createEvent: false,
       createUser: false,
       isLogin: false,
+      notAuthen: true
     };
   },
   created() {
@@ -202,6 +208,11 @@ export default {
       this.createEvent = true;
       this.createUser = true;
       this.isLogin = true
+      if(this.createUser) {
+        return setTimeout(x => {
+                  this.$refs.check.focus()
+                }, 150);
+      }
     },
     postQuotations() {
       this.createQuotations({ content: this.quotaion }).then(res => {
@@ -230,12 +241,20 @@ export default {
       } else {
         this.checkAccount({ email: this.checkAuthen }).then(res => {
           if (res.ok) {
+            setTimeout(x => {
+              this.$refs.password.focus()
+            }, 150);
+            this.showAuthor = false
             this.checkUser = false;
             this.isUser = true;
           } else {
+            setTimeout(x => {
+              this.$refs.email.focus()
+            }, 150);
             this.checkAuthen = "";
             this.checkUser = false;
             this.notUser = true;
+            this.notAuthen = false
           }
         });
       }
@@ -253,6 +272,9 @@ export default {
     },
     fillEmail() {
       if (validateEmail.test(this.email.toLowerCase())) {
+        setTimeout(x => {
+          this.$refs.username.focus()
+        }, 150);
         this.notUser = false;
         this.signupUserName = true;
       } else {
@@ -269,6 +291,9 @@ export default {
           type: "error"
         });
       } else {
+        setTimeout(x => {
+          this.$refs.newPassword.focus()
+        }, 150);
         this.signupUserName = false;
         this.signupPassword = true;
       }
@@ -280,6 +305,9 @@ export default {
           type: "error"
         });
       } else {
+        setTimeout(x => {
+          this.$refs.confirmPass.focus()
+        }, 150);
         this.signupPassword = false;
         this.signupConfirmPassword = true;
       }
@@ -302,7 +330,7 @@ export default {
         }).then(res => {
           if (res.ok) {
             this.clickPost = true
-            this.showTypeText = `Welocome to ${this.userName} Passness`
+            this.showTypeText = `Welocome ${this.userName} to passness `
           }
         });
       }
