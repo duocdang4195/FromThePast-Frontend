@@ -239,17 +239,14 @@
               </li>
               <li>
                 <h5 class="mr-post-ttl">User</h5>
-                <div class="search-content" v-if="!getUser.user">
+                <div class="search-content" v-if="getUser.user">
                   <p class="search-content-no-result">
                     <span>No Results</span>
                   </p>
                 </div>
                 <div class="search-content" v-else >
                   <div class="mr-postcntn">
-                    <div class="mr-postcntn_user" v-for="item in getUser">
-                      <span class="mr-postcntn_user_avat" v-text="showNameAvt(item.name)"></span>
-                      <span class="mr-postcntn_user_id">{{ item.email }}</span>
-                    </div>
+                    <UserSearch v-for="(item, index) in getUser"  :key="index" :item="item"/>
                   </div>
                 </div>
               </li>
@@ -268,13 +265,14 @@
 
 <script>
 import { mapGetters } from "vuex";
+import UserSearch from '@/components/views/UserSearch.vue'
 export default {
+  components: {
+    UserSearch
+  },
   data() {
     return {
     };
-  },
-  created() {
-    console.log('getDataSearch', this.getDataSearch)
   },
   computed: {
     ...mapGetters(["getDataSearch"]),

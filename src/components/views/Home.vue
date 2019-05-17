@@ -208,9 +208,11 @@ export default {
       this.createEvent = true;
       this.createUser = true;
       this.isLogin = true
-      setTimeout(x => {
-        this.$refs.check.focus()
-      }, 150);
+      if(this.createUser) {
+        return setTimeout(x => {
+                  this.$refs.check.focus()
+                }, 150);
+      }
     },
     postQuotations() {
       this.createQuotations({ content: this.quotaion }).then(res => {
@@ -328,7 +330,7 @@ export default {
         }).then(res => {
           if (res.ok) {
             this.clickPost = true
-            this.showTypeText = `Welocome to ${this.userName} Passness`
+            this.showTypeText = `Welocome ${this.userName} to passness `
           }
         });
       }
