@@ -39,7 +39,6 @@
               <span class="mr-underline" v-if="!getProfile.user.phone" @click="showInputPhone = true">Add your number</span>
                 <v-text-field  v-model="phoneNumber" placeholder="Phone number" v-show="!getProfile.user.phone && showInputPhone"></v-text-field>
                 <div class="mr-action-btn" id="sign-in-button" @click="confirmPhone" v-show="!getProfile.user.phone && showInputPhone">Send Verify</div>
-                <!-- <button id="sign-in-button" @click="confirmPhone">Send Verify</button> -->
                 <v-text-field v-model="verifyCode" placeholder="Verify Code" v-show="!getProfile.user.phone && showInputVerify"></v-text-field>
                 <div class="mr-action-btn" @click="phoneVerify" v-show="!getProfile.user.phone && showInputVerify">Verify</div>
 
@@ -168,7 +167,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["changePassword", "getQuotations", "createQuotations"]),
+    ...mapActions(["changePassword", "getQuotations", "createQuotations", "updatePhoneNumber"]),
     showInputChange() {
       this.showChangePassword = true;
       this.showTextChange = false;
@@ -184,17 +183,20 @@ export default {
             }).catch(function (error) {
               // Error; SMS not sent
               // ...
-              Swal('Check your phone number');
+              Swal.fire('Check your phone number');
             }); 
     },  
     phoneVerify(){
       let that = this;
       window.confirmationResult.confirm(this.verifyCode).then(()=>{
         //Update API
-        api.post("user/update_phone_number", { phoneNumber: this.phoneNumber}).then((rs)=>{
-          Swal('Update success');
-          this.getProfile.user.phone = this.phoneNumber;
-        });
+        this.updatePhoneNumber({phoneNumber: this.phoneNumber}).then(res => {
+          console.log('res', res)
+          if(res.ok) {
+            Swal.fire('Update success');
+            this.getProfile.user.phone = this.phoneNumber;
+          }
+        })
       });
     },      
     getNewPassword() {

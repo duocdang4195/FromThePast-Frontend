@@ -33,6 +33,17 @@ export default {
       return { ok: false, error };
     }
   },
+  async updatePhoneNumber({}, input) {
+    console.log('input', input)
+    try {
+      const response = await api.post("/update_phone_number", input);
+      return { ok: true, data: response.data };
+    } catch (error) {
+      console.log(('error', error));
+      
+      return { ok: false, error };
+    }
+  },
   async getProfileUser( { commit }, ) {
     try {
       const response = await api.get("/profile");
