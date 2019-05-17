@@ -308,12 +308,12 @@ export default {
           background: transparent;
           border: none;
           resize: none;
-          font-size: 35px;
+          font-size: 20px;
           color: #fafafa;
           line-height: 1.3;
 
           &::placeholder {
-            font-size: 35px;
+            font-size: 15px;
             color: #fafafa;
             line-height: 1.3;
           }
@@ -328,13 +328,16 @@ export default {
           display: inline-block;
           width: 100%;
           text-align: right;
+          font-size: 15px;
         }
 
         p {
           position: relative;
           display: inline-block;
-          font-size: 35px;
+          font-size: 20px;
+          word-break:break-word;
           line-height: 1.3;
+          text-align:left;
         }
       }
 
@@ -386,16 +389,16 @@ export default {
           position: relative;
           display: inline-block;
           width: 100%;
-          margin: 10px 0;
+          margin: 7px 0;
           line-height: 1.4;
 
           strong {
             color: #121212;
-            font-size: 20px;
+            font-size: 17px;
           }
           span {
             color: #999;
-            font-size: 19px;
+            font-size: 16px;
             font-weight: 300;
             margin-left: 7px;
 
