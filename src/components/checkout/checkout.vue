@@ -243,6 +243,17 @@
               <!-- column -->
             </div>
             <!-- /row -->
+            <div class="row">
+              <div class="col-sm-12">
+                <label class="mr-radio-style" for="ib">
+                  Internet banking <small>(Comming soon)</small>
+                  <input type="radio" id="ib" name="payment" disabled="true">
+                  <span></span>
+                </label>
+              </div>
+              <!-- column -->
+            </div>
+            <!-- /row -->
           </div>
           <!-- ./. mr-payment-method  -->
           <div class="mr-action-btn">
@@ -640,7 +651,7 @@ export default {
 </script>
 
 
-<style  lang="scss" scoped>
+<style  lang="scss">
 %mr-heading {
   position: relative;
   display: inline-block;
@@ -747,6 +758,9 @@ export default {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
+  small {
+    text-transform: none;
+  }
 }
 
 .mr-checkout-session {
@@ -825,7 +839,12 @@ export default {
           -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           color: #3e3e3e;
         }
+
+        &:last-child {
+          margin-bottom: 0px;
+        }
       }
+      
       .mr-input {
         position: relative;
         display: inline-block;
@@ -841,7 +860,8 @@ export default {
         position: relative;
         display: inline-block;
         width: 100%;
-        margin-top: 30px;
+        margin-top: 20px;
+        margin-bottom: 30px;
         text-align: center;
         a {
           position: relative;
@@ -850,6 +870,7 @@ export default {
           height: 47px;
           line-height: 47px;
           color: #fff;
+          text-decoration: none;
           @extend %default-button;
 
           &:hover {
@@ -911,5 +932,10 @@ export default {
       }
     }
   }
+}
+.v-select.v-text-field input, .v-text-field input {color:  rgba(0,0,0,.87) !important;}
+.ql-editor {
+  background-color: rgb(237, 237, 237);
+  border: 1px solid #e1e1e1;
 }
 </style>

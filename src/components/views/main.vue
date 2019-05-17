@@ -203,4 +203,10 @@ export default {
   font-family: "Quicksand", sans-serif;
   font-weight: 300;
 }
+img {
+  position: relative;
+  display: inline-block;
+  width: auto;
+  max-width: 100%;
+}
 </style>

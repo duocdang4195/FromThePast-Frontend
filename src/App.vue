@@ -69,5 +69,28 @@ export default {
 	.vue-typer .custom.char.typed {
 		color: #fff;
 	}
+	.swal2-popup {
+		border-radius: 0 !important;
+		padding: 2.5em 1.25em !important;
+	}
+	.swal2-icon.swal2-error {
+		display: none !important;
+	}
+	.swal2-styled.swal2-confirm {
+		background-color: #333 !important;
+		border: 0 !important;
+		border-radius: 0 !important;
+
+	}
+	.swal2-title {
+		font-size:20px !important;
+		font-weight: 400 !important;
+	}
+	.swal2-actions {
+		margin: 1.5em auto 0 !important;
+	}
+	.swal2-styled:focus {
+		box-shadow: 0 0 0 transparent !important;
+	}
 </style>
 
