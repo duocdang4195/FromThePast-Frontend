@@ -5,13 +5,13 @@
         <div @click="showYourQuotation" class="my-quotation-tab__elm">Your Quotation</div>
         <div @click="showYourQuotationRelation" class="my-quotation-tab__elm">Quotation Relation</div>
       </div>
-      <ul
-        v-if="yourQuotations"
-        class="mr-myQuotation"
-        v-for="(item, index) in listQuotations"
-        :key="index"
-      >
-        <li>
+      <ul>
+        <li 
+            v-if="yourQuotations"
+            class="mr-myQuotation"
+            v-for="(item, index) in listQuotations"
+            :key="index"
+        >
           <span class="mr-timer">
             <span class="mr-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
           </span>
@@ -39,9 +39,7 @@
             </ul>
           </div>
         </li>
-      </ul>
-      <ul v-else class="mr-myQuotation" v-for="(item) in quotationsRelation">
-        <li>
+        <li v-else class="mr-myQuotation" v-for="(item) in quotationsRelation">
           <span class="mr-timer">
             <span class="mr-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
           </span>
