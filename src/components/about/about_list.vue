@@ -1,5 +1,4 @@
 <template>
-	<div>
 		<div class="mr-about-wr">
 			<div class="mr-aboutList">
 				<div class="mr-about-pos">
@@ -26,7 +25,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </template>
 
 <script>
@@ -54,6 +52,7 @@ export default {
   }
 }
 </script>
+
 
 <style lang="scss" scoped>
 	.mr-about-wr {
@@ -91,6 +90,11 @@ export default {
 		min-width:120px;
 		margin-bottom: 15px;
 	}
+
+	ul {
+		padding-left:0 !important;
+	}
+
 	.mr-aboutList .mr-col5 {flex: 1 0 28%}
 	.mr-aboutList .mr-aboutCol h3 {
 		text-transform: uppercase; 

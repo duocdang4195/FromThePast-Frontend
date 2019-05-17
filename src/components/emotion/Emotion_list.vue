@@ -1,15 +1,14 @@
 <template>
-  <div class="mr-emotion-list">
-    <div class="mr-emotion-list_writem">
-      <div class="mr-featured-post">
-        <h3>Featured writing</h3>
-        <div class="mr-writing-box" v-for="(item, index) in showPostAdmin" :key="index">
-          <img :src="item.image" alt class>
-          <h4>{{ item.title }}</h4>
-          <p class="rh-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</p>
-          <div class="mr-content" v-html="item.content">{{ item.content }}</div>
-        </div>
-     
+ <div :style="getBackground" class="mr-emotion-list">
+ 	<div class="mr-emotion-list_writem">
+	    <div class="mr-featured-post">
+	      <h3>Featured writing</h3>
+	      <div class="mr-writing-box" v-for="(item, index) in showPostAdmin" :key="index">
+	        <img :src="item.image" alt class>
+	        <h4>{{ item.title }}</h4>
+	        <p class="rh-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</p>
+	        <div class="mr-content" v-html="item.content">{{ item.content }}</div>
+	      </div>
       </div>
       <!-- ./.mr-featured-post  -->
 
@@ -62,12 +61,15 @@ export default {
     this.recentPost.unshift(this.contentEmotions);
   },
   computed: {
-    ...mapGetters(["getAllMyQuotationsCreate"]),
+    ...mapGetters(["getAllMyQuotationsCreate", "getBackgound"]),
     showPostAdmin() {
       let postAdmin = this.getAllMyQuotationsCreate.filter(item => {
         return item.selected === 1;
       });
-      return postAdmin;
+      return postAdmin.slice(0,2);
+    },
+    getBackground() {
+      return "background-image:url('"+this.getBackgound.becomewriter_background+"');"
     },
     delTagImg() {
       if(this.contentEmotions.content) {

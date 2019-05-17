@@ -1,20 +1,17 @@
 <template>
   <div class="login">
     <h2 class="login__title">
-      Verify account
+      FORGOT PASSWORD
     </h2>
     <div class="login__link">
-      <p>Please input the code to get your password back!</p>
+      <p>Please enter your register email to reset password</p>
     </div>
     <div class="flex-wrap">
-      <div class="login_form">
-
-       
-
+      <div class="login_form">     
         <div class="signup__input">
           <v-text-field
             v-model="code"
-            label="Verify code"
+            label="Your Email"
             color="rgba(0,0,0,0.9)"
             border-color="rgba(0,0,0,0.5)"
             @keydown.enter.prevent="getCode"

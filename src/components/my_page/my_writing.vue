@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div class="mr-fullslider" >
+    <div :style="getBackground" class="mr-fullslider" >
       <div class="mr-mywriting-wr">
         <ul v-for="(item, index) in listEmotionsAll" :key="index">
-          <li>
+          <li @click="goto(item.id)">
             <img class="mr-post-thumb" :src="checkImage(item.image)">
-            <div class="mr-content" @click="goto(item.id)">
+            <div class="mr-content">
               <h5>{{ item.title }}</h5>
               <span class="mr-timer">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
-              <p v-html="item.content" class="mr-content__main--content">{{ item.content }}</p>
+              <p v-html="strip_tags(item.content).substr(0,300) + (strip_tags(item.content).length > 400 ? '...' : '')" class="mr-content__main--content"></p>
             </div>
           </li>
         </ul>
@@ -23,26 +23,37 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "my_writing",
   data() {
-    return {};
+    return {
+    };
   },
   created() {
-		this.getEmotionsAll();
+    this.getEmotionsAll();
   },
   computed: {
-    ...mapGetters(["listEmotionsAll"])
+    ...mapGetters(["listEmotionsAll", "getBackgound"]),
+    getBackground() {
+      return "background-image:url('"+this.getBackgound.my_quotation_background+"');"
+    }
   },
   methods: {
     ...mapActions(["getEmotionsAll"]),
     checkImage(image) {
       if (!image) {
-        return "https://gemstatepatriot.com/blog/wp-content/uploads/2015/11/default.jpg";
+        return this.getBackgound.logo_dark
       } else {
         return image;
       }
 		},
 		goto(id){
 			this.$router.push(`/Emotion_view/${id}`);
-		}
+		},
+    strip_tags(content)
+    {
+
+      let t = content.replace(/(<([^>]+)>)/ig,"");
+      
+      return t;
+    }
   }
 };
 </script>

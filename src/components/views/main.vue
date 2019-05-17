@@ -1,13 +1,11 @@
 <template>
-  <div class="mr-fullslider" v-if="comments.content" v-cloak>
+  <div class="mr-fullslider" v-if="comments.content" :style="getBackground" v-cloak>
     <div class="mr-mystatus">
       <p>{{ quotationRandom.content }}</p>
       <ul class="mr-cmt-slider">
         <li>
           {{ comments.content }}
-          <span
-            class="mr-author"
-          >{{ comments.user.name }}</span>
+          <span class="mr-author" v-if="comments.user">{{ comments.user.name ? comments.user.name : comments.user.email }}</span>
         </li>
       </ul>
     </div>
@@ -18,36 +16,55 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
-  import _ from 'lodash';
+import { mapActions, mapGetters } from "vuex";
+import _ from "lodash";
 
-  export default {
-    data() {
-      return {
-        comments: {},
+export default {
+  data() {
+    return {
+      comments: {}
+    };
+  },
+  async created() {
+    this.showComments;
+  },
+  computed: {
+    ...mapGetters([
+      "quotationRandom",
+      "comentEmotionsList",
+      "comentQuotationsList",
+      "getBackgound"
+    ]),
+    showComments() {
+      if (
+        this.comentEmotionsList.length > 0 ||
+        this.comentQuotationsList.length
+      ) {
+        const listComments = _.union(
+          this.comentQuotationsList,
+          this.comentEmotionsList
+        );
+        return (this.comments =
+          listComments[Math.floor(Math.random() * listComments.length)]);
       }
     },
-    async created() {
-      await this.getProfileUser()
-      await this.getQuotations()
-      await this.getCommentsQuotations()
-      await this.getCommentsEmotions()
-      this.showComments
-    },
-    computed: {
-      ...mapGetters(['quotationRandom', 'comentEmotionsList', 'comentQuotationsList']),
-      showComments() {
-        if(this.comentEmotionsList.length > 0 || this.comentQuotationsList.length) {
-          const listComments = _.union(this.comentQuotationsList, this.comentEmotionsList)
-          return this.comments = listComments[Math.floor(Math.random() * listComments.length)];
-        }
-      }
-    },
-    methods: {
-      ...mapActions(['getQuotations', 'getCommentsQuotations', 'getCommentsEmotions', 'getProfileUser']),
-    },
-
+    getBackground() {
+      return (
+        "background-image:url('" +
+        this.getBackgound.main_background +
+        "');"
+      );
+    }
+  },
+  methods: {
+    ...mapActions([
+      "getQuotations",
+      "getCommentsQuotations",
+      "getCommentsEmotions",
+      "getProfileUser"
+    ])
   }
+};
 </script>
 
 

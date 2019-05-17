@@ -144,7 +144,7 @@ export default {
 	methods: {
 		...mapActions(['getOrderDetail']),
 		backToList() {
-			this.$router.push({name: 'Emotion_list'})
+			this.$router.push({name: 'my_service'})
 		},
 		checkStatus(state) {
       if(state === '1') {

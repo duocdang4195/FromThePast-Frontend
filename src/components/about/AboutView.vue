@@ -35,6 +35,7 @@ export default {
 </script>
 
 <style lang="css">
+
 	.application--wrap {
 		background-color: #f1f1f1;
 	}
@@ -106,6 +107,7 @@ export default {
 		color: #444; 
 		line-height: 1.5;
 	}
+
 
 	@media only screen and (min-width: 1024px){
 

@@ -4,7 +4,7 @@
     <MenuSide />
     <SearchInput />
     <v-content>
-      <transition name="fade">
+      <transition name="fade" mode="out-in">
         <router-view></router-view>
       </transition>
     </v-content>
@@ -29,11 +29,11 @@ export default {
 <style lang="scss" scoped>
   .home_root {
     position: relative;
-    .search-wr {
+    .page-wr {
       z-index: 999;
       position: fixed;
       bottom: 10px;
-      width: 200px;
+      width: 100px;
       right: 20px;
     }
   }

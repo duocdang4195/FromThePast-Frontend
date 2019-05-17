@@ -6,7 +6,7 @@
     <div class="content">
       <div class="content__logo">
         <router-link :to="{ name: 'home_root'}">
-          <img src="@/assets/images/pasness_logo_no_border_white.svg" alt>
+          <img :src="getBackgound.pasness_logo_no_border_white" alt>
         </router-link>
       </div>
       <div class="content__input--quotaion" v-if="checkUser && !isAuthenticated && createUser">
@@ -173,7 +173,7 @@ export default {
     this.showTypeText = this.quotationRandom.content
   },
   computed: {
-    ...mapGetters(["quotationRandom", "isAuthenticated", "getProfile"]),
+    ...mapGetters(["quotationRandom", "isAuthenticated", "getProfile", "getBackgound"]),
     classLike() {
       return classnames("actions", "content__actions--like", {
         liked: this.isLike === true
@@ -343,7 +343,6 @@ export default {
   height: 100%;
   position: relative;
   .background {
-    position: fixed;
     right: 0;
     bottom: 0;
     min-width: 100%;

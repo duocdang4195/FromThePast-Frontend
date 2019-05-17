@@ -323,4 +323,13 @@ export default {
       return { ok: false, error };
     }
   },
+  async getBackground({ commit},) {
+    try {
+      const response = await api.get(`/config`);
+      commit('updateBackground', response.data)
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
 };

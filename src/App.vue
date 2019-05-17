@@ -5,13 +5,25 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
 	name: 'app',
   data () {
     return {
       //
     }
-  }
+	},
+	async created() {
+		await this.getBackground()
+		await this.getProfileUser()
+		await this.getQuotations()
+		await this.getCommentsQuotations()
+		await this.getCommentsEmotions()
+  },
+	methods: {
+		...mapActions(['getBackground', 'getProfileUser', 'getQuotations', 'getCommentsQuotations', 'getCommentsEmotions'])
+	}
 }
 </script>
 
@@ -19,6 +31,9 @@ export default {
 	@import url('https://cdn.linearicons.com/free/1.0.0/icon-font.min.css');
 	@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400&subset=vietnamese');
 	@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400&subset=vietnamese');
+	img {
+		max-width: 100% !important;
+	}
 	body {
 		font-family: 'IBM Plex Sans', sans-serif !important;
 		font-weight: 300;
