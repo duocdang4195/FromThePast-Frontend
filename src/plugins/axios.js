@@ -12,15 +12,15 @@ export const composeApi = (options = {}) => {
       'Accept': 'application/json'
     },
   });
-  instance.interceptors.response.use(
-    res => res,
-    err => {
-      if (err.response.status === 400) {
-        store.dispatch('logout');
-      }
-      return Promise.reject(err);
-    },
-  );
+  // instance.interceptors.response.use(
+  //   res => res,
+  //   err => {
+  //     if (err.response.status === 400) {
+  //       store.dispatch('logout');
+  //     }
+  //     return Promise.reject(err);
+  //   },
+  // );
   return instance;
 }
 
