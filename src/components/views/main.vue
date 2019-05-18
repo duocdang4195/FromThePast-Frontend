@@ -26,7 +26,7 @@ export default {
     };
   },
   async created() {
-    this.showComments;
+    await this.getCommnet()
   },
   computed: {
     ...mapGetters([
@@ -35,19 +35,6 @@ export default {
       "comentQuotationsList",
       "getBackgound"
     ]),
-    showComments() {
-      if (
-        this.comentEmotionsList.length > 0 ||
-        this.comentQuotationsList.length
-      ) {
-        const listComments = _.union(
-          this.comentQuotationsList,
-          this.comentEmotionsList
-        );
-        return (this.comments =
-          listComments[Math.floor(Math.random() * listComments.length)]);
-      }
-    },
     getBackground() {
       return (
         "background-image:url('" +
@@ -61,8 +48,24 @@ export default {
       "getQuotations",
       "getCommentsQuotations",
       "getCommentsEmotions",
-      "getProfileUser"
-    ])
+    ]),
+    async getCommnet() {
+      let comentEmotionsList = []
+      let comentQuotationsList = []
+      let listComments = []
+      let resCommentQuotation = await this.getCommentsQuotations().then(res => {
+        if(res.ok) {
+          comentQuotationsList = res.data
+        }
+      })
+      let resCommentEmotion = await this.getCommentsEmotions().then(res => {
+        if(res.ok) {
+          comentEmotionsList = res.data
+        }
+      })
+      listComments = _.union(this.comentQuotationsList,this.comentEmotionsList);
+      this.comments = listComments[Math.floor(Math.random() * listComments.length)];
+    }
   }
 };
 </script>

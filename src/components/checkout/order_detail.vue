@@ -122,9 +122,6 @@ export default {
 		}
 	},
 	created() {
-    if (this.orderDetail.type === "1") {
-      this.showSender = true;
-		}
 		this.getOrderDetail().then(res => {
 			if(res.ok) {
 				let detail = res.response.data
@@ -133,6 +130,9 @@ export default {
 				})
 			}
 		})
+		if (this.orderDetail.type === "1") {
+      this.showSender = true;
+		}
 	},
 	computed: {
 		showPrice() {

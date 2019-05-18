@@ -24,11 +24,11 @@ export default {
       return { ok: false, error };
     }
   },
-  async forgotPassword({}, input) {
+  async forgotPassword({}, {email}) {
     try {
-      const response = await api.post("/forget", input);
+      const response = await api.post("/auth/forget", {email});
       console.log('ré', response)
-      return { ok: true, response };
+      return { ok: true, data: response.data };
     } catch (error) {
       return { ok: false, error };
     }
@@ -43,12 +43,10 @@ export default {
     }
   },
   async updatePhoneNumber({}, input) {
-    console.log('input', input)
     try {
-      const response = await api.post("/update_phone_number", input);
+      const response = await api.post("profile/update_phone_number", input);
       return { ok: true, data: response.data };
     } catch (error) {
-      console.log(('error', error));
       
       return { ok: false, error };
     }
@@ -149,7 +147,7 @@ export default {
     try {
       const response = await api.get("/quotation_comment");
       commit("updateComentQuotations", response.data);
-      return { ok: true };
+      return { ok: true, data: response.data };
     } catch (error) {
       return { ok: false, error };
     }
@@ -185,7 +183,7 @@ export default {
     try {
       const response = await api.get("/emotion_comment");
       commit("updateComentEmotions", response.data);
-      return { ok: true };
+      return { ok: true, data: response.data };
     } catch (error) {
       return { ok: false, error };
     }
