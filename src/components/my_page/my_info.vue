@@ -9,12 +9,12 @@
           <div class="mr-wc-quotation">
             <p>
               {{ showQuotaions.content }}
-              <br>
-              <i
-                v-if="showQuotaions.user"
-                v-cloak
-              >{{ !showQuotaions.user.name ? showQuotaions.user.name : 'Hidden' }}</i>
+             
             </p>
+           <i class="mr-wc-quotation_author"
+              v-if="showQuotaions.user"
+              v-cloak
+            >{{ !showQuotaions.user.name ? showQuotaions.user.name : 'Hidden' }}</i>
           </div>
           <div class="mr-welcomequestion">
             <input
@@ -37,10 +37,12 @@
             <li>
               <strong>Phone:</strong>
               <span class="mr-underline" v-if="!getProfile.user.phone" @click="showInputPhone = true">Add your number</span>
+              <div class="input-change" >
                 <v-text-field  v-model="phoneNumber" placeholder="Phone number" v-show="!getProfile.user.phone && showInputPhone"></v-text-field>
                 <div class="mr-action-btn" id="sign-in-button" @click="confirmPhone" v-show="!getProfile.user.phone && showInputPhone">Send Verify</div>
                 <v-text-field v-model="verifyCode" placeholder="Verify Code" v-show="!getProfile.user.phone && showInputVerify"></v-text-field>
                 <div class="mr-action-btn" @click="phoneVerify" v-show="!getProfile.user.phone && showInputVerify">Verify</div>
+              </div>
 
               <span v-show="getProfile.user.phone">{{getProfile.user.phone}}</span>
             </li>
@@ -58,9 +60,9 @@
                 v-if="showTextChange"
               >Change Password</strong>
               <div class="input-change" v-if="showChangePassword">
-                <v-text-field v-model="password" placeholder="Pasword"></v-text-field>
-                <v-text-field v-model="newPaswword" placeholder="New Password"></v-text-field>
-                <v-text-field v-model="confirmNewPassword" placeholder="Confirm New Password"></v-text-field>
+                <v-text-field v-model="password" placeholder="Pasword" type="password"></v-text-field>
+                <v-text-field v-model="newPaswword" placeholder="New Password" type="password"></v-text-field>
+                <v-text-field v-model="confirmNewPassword" placeholder="Confirm New Password" type="password"></v-text-field>
                 <div class="mr-action-btn" @click="getNewPassword">change password</div>
               </div>
             </li>
@@ -396,6 +398,7 @@ export default {
         p {
           position: relative;
           display: inline-block;
+          width: 100%;
           font-size: 20px;
           word-break:break-word;
           line-height: 1.3;

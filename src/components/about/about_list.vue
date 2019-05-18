@@ -16,7 +16,6 @@
 						<p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 						<ul class="about-sns">
 							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
 							<li><a href=""><i class="fab fa-instagram"></i></a></li>
 							<li><a href=""><i class="fab fa-twitter"></i></a></li>
 							<li class="mr_slogan"><a href="#"><img src="img/logo-dark.svg" alt=""></a></li>
