@@ -5,8 +5,8 @@
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1038px"
 	 height="764.063px" viewBox="0 0 1038 764.063" enable-background="new 0 0 1038 764.063" xml:space="preserve">
 <title>creation</title>
-<rect x="637" y="184.064" fill="#ffffff" width="375" height="412.999"/>
-<circle fill="#ffffff" cx="262" cy="429.063" r="262"/>
+<rect x="637" y="184.064" fill="#F2F2F2" width="375" height="412.999"/>
+<circle fill="#F2F2F2" cx="262" cy="429.063" r="262"/>
 <line fill="none" stroke="#3F3D56" stroke-width="2" stroke-miterlimit="10" x1="996.917" y1="571.225" x2="996.917" y2="455.131"/>
 <circle fill="#3F3D56" cx="996.917" cy="455.13" r="16.417"/>
 <path fill="#3F3D56" d="M996.917,526.682c0,0-2.345-50.443-50.424-44.58"/>
