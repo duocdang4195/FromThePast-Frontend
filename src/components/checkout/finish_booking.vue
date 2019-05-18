@@ -32,7 +32,6 @@ export default {
     }
   },
   async created() {
-    console.log('getIdBooking', this.getIdBooking)
   },
   computed: {
     ...mapGetters(["getIdBooking"]),

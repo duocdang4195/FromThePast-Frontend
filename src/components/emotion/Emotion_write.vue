@@ -75,7 +75,7 @@ export default {
   async created() {
     let res = await this.getTagEmotions().then(res => {
       if (res.ok) {
-        this.items = res.response.data;
+        this.items = res.data;
       }
     });
   },
@@ -121,7 +121,8 @@ export default {
       data.append("tags", this.tags);
       this.createEmotions({ data }).then(res => {
         if (res.ok) {
-          this.$router.push({ path: "/Emotion_list" });
+					let id = res.emotion.id
+          this.$router.push(`/Emotion_view/${id}`);
         }
       });
     }

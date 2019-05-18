@@ -27,7 +27,6 @@ export default {
   async forgotPassword({}, {email}) {
     try {
       const response = await api.post("/auth/forget", {email});
-      console.log('ré', response)
       return { ok: true, data: response.data };
     } catch (error) {
       return { ok: false, error };
@@ -152,6 +151,14 @@ export default {
       return { ok: false, error };
     }
   },
+  async getMyWriting({ commit }) {
+    try {
+      const response = await api.get("/emotion/create");
+      return { ok: true, data: response.data };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
   async getMyEmotionsCreate({ commit }) {
     try {
       const response = await api.get("/emotion");
@@ -164,7 +171,15 @@ export default {
   async getTagEmotions( {}, ) {
     try {
       const response = await api.get("/emotion_tags");
-      return { ok: true, response };
+      return { ok: true, data: response.data };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async showTag( {}, tag) {
+    try {
+      const response = await api.post("/emotion/findByTag", tag);
+      return { ok: true, data: response.data };
     } catch (error) {
       return { ok: false, error };
     }
@@ -188,10 +203,10 @@ export default {
       return { ok: false, error };
     }
   },
-  async createEmotions({}, { data }) {
+  async createEmotions({ commit }, { data }) {
     try {
       const response = await api.post("/emotion", data);
-      return { ok: true, data };
+      return { ok: true, emotion: response.data };
     } catch (error) {
       return { ok: false, error };
     }
@@ -304,7 +319,6 @@ export default {
       commit('updateOrderDetail', response.data)
       return { ok: true, data: response.data };
     } catch (error) {
-			console.log("TCL: getBooking -> error", error)
       return { ok: false, error };
     }
   },

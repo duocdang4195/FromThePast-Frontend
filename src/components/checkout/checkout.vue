@@ -163,6 +163,7 @@
                 background-color="#ededed"
                 color="#333"
                 solo-inverted
+                type="number"
                 flat
               ></v-text-field>
             </div>
@@ -174,6 +175,7 @@
                 v-model="numberPhone"
                 placeholder="0975446575"
                 background-color="#ededed"
+                type="number"
                 color="#333"
                 solo-inverted
                 flat
@@ -536,6 +538,9 @@ export default {
           this.securityPrice = data.security_price;
           this.timePrice = data.time_price;
           this.totalPrice = data.total_price;
+          Swal.fire({
+            title: "Check Price Sucess !",
+          });
         }
       });
     },

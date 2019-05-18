@@ -52,5 +52,5 @@ export default {
 	},
 	getBackgound(state) {
 		return state.backgroundPage
-	}
+	},
 }

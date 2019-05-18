@@ -1,6 +1,6 @@
 <template>
   <div class="mr-postcntn_user">
-    <span class="mr-postcntn_user_avat" v-text="showNameAvt(item.name)"></span>
+    <span :style="{background: stringToHslColor}" class="mr-postcntn_user_avat" v-text="showNameAvt(item.name)"></span>
     <span class="mr-postcntn_user_id">{{ item.email }}</span>
   </div>
 </template>
@@ -9,9 +9,6 @@
 export default {
   props: {
     item: Object
-  },
-  created() {
-    console.log('item', item)
   },
   computed: {
     stringToHslColor() {

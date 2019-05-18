@@ -1,19 +1,19 @@
 <template>
- <div :style="getBackground" class="mr-emotion-list">
- 	<div class="mr-emotion-list_writem">
-	    <div class="mr-featured-post">
-	      <h3>Featured writing</h3>
-	      <div class="mr-writing-box" v-for="(item, index) in showPostAdmin" :key="index">
-	        <img :src="item.image" alt class>
-	        <h4>{{ item.title }}</h4>
-	        <p class="rh-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</p>
-	        <div class="mr-content" v-html="item.content">{{ item.content }}</div>
-	      </div>
+  <div :style="getBackground" class="mr-emotion-list">
+    <div class="mr-emotion-list_writem">
+      <div class="mr-featured-post">
+        <h3>Featured writing</h3>
+        <div @click="goto(item.id)" class="mr-writing-box" v-for="(item, index) in showPostAdmin" :key="index">
+          <img :src="item.image" alt class>
+          <h4>{{ item.title }}</h4>
+          <p class="rh-date">{{ item.updated_at | moment("MMMM Do YYYY")}}</p>
+          <div class="mr-content" v-html="delTagImg(item.content)">{{ item.content }}</div>
+        </div>
       </div>
       <!-- ./.mr-featured-post  -->
 
       <div class="mr-article-wr">
-        <h3>My emotion</h3>   
+        <h3>My emotion</h3>
         <div class="mr-controller">
           <span @click="randomEmotions" class="mr-next">
             Next
@@ -25,14 +25,14 @@
           </span>
         </div>
         <!-- ./.mr-controller -->
-        <div class="mr-current-post" @click="goto">
+        <div class="mr-current-post" @click="goto(contentEmotions.id)">
           <img :src="contentEmotions.image" alt class>
           <div class="mr-header">
             <span class="mr-ttl">{{ contentEmotions.title }}</span>
-            <p class="rh-date">{{ contentEmotions.updated_at | moment("dddd, MMMM Do YYYY")}}</p>
+            <p class="rh-date">{{ contentEmotions.updated_at | moment("MMMM Do YYYY")}}</p>
           </div>
           <!-- ./.mr-header  -->
-          <div class="mr-article-cntn" v-html="delTagImg">{{ contentEmotions.content }}</div>
+          <div class="mr-article-cntn" v-html="delTagImg(contentEmotions.content)">{{ contentEmotions.content }}</div>
           <!-- ./.mr-article-cntn -->
         </div>
       </div>
@@ -54,7 +54,7 @@ export default {
     };
   },
   async created() {
-    await this.getMyEmotionsCreate()
+    await this.getMyEmotionsCreate();
     this.contentEmotions = this.getAllMyQuotationsCreate[
       Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)
     ];
@@ -66,22 +66,26 @@ export default {
       let postAdmin = this.getAllMyQuotationsCreate.filter(item => {
         return item.selected === 1;
       });
-      return postAdmin.slice(0,2);
+      return postAdmin.slice(0, 2);
     },
     getBackground() {
-      return "background-image:url('"+this.getBackgound.becomewriter_background+"');"
+      return (
+        "background-image:url('" +
+        this.getBackgound.becomewriter_background +
+        "');"
+      );
     },
-    delTagImg() {
-      if(this.contentEmotions.content) {
-return this.contentEmotions.content.replace(/<img[^>]+src="?([^"\s]+)"?\s*\/>/gm)
-      }
-      
-    }
   },
   methods: {
     ...mapActions(["getMyEmotionsCreate"]),
-    goto() {
-      const id = this.contentEmotions.id;
+    delTagImg(content) {
+      if (content) {
+        return content.replace(
+          /<img[^>]+src="?([^"\s]+)"?\s*\/>/gm
+        );
+      }
+    },
+    goto(id) {
       this.$router.push(`/Emotion_view/${id}`);
     },
     randomEmotions() {
@@ -91,14 +95,14 @@ return this.contentEmotions.content.replace(/<img[^>]+src="?([^"\s]+)"?\s*\/>/gm
       this.recentPost.unshift(this.contentEmotions);
     },
     preEmotions() {
-      if(this.recentPost.length === 1) {
-        this.contentEmotions = this.recentPost[0]
-        this.recentPost.shift()
-        this.disable = false
+      if (this.recentPost.length === 1) {
+        this.contentEmotions = this.recentPost[0];
+        this.recentPost.shift();
+        this.disable = false;
       } else {
-        this.disable = true
-        this.contentEmotions = this.recentPost[1]
-        this.recentPost.shift()
+        this.disable = true;
+        this.contentEmotions = this.recentPost[1];
+        this.recentPost.shift();
       }
     }
   }
@@ -111,6 +115,9 @@ return this.contentEmotions.content.replace(/<img[^>]+src="?([^"\s]+)"?\s*\/>/gm
   position: relative;
   display: inline-block;
   width: 100%;
+}
+.mr-writing-box {
+  cursor: pointer;
 }
 .mr-emotion-list {
   position: relative;
@@ -162,7 +169,6 @@ return this.contentEmotions.content.replace(/<img[^>]+src="?([^"\s]+)"?\s*\/>/gm
       flex-direction: row;
       justify-content: flex-start;
       align-content: flex-start;
-
       h3 {
         position: relative;
         flex: 2 0 100%;
@@ -320,7 +326,6 @@ return this.contentEmotions.content.replace(/<img[^>]+src="?([^"\s]+)"?\s*\/>/gm
         display: inline-block;
         width: 100%;
       }
-
 
       .mr-header {
         @extend %full-width;

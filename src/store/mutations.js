@@ -57,5 +57,5 @@ export default {
   },
   updateBackground(state, backgroundPage) {
     state.backgroundPage = backgroundPage
-  }
+  },
 }

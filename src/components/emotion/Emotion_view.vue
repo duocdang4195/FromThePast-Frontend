@@ -16,79 +16,12 @@
         <!-- /categories -->
       </div>
       <!-- /mr-sidebar -->
-      <div class="mr-sidebar" v-if="false">
-        <h4 class="mr-cat-2">Seasons</h4>
+      <div class="mr-sidebar" v-if="true">
+        <h4 class="mr-cat-2">All Tags</h4>
         <ul class="categories">
-          <li>
+          <li @click="searchTag(item)" v-for="item in listTag">
             <a href="#">
-              Jan
-              <span>(40)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Feb
-              <span>(35)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Mar
-              <span>(53)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Apr
-              <span>(40)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              May
-              <span>(35)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Jun
-              <span>(53)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Jul
-              <span>(40)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Aug
-              <span>(35)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Sep
-              <span>(53)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Oct
-              <span>(40)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Nov
-              <span>(35)</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Dec
-              <span>(53)</span>
+              {{ item }}
             </a>
           </li>
         </ul>
@@ -182,7 +115,6 @@
     </div>
     <!-- ./.mr-section  -->
   </div><!-- ./. v-content__insider  -->
- </div>
 </template>
 
 <script>
@@ -202,6 +134,7 @@ export default {
         background: "red"
       },
       viewEmotion: {},
+      listTag: [],
     };
   },
   created() {
@@ -211,12 +144,17 @@ export default {
         this.viewEmotion = res.response.data
       }
     })
+    this.getTagEmotions().then(res => {
+      if(res.ok) {
+        this.listTag = res.data
+      }
+    })
   },
   computed: {
     ...mapGetters(["getAllMyQuotationsCreateByID"])
   },
   methods: {
-    ...mapActions(["getMyEmotionsByID", "createCommentEmotions", "getProfileUser"]),
+    ...mapActions(["getMyEmotionsByID", "createCommentEmotions", "getProfileUser", "getTagEmotions", "showTag"]),
     submitComment() {
       this.createCommentEmotions({
         emotion_id: Number(this.$route.params.id),
@@ -227,6 +165,9 @@ export default {
           this.content = "";
         }
       });
+    },
+    searchTag(tag) {
+      this.showTag(tag)
     },
     goTo() {
       this.$router.push({name: 'Emotion_write'})
