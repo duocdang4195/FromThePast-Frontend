@@ -616,10 +616,10 @@ export default {
       return true;
     },
     orderBooking() {
-      if (this.type === "1") {
+      if (this.type == 1) {
         if (!this.validateOrderPrint()) return;
       }
-      if (this.type === "2") {
+      if (this.type == 2) {
         if (!this.validateOrderWrite()) return;
       }
       if (!this.validateOrder()) return;
