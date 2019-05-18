@@ -1,18 +1,18 @@
 <template>
   <div :style="getBackground" class="mr-fullslider">
-    <div class="mr-mywriting-wr">
+    <div class="mr-myquote-wr">
       <div class="my-quotation-tab">
         <div @click="showYourQuotation" class="my-quotation-tab__elm active">Your Quotation</div>
         <div @click="showYourQuotationRelation" class="my-quotation-tab__elm">Quotation Relation</div>
       </div>
-     <div class="mr-mywriting-wr-list">
-       <ul
-          v-if="yourQuotations"
-          class="mr-myQuotation"
-          v-for="(item, index) in listQuotations"
-          :key="index"
-        >
-          <li>
+      <div class="mr-myquote-wr-list ">
+        <ul>
+          <li 
+              v-if="yourQuotations"
+              class="mr-myQuotation"
+              v-for="(item, index) in listQuotations"
+              :key="index"
+          >
             <span class="mr-timer">
               <span class="mr-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
             </span>
@@ -40,9 +40,7 @@
               </ul>
             </div>
           </li>
-        </ul>
-        <ul v-else class="mr-myQuotation" v-for="(item) in quotationsRelation">
-          <li>
+          <li v-else class="mr-myQuotation" v-for="(item) in quotationsRelation">
             <span class="mr-timer">
               <span class="mr-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
             </span>
@@ -50,12 +48,12 @@
               <p class="mr-content__content--main">{{ item.content }}</p>
               <p class="rh-interactions">
                 <span class="mr-comment-count">
-                  <i class="ti-comment-alt"></i>
-                  {{ item.comments.length }} comments
+                  <icon name="comments"/>
+                   {{ item.comments.length }} comments
                 </span>
                 <span class="mr-likes">
-                  <i class="ti-heart"></i>
-                  {{ item.likes.length }} likes
+                  <icon name="heart"/>
+                   {{ item.likes.length }} likes
                 </span>
               </p>
               <ul class="mr-comment">
@@ -152,7 +150,7 @@ export default {
     padding: 60px;
   }
 }
-.mr-mywriting-wr {
+.mr-myquote-wr {
   position: relative;
   display: inline-block;
   max-width: 1200px;
@@ -189,8 +187,13 @@ export default {
         background-size: cover;
         background-position: center center;
       }
+       .mr-timer {
+          position: relative;
+          width: 150px;
+          font-style: italic;
+        }
       .mr-content {
-        width: calc(100% - 300px);
+        width: calc(100% - 150px);
         padding-left: 20px;
         h5 {
           font-size: 17px;
@@ -202,9 +205,7 @@ export default {
           font-weight: bold;
         }
 
-        .mr-timer {
-          font-style: italic;
-        }
+       
 
         p {
           position: relative;
@@ -217,12 +218,24 @@ export default {
         .mr-content__content--main {
           cursor: pointer;
         }
+        .mr-comment > li {
+
+          &:first-child {
+              border-top: 1px dashed #afafaf;
+          }
+          padding: 15px 0;
+
+          p {
+            margin: 0;
+          }
+        }
       }
     }
   }
 }
 
-.mr-mywriting-wr {
+
+.mr-myquote-wr {
   .my-quotation-tab {
     position: absolute;
     display: flex;
@@ -240,7 +253,7 @@ export default {
       color: #ffffff90;
     }
   }
-  .mr-mywriting-wr-list {
+  .mr-myquote-wr-list {
     position: relative;
     display: inline-block;
     width: 100%;
@@ -249,6 +262,7 @@ export default {
     padding: 0 50px;  
     word-break: break-word;
   }
+
   .mr-myQuotation {
     > li {
       .mr-timer {
@@ -272,6 +286,8 @@ export default {
               position: relative;
               top: 2px;
             }
+
+
           }
           .mr-likes {
             position: relative;

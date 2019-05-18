@@ -85,7 +85,9 @@ export default {
       line-height: 70px;
       width: 140px;
       img {
+        position:relative;
         width: 100%;
+        top: 15px;
       }
     }
     &__child {
