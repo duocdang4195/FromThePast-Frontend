@@ -143,6 +143,12 @@
       <!-- /blog-sidebar -->
 
       <div class="mr-blog-content">
+        <div class="mr-blog-content_empty">
+            <strong>OOPS!!!!</strong>
+            <p>
+              There is no result matched with your requirement.
+            </p>
+        </div>
         <div class="blog-post single-post mr-search-result">
           <div class="mr-search-ttl" v-if="false">
             <input type="text" placeholder="Keywords" class="mr-inputkeyword">
@@ -660,5 +666,35 @@ a {
     width: calc(100% - 60px);
     margin-left: 10px;
   }
+}
+
+.mr-blog-content_empty {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-top: 66.66%;
+  text-align: center;
+  background:url(../../assets/images/search_empty.svg) center center/100% 100% no-repeat;
+  strong {
+    position: absolute;
+    width: 100%;
+    top: -10px;
+    align-self: flex-start;
+    font-size: 30px;
+    font-weight: 700;
+    color: #888;
+
+  }
+
+  p {
+    width: 100%;
+    align-self: flex-end;
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-size: 16px;
+  }
+
 }
 </style>

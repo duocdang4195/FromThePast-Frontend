@@ -446,6 +446,7 @@ export default {
         display: inline-block;
         width: 100%;
         margin-top: 30px;
+        padding-left: 0;
 
         li {
           position: relative;

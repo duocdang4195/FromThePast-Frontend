@@ -15,7 +15,7 @@
         </ul>
         <!-- /categories -->
       </div>
-      <!-- /sidebar-widget -->
+      <!-- /mr-sidebar -->
       <div class="mr-sidebar" v-if="false">
         <h4 class="mr-cat-2">Seasons</h4>
         <ul class="categories">
@@ -95,6 +95,8 @@
         <!-- /categories -->
       </div>
       <!-- /column -->
+
+    </div>
 
       <div class="mr-blog-content">
         <div class="mr-emotion-view">
