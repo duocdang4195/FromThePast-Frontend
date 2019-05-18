@@ -128,11 +128,11 @@ export default {
 				this.orderDetail = detail.find(item => {
 					return item.id == this.$route.params.id
 				})
+				if (this.orderDetail.type == 1) {
+					this.showSender = true;
+				}
 			}
 		})
-		if (this.orderDetail.type === "1") {
-      this.showSender = true;
-		}
 	},
 	computed: {
 		showPrice() {

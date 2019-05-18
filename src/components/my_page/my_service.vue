@@ -14,7 +14,7 @@
             </li>
             <li v-for="(item, index) in history " :key="index"  @click="goToOrderDetail(item.id)">
               <span class="mr-col0">
-                <span class="number-payment">#{{ item.id }}</span>
+                <span class="number-payment">#{{ item.code }}</span>
               </span>
               <span class="mr-col1">
                 <a href="#" v-text="getType(item.type)"></a>
