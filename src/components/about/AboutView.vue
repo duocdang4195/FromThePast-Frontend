@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 
 	.application--wrap {
 		background-color: #f1f1f1;
