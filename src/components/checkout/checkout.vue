@@ -224,7 +224,7 @@
               </v-menu>
             </div>
             <div class="mr-action-btn">
-              <p @click="checkPrice">Check Price</p>
+              <a @click="checkPrice">Check Price</a>
             </div>
             <!-- column -->
           </div>
@@ -615,10 +615,10 @@ export default {
       return true;
     },
     orderBooking() {
-      if (this.type === "1") {
+      if (this.type == 1) {
         if (!this.validateOrderPrint()) return;
       }
-      if (this.type === "2") {
+      if (this.type == 2) {
         if (!this.validateOrderWrite()) return;
       }
       if (!this.validateOrder()) return;
