@@ -224,7 +224,7 @@
               </v-menu>
             </div>
             <div class="mr-action-btn">
-              <a href="#" @click="checkPrice">Check Price</a>
+              <p @click="checkPrice">Check Price</p>
             </div>
             <!-- column -->
           </div>

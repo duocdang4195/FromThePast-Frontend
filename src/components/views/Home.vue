@@ -88,7 +88,7 @@
           <p>{{ getProfile.user.username }}</p>
       </div>
       <div class="content__actions" v-if="isAuthenticated && getProfile && quotaion.length == 0">
-        <span>{{!getProfile.user.name ? getProfile.user.name : getProfile.user.email}}</span>
+        <span>{{getProfile.user.name ? getProfile.user.name : getProfile.user.email}}</span>
         <div :class="classLike">
           <span @click="likeStt">
             <icon name="heart"/>

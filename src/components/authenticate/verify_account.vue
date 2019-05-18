@@ -50,7 +50,11 @@ export default {
   methods: {
     ...mapActions(['forgotPassword']),
     getCode() {
-      this.forgotPassword(this.email)
+      this.forgotPassword({email: this.email}).then(res => {
+        if(res.ok) {
+          alert('sdas')
+        }
+      })
     }
   }
 }

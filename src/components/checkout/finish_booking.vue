@@ -13,7 +13,6 @@
            <span v-if="data.from_name">delivery to <b>{{ data.from_name }}</b>.</span>
           <br>You can check the process of the service in the
           <router-link :to="{name: 'order_detail'}" >order detail</router-link>
-.
         </p>
         <!-- ./.mr-congrat-contnt  -->
       </div>
