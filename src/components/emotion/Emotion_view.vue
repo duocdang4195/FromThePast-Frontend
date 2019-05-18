@@ -73,9 +73,6 @@
                     <a href="#" class="btn btn-icon instagram border no-border circle text-gray">
                       <i data-v-715ff4e2 class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="btn btn-icon google border no-border circle text-gray">
-                      <i data-v-715ff4e2 class="fab fa-google-plus-g"></i>
-                    </a>
                   </div>
                   <!-- /social-icon -->
                   <div class="mr-action-btn">

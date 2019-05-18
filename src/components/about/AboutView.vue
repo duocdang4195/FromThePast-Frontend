@@ -35,9 +35,15 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
-	.application--wrap {
-		background-color: #f1f1f1;
+	.mr-about-view-bgr {
+		position: relative;
+	    display: inline-block;
+	    width: 100%;
+	    height: auto;
+	    min-height: 100vh;
+	    margin: 0;
+	    padding: 0;
+	    background-color: #f1f1f1;
 	}
 	.mr-about-view-wr {
 		position: relative; 

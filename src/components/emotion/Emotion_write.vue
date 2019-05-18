@@ -10,36 +10,29 @@
           v-model="content"
           :editorOptions="editorOption"
         ></vue-editor>
-        <input
-          ref="file"
-          @change="handleFileUpload"
-          accept="image/jpeg, image/jpg, image/png, video/mp4"
-          type="file"
-          class="mr-upload-img"
-        >
-        <v-combobox
-          class="mr-hashtag"
-          v-model="tags"
-          :items="items"
-          placeholder="Add Tag"
-          hide-selected
-          multiple
-          small-chips
-        ></v-combobox>
-        <button class="mr-submit" @click="submit">Post</button>
+        
+        <div class="mr-write-area_btm">
+          <input
+            ref="file"
+            @change="handleFileUpload"
+            accept="image/jpeg, image/jpg, image/png, video/mp4"
+            type="file"
+            class="mr-upload-img"
+          >
+          <v-combobox
+            class="mr-hashtag"
+            v-model="tags"
+            :items="items"
+            placeholder="Add Tag"
+            hide-selected
+            multiple
+            small-chips
+          ></v-combobox>
+          <button class="mr-submit" @click="submit">Post</button>
+        </div>
       </div>
     </div>
-    <div class="mr-search">
-      <span class="mr-icon">
-        <img src="../../assets/images/logo-icon.svg" alt="from the past" class="mr-ft-logo">
-      </span>
-      <input
-        type="text"
-        class="mr-input-search"
-        placeholder="What do you want to find?"
-        style="display: none;"
-      >
-    </div>
+    
   </div>
 </template>
 <script>
@@ -137,9 +130,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .ql-bubble * {
   z-index: 999 !important;
+}
+.ql-editor{
+  font-family: Roboto,sans-serif; // style in emotion_write
 }
 .mr-emt-wrtie-wr {
   background-image: url("../../assets/images/sea-3438648_1920.jpg");
@@ -212,7 +208,7 @@ export default {
   margin-right: 15px;
   margin-bottom: 15px;
   width: 75px;
-  height: 30px;
+  height: 35px;
   border: 0;
   background-color: #7b7b7b;
   color: #fafafa;
@@ -220,11 +216,13 @@ export default {
   font-weight: bold;
   letter-spacing: 1px;
   border-radius: 3px;
+  top: 2px;
 }
 .mr-emt-wrtie-wr .mr-write-area .mr-upload-img {
   position: relative;
   display: inline-block;
   float: left;
+  top: 2px;
   width: 75px;
   margin-left: 15px;
   color: transparent;
@@ -242,7 +240,6 @@ export default {
   max-width: calc(100% - 212px);
   margin-left: 15px;
   background-color: #f9f9f9;
-  border: 1px solid #f1f2f3;
   padding: 0px;
   height: 30px;
   font-size: 13px;
@@ -290,42 +287,10 @@ export default {
 .mr-emt-wrtie-wr .mr-write-area .mr-upload-img:active {
   outline: 0;
 }
-/*------ S E A R C H -----*/
-.mr-search {
-  position: absolute;
-  background-color: none;
-  right: 20px;
-  bottom: 20px;
 
-  .mr-icon {
-    position: relative;
-    display: inline-block;
-
-    img {
-      position: relative;
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-    }
-  }
-
-  .mr-input-search {
-    position: absolute;
-    display: inline-block;
-    width: 320px;
-    height: 35px;
-    padding: 7px 15px;
-    right: 0;
-    bottom: 0;
-    background-color: #fff;
-    border: 0;
-    font-size: 15px;
-
-    &::placeholder {
-      font-size: 15px;
-    }
-  }
+.mr-write-area_btm {
+  position: relative;
+  top: 10px;
 }
 </style>
 
