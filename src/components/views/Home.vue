@@ -9,8 +9,9 @@
           <img :src="getBackgound.logo_white" alt>
         </router-link>
       </div>
-      <div class="content__input--quotaion">
+      <div class="content__input--quotaion" v-if="!isAuthenticated">
         <textarea
+          v-if="showRandom"
           cols="80"
           autofocus
           v-model="checkAuthen"
@@ -39,11 +40,11 @@
           caret-animation="blink"
         ></vue-typer>
       </div> -->
-      <div class="content__input--quotaion" v-if="isAuthenticated && isLogin">
+      <div class="content__input--quotaion" v-if="isAuthenticated">
         <textarea
-          v-show="createEvent"
           cols="80"
           autofocus
+          :placeholder="showTypeText"
           v-model="quotaion"
           ref="quotation"
           @keydown.enter.prevent="postQuotations"
@@ -161,6 +162,7 @@ export default {
       checkUser: true,
       isUser: false,
       notUser: false,
+      showRandom: true,
       signupUserName: false,
       signupPassword: false,
       signupConfirmPassword: false,
@@ -229,7 +231,6 @@ export default {
     },
     async getAnotherRandom(){
       let self = this;
-      console.log('get_random');
       await setTimeout(()=> {
           if (!self.stop) {
             self.getQuotations();
@@ -253,11 +254,10 @@ export default {
     postQuotations() {
       this.createQuotations({ content: this.quotaion }).then(res => {
         if (res.ok) {
-          this.getQuotations();
           this.quotaion = "";
-          this.clickPost = true;
-          this.createEvent = false;
           this.clickCreateQuotation = false
+          this.getAnotherRandom()
+          this.parseQuotation()
         }
       });
     },
@@ -272,6 +272,8 @@ export default {
             this.checkAuthen = "";
             this.clickPost = true;
             this.createUser = false;
+            this.getAnotherRandom()
+            this.parseQuotation()
           }
         });
       } else {
@@ -280,6 +282,7 @@ export default {
             setTimeout(x => {
               this.$refs.password.focus()
             }, 150);
+            this.showRandom = false
             this.showAuthor = false
             this.checkUser = false;
             this.isUser = true;
@@ -287,6 +290,7 @@ export default {
             setTimeout(x => {
               this.$refs.email.focus()
             }, 150);
+            this.showRandom = false
             this.checkAuthen = "";
             this.checkUser = false;
             this.notUser = true;
@@ -303,6 +307,11 @@ export default {
         if(res.ok) {
           this.isUser = false
           this.clickPost = true
+        } else {
+          Swal.fire({
+            title: "Email Or Password invalid",
+            type: "error"
+          });
         }
       })
     },
@@ -365,7 +374,7 @@ export default {
           gender: Number(this.gender)
         }).then(res => {
           if (res.ok) {
-            this.clickPost = true
+            this.createEvent = true
             this.showTypeText = `Welocome ${this.userName} to passness `
           }
         });
