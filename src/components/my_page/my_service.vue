@@ -191,14 +191,14 @@ export default {
             }
 
             .mr-col0 {
-              width: 120px;
+              width: 220px;
 
               > a {
                 text-decoration: none;
               }
             }
             .mr-col1 {
-              width: 20%;
+              width: calc(40% - 220px);
               text-align: left;
 
               > a {
@@ -212,7 +212,7 @@ export default {
               }
             }
             .mr-col2 {
-              width: calc(40% - 120px);
+              width: 20%;
             }
             .mr-col3 {
               width: 20%;
