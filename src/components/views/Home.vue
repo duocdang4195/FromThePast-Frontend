@@ -172,7 +172,8 @@ export default {
       createUser: false,
       isLogin: false,
       notAuthen: true,
-      interval: null
+      interval: null,
+      stop: false
     };
   },
   async created() {
@@ -180,6 +181,11 @@ export default {
     await this.getProfileUser();
     await this.parseQuotation();
     await this.getAnotherRandom();
+    this.stop = false;
+  },
+  destroyed(){
+    this.stopInterval();
+    this.stop = true;
   },
   computed: {
     ...mapGetters(["quotationRandom", "isAuthenticated", "getProfile", "getBackgound"]),
@@ -209,9 +215,10 @@ export default {
     parseQuotation() {
       let self = this;
       this.showTypeText = "";
+      let tmp = self.quotationRandom.content;
       this.interval = setInterval(function() {
-          if (self.quotationRandom.content.length > self.showTypeText.length) {
-            self.showTypeText += self.quotationRandom.content[self.showTypeText.length];
+          if (tmp.length > self.showTypeText.length) {
+            self.showTypeText += tmp[self.showTypeText.length];
           } else {
             self.stopInterval();
           }
@@ -224,9 +231,12 @@ export default {
       let self = this;
       console.log('get_random');
       await setTimeout(()=> {
-          self.getQuotations();
-          self.parseQuotation();
-          self.getAnotherRandom();
+          if (!self.stop) {
+            self.getQuotations();
+            self.parseQuotation();
+            self.getAnotherRandom();
+            console.log('test');
+          }
       }, 180000);
     },
     clickCreateQuotation() {
