@@ -9,17 +9,18 @@
           <img :src="getBackgound.logo_white" alt>
         </router-link>
       </div>
-      <div class="content__input--quotaion" v-if="checkUser && !isAuthenticated && createUser">
+      <div class="content__input--quotaion">
         <textarea
           cols="80"
           autofocus
           v-model="checkAuthen"
           ref="check"
+          :placeholder="showTypeText"
           @keydown.enter.prevent="checkUserProfile"
         ></textarea>
       </div>
       <!-- show Quotations -->
-      <div
+      <!-- <div
         @click="clickCreateQuotation"
         class="content__input--quotaion strick-quotation"
         v-if="clickPost"
@@ -37,7 +38,7 @@
           :erase-on-complete="false"
           caret-animation="blink"
         ></vue-typer>
-      </div>
+      </div> -->
       <div class="content__input--quotaion" v-if="isAuthenticated && isLogin">
         <textarea
           v-show="createEvent"
@@ -170,13 +171,15 @@ export default {
       createEvent: false,
       createUser: false,
       isLogin: false,
-      notAuthen: true
+      notAuthen: true,
+      interval: null
     };
   },
-  created() {
-    this.getQuotations();
-    this.getProfileUser();
-    this.showTypeText = this.quotationRandom.content
+  async created() {
+    await this.getQuotations();
+    await this.getProfileUser();
+    await this.parseQuotation();
+    await this.getAnotherRandom();
   },
   computed: {
     ...mapGetters(["quotationRandom", "isAuthenticated", "getProfile", "getBackgound"]),
@@ -203,6 +206,29 @@ export default {
       "commentQuotations",
       "getProfileUser"
     ]),
+    parseQuotation() {
+      let self = this;
+      this.showTypeText = "";
+      this.interval = setInterval(function() {
+          if (self.quotationRandom.content.length > self.showTypeText.length) {
+            self.showTypeText += self.quotationRandom.content[self.showTypeText.length];
+          } else {
+            self.stopInterval();
+          }
+      },100);        
+    },
+    stopInterval(){
+      clearInterval(this.interval);
+    },
+    async getAnotherRandom(){
+      let self = this;
+      console.log('get_random');
+      await setTimeout(()=> {
+          self.getQuotations();
+          self.parseQuotation();
+          self.getAnotherRandom();
+      }, 180000);
+    },
     clickCreateQuotation() {
       this.clickPost = false;
       this.createEvent = true;
@@ -363,6 +389,9 @@ export default {
 
 
 <style lang="scss" scoped>
+::placeholder{
+  color:#fff;
+}
 .vue-typer .custom.char.typed {
   color: #fff;
 }
