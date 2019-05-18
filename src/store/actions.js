@@ -302,8 +302,9 @@ export default {
     try {
       const response = await api.get(`/booking/${id}`);
       commit('updateOrderDetail', response.data)
-      return { ok: true, response };
+      return { ok: true, data: response.data };
     } catch (error) {
+			console.log("TCL: getBooking -> error", error)
       return { ok: false, error };
     }
   },

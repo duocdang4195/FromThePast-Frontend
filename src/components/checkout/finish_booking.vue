@@ -6,13 +6,13 @@
         <!-- ./.mr-ttl  -->
         <p class="mr-congrat-contnt">
           You have just finished the order
-          <a href="#">#{{ data.id }}</a> for
+          <a href="#">#{{ getIdBooking.code }}</a> for
           <b>{{ type }}</b>.
           <br>Your order will be process on
-          <b>{{ data.time_start | moment("MMMM Do YYYY") }}</b>,
-           <span v-if="data.from_name">delivery to <b>{{ data.from_name }}</b>.</span>
+          <b>{{ getIdBooking.time_start | moment("MMMM Do YYYY") }}</b>,
+           <span v-if="getIdBooking.from_name">delivery to <b>{{ getIdBooking.from_name }}</b>.</span>
           <br>You can check the process of the service in the
-          <router-link :to="{name: 'order_detail'}" >order detail</router-link>
+          <a @click="goToOrderDetail(getIdBooking.id)" >order detail</a>
         </p>
         <!-- ./.mr-congrat-contnt  -->
       </div>
@@ -32,23 +32,16 @@ export default {
     }
   },
   async created() {
-    let { response } = await this.getBooking(this.getIdBooking.id)
-    this.data = response.data
-    if(this.data.type === 1) {
-      this.type = 'handwriting'
-    }
-    if(this.data.type === 2) {
-      this.type = 'Write'
-    }
-    if(this.data.type === 3) {
-      this.type = 'Emotion '
-    }
+    console.log('getIdBooking', this.getIdBooking)
   },
   computed: {
     ...mapGetters(["getIdBooking"]),
   },
   methods: {
-    ...mapActions(["getBooking"])
+    ...mapActions(["getBooking"]),
+    goToOrderDetail(id) {
+      this.$router.push(`/order_detail/${id}`);
+    },
   }
 };
 </script>
