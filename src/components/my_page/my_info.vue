@@ -9,12 +9,12 @@
           <div class="mr-wc-quotation">
             <p>
               {{ showQuotaions.content }}
-              <br>
-              <i
-                v-if="showQuotaions.user"
-                v-cloak
-              >{{ !showQuotaions.user.name ? showQuotaions.user.name : 'Hidden' }}</i>
+             
             </p>
+           <i class="mr-wc-quotation_author"
+              v-if="showQuotaions.user"
+              v-cloak
+            >{{ !showQuotaions.user.name ? showQuotaions.user.name : 'Hidden' }}</i>
           </div>
           <div class="mr-welcomequestion">
             <input
@@ -398,6 +398,7 @@ export default {
         p {
           position: relative;
           display: inline-block;
+          width: 100%;
           font-size: 20px;
           word-break:break-word;
           line-height: 1.3;

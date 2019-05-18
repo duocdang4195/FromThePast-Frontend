@@ -56,12 +56,12 @@
         </div>
         <!-- show Password -->
         <div class="content__input--user--check" v-if="notUser">
-          <p>HI, IS THAT YOUR EMAIL ?</p>
+          <p>HI, What is your email ?</p>
           <input ref="email" autofocus v-model="email" @keydown.enter.prevent="fillEmail">
         </div>
         <!-- show Email Signup -->
         <div class="content__input--user--check" v-if="signupUserName">
-          <p>HI, IS THAT YOUR USERNAME ?</p>
+          <p>HI, What will be your username?</p>
           <input ref="username" autofocus v-model="userName" @keydown.enter.prevent="fillUserName">
         </div>
         <!-- show User Name -->
