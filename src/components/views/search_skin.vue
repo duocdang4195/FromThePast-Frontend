@@ -143,7 +143,7 @@
       <!-- /blog-sidebar -->
 
       <div class="mr-blog-content">
-        <div class="mr-blog-content_empty">
+        <div v-if="!getDataSearch" class="mr-blog-content_empty">
             <strong>OOPS!!!!</strong>
             <p>
               There is no result matched with your requirement.
@@ -157,13 +157,13 @@
           <div class="mr-img-search-result">
             <h5>Images for result</h5>
             <ul>
-              <li v-for="item in getEmotions">
+              <li v-for="item in showImg">
                 <img :src="item.image" alt="">
               </li>
             </ul>
             <p>
               More images results for
-              <b>Searck keyword</b>
+              <b>{{ searchKey }}</b>
             </p>
           </div>
           <!-- ./. mr-img-search-result -->
@@ -280,8 +280,20 @@ export default {
     return {
     };
   },
+  created() {
+  },
   computed: {
     ...mapGetters(["getDataSearch"]),
+    showImg() {
+      let image = this.getDataSearch.emotion.filter(item => {
+        return item.image !== ''
+      })
+      return image
+    },
+    searchKey() {
+      let keyword = ''
+      return this.keyword = this.$store.state.searchKey
+    },
     getAbout() {
       return this.getDataSearch.about
     },

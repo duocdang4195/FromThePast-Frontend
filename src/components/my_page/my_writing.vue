@@ -3,11 +3,16 @@
     <div :style="getBackground" class="mr-fullslider" >
       <div class="mr-mywriting-wr">
         <ul>
-          <li @click="goto(item.id)"  v-for="(item, index) in listEmotionsAll" :key="index">
+          <li v-if="listEmotionsAll.length === 0">
+            <div class="mr-content">
+              <h5>No data</h5>
+            </div>
+          </li>
+          <li v-else @click="goto(item.id)"  v-for="(item, index) in listEmotionsAll" :key="index">
             <img class="mr-post-thumb" :src="checkImage(item.image)">
             <div class="mr-content">
               <h5>{{ item.title }}</h5>
-              <span class="mr-timer">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
+              <span class="mr-timer">{{ item.updated_at | moment("MMMM Do YYYY")}}</span>
               <p v-html="strip_tags(item.content).substr(0,300) + (strip_tags(item.content).length > 400 ? '...' : '')" class="mr-content__main--content"></p>
             </div>
           </li>
@@ -24,19 +29,24 @@ export default {
   name: "my_writing",
   data() {
     return {
+      listEmotionsAll: []
     };
   },
   created() {
-    this.getEmotionsAll();
+    this.getMyWriting().then(res => {
+      if(res.ok) {
+        this.listEmotionsAll = res.data
+      }
+    })
   },
   computed: {
-    ...mapGetters(["listEmotionsAll", "getBackgound"]),
+    ...mapGetters(["getBackgound"]),
     getBackground() {
       return "background-image:url('"+this.getBackgound.my_quotation_background+"');"
     }
   },
   methods: {
-    ...mapActions(["getEmotionsAll"]),
+    ...mapActions(["getMyWriting"]),
     checkImage(image) {
       if (!image) {
         return this.getBackgound.logo_dark

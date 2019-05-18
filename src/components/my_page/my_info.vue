@@ -160,7 +160,7 @@ export default {
       if (15 < time && time < 21) {
         return (communicate = "Good Evening");
       }
-      if (21 < time && time < 24) {
+      if (21 < time && time < 0) {
         return (communicate = "Good Night");
       }
       return communicate;
@@ -191,7 +191,6 @@ export default {
       window.confirmationResult.confirm(this.verifyCode).then(()=>{
         //Update API
         this.updatePhoneNumber({phoneNumber: this.phoneNumber}).then(res => {
-          console.log('res', res)
           if(res.ok) {
             Swal.fire('Update success');
             this.getProfile.user.phone = this.phoneNumber;
@@ -207,7 +206,7 @@ export default {
         });
       } else if (!this.password) {
         Swal.fire({
-          title: "Field Required",
+          title: "Password Required",
           type: "error"
         });
       } else {
@@ -220,6 +219,9 @@ export default {
               title: "Sucess",
               type: "sucess"
             });
+            this.password = ''
+            this.newPaswword = ''
+            this.confirmNewPassword = ''
             this.showChangePassword = false;
             this.showTextChange = true;
           } else {

@@ -12,11 +12,11 @@
               <span class="mr-col3">Purchases</span>
             </li>
             <li  v-for="(item, index) in proFit" :key="index">
-              <span class="mr-col0">1</span>
+              <span class="mr-col0">{{ index + 1 }}</span>
               <span class="mr-col1">
                 <a href="#">{{ item.title }}</a>
               </span>
-              <span class="mr-col2">{{ item.profit }}</span>
+              <span class="mr-col2">{{ item.profit.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) }}</span>
               <span class="mr-col3">{{ item.purchased }}</span>
             </li>
           </ul>

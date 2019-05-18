@@ -5,16 +5,22 @@
         <div @click="showYourQuotation" class="my-quotation-tab__elm active">Your Quotation</div>
         <div @click="showYourQuotationRelation" class="my-quotation-tab__elm">Quotation Relation</div>
       </div>
-      <div class="mr-myquote-wr-list ">
+      <div class="mr-myquote-wr-list">
         <ul>
-          <li 
-              v-if="yourQuotations"
-              class="mr-myQuotation"
-              v-for="(item, index) in listQuotations"
-              :key="index"
+          <li v-if="listQuotations.length === 0">
+            <span class="mr-timer">
+              <span class="mr-date">No data</span>
+            </span>
+          </li>
+          <li
+            v-else
+            v-show="yourQuotations"
+            class="mr-myQuotation"
+            v-for="(item, index) in listQuotations"
+            :key="index"
           >
             <span class="mr-timer">
-              <span class="mr-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
+              <span class="mr-date">{{ item.updated_at | moment("MMMM Do YYYY")}}</span>
             </span>
             <div class="mr-content">
               <p class="mr-content__content--main">{{ item.content }}</p>
@@ -33,39 +39,41 @@
                   <span v-if="listComment.user" class="mr-cmt-author">{{ listComment.user.name }}</span>
                   <span
                     class="mr-cmt-time"
-                  >{{ listComment.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
+                  >{{ listComment.created_at | moment("MMMM Do YYYY, h:mm:ss a")}}</span>
                   <br>
                   <p>{{ listComment.content }}</p>
                 </li>
               </ul>
             </div>
           </li>
-          <li v-else class="mr-myQuotation" v-for="(item) in quotationsRelation">
-            <span class="mr-timer">
-              <span class="mr-date">{{ item.updated_at | moment("dddd, MMMM Do YYYY")}}</span>
-            </span>
-            <div class="mr-content">
-              <p class="mr-content__content--main">{{ item.content }}</p>
-              <p class="rh-interactions">
-                <span class="mr-comment-count">
-                  <icon name="comments"/>
-                   {{ item.comments.length }} comments
-                </span>
-                <span class="mr-likes">
-                  <icon name="heart"/>
-                   {{ item.likes.length }} likes
-                </span>
-              </p>
-              <ul class="mr-comment">
-                <li v-for="(listComment, index) in item.comments" :key="index">
-                  <span v-if="listComment.user" class="mr-cmt-author">{{ listComment.user.name }}</span>
-                  <span
-                    class="mr-cmt-time"
-                  >{{ listComment.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a")}}</span>
-                  <br>
-                  <p>{{ listComment.content }}</p>
-                </li>
-              </ul>
+          <li v-show="!yourQuotations" class="mr-myQuotation" v-for="(list) in quotationsRelation">
+            <div>
+              <span class="mr-timer">
+                <span class="mr-date">{{ list.updated_at | moment("MMMM Do YYYY")}}</span>
+              </span>
+              <div class="mr-content">
+                <p class="mr-content__content--main">{{ list.content }}</p>
+                <p class="rh-interactions">
+                  <span class="mr-comment-count">
+                    <icon name="comments"/>
+                    {{ list.comments.length }} comments
+                  </span>
+                  <span class="mr-likes">
+                    <icon name="heart"/>
+                    {{ list.likes.length }} likes
+                  </span>
+                </p>
+                <ul class="mr-comment">
+                  <li v-for="(listComment, index) in list.comments" :key="index">
+                    <span v-if="listComment.user" class="mr-cmt-author">{{ listComment.user.name }}</span>
+                    <span
+                      class="mr-cmt-time"
+                    >{{ listComment.created_at | moment("MMMM Do YYYY, h:mm:ss a")}}</span>
+                    <br>
+                    <p>{{ listComment.content }}</p>
+                  </li>
+                </ul>
+              </div>
             </div>
           </li>
         </ul>
@@ -100,22 +108,26 @@ export default {
     });
   },
   computed: {
-    ...mapGetters(['getBackgound']),
+    ...mapGetters(["getBackgound"]),
     getBackground() {
-      return "background-image:url('"+this.getBackgound.my_quotation_background+"');"
+      return (
+        "background-image:url('" +
+        this.getBackgound.my_quotation_background +
+        "');"
+      );
     }
   },
   methods: {
     ...mapActions(["getAllMyQuotations", "getAllQuotationsRealtions"]),
     showYourQuotation() {
-			if(!this.yourQuotations) {
-				this.yourQuotations = true
-			}
-		},
-		showYourQuotationRelation() {
-			if(this.yourQuotations) {
-				this.yourQuotations = false
-			}
+      if (!this.yourQuotations) {
+        this.yourQuotations = true;
+      }
+    },
+    showYourQuotationRelation() {
+      if (this.yourQuotations) {
+        this.yourQuotations = false;
+      }
     }
   }
 };
@@ -187,11 +199,11 @@ export default {
         background-size: cover;
         background-position: center center;
       }
-       .mr-timer {
-          position: relative;
-          width: 150px;
-          font-style: italic;
-        }
+      .mr-timer {
+        position: relative;
+        width: 150px;
+        font-style: italic;
+      }
       .mr-content {
         width: calc(100% - 150px);
         padding-left: 20px;
@@ -205,8 +217,6 @@ export default {
           font-weight: bold;
         }
 
-       
-
         p {
           position: relative;
           width: 100%;
@@ -219,9 +229,8 @@ export default {
           cursor: pointer;
         }
         .mr-comment > li {
-
           &:first-child {
-              border-top: 1px dashed #afafaf;
+            border-top: 1px dashed #afafaf;
           }
           padding: 15px 0;
 
@@ -233,7 +242,6 @@ export default {
     }
   }
 }
-
 
 .mr-myquote-wr {
   .my-quotation-tab {
@@ -249,7 +257,7 @@ export default {
       cursor: pointer;
     }
     .active {
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       color: #ffffff90;
     }
   }
@@ -259,7 +267,7 @@ export default {
     width: 100%;
     height: calc(100% - 30px);
     overflow: auto;
-    padding: 0 50px;  
+    padding: 0 50px;
     word-break: break-word;
   }
 
@@ -286,8 +294,6 @@ export default {
               position: relative;
               top: 2px;
             }
-
-
           }
           .mr-likes {
             position: relative;

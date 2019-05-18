@@ -16,7 +16,7 @@
         <button class="mr-dislike-btn">
           <i class="ti-heart-broken"></i>
         </button>
-        <span class="time">{{ item.updated_at | moment("MMMM Do YYYY, h:mm:ss a")}}</span>
+        <span class="time">{{ item.updated_at | moment("Do YYYY, h:mm:ss a")}}</span>
       </div>
       <!-- /like -->
     </div>
