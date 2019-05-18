@@ -3,7 +3,7 @@
     <div id class="mr-checkout-session">
       <div class="mr-container">
         <div class="mr-left-col">
-          <h3 class="mr-heading-left">Payment information</h3>
+          <h3 class="mr-heading-left">Sender</h3>
           <div class="row">
             <div class="col-sm-12" v-if="handWrite">
               <label>Content</label>
@@ -16,7 +16,7 @@
               ></vue-editor>
             </div>
             <div class="col-sm-12" v-if="handPrint">
-              <label>Full name sender</label>
+              <label>Full name</label>
               <v-text-field
                 v-model="fullnameSender"
                 placeholder="Full name"
@@ -37,7 +37,7 @@
                 ></v-text-field>
               </div>
               <div class="col-sm-6">
-                <label class="mrg-top-30">The City Receives</label>
+                <label class="mrg-top-30">The City</label>
                 <v-autocomplete
                   v-model="selectCitySender"
                   :items="listCity"
@@ -50,7 +50,7 @@
                 ></v-autocomplete>
               </div>
               <div class="col-sm-6">
-                <label class="mrg-top-30">The District Receives</label>
+                <label class="mrg-top-30">The District</label>
                 <v-autocomplete
                   v-model="selectDistrictSender"
                   :items="listDisttrict"
@@ -64,7 +64,7 @@
                 ></v-autocomplete>
               </div>
               <div class="col-sm-6">
-                <label class="mrg-top-30">The Ward Receives</label>
+                <label class="mrg-top-30">The Ward</label>
                 <v-autocomplete
                   v-model="selectWardSender"
                   :items="listWard"
@@ -78,7 +78,7 @@
                 ></v-autocomplete>
               </div>
               <div class="col-sm-12">
-                <label class="mrg-top-30">The Address Receives</label>
+                <label class="mrg-top-30">The Address</label>
                 <v-text-field
                   v-model="streetSender"
                   placeholder="230 An Nam Street"
@@ -89,6 +89,7 @@
                 ></v-text-field>
               </div>
             </div>
+            <h3 class="mr-heading-left">Receiver</h3>
             <div class="col-sm-12">
               <label>Full name</label>
               <v-text-field
@@ -224,7 +225,7 @@
               </v-menu>
             </div>
             <div class="mr-action-btn">
-              <p @click="checkPrice">Check Price</p>
+              <a class="mr-action-btn_checkprice" @click="checkPrice">Check Price</a>
             </div>
             <!-- column -->
           </div>

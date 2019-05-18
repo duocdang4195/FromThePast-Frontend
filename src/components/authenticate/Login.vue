@@ -102,6 +102,7 @@
     padding: 30px 60px;
     text-align: center;
     border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
      h2 {
       width: 100%;
       text-align: center;
