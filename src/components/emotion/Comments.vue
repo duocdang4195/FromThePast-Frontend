@@ -52,10 +52,18 @@ export default {
 <style lang="scss" scoped>
 .mr-comment {
   position: relative;
-  padding: 15px 0 30px;
+  padding: 20px 0;
   display: flex;
   flex-direction: row;
   align-items: top;
+  border-bottom: 1px dashed #dadada;
+
+  &:nth-child(2) {
+    border-top: 1px dashed #dadada;
+  }
+  &:last-child {
+    border-bottom: 0;
+  }
   .mr-avatar {
     width: 50px;
     height: 50px;

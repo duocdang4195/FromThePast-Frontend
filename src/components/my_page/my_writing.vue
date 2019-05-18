@@ -2,8 +2,8 @@
   <div>
     <div :style="getBackground" class="mr-fullslider" >
       <div class="mr-mywriting-wr">
-        <ul v-for="(item, index) in listEmotionsAll" :key="index">
-          <li @click="goto(item.id)">
+        <ul>
+          <li @click="goto(item.id)"  v-for="(item, index) in listEmotionsAll" :key="index">
             <img class="mr-post-thumb" :src="checkImage(item.image)">
             <div class="mr-content">
               <h5>{{ item.title }}</h5>
@@ -112,7 +112,7 @@ export default {
         background-position: center center;
       }
       .mr-content {
-        width: calc(100% - 300px);
+        width: calc(100% - 200px);
         padding-left: 20px;
         cursor: pointer;
 
@@ -135,7 +135,7 @@ export default {
           line-height: 1.5;
         }
         .mr-content__main--content {
-          height: 200px;
+          height: 100px;
           overflow-y: scroll;
         }
       }
