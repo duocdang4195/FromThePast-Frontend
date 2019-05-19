@@ -1,16 +1,17 @@
 <template>
-  <div :style="getBackground" class="mr-fullslider">
+  <div :style="getBackground" class="mr-fullslider" v-cloak v-show="isLoaded">
     <div class="mr-myquote-wr">
       <div class="my-quotation-tab">
-        <div @click="showYourQuotation" class="my-quotation-tab__elm active">Your Quotation</div>
-        <div @click="showYourQuotationRelation" class="my-quotation-tab__elm">Quotation Relation</div>
+        <div @click="showYourQuotation" :class="['my-quotation-tab__elm',{ active: yourQuotations }]">Your Quotation</div>
+        <div @click="showYourQuotationRelation":class="['my-quotation-tab__elm',{ active: !yourQuotations }]">Quotation Relation</div>
       </div>
       <div class="mr-myquote-wr-list">
         <ul>
           <li v-if="listQuotations.length === 0">
-            <span class="mr-timer">
-              <span class="mr-date">No data</span>
-            </span>
+              <h4 style="text-align: center; width:100%;">You dont have any data yet!</h4>
+              <div style="width:100%; text-align:center;">
+                  <img src="../../assets/images/empty_thinking.svg" style="width:300px;">  
+              </div>
           </li>
           <li
             v-else
@@ -91,7 +92,8 @@ export default {
     return {
       listQuotations: [],
       quotationsRelation: [],
-      yourQuotations: true
+      yourQuotations: true,
+      isLoaded: false      
     };
   },
   created() {
@@ -103,6 +105,7 @@ export default {
     this.getAllMyQuotations().then(res => {
       if (res.ok) {
         this.listQuotations = res.response.data;
+        this.isLoaded = true;
       }
     });
   },
