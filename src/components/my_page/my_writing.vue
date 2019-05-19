@@ -17,12 +17,12 @@
               <div class="action-quotation">
 
                 <div class="action-quotation__elm">
-                  <span> {{ item.comment.length }} </span>
                   <icon name="comments"/>
+                  <span> {{ item.comment.length }} Comments</span>
                 </div>
                 <div class="action-quotation__elm">
-                  <span> {{ item.likes.length }} </span>
                   <icon name="heart"/>
+                  <span> {{ item.likes.length }} likes</span>
                 </div>
               </div>
             </div>
@@ -86,7 +86,13 @@ export default {
   align-items: center
 }
 .action-quotation__elm {
-  flex-basis: 50px;
+  flex-basis: 100px;
+  margin-right: 7px;
+
+  svg {
+    position: relative;
+    top: 2px;
+  }
 }
 .mr-fullslider {
   position: relative;

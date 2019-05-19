@@ -355,16 +355,16 @@ export default {
       }
 
       .mr-wc-quotation {
-        position: absolute;
+        position: relative;
         display: inline-block;
         height: 200px;
-        width: calc(100% - 150px);
+        width: 100%;
         padding-right: 50px;
         margin-top: auto;
         margin-bottom: auto;
         top: 0;
         bottom: 0;
-        left: 75px;
+        left: 0;
 
         textarea {
           position: relative;

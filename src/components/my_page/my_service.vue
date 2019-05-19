@@ -23,6 +23,10 @@
               <span class="mr-col3">{{ item.total_price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) }}</span>
               <span class="mr-col4" v-text="checkStatus(item.state)"></span>
             </li>
+            <li class="list__empty">
+              <p>You dont have any data yet!</p>
+              <img src="../../assets/images/empty_thinking.svg">
+            </li>
           </ul>
         </div>
         <!-- ./. mr-basicinfo -->
@@ -136,7 +140,7 @@ export default {
     background-color: #fff;
   }
   .mr-container {
-    margin: 120px 0;
+    margin: 120px 0 20px 0;
     .mr-myinformation {
       display: flex;
       width: 100%;
@@ -252,6 +256,26 @@ export default {
         }
       }
     }
+  }
+}
+.list__empty {
+  position: relative;
+  width: 100%; 
+  padding-top: 70px;
+  text-align: center;
+
+  p {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #aaa;
+  }
+  img {
+    position: relative;
+    width: 250px;
+    height: 200px;
   }
 }
 </style>

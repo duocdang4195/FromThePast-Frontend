@@ -1,14 +1,16 @@
 <template>
-	<div class="mr-about-view-wr">
-		<div class="mr-about-view-cntn">
-			<h3 v-html="getAboutById.title" >{{ getAboutById.title }}</h3>
-			<div class="mr-about-flexbox">
-				<div class="mr-cntnBox">
-					<p v-html="getAboutById.content">{{ getAboutById.content }}</p>
+	<div class="mr-about-view-bgr">
+		<div class="mr-about-view-wr">
+			<div class="mr-about-view-cntn">
+				<h3 v-html="getAboutById.title" >{{ getAboutById.title }}</h3>
+				<div class="mr-about-flexbox">
+					<div class="mr-cntnBox">
+						<p v-html="getAboutById.content">{{ getAboutById.content }}</p>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div><!-- ./.mr-about-view-bgr -->
 </template>
 
 <script>

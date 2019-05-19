@@ -31,6 +31,7 @@ export default {
 	@import url('https://cdn.linearicons.com/free/1.0.0/icon-font.min.css');
 	@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400&subset=vietnamese');
 	@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400&subset=vietnamese');
+	@import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap&subset=vietnamese');
 	img {
 		max-width: 100% !important;
 	}
@@ -73,7 +74,8 @@ export default {
 		border-radius: 0 !important;
 		padding: 2.5em 1.25em !important;
 	}
-	.swal2-icon.swal2-error {
+	.swal2-icon.swal2-error,
+	.swal2-icon.swal2-success {
 		display: none !important;
 	}
 	.swal2-styled.swal2-confirm {
