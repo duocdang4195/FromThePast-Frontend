@@ -14,7 +14,7 @@
            <i class="mr-wc-quotation_author"
               v-if="showQuotaions.user"
               v-cloak
-            >{{ !showQuotaions.user.name ? showQuotaions.user.name : 'Hidden' }}</i>
+            >{{ !showQuotaions.user.name ? showQuotaions.user.name : 'Paser' }}</i>
           </div>
           <div class="mr-welcomequestion">
             <input

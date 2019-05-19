@@ -14,7 +14,7 @@
             <li  v-for="(item, index) in proFit" :key="index">
               <span class="mr-col0">{{ index + 1 }}</span>
               <span class="mr-col1">
-                <a href="#">{{ item.title }}</a>
+                <a @click="goto(item.id)" ref="#">{{ item.title }}</a>
               </span>
               <span class="mr-col2">{{ item.profit.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) }}</span>
               <span class="mr-col3">{{ item.purchased }}</span>
@@ -43,9 +43,13 @@ export default {
   async created() {
     const res = await this.getProfit()
     this.proFit = res.response.data
+		console.log("TCL: created -> this.proFit", this.proFit)
   },
   methods: {
-    ...mapActions(['getProfit'])
+    ...mapActions(['getProfit']),
+    goto(id) {
+      this.$router.push(`/Emotion_view/${id}`);
+    },
   }
 };
 </script>

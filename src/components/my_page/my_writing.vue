@@ -14,6 +14,17 @@
               <h5>{{ item.title }}</h5>
               <span class="mr-timer">{{ item.updated_at | moment("MMMM Do YYYY")}}</span>
               <p v-html="strip_tags(item.content).substr(0,300) + (strip_tags(item.content).length > 400 ? '...' : '')" class="mr-content__main--content"></p>
+              <div class="action-quotation">
+
+                <div class="action-quotation__elm">
+                  <span> {{ item.comment.length }} </span>
+                  <icon name="comments"/>
+                </div>
+                <div class="action-quotation__elm">
+                  <span> {{ item.likes.length }} </span>
+                  <icon name="heart"/>
+                </div>
+              </div>
             </div>
           </li>
         </ul>
@@ -36,6 +47,7 @@ export default {
     this.getMyWriting().then(res => {
       if(res.ok) {
         this.listEmotionsAll = res.data
+				console.log("TCL: created -> this.listEmotionsAll", this.listEmotionsAll)
       }
     })
   },
@@ -69,6 +81,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.action-quotation {
+  display: flex;
+  align-items: center
+}
+.action-quotation__elm {
+  flex-basis: 50px;
+}
 .mr-fullslider {
   position: relative;
   display: flex;

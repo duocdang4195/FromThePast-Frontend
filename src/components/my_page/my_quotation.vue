@@ -26,11 +26,11 @@
               <p class="mr-content__content--main">{{ item.content }}</p>
               <p class="rh-interactions">
                 <span class="mr-comment-count">
-                  <i class="ti-comment-alt"></i>
+                  <icon name="comments"/>
                   {{ item.comments.length }} comments
                 </span>
                 <span class="mr-likes">
-                  <i class="ti-heart"></i>
+                  <icon name="heart"/>
                   {{ item.likes.length }} likes
                 </span>
               </p>

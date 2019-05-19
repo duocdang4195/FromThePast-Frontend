@@ -184,6 +184,22 @@ export default {
       return { ok: false, error };
     }
   },
+  async likeEmotions( {}, id) {
+    try {
+      const response = await api.post("/emotion_like", id);
+      return { ok: true, data: response.data };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async unLikeEmotions( {}, {id}) {
+    try {
+      const response = await api.delete(`/emotion_like/${id}`);
+      return { ok: true, data: response.data };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
   async getMyEmotionsByID({ commit }, id) {
     try {
       const response = await api.get(`/emotion/${id}`);

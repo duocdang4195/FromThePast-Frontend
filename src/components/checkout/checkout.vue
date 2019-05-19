@@ -3,7 +3,7 @@
     <div id class="mr-checkout-session">
       <div class="mr-container">
         <div class="mr-left-col">
-          <h3 class="mr-heading-left">Sender</h3>
+          <h3 class="mr-heading-left" v-if="handPrint">Sender</h3>
           <div class="row">
             <div class="col-sm-12" v-if="handWrite">
               <label>Content</label>
@@ -278,6 +278,13 @@
                 </tr>
 
                 <tr>
+                  <th>distance</th>
+                  <td>
+                    <b>{{ distancePrice }} km</b>
+                  </td>
+                </tr>
+
+                <tr>
                   <th>distance price</th>
                   <td>
                     <b>{{ distancePrice }}</b>
@@ -361,6 +368,7 @@ export default {
       hideDistSender: false,
       date: new Date().toISOString().substr(0, 10),
       menu: false,
+      distance: '0',
       distancePrice: "0",
       securityPrice: "0",
       timePrice: "0",
@@ -533,7 +541,9 @@ export default {
         address: this.street
       }).then(res => {
         if (res.ok) {
+					console.log("TCL: checkPrice -> res", res)
           let data = res.response.data;
+          this.distance = data.distance
           this.distancePrice = data.distance_price;
           this.securityPrice = data.security_price;
           this.timePrice = data.time_price;

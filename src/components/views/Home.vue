@@ -90,7 +90,7 @@
           <p>{{ getProfile.user.username }}</p>
       </div>
       <div class="content__actions" v-if="isAuthenticated && getProfile && quotaion.length == 0">
-        <span>{{getProfile.user.name ? getProfile.user.name : getProfile.user.email}}</span>
+        <span>{{getProfile.user.username ? getProfile.user.username : getProfile.user.email}}</span>
         <div :class="classLike">
           <span @click="likeStt">
             <icon name="heart"/>
@@ -113,7 +113,7 @@
       </div>
       <div class="content__actions" v-show="notAuthen">
         <span v-if="!isAuthenticated && checkAuthen.length == 0">
-          <span>Hidden</span>
+          <span>Paser</span>
           <div :class="classLike">
             <span @click="toSignUp">
               <icon name="heart"/>
@@ -135,6 +135,12 @@
         </span>
       </div>
     </div>
+    <div class="search-home">
+      <SearchInput />
+    </div>
+    <div class="footer">
+      Copyright © 2020 by From The PAST Jsc,.
+    </div>
   </div>
 </template>
 <script>
@@ -142,9 +148,13 @@ import { mapActions, mapGetters, mapMutations } from "vuex";
 import classnames from "classnames";
 import Swal from "sweetalert2";
 import { setInterval } from "timers";
+import SearchInput from '@/components/views/SearchInput.vue'
 
 const validateEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
+  components: {
+    SearchInput
+  },
   data() {
     return {
       name: "Taam Dep trai",
@@ -236,7 +246,6 @@ export default {
             self.getQuotations();
             self.parseQuotation();
             self.getAnotherRandom();
-            console.log('test');
           }
       }, 180000);
     },
@@ -305,6 +314,7 @@ export default {
         password: this.passWordUser
       }).then(res => {
         if(res.ok) {
+          this.getProfileUser();
           this.isUser = false
           this.clickPost = true
         } else {
@@ -374,6 +384,7 @@ export default {
           gender: Number(this.gender)
         }).then(res => {
           if (res.ok) {
+            this.getProfileUser();
             this.createEvent = true
             this.showTypeText = `Welocome ${this.userName} to passness `
           }
@@ -387,6 +398,8 @@ export default {
       }).then(res => {
         if (res.ok) {
           this.comment = "";
+          this.isHideComment = false
+          this.isComment = false
         }
       });
     },
@@ -415,17 +428,29 @@ export default {
   color: #fff;
 }
 .home-wr {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   position: relative;
+  overflow: hidden;
   .background {
-    position: fixed;
+    position: relative;
     right: 0;
     bottom: 0;
     min-width: 100%;
     min-height: 100%;
     width: auto;
     height: auto;
+  }
+  .footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 15px;
+    width: 100%;
+    color: #fff;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 300;
+    text-align: center;
   }
   .content {
     position: absolute;

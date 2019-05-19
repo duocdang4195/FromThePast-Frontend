@@ -5,7 +5,7 @@
 			<v-flex xs12>
   				<h5>Order detail</h5>
   				<h6>
-  					<span class="mr-order-num">#{{orderDetail.id}}</span> -
+  					<span class="mr-order-num">#{{orderDetail.code}}</span> -
   					<span class="mr-order-stt" v-text="checkStatus(orderDetail.state)"></span>
   				</h6>
 			</v-flex>
@@ -148,19 +148,31 @@ export default {
 		},
 		checkStatus(state) {
       if(state === '1') {
-        return this.type = 'submit'
+        return this.type = 'Đặt đơn - Ordered'
       }
       if(state === '2') {
-        return this.type = 'payment'
+        return this.type = 'Chờ Thanh Toán - Paying'
       }
       if(state === '3') {
-        return this.type = 'paid '
+        return this.type = 'Đã thanh toán - Paid'
       }
       if(state === '4') {
-        return this.type = 'delivering'
+        return this.type = 'Lưu Trữ - SAFE with PASNESS'
       }
       if(state === '5') {
-        return this.type = 'complete '
+        return this.type = 'Đang vận chuyển - Moving '
+			}
+			if(state === '5') {
+        return this.type = 'Đang vận chuyển - Moving '
+			}
+			if(state === '6') {
+        return this.type = 'Hoàn thành - Finish'
+			}
+			if(state === '999') {
+        return this.type = 'Hủy - Cancel'
+			}
+			if(state === '998') {
+        return this.type = 'Lỗi đơn hàng - Order Error'
       }
 		},
 		checkStatusPay(state) {

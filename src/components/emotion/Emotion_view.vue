@@ -85,11 +85,16 @@
               <!-- /post-bottom -->
             </div>
             <!-- /post-content -->
-
-            <div class="mr-comment-wrapper mrg-top-50" v-if="viewEmotion.comment">
-              <h3 class="mrg-btm-40">Comments( {{ viewEmotion.comment.length }} )</h3>
-              <Comments v-for=" (comment, index) in viewEmotion.comment" :key="index" :item="comment"/>
-              <!-- /comment -->
+            <div class="actions-emotion-view">
+              <div class="mr-comment-wrapper mrg-top-50 width-like" v-if="viewEmotion.likes" v-cloak>
+                <span :class="classLike" @click="likeEmotion(viewEmotion.id)"><icon name="heart"/></span>
+                <h3> {{ countLike }} like</h3>
+              </div>
+              <div class="mr-comment-wrapper mrg-top-50" v-if="viewEmotion.comment">
+                <h3 class="mrg-btm-40">Comments( {{ viewEmotion.comment.length }} )</h3>
+                <Comments v-for=" (comment, index) in viewEmotion.comment" :key="index" :item="comment"/>
+                <!-- /comment -->
+              </div>
             </div>
             <!-- /comment-wrapper -->
             <div class="form-group mr-cmnt-wr">
@@ -120,6 +125,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import Comments from '@/components/emotion/Comments.vue'
+import classnames from "classnames";
 
 export default {
   components: {
@@ -135,6 +141,8 @@ export default {
       },
       viewEmotion: {},
       listTag: [],
+      isLike: false,
+      countLike: ''
     };
   },
   created() {
@@ -142,6 +150,11 @@ export default {
     this.getMyEmotionsByID(this.$route.params.id).then(res => {
       if(res.ok) {
         this.viewEmotion = res.response.data
+        this.countLike = this.viewEmotion.likes.length
+				console.log("TCL: created -> this.countLike", this.countLike)
+				if(this.viewEmotion.liked) {
+          this.isLike = true
+        }
       }
     })
     this.getTagEmotions().then(res => {
@@ -151,10 +164,18 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(["getAllMyQuotationsCreateByID"])
+    ...mapGetters(["getAllMyQuotationsCreateByID"]),
+    // count() {
+    //   return 
+    // },
+    classLike() {
+      return classnames({
+        liked: this.isLike === true
+      });
+    },
   },
   methods: {
-    ...mapActions(["getMyEmotionsByID", "createCommentEmotions", "getProfileUser", "getTagEmotions", "showTag"]),
+    ...mapActions(["unLikeEmotions", "likeEmotions", "getMyEmotionsByID", "createCommentEmotions", "getProfileUser", "getTagEmotions", "showTag"]),
     submitComment() {
       this.createCommentEmotions({
         emotion_id: Number(this.$route.params.id),
@@ -165,6 +186,22 @@ export default {
           this.content = "";
         }
       });
+    },
+    likeEmotion(id) {
+      if(this.isLike === false) {
+        this.isLike = !this.isLike;
+        if (this.isLike) {
+          this.likeEmotions({ emotion_id: id });
+          this.countLike += 1
+        } else {
+          this.unLikeEmotions({ id: id });
+          this.countLike -= 1
+        }
+      } else {
+        this.isLike = false
+        this.unLikeEmotions({ id: id });
+        this.countLike -= 1
+      }
     },
     searchTag(tag) {
       this.showTag(tag)
@@ -182,6 +219,26 @@ export default {
 
 
 <style lang="scss">
+.actions-emotion-view {
+  display: flex;
+  align-items: center;
+  .width-like {
+    .liked {
+      svg {
+        color: red;
+      }
+    }
+    svg {
+      cursor: pointer;
+    }
+    margin-top: 40px;
+    width: 100px !important;
+    h3 {
+      display: inline-block;
+      margin-left: 8px;
+    }
+  }
+}
 %default-button {
   margin: 0 10px;
   background-color: #212121;
@@ -360,7 +417,7 @@ ul {
     .mr-comment-wrapper {
       position: relative;
       display: inline-block;
-      width: 100%;
+      flex-basis: 140px;
       margin-top: 50px;
       h3 {
         font-family: "Montserrat", sans-serif;
