@@ -55,6 +55,11 @@
                   <i class="ti-comment pdd-right-5"></i>
                   <a href="#">{{ viewEmotion.comment.length }} Comments</a>
                 </p>
+
+                <div class="mr-post-meta_like" v-if="viewEmotion.likes" v-cloak>
+                  <span :class="classLike" @click="likeEmotion(viewEmotion.id)"><icon name="heart"/></span>
+                  <span class="mr-post-meta_like_count"> {{ countLike }} like</span>
+                </div>
               </div>
               <p
                 class="mr-writing-content"
@@ -86,10 +91,6 @@
             </div>
             <!-- /post-content -->
             <div class="actions-emotion-view">
-              <div class="mr-comment-wrapper mrg-top-50 width-like" v-if="viewEmotion.likes" v-cloak>
-                <span :class="classLike" @click="likeEmotion(viewEmotion.id)"><icon name="heart"/></span>
-                <h3> {{ countLike }} like</h3>
-              </div>
               <div class="mr-comment-wrapper mrg-top-50" v-if="viewEmotion.comment">
                 <h3 class="mrg-btm-40">Comments( {{ viewEmotion.comment.length }} )</h3>
                 <Comments v-for=" (comment, index) in viewEmotion.comment" :key="index" :item="comment"/>
@@ -315,11 +316,35 @@ ul {
         position: relative;
         display: inline-block;
         width: 100%;
+        margin-bottom: 25px;
 
+        &_like {
+          position: relative;
+          display: inline;
+          width: 75px;
+          float: right;
+          text-align: right;
+
+          > span {
+            color: #bababa;
+            cursor: pointer;
+          }
+          > span.liked {
+            color: #212121;
+          }
+          > span.mr-post-meta_like_count {
+            position: relative;
+            color: #212121;
+            top: -3px;
+          }
+        }
         p {
-          margin-bottom: 25px;
+          position: relative;
+          display: inline-block;
+          width: fit-content;
           color: #aeaeae;
           font-weight: 300;
+          margin-bottom: 0;
           .pdd-horizon-5 {
             position: relative;
             display: inline-block;
@@ -417,7 +442,7 @@ ul {
     .mr-comment-wrapper {
       position: relative;
       display: inline-block;
-      flex-basis: 140px;
+      width: 100%;
       margin-top: 50px;
       h3 {
         font-family: "Montserrat", sans-serif;

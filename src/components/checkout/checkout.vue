@@ -939,6 +939,11 @@ export default {
           border-bottom: 0;
           font-weight: 600;
         }
+        tr th {
+          text-align: left;
+          text-transform:capitalize;
+          font-weight: 400;
+        }
         tr td {
           text-align: right;
         }

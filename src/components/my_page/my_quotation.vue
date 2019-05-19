@@ -47,7 +47,7 @@
             </div>
           </li>
           <li v-show="!yourQuotations" class="mr-myQuotation" v-for="(list) in quotationsRelation">
-            <div>
+          
               <span class="mr-timer">
                 <span class="mr-date">{{ list.updated_at | moment("MMMM Do YYYY")}}</span>
               </span>
@@ -74,7 +74,6 @@
                   </li>
                 </ul>
               </div>
-            </div>
           </li>
         </ul>
       </div>
