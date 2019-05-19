@@ -40,6 +40,7 @@ import api from "@/plugins/axios";
 import { mapActions } from "vuex";
 import { VueEditor } from "vue2-editor";
 import "quill/dist/quill.bubble.css";
+import Swal from "sweetalert2";
 
 export default {
   components: {
@@ -51,6 +52,7 @@ export default {
       content: "",
       tags: [],
       file: "",
+      cfile: null,
       items: [],
       backgoundImage:
         "background-image: url('https://preply.com/wp-content/uploads/2018/04/pexels-photo-100733.jpeg');",
@@ -69,7 +71,8 @@ export default {
             ["clean"]
           ]
         }
-      }
+      },
+      uploaded: false
     };
   },
   async created() {
@@ -99,6 +102,7 @@ export default {
             let url = result.data.url; // Get url from response
             Editor.insertEmbed(cursorLocation, "image", url);
             resetUploader();
+            this.uploaded = true;
           })
           .catch(err => {
           });
@@ -114,6 +118,22 @@ export default {
       reader.readAsDataURL(this.file);
     },
     submit() {
+      if (!this.subject) {
+        Swal.fire("Please enter the title of this emotion")
+        return;
+      }
+      if (!this.content) {
+        Swal.fire("Hmmmm ... Are you forget to write something ?")
+        return;
+      }
+      if (!this.tags) {
+        Swal.fire("Can you choose your feeling tags please ? ")
+        return;
+      }
+      if (!this.file) {
+        Swal.fire("Please select the cover photo for this emotion")
+        return;
+      }      
       const data = new FormData();
       data.append("img", this.file);
       data.append("subject", this.subject);
