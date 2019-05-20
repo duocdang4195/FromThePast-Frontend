@@ -1,11 +1,11 @@
 <template>
-  <div class="mr-myinformation-wr">
+  <div class="mr-myinformation-wr" v-cloak v-show="isLoaded">
     <v-container class="mr-container">
       <div class="mr-myinformation">
         <div class="mr-basicinfo mr-basic-profit">
           <h5>My service</h5>
           <ul class="mr-profit-board">
-            <li class="mr-head">
+            <li class="mr-head" v-if="history && history.length > 0">
               <span class="mr-col0">Order code</span>
               <span class="mr-col1">Service</span>
               <span class="mr-col2">Date</span>
@@ -23,8 +23,8 @@
               <span class="mr-col3">{{ item.total_price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) }}</span>
               <span class="mr-col4" v-text="checkStatus(item.state)"></span>
             </li>
-            <li class="list__empty">
-              <p>You dont have any data yet!</p>
+            <li class="list__empty" v-if="history.length == 0 && history">
+              <h4 style="width:100%; text-align:center">You dont have any data yet!</h4>
               <img src="../../assets/images/empty_thinking.svg">
             </li>
           </ul>
@@ -45,12 +45,14 @@ export default {
 		return {
       history: [],
       type: '',
-      status: ''
+      status: '',
+      isLoaded: false      
 		}
 	},
 	async created() {
-    let { response } = await this.getOrderDetail()
+    let { response } = await this.getOrderDetail();
     this.history = response.data
+    this.isLoaded = true;
 	},
 	methods: {
     ...mapActions(['getOrderDetail']),
@@ -70,31 +72,28 @@ export default {
     },
     checkStatus(state) {
       if(state === '1') {
-        return this.type = 'Đặt đơn - Ordered'
+        return this.type = 'Ordered'
       }
       if(state === '2') {
-        return this.type = 'Chờ Thanh Toán - Paying'
+        return this.type = 'Paying'
       }
       if(state === '3') {
-        return this.type = 'Đã thanh toán - Paid'
+        return this.type = 'Paid'
       }
       if(state === '4') {
-        return this.type = 'Lưu Trữ - SAFE with PASNESS'
+        return this.type = 'SAFE with PASNESS'
       }
       if(state === '5') {
-        return this.type = 'Đang vận chuyển - Moving '
-			}
-			if(state === '5') {
-        return this.type = 'Đang vận chuyển - Moving '
+        return this.type = 'Moving '
 			}
 			if(state === '6') {
-        return this.type = 'Hoàn thành - Finish'
+        return this.type = 'Finish'
 			}
 			if(state === '999') {
-        return this.type = 'Hủy - Cancel'
+        return this.type = 'Cancel'
 			}
 			if(state === '998') {
-        return this.type = 'Lỗi đơn hàng - Order Error'
+        return this.type = 'Order Error'
       }
 		},
 	}

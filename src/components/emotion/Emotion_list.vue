@@ -80,9 +80,9 @@ export default {
     ...mapActions(["getMyEmotionsCreate"]),
     delTagImg(content) {
       if (content) {
-        return content.replace(
-          /<img[^>]+src="?([^"\s]+)"?\s*\/>/gm
-        );
+        let t = content.replace(/(<([^>]+)>)/ig,"");
+        
+        return t;
       }
     },
     goto(id) {

@@ -1,11 +1,14 @@
 <template>
-  <div>
+  <div v-cloak v-show="isLoaded">
     <div :style="getBackground" class="mr-fullslider" >
       <div class="mr-mywriting-wr">
         <ul>
           <li v-if="listEmotionsAll.length === 0">
             <div class="mr-content">
-              <h5>No data</h5>
+              <h4 style="text-align: center; width:100%;">You dont have any data yet!</h4>
+              <div style="width:100%; text-align:center;">
+                  <img src="../../assets/images/empty_thinking.svg" style="width:300px;">  
+              </div>
             </div>
           </li>
           <li v-else @click="goto(item.id)"  v-for="(item, index) in listEmotionsAll" :key="index">
@@ -40,7 +43,8 @@ export default {
   name: "my_writing",
   data() {
     return {
-      listEmotionsAll: []
+      listEmotionsAll: [],
+      isLoaded: false
     };
   },
   created() {
@@ -48,6 +52,7 @@ export default {
       if(res.ok) {
         this.listEmotionsAll = res.data
 				console.log("TCL: created -> this.listEmotionsAll", this.listEmotionsAll)
+        this.isLoaded = true;
       }
     })
   },
