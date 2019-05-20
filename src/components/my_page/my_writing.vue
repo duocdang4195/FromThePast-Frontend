@@ -4,7 +4,7 @@
       <div class="mr-mywriting-wr">
         <ul>
           <li v-if="listEmotionsAll.length === 0">
-            <div class="mr-content">
+            <div class="list__empty">
               <h4 style="text-align: center; width:100%;">You dont have any data yet!</h4>
               <div style="width:100%; text-align:center;">
                   <img src="../../assets/images/empty_thinking.svg" style="width:300px;">  
@@ -182,6 +182,26 @@ export default {
     }
   }
 }
+.list__empty {
+  position: relative;
+  width: 100%; 
+  padding-top: 70px;
+  text-align: center;
+
+  p {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #aaa;
+  }
+  img {
+    position: relative;
+    width: 250px;
+    height: 200px;
+  }
+}
 /*------ S E A R C H -----*/
 .mr-search {
   position: absolute;
@@ -219,4 +239,5 @@ export default {
     }
   }
 }
+
 </style>

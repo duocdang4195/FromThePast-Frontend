@@ -45,6 +45,7 @@
             <li>
               <strong>Phone:</strong>
               <span class="mr-underline" v-if="!getProfile.user.phone" @click="showInputPhone = true">Add your number</span>
+              <span class="phone_number" v-show="getProfile.user.phone">{{getProfile.user.phone}}</span>
               <div class="input-change" >
                 <v-text-field  v-model="phoneNumber" placeholder="Phone number" v-show="!getProfile.user.phone && showInputPhone"></v-text-field>
                 <div class="mr-action-btn" id="sign-in-button" @click="confirmPhone" v-show="!getProfile.user.phone && showInputPhone">Send Verify</div>
@@ -52,7 +53,7 @@
                 <div class="mr-action-btn" @click="phoneVerify" v-show="!getProfile.user.phone && showInputVerify">Verify</div>
               </div>
 
-              <span v-show="getProfile.user.phone">{{getProfile.user.phone}}</span>
+              
             </li>
             <li v-if="false">
               <strong>Address:</strong>
@@ -62,11 +63,12 @@
               >98 Truong Trinh street, Ward 10, Tan Binh District, Ho Chi Minh city</span>
             </li>
             <li>
-              <strong
+              <strong>Password:</strong>
+              <span
                 class="change-password"
                 @click="showInputChange"
                 v-if="showTextChange"
-              >Change Password</strong>
+              >Change Password</span>
               <div class="input-change" v-if="showChangePassword">
                 <v-text-field v-model="password" placeholder="Pasword" type="password"></v-text-field>
                 <v-text-field v-model="newPaswword" placeholder="New Password" type="password"></v-text-field>
@@ -350,22 +352,25 @@ export default {
       position: relative;
     }
     .mr-quote {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
       color: #fff;
-      padding: 75px;
+      padding: 0 75px 0 75px;
+      justify-content: center;
+      align-items: center;
 
       .mr-greeting {
-        position: relative;
-        display: inline-block;
+        display:flex;
         width: 100%;
         text-align: left;
         font-size: 13px;
+        align-self: flex-start;
       }
 
       .mr-wc-quotation {
         position: relative;
         display: inline-block;
-        height: 200px;
+        height: fit-content;
         width: 100%;
         padding-right: 50px;
         margin-top: auto;
@@ -417,11 +422,11 @@ export default {
       }
 
       .mr-welcomequestion {
-        position: absolute;
-        display: inline-block;
+        display: flex;
         width: 100%;
         bottom: 0px;
         left: 0;
+        align-self: flex-start;
 
         input {
           position: relative;
@@ -495,7 +500,8 @@ export default {
             }
           }
 
-          .mr-underline {
+          .mr-underline,
+          .phone_number {
             cursor: pointer;
             display: inline-block;
             border-bottom: 1px solid #d9d9d9;
