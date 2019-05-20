@@ -9,6 +9,19 @@
           <p class="rh-date">{{ item.updated_at | moment("MMMM Do YYYY")}}</p>
           <div class="mr-content" v-html="delTagImg(item.content)">{{ item.content }}</div>
         </div>
+        <div class="mr-writing-box_row" >
+          <img src="../../assets/images/coffee-cup-books-home.jpg" alt class>
+          <div>
+            <h4>Hòn đá tảng giữa đường và phần thưởng dành cho những người vượt qua trở ngại</h4>
+            <p class="rh-date">2019-05-20</p>
+            <div class="mr-content">Ở một vương quốc nọ, đức vua muốn thử lòng người nên đã sai người đặt một tảng đá to ở giữa một con đường nhiều người qua lại. Sau đó, nhà vua đóng giả người thường để quan sát xem ai sẽ là người dịch chuyển tảng đá khỏi con đường. Rất nhiều thương gia giàu có, cận thần của nhà vua đã đi qua con đường nhưng họ chỉ đi vòng qua hòn đá.
+
+            Thậm chí, nhiều người còn đổ lỗi cho nhà vua vì không có biện pháp giữ cho đường sá thông thoáng, nhưng không ai làm bất cứ điều gì để giải quyết vấn đề.
+
+            Một ngày nọ, một người nông dân mang rau ra chợ bán. Khi đến gần tảng đá, anh ta đã đặt gánh rau xuống và cố gắng tìm cách đẩy hòn đá ra khỏi vị trí án ngưỡng trên đường. Sau khi đẩy được hòn đá đi, anh nông dân phát hiện một chiếc túi đựng rất nhiều tiền vàng và một bức thư của nhà vua nhắn rằng: Vàng trong túi dành cho người đã loại bỏ tảng đá ra khỏi con đường.
+            </div>
+          </div>
+        </div>
       </div>
       <!-- ./.mr-featured-post  -->
 
@@ -143,6 +156,7 @@ export default {
     display: flex;
     width: 100%;
     max-width: 1200px;
+    max-height: 600px;
     padding: 0 15px;
     align-self: center;
 
@@ -169,6 +183,7 @@ export default {
       flex-direction: row;
       justify-content: flex-start;
       align-content: flex-start;
+
       h3 {
         position: relative;
         flex: 2 0 100%;
@@ -189,15 +204,86 @@ export default {
         }
       }
 
-      > div {
-        flex: 1;
-        width: calc(50% - 20px);
-        height: 100%;
+      
+      > div {       
         border: 15px solid #fff;
-        margin: 0 10px;
         background-color: #fff;
         box-shadow: 2px 2px 4px 1px rgba(180, 180, 180, 0.4);
         overflow: hidden;
+      }
+
+      >.mr-writing-box_row {
+        position: relative;
+        display: flex;
+        flex: 1 0 100%;
+        width:100%;
+        height: calc(40% - 20px);
+        margin-top: 20px;
+
+        > img {
+          width:40%;
+        }
+
+        > div {
+          width: 60%;
+          padding-left: 20px;
+
+          h4 {
+              position: relative;
+              display: inline-block;
+              width: 100%;
+              margin-top: 15px;
+              margin-bottom: 0;
+              font-size: 14px;
+              font-weight: 400;
+              height: 1.5rem;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            }
+          .rh-date {
+            text-align: right;
+            color: #aaa;
+            font-size: 14px;
+          }
+          .mr-content {
+            position: relative;
+            text-overflow: ellipsis;
+            text-align: justify;
+            color: #525252;
+
+            &:after {
+              content: "...";
+              position: absolute;
+              display: inline-block;
+              bottom: 0;
+              right: 0;
+              background-color: #fff;
+              font-size: 16px;
+              color: #3e3e3e;
+            }
+
+            img {
+              position: relative;
+              display: inline-block;
+              width: auto;
+              max-width: 100%;
+            }
+          }
+        }
+      }
+      > .mr-writing-box{
+        flex: 1;
+        width: calc(50% - 20px);
+        height: 60%;
+
+        &:nth-child(2) {
+          margin-left: 0;
+          margin-right:20px;
+        }
+        &:nth-child(3) {
+          margin: 0;
+        }
 
         > img {
           position: relative;
