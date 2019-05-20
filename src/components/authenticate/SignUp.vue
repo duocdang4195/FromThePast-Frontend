@@ -124,6 +124,8 @@ export default {
       }).then(res => {
         if(res.ok) {
           this.$router.push({name: 'home'})
+        } else {
+          console.log(res.error.response.data.errors)
         }
       })
     },

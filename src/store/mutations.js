@@ -58,4 +58,7 @@ export default {
   updateBackground(state, backgroundPage) {
     state.backgroundPage = backgroundPage
   },
+  set_randomQuotation(state, newValue) {
+    state.newQuotations = newValue;
+  }
 }
