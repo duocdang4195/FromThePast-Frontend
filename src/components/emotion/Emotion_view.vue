@@ -1,7 +1,7 @@
 <template>
 
  <div class="v-content__insider">
-  <div class="mr-section" v-cloak>
+  <div class="mr-section" v-cloak v-show="isLoaded">
     <div class="blog-sidebar">
       <div class="mr-sidebar">
         <h4 class="mrg-btm-20">Emotions</h4>
@@ -143,7 +143,8 @@ export default {
       viewEmotion: {},
       listTag: [],
       isLike: false,
-      countLike: ''
+      countLike: '',
+      isLoaded: false
     };
   },
   created() {
@@ -156,6 +157,7 @@ export default {
 				if(this.viewEmotion.liked) {
           this.isLike = true
         }
+        this.isLoaded = true;
       }
     })
     this.getTagEmotions().then(res => {

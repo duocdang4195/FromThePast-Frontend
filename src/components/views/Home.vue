@@ -90,7 +90,9 @@
           <p>{{ getProfile.user.username }}</p>
       </div>
       <div class="content__actions" v-if="isAuthenticated && getProfile && quotaion.length == 0">
-        <span>{{getProfile.user.username ? getProfile.user.username : getProfile.user.email}}</span>
+        <span><!-- {{getProfile.user.username ? getProfile.user.username : getProfile.user.email}} -->
+          {{quotationRandom.user ? (quotationRandom.user.name ? quotationRandom.user.name : quotationRandom.user.email) : 'Paser'}}          
+        </span>
         <div :class="classLike">
           <span @click="likeStt">
             <icon name="heart"/>
@@ -157,7 +159,7 @@ export default {
   },
   data() {
     return {
-      name: "Taam Dep trai",
+      name: "Paser",
       quotaion: "",
       checkAuthen: "",
       passWordUser: "",

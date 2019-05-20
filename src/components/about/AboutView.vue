@@ -1,5 +1,5 @@
 <template>
-	<div class="mr-about-view-bgr">
+	<div class="mr-about-view-bgr" v-cloak v-show="isLoaded">
 		<div class="mr-about-view-wr">
 			<div class="mr-about-view-cntn">
 				<h3 v-html="getAboutById.title" >{{ getAboutById.title }}</h3>
@@ -20,12 +20,14 @@ export default {
   name: 'about_view',
   data () {
     return {
-
+      isLoaded: false    	
     }
 	},
 	created() {
 		const id = this.$route.params.id
-		this.getAllAboutById({id})
+		this.getAllAboutById({id}).then(rs=> {
+			this.isLoaded = true;
+		})
 	},
 	computed: {
 		...mapGetters(['getAboutById'])

@@ -1,56 +1,56 @@
 <template>
-  <div class="v-content__recomment_list">
+  <div class="v-content__recomment_list" v-cloak>
     <div class="mr-section">
       <div class="blog-sidebar">
         <div class="mr-sidebar">
           <h4 class="mrg-btm-20">Emotions</h4>
           <ul class="categories">
             <li>
-              <a href="#">
+              <a>
                 <i class="mr-circle-mark">&#9675;</i>Happiness
                 <span>(40)</span>
               </a>
               <ul class="mr-sub-cat">
                 <li>
-                  <a href="#">Laetus</a>
+                  <a>Laetus</a>
                 </li>
                 <li>
-                  <a href="#">Felix</a>
+                  <a>Felix</a>
                 </li>
                 <li>
-                  <a href="#">Beatitudo</a>
+                  <a>Beatitudo</a>
                 </li>
                 <li>
-                  <a href="#">Sublime Beatitudo.</a>
+                  <a>Sublime Beatitudo.</a>
                 </li>
               </ul>
             </li>
             <li>
-              <a href="#">
+              <a>
                 <i class="mr-circle-mark">&#9675;</i>Sadness
                 <span>(35)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 <i class="mr-circle-mark">&#9675;</i>Anger
                 <span>(53)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 <i class="mr-circle-mark">&#9675;</i>Surprise
                 <span>(30)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 <i class="mr-circle-mark">&#9675;</i>Fear
                 <span>(24)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 <i class="mr-circle-mark">&#9675;</i>Disgust
                 <span>(19)</span>
               </a>
@@ -64,73 +64,73 @@
           <h4 class="mr-cat-2">Seasons</h4>
           <ul class="categories">
             <li>
-              <a href="#">
+              <a>
                 Jan
                 <span>(40)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 Feb
                 <span>(35)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 Mar
                 <span>(53)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 Apr
                 <span>(40)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 May
                 <span>(35)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 Jun
                 <span>(53)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 Jul
                 <span>(40)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 Aug
                 <span>(35)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 Sep
                 <span>(53)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 Oct
                 <span>(40)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 Nov
                 <span>(35)</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a>
                 Dec
                 <span>(53)</span>
               </a>
@@ -143,13 +143,13 @@
       <!-- /blog-sidebar -->
 
       <div class="mr-blog-content">
-        <div v-if="!getDataSearch" class="mr-blog-content_empty">
+        <div v-if="isEmpty" class="mr-blog-content_empty">
             <strong>OOPS!!!!</strong>
             <p>
               There is no result matched with your requirement.
             </p>
         </div>
-        <div class="blog-post single-post mr-search-result">
+        <div class="blog-post single-post mr-search-result" v-show="!isEmpty">
           <div class="mr-search-ttl" v-if="false">
             <input type="text" placeholder="Keywords" class="mr-inputkeyword">
           </div>
@@ -178,11 +178,11 @@
                 </div>
                 <div class="search-content" v-else>
                   <div class="mr-postcntn">
-                    <div class="mr-postcntn_about" v-for="item in getAbout">
+                    <div class="mr-postcntn_about" v-for="item in getAbout" v-if="item.content" @click="go_about(item.id)">
                       <h6>
-                        <a href="#">{{item.title}}</a>
+                        <a>{{item.title}}</a>
                       </h6>
-                      <p v-html="item.content">{{ item.content }}</p>
+                      <p v-html="item.content.substr(0,200) + (item.content.length > 200 ? '...' : '')">{{ item.content }}</p>
                     </div>
                     <!-- ./. mr-postcntn_about -->
                   </div>
@@ -198,19 +198,19 @@
                     </p>
                   </div>
                   <div class="mr-postcntn" v-else>
-                    <div class="mr-postcntn_emotion" v-for="item in getEmotions">
+                    <div class="mr-postcntn_emotion" v-for="item in getEmotions" v-if="item.content" @click="go_emotion(item.id)">
                       <h6 class="mr-postcntn_emotion_ttl">
-                        <a href="#">{{ item.title }}</a>
+                        <a>{{ item.title }}</a>
                       </h6>
                       <div class="mr-postcntn_emotion_cntn">
                         <div class="mr-postcntn_emotion_cntn_img">
                           <img class="mr-postcntn_emotion_cntn_img" :src="item.image" alt="">
                         </div>
                         <div class="mr-postcntn_emotion_cntn_text">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                          <p class="mr-postcntn_emotion_cntn_info">
-                            <span class="mr-postcntn_emotion_cntn_info_date">2019-012-03</span>
-                            <span class="mr-postcntn_emotion_cntn_info_author">Author</span>
+                          <div v-html="strip_tags(item.content.substr(0,400) + (item.content.length > 400 ? '...' : ''))"></div>
+                          <p class="mr-postcntn_emotion_cntn_info" v-if="item.created_at && item.user">
+                            <span class="mr-postcntn_emotion_cntn_info_date">{{item.created_at.substr(0,10)}}</span>
+                            <span class="mr-postcntn_emotion_cntn_info_author">{{item.user.name ? item.user.name : item.user.email}}</span>
                           </p>
                         </div>
                       </div>
@@ -234,7 +234,7 @@
                       <p
                         class="mr-postcntn_quote_cntn"
                       >{{ item.content }}</p>
-                      <p class="mr-postcntn_quote_info">
+                      <p class="mr-postcntn_quote_info" v-if="item.user">
                         <span class="mr-postcntn_quote_info_date">{{ item.created_at }}</span>
                         <span class="mr-postcntn_quote_info_author">{{ item.user.name ? item.user.name : item.user.username }}</span>
                       </p>
@@ -306,12 +306,29 @@ export default {
     getUser() {
       return this.getDataSearch.user
     },
+    isEmpty() {
+      
+    }
   },
   methods: {
     showNameAvt(str) {
       let textFirst = str.slice(0, 1).toUpperCase();
       return textFirst;
+    },
+    strip_tags(content)
+    {
+
+      let t = content.replace(/(<([^>]+)>)/ig,"");
+      
+      return t;
+    },
+    go_emotion(id){
+      this.$router.push({path: 'Emotion_view/' + id});
+    },
+    go_about(id){
+      this.$router.push({path: 'about_view/'+ id});
     }
+
   }
 };
 </script>
