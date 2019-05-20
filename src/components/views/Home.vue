@@ -435,7 +435,7 @@ export default {
   position: relative;
   overflow: hidden;
   .background {
-    position: relative;
+    position: fixed;
     right: 0;
     bottom: 0;
     min-width: 100%;
@@ -455,7 +455,7 @@ export default {
     text-align: center;
   }
   .content {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
@@ -520,14 +520,16 @@ export default {
     }
     &__input--user {
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       width: 80%;
+      height: 80px;
+      margin: auto;
       text-align-last: center;
-      transform: translateY(-50%);
-      transform: translateX(-50%);
       .content__input--user--check {
-        width: 60%;
+        width: 80%;
         margin: auto;
         text-align-last: left;
         p {

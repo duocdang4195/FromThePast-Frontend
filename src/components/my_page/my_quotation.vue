@@ -203,6 +203,8 @@ export default {
       }
       .mr-timer {
         position: relative;
+        align-self: flex-start;
+        top: 10px;
         width: 150px;
         font-style: italic;
       }
