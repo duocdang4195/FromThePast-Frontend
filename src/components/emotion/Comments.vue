@@ -1,12 +1,12 @@
 <template>
   <div class="mr-comment">
     <div class="mr-avatar">
-      <a :style="{background: stringToHslColor}">{{ showNameAvt(item.user.name) }}</a>
+      <a :style="{background: stringToHslColor}">{{ showNameAvt(item.user.name ? item.user.name : 'Paser') }}</a>
     </div>
     <!-- /avatar -->
     <div class="mr-comment-info">
-      <h4 class="name">
-        <a href="#">{{ item.user.name }}</a>
+      <h4 class="name" v-if="item.user" v-cloak>
+        <a href="#">{{ item.user.name ? item.user.name : 'Paser' }}</a>
       </h4>
       <p class="mr-content">{{ item.content }}</p>
       <div class="mr-like">

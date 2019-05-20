@@ -3,7 +3,7 @@
     <div class="mr-myquote-wr">
       <div class="my-quotation-tab">
         <div @click="showYourQuotation" :class="['my-quotation-tab__elm',{ active: yourQuotations }]">Your Quotation</div>
-        <div @click="showYourQuotationRelation":class="['my-quotation-tab__elm',{ active: !yourQuotations }]">Quotation Relation</div>
+        <div @click="showYourQuotationRelation" :class="['my-quotation-tab__elm',{ active: !yourQuotations }]">Quotation Relation</div>
       </div>
       <div class="mr-myquote-wr-list">
         <ul>
@@ -27,24 +27,29 @@
               <p class="mr-content__content--main">{{ item.content }}</p>
               <p class="rh-interactions">
                 <span class="mr-comment-count">
-                  <icon name="comments"/>
+                  <span @click="clickShowComment(index)"><icon name="comments"/></span>
                   {{ item.comments.length }} comments
                 </span>
                 <span class="mr-likes">
-                  <icon name="heart"/>
-                  {{ item.likes.length }} likes
+                  <span @click="clickLike(index, item.id, item.likes)" :class="{liked: isLike === index}"><icon name="heart"/></span>
+                  <span>{{ item.likes.length }}</span>
                 </span>
               </p>
               <ul class="mr-comment">
-                <li v-for="(listComment, index) in item.comments" :key="index">
-                  <span v-if="listComment.user" class="mr-cmt-author">{{ listComment.user.name }}</span>
-                  <span
-                    class="mr-cmt-time"
-                  >{{ listComment.created_at | moment("MMMM Do YYYY, h:mm:ss a")}}</span>
-                  <br>
-                  <p>{{ listComment.content }}</p>
-                </li>
+                <Comments v-for="(listComment, index) in item.comments" :key="index" :item="listComment" />
               </ul>
+              <div class="comment-quotation" v-if="showComment === index" :key="index">
+                <textarea 
+                  class="comment-quotation__input"
+                  v-model="comment"
+                  name="message"
+                  placeholder="Write a comment"
+                  @keydown.enter.prevent="commentStt(item.id, index)"
+                ></textarea>
+                <div class="btn-submit" @click="commentStt(item.id, index)">
+                  comment
+                </div>
+              </div>
             </div>
           </li>
           <li v-show="!yourQuotations" class="mr-myQuotation" v-for="(list) in quotationsRelation">
@@ -86,25 +91,37 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
+import Comments from '@/components/emotion/Comments.vue'
+import classnames from "classnames";
 export default {
   name: "component_name",
+  components: {
+    Comments
+  },
   data() {
     return {
       listQuotations: [],
       quotationsRelation: [],
       yourQuotations: true,
-      isLoaded: false      
+      isLoaded: false,
+      comment: '',
+      showComment: '',
+      isClick: false,  
+      isLike : '',
+      countLike: '',
+      isClickLike: false,
     };
   },
-  created() {
-    this.getAllQuotationsRealtions().then(res => {
+  async created() {
+    await this.getAllQuotationsRealtions().then(res => {
       if (res.ok) {
         this.quotationsRelation = res.response.data;
       }
     });
-    this.getAllMyQuotations().then(res => {
+    await this.getAllMyQuotations().then(res => {
       if (res.ok) {
         this.listQuotations = res.response.data;
+				console.log("TCL: created -> this.listQuotations", this.listQuotations)
         this.isLoaded = true;
       }
     });
@@ -120,7 +137,47 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getAllMyQuotations", "getAllQuotationsRealtions"]),
+    ...mapActions(["getAllMyQuotations", "getAllQuotationsRealtions", "unLikeQuotations", "likeQuotations", "commentQuotations"]),
+    clickShowComment(i) {
+      if(!this.isClick) {
+        this.isClick = true
+        this.showComment = i
+      } else {
+        this.showComment = ''
+        this.isClick = false
+      }
+    },
+    clickLike(i, id, likes) {
+      if(!this.isClickLike) {
+        this.isLike = i
+        this.isClickLike = true
+        this.likeQuotations({ quotation_id: id }).then(res => {
+          if(res.ok) {
+            likes.length += 1
+          }
+        })
+      } else {
+        this.isLike = ''
+        this.isClickLike = false
+        this.unLikeQuotations({ id: id }).then(res => {
+          if(res.ok) {
+            likes.length -= 1
+          }
+        })
+      }
+    },
+    commentStt(id, i) {
+      this.commentQuotations({
+        quotation_id: id,
+        content: this.comment
+      }).then(response => {
+        if (response.ok) {
+          this.listQuotations[i].comments.push(response.response.data)
+          this.comment = ''    
+          this.showComment = false
+        }
+      });
+    },
     showYourQuotation() {
       if (!this.yourQuotations) {
         this.yourQuotations = true;
@@ -136,6 +193,47 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.rh-interactions {
+  svg {
+    cursor: pointer;
+  }
+}
+
+span.liked {
+  svg {
+    color: red;
+  }
+}
+
+.comment-quotation {
+  &__input {
+    outline: none;
+    resize: none;
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 5px;
+  }
+  .btn-submit {
+    width: 110px;
+    text-align: center;
+    margin: 10px 0;
+    padding: 5px;
+    background-color: #212121;
+    border: 1px solid #212121;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-family: "Montserrat", sans-serif;
+    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    &:hover {
+      background-color: #fff;
+      color: #212121;
+    }
+  }
+}
 .mr-fullslider {
   position: relative;
   display: flex;
@@ -301,12 +399,12 @@ export default {
             position: relative;
             display: inline-block;
             margin-left: 30px;
-
             .ti-heart {
               position: relative;
               top: 2px;
             }
           }
+
         }
 
         ul.mr-comment {

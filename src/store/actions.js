@@ -381,4 +381,7 @@ export default {
       return { ok: false, error };
     }
   },
+  set_randomQuotation: ({ commit, state }, newValue) => {
+    commit('set_randomQuotation', newValue);
+  }
 };

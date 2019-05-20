@@ -90,8 +90,9 @@
           <p>{{ getProfile.user.username }}</p>
       </div>
       <div class="content__actions" v-if="isAuthenticated && getProfile && quotaion.length == 0">
-        <span><!-- {{getProfile.user.username ? getProfile.user.username : getProfile.user.email}} -->
-          {{quotationRandom.user ? (quotationRandom.user.name ? quotationRandom.user.name : quotationRandom.user.email) : 'Paser'}}          
+        <span v-if="author"><!-- {{getProfile.user.username ? getProfile.user.username : getProfile.user.email}} -->
+          <!-- {{quotationRandom.user ? (quotationRandom.user.name ? quotationRandom.user.name : quotationRandom.user.email) : 'Paser'}}           -->
+          {{author ? (author.name ? author.name : 'Paser') : 'Paser'}}
         </span>
         <div :class="classLike">
           <span @click="likeStt">
@@ -115,7 +116,7 @@
       </div>
       <div class="content__actions" v-show="notAuthen">
         <span v-if="!isAuthenticated && checkAuthen.length == 0">
-          <span>Paser</span>
+          <span v-if="author">{{author ? (author.name ? author.name : 'Paser') : 'Paser'}}</span>
           <div :class="classLike">
             <span @click="toSignUp">
               <icon name="heart"/>
@@ -186,19 +187,21 @@ export default {
       createUser: false,
       isLogin: false,
       notAuthen: true,
-      interval: null,
-      stop: false
+      stop: false,
+      author: {}
     };
   },
   async created() {
+    console.log('quotationRandom', this.quotationRandom)
     await this.getQuotations();
     await this.getProfileUser();
     await this.parseQuotation();
     await this.getAnotherRandom();
     this.stop = false;
+
+    // this.timeDown();
   },
   destroyed(){
-    this.stopInterval();
     this.stop = true;
   },
   computed: {
@@ -224,22 +227,31 @@ export default {
       "likeQuotations",
       "unLikeQuotations",
       "commentQuotations",
-      "getProfileUser"
+      "getProfileUser",
+      "set_randomQuotation"
     ]),
-    parseQuotation() {
-      let self = this;
-      this.showTypeText = "";
-      let tmp = self.quotationRandom.content;
-      this.interval = setInterval(function() {
-          if (tmp.length > self.showTypeText.length) {
-            self.showTypeText += tmp[self.showTypeText.length];
-          } else {
-            self.stopInterval();
-          }
-      },100);        
-    },
-    stopInterval(){
-      clearInterval(this.interval);
+  parseQuotation: function () {
+            this.showTypeText = "";
+            this.author = this.quotationRandom.user;
+            let tmp = this.quotationRandom.content;
+            let time = tmp.length;
+            console.log(tmp);
+            if (this.timer) {
+                window.clearInterval(this.timer);
+            }
+
+            this.timer = window.setInterval(()=>{
+                console.log(time);
+                if(time < 1){
+                    this.sendCodeTxt = '发送验证码';
+                    window.clearInterval(this.timer);
+                    this.timer = null;
+                }else{
+                    --time;
+                    //this.sendCodeTxt = '还剩'+time+'秒';
+                    this.showTypeText += tmp[this.showTypeText.length];
+                }
+            },70);
     },
     async getAnotherRandom(){
       let self = this;
@@ -262,29 +274,45 @@ export default {
                 }, 150);
       }
     },
-    postQuotations() {
-      this.createQuotations({ content: this.quotaion }).then(res => {
+    async postQuotations() {
+      await this.createQuotations({ content: this.quotaion }).then(res => {
         if (res.ok) {
-          this.quotaion = "";
-          this.clickCreateQuotation = false
-          this.getAnotherRandom()
-          this.parseQuotation()
+              
+              this.quotaion = "";
+              this.set_randomQuotation(res.response.data);
+              // this.showTypeText =res.response.data.content;
+              // this.author = res.response.data.user;
+              this.parseQuotation();
+          // this.getQuotations().then(response => {
+          //   console.log(response);
+          //   if(response.ok) {
+
+          //     //this.getAnotherRandom();
+
+          //   }
+          // })
         }
       });
+
+      
     },
     toSignUp() {
       this.$router.push({ name: "signup" });
     },
-    checkUserProfile() {
+    async checkUserProfile() {
       if (this.checkAuthen.indexOf(" ") >= 0) {
         this.createQuotations({ content: this.checkAuthen }).then(res => {
           if (res.ok) {
-            this.getQuotations();
-            this.checkAuthen = "";
-            this.clickPost = true;
-            this.createUser = false;
-            this.getAnotherRandom()
-            this.parseQuotation()
+            this.getQuotations().then(response => {
+              if(response.ok) {
+                this.checkAuthen = "";
+                this.clickPost = true;
+                this.createUser = false;
+                this.getAnotherRandom()
+                this.parseQuotation()
+              }
+            })
+            
           }
         });
       } else {
@@ -509,6 +537,7 @@ export default {
         cursor: pointer;
       }
       textarea {
+
         width: 100%;
         font-size: 27px;
         color: #eaeaea;
