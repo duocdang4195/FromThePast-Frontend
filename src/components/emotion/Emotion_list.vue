@@ -3,23 +3,24 @@
     <div class="mr-emotion-list_writem">
       <div class="mr-featured-post">
         <h3>Featured writing</h3>
-        <div @click="goto(item.id)" class="mr-writing-box" v-for="(item, index) in showPostAdmin" :key="index">
-          <img :src="item.image" alt class>
-          <h4>{{ item.title }}</h4>
-          <p class="rh-date">{{ item.updated_at | moment("MMMM Do YYYY")}}</p>
-          <div class="mr-content" v-html="delTagImg(item.content)">{{ item.content }}</div>
+        <div @click="goto(showPostAdmin[0].id)" class="mr-writing-box" >
+          <img :src="showPostAdmin[0].image" alt class>
+          <h4>{{ showPostAdmin[0].title }}</h4>
+          <p class="rh-date">{{ showPostAdmin[0].updated_at | moment("MMMM Do YYYY")}}</p>
+          <div class="mr-content" v-html="delTagImg(showPostAdmin[0].content)">{{ showPostAdmin[0].content }}</div>
         </div>
-        <div class="mr-writing-box_row" >
-          <img src="../../assets/images/coffee-cup-books-home.jpg" alt class>
+        <div @click="goto(showPostAdmin[1].id)" class="mr-writing-box" >
+          <img :src="showPostAdmin[1].image" alt class>
+          <h4>{{ showPostAdmin[1].title }}</h4>
+          <p class="rh-date">{{ showPostAdmin[1].updated_at | moment("MMMM Do YYYY")}}</p>
+          <div class="mr-content" v-html="delTagImg(showPostAdmin[1].content)">{{ showPostAdmin[1].content }}</div>
+        </div>
+        <div class="mr-writing-box_row" @click="goto(showPostAdmin[2].id)">
+          <img :src="showPostAdmin[2].image" alt class>
           <div>
-            <h4>Hòn đá tảng giữa đường và phần thưởng dành cho những người vượt qua trở ngại</h4>
-            <p class="rh-date">2019-05-20</p>
-            <div class="mr-content">Ở một vương quốc nọ, đức vua muốn thử lòng người nên đã sai người đặt một tảng đá to ở giữa một con đường nhiều người qua lại. Sau đó, nhà vua đóng giả người thường để quan sát xem ai sẽ là người dịch chuyển tảng đá khỏi con đường. Rất nhiều thương gia giàu có, cận thần của nhà vua đã đi qua con đường nhưng họ chỉ đi vòng qua hòn đá.
-
-            Thậm chí, nhiều người còn đổ lỗi cho nhà vua vì không có biện pháp giữ cho đường sá thông thoáng, nhưng không ai làm bất cứ điều gì để giải quyết vấn đề.
-
-            Một ngày nọ, một người nông dân mang rau ra chợ bán. Khi đến gần tảng đá, anh ta đã đặt gánh rau xuống và cố gắng tìm cách đẩy hòn đá ra khỏi vị trí án ngưỡng trên đường. Sau khi đẩy được hòn đá đi, anh nông dân phát hiện một chiếc túi đựng rất nhiều tiền vàng và một bức thư của nhà vua nhắn rằng: Vàng trong túi dành cho người đã loại bỏ tảng đá ra khỏi con đường.
-            </div>
+            <h4>{{ showPostAdmin[2].title }}</h4>
+            <p class="rh-date">{{ showPostAdmin[2].updated_at | moment("MMMM Do YYYY")}}</p>
+            <div class="mr-content" v-html="delTagImg(showPostAdmin[2].content)">{{ showPostAdmin[2].content }}</div>
           </div>
         </div>
       </div>
@@ -79,7 +80,8 @@ export default {
       let postAdmin = this.getAllMyQuotationsCreate.filter(item => {
         return item.selected === 1;
       });
-      return postAdmin.slice(0, 2);
+      console.log('postAdmin.slice(0, 3)', postAdmin.slice(0, 3))
+      return postAdmin.slice(0, 3);
     },
     getBackground() {
       return (
