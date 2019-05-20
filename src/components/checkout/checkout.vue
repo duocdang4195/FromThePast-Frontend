@@ -16,23 +16,16 @@
               ></vue-editor>
             </div>
             <div class="col-sm-12" v-if="handPrint">
-              <label>Full name</label>
               <v-text-field
                 v-model="fullnameSender"
-                placeholder="Full name"
-                background-color="#ededed"
-                color="#333"
-                solo-inverted
+                label="Full name"
                 flat
               ></v-text-field>
               <div class="col-sm-12">
-                <label class="mrg-top-30">Email *</label>
                 <v-text-field
                   v-model="emailSender"
-                  placeholder="your@email.com"
-                  background-color="#ededed"
                   color="#333"
-                  solo-inverted
+                  placeholder="Email"
                   flat
                 ></v-text-field>
               </div>
@@ -44,9 +37,7 @@
                   flat
                   append-icon
                   placeholder="City"
-                  background-color="#ededed"
                   color="#333"
-                  solo-inverted
                 ></v-autocomplete>
               </div>
               <div class="col-sm-6">
@@ -57,112 +48,86 @@
                   flat
                   append-icon
                   placeholder="District"
-                  background-color="#ededed"
                   color="#333"
                   :disabled="hideDistSender"
-                  solo-inverted
                 ></v-autocomplete>
               </div>
               <div class="col-sm-6">
-                <label class="mrg-top-30">The Ward</label>
                 <v-autocomplete
                   v-model="selectWardSender"
                   :items="listWard"
-                  placeholder="Ward"
+                  label="Ward"
                   flat
                   append-icon
-                  background-color="#ededed"
                   color="#333"
                   :disabled="hideWardSender"
-                  solo-inverted
                 ></v-autocomplete>
               </div>
               <div class="col-sm-12">
-                <label class="mrg-top-30">The Address</label>
                 <v-text-field
                   v-model="streetSender"
-                  placeholder="230 An Nam Street"
-                  background-color="#ededed"
+                  placeholder="The Address"
                   color="#333"
-                  solo-inverted
                   flat
                 ></v-text-field>
               </div>
             </div>
             <h3 class="mr-heading-left">Receiver</h3>
             <div class="col-sm-12">
-              <label>Full name</label>
               <v-text-field
                 v-model="fullname"
-                placeholder="Full name"
-                background-color="#ededed"
+                label="Full name"
                 color="#333"
-                solo-inverted
                 flat
               ></v-text-field>
             </div>
             <!-- column -->
             <!-- column -->
             <div class="col-sm-6">
-              <label class="mrg-top-30">City</label>
               <v-autocomplete
                 v-model="selectCity"
                 :items="listCity"
+                label="City"
                 flat
                 append-icon
-                placeholder="City"
-                background-color="#ededed"
                 color="#333"
-                solo-inverted
               ></v-autocomplete>
             </div>
             <div class="col-sm-6">
-              <label class="mrg-top-30">District</label>
               <v-autocomplete
                 v-model="selectDistrict"
                 :items="listDisttrict"
                 flat
                 append-icon
-                placeholder="District"
-                background-color="#ededed"
+                label="District"
                 color="#333"
                 :disabled="hideDist"
-                solo-inverted
               ></v-autocomplete>
             </div>
             <div class="col-sm-6">
-              <label class="mrg-top-30">Ward</label>
               <v-autocomplete
                 v-model="selectWard"
                 :items="listWard"
-                placeholder="Ward"
+                label="Ward"
                 flat
                 append-icon
-                background-color="#ededed"
                 color="#333"
                 :disabled="hideWard"
-                solo-inverted
               ></v-autocomplete>
             </div>
             <div class="col-sm-12">
-              <label class="mrg-top-30">Address</label>
               <v-text-field
                 v-model="street"
-                placeholder="230 An Nam Street"
-                background-color="#ededed"
+                label="230 An Nam Street"
                 color="#333"
-                solo-inverted
                 flat
               ></v-text-field>
             </div>
             <div class="col-sm-12">
-              <label class="mrg-top-30">identity card</label>
               <v-text-field
                 v-model="cmndID"
-                placeholder="352678565"
-                background-color="#ededed"
+                label="Indentizend "
                 color="#333"
-                solo-inverted
                 type="number"
                 flat
               ></v-text-field>
@@ -170,34 +135,29 @@
             <!-- /column -->
 
             <div class="col-sm-12">
-              <label class="mrg-top-30">Phone *</label>
               <v-text-field
                 v-model="numberPhone"
-                placeholder="0975446575"
-                background-color="#ededed"
+                label="Phone"
                 type="number"
                 color="#333"
-                solo-inverted
                 flat
               ></v-text-field>
             </div>
             <!-- column -->
 
             <div class="col-sm-12">
-              <label class="mrg-top-30">Email *</label>
               <v-text-field
                 v-model="email"
+                label="Email"
                 placeholder="your@email.com"
-                background-color="#ededed"
                 color="#333"
-                solo-inverted
                 flat
               ></v-text-field>
             </div>
             <div class="col-sm-12">
-              <label class="mrg-top-30">Time End</label>
               <v-menu
                 ref="menu"
+                label="Time End"
                 v-model="menu"
                 :scrollable="true"
                 :close-on-content-click="false"
@@ -211,8 +171,6 @@
                 <template v-slot:activator="{ on }">
                   <v-text-field
                     v-model="date"
-                    placeholder="Date Recive"
-                    background-color="#ededed"
                     color="#333"
                     v-on="on"
                     solo-inverted
