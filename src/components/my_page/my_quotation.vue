@@ -141,13 +141,15 @@ export default {
   methods: {
     ...mapActions(["getAllMyQuotations", "getAllQuotationsRealtions", "commentQuotations"]),
     commentStt(id, i) {
+
       this.commentQuotations({
         quotation_id: id,
         content: this.comment
       }).then(response => {
         if (response.ok) {
 					console.log("TCL: commentStt -> response", response)
-          this.listQuotations.comments[i].push(response.response.data)
+          // console.log(this.listQuotations);
+          this.listQuotations[i].comments.push(response.response.data)
           // this.comment = ''    
           // console.log('here')      
         }

@@ -186,7 +186,6 @@ export default {
       createUser: false,
       isLogin: false,
       notAuthen: true,
-      interval: null,
       stop: false
     };
   },
@@ -197,6 +196,8 @@ export default {
     await this.parseQuotation();
     await this.getAnotherRandom();
     this.stop = false;
+
+    // this.timeDown();
   },
   destroyed(){
     this.stopInterval();
@@ -227,15 +228,35 @@ export default {
       "commentQuotations",
       "getProfileUser"
     ]),
-    parseQuotation() {
+  parseQuotation: function () {
+            this.showTypeText = "";
+            let tmp = this.quotationRandom.content;
+            let time = tmp.length;
+            this.timer = window.setInterval(()=>{
+                console.log(time);
+                if(time < 1){
+                    this.sendCodeTxt = '发送验证码';
+                    window.clearInterval(this.timer);
+                    this.timer = null;
+                }else{
+                    --time;
+                    //this.sendCodeTxt = '还剩'+time+'秒';
+                    this.showTypeText += tmp[this.showTypeText.length];
+                }
+            },100);
+        },
+    sparseQuotation() {
       let self = this;
       this.showTypeText = "";
       let tmp = self.quotationRandom.content;
-      this.interval = setInterval(function() {
-          if (tmp.length > self.showTypeText.length) {
-            self.showTypeText += tmp[self.showTypeText.length];
+      this.interval = window.setInterval(function() {
+        console.log('interval');
+          if (tmp.length == this.showTypeText.length) {
+            window.clearInterval(this.interval);
+            this.interval = null;            
           } else {
-            self.stopInterval();
+            this.showTypeText += tmp[self.showTypeText.length];
+
           }
       },100);        
     },
