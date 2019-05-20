@@ -35,6 +35,14 @@
               <span>{{ getProfile.user.email }}</span>
             </li>
             <li>
+              <strong>ID:</strong>
+              <span>Bỏ ID vào này</span>
+            </li>
+            <li>
+              <strong>User Name</strong>
+              <span>Thêm User name nữa</span>
+            </li>
+            <li>
               <strong>Phone:</strong>
               <span class="mr-underline" v-if="!getProfile.user.phone" @click="showInputPhone = true">Add your number</span>
               <div class="input-change" >
