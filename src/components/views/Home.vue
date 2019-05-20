@@ -115,7 +115,7 @@
       </div>
       <div class="content__actions" v-show="notAuthen">
         <span v-if="!isAuthenticated && checkAuthen.length == 0">
-          <span>Paser</span>
+          <span>{{ quotationRandom.user.name }}</span>
           <div :class="classLike">
             <span @click="toSignUp">
               <icon name="heart"/>
@@ -191,6 +191,7 @@ export default {
     };
   },
   async created() {
+    console.log('quotationRandom', this.quotationRandom)
     await this.getQuotations();
     await this.getProfileUser();
     await this.parseQuotation();
@@ -265,26 +266,34 @@ export default {
     postQuotations() {
       this.createQuotations({ content: this.quotaion }).then(res => {
         if (res.ok) {
-          this.quotaion = "";
-          this.clickCreateQuotation = false
-          this.getAnotherRandom()
-          this.parseQuotation()
+          this.getQuotations().then(response => {
+            if(response.ok) {
+              this.quotaion = "";
+              this.clickCreateQuotation = false
+              this.getAnotherRandom()
+              this.parseQuotation()
+            }
+          })
         }
       });
     },
     toSignUp() {
       this.$router.push({ name: "signup" });
     },
-    checkUserProfile() {
+    async checkUserProfile() {
       if (this.checkAuthen.indexOf(" ") >= 0) {
         this.createQuotations({ content: this.checkAuthen }).then(res => {
           if (res.ok) {
-            this.getQuotations();
-            this.checkAuthen = "";
-            this.clickPost = true;
-            this.createUser = false;
-            this.getAnotherRandom()
-            this.parseQuotation()
+            this.getQuotations().then(response => {
+              if(response.ok) {
+                this.checkAuthen = "";
+                this.clickPost = true;
+                this.createUser = false;
+                this.getAnotherRandom()
+                this.parseQuotation()
+              }
+            })
+            
           }
         });
       } else {
@@ -502,7 +511,8 @@ export default {
         cursor: pointer;
       }
       textarea {
-        width: 95%;
+        width: 90%;
+        height: 230px;
         font-size: 30px;
         color: #eaeaea;
         font-family: "Dancing Script", cursive;

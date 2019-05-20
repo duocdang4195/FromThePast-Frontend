@@ -3,7 +3,7 @@
     <div class="mr-myquote-wr">
       <div class="my-quotation-tab">
         <div @click="showYourQuotation" :class="['my-quotation-tab__elm',{ active: yourQuotations }]">Your Quotation</div>
-        <div @click="showYourQuotationRelation":class="['my-quotation-tab__elm',{ active: !yourQuotations }]">Quotation Relation</div>
+        <div @click="showYourQuotationRelation" :class="['my-quotation-tab__elm',{ active: !yourQuotations }]">Quotation Relation</div>
       </div>
       <div class="mr-myquote-wr-list">
         <ul>
@@ -36,15 +36,28 @@
                 </span>
               </p>
               <ul class="mr-comment">
-                <li v-for="(listComment, index) in item.comments" :key="index">
+                <Comments v-for="(listComment, index) in item.comments" :key="index" :item="listComment" />
+                <!-- <li v-for="(listComment, index) in item.comments" :key="index">
                   <span v-if="listComment.user" class="mr-cmt-author">{{ listComment.user.name }}</span>
                   <span
                     class="mr-cmt-time"
                   >{{ listComment.created_at | moment("MMMM Do YYYY, h:mm:ss a")}}</span>
                   <br>
                   <p>{{ listComment.content }}</p>
-                </li>
+                </li> -->
               </ul>
+              <div class="comment-quotation">
+                <textarea 
+                  class="comment-quotation__input"
+                  v-model="comment"
+                  name="message"
+                  placeholder="Write a comment"
+                  @keydown.enter.prevent="commentStt(item.id)"
+                ></textarea>
+                <div class="btn-submit" @click="commentStt(item.id, index)">
+                  comment
+                </div>
+              </div>
             </div>
           </li>
           <li v-show="!yourQuotations" class="mr-myQuotation" v-for="(list) in quotationsRelation">
@@ -86,14 +99,19 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
+import Comments from '@/components/emotion/Comments.vue'
 export default {
   name: "component_name",
+  components: {
+    Comments
+  },
   data() {
     return {
       listQuotations: [],
       quotationsRelation: [],
       yourQuotations: true,
-      isLoaded: false      
+      isLoaded: false,
+      comment: ''      
     };
   },
   created() {
@@ -105,6 +123,7 @@ export default {
     this.getAllMyQuotations().then(res => {
       if (res.ok) {
         this.listQuotations = res.response.data;
+				console.log("TCL: created -> this.listQuotations", this.listQuotations)
         this.isLoaded = true;
       }
     });
@@ -120,7 +139,20 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getAllMyQuotations", "getAllQuotationsRealtions"]),
+    ...mapActions(["getAllMyQuotations", "getAllQuotationsRealtions", "commentQuotations"]),
+    commentStt(id, i) {
+      this.commentQuotations({
+        quotation_id: id,
+        content: this.comment
+      }).then(response => {
+        if (response.ok) {
+					console.log("TCL: commentStt -> response", response)
+          this.listQuotations.comments[i].push(response.response.data)
+          // this.comment = ''    
+          // console.log('here')      
+        }
+      });
+    },
     showYourQuotation() {
       if (!this.yourQuotations) {
         this.yourQuotations = true;
@@ -136,6 +168,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.comment-quotation {
+  &__input {
+    outline: none;
+    resize: none;
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 5px;
+  }
+  .btn-submit {
+    width: 110px;
+    text-align: center;
+    margin: 10px 0;
+    padding: 5px;
+    background-color: #212121;
+    border: 1px solid #212121;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-family: "Montserrat", sans-serif;
+    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    &:hover {
+      background-color: #fff;
+      color: #212121;
+    }
+  }
+}
 .mr-fullslider {
   position: relative;
   display: flex;

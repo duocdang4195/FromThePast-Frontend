@@ -5,7 +5,7 @@
     </div>
     <!-- /avatar -->
     <div class="mr-comment-info">
-      <h4 class="name">
+      <h4 class="name" v-if="item.user" v-cloak>
         <a href="#">{{ item.user.name }}</a>
       </h4>
       <p class="mr-content">{{ item.content }}</p>
