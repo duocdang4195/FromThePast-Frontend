@@ -522,17 +522,24 @@ export default {
     }
     &__input--quotaion {
       position: absolute;
-      top: 50%;
+      width: 100%;
+      max-width: 1200px;
+      padding: 15px;
+      height: fit-content;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
       transform: translateY(-50%);
-      right: 100px;
       text-align-last: right;
       span.vue-typer {
         cursor: pointer;
       }
       textarea {
-        width: 90%;
-        height: 230px;
-        font-size: 30px;
+
+        width: 100%;
+        font-size: 27px;
         color: #eaeaea;
         font-family: "Dancing Script", cursive;
         text-align: right;
@@ -591,10 +598,13 @@ export default {
       position: absolute;
       top: 55%;
       transform: translateY(-50%);
-      right: 100px;
+      right:0;
+      left:0;
       color: #fff;
-      margin-top: 50px;
+      margin: 0 auto;
       width: 100%;
+      max-width:1200px;
+      padding: 0 15px;
       text-align: right;
       span {
         margin-right: 5px;
