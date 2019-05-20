@@ -146,8 +146,7 @@ export default {
         content: this.comment
       }).then(response => {
         if (response.ok) {
-					console.log("TCL: commentStt -> response", response)
-          this.listQuotations.comments[i].push(response.response.data)
+          this.listQuotations[i].comments.push(response.response.data)
           // this.comment = ''    
           // console.log('here')      
         }
