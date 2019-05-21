@@ -1,7 +1,7 @@
 <template>
   <div class="mr-comment">
     <div class="mr-avatar">
-      <a :style="{background: stringToHslColor}">{{ showNameAvt(item.user.name ? item.user.name : 'Paser') }}</a>
+      <a v-if="item.user" :style="{background: stringToHslColor}">{{ showNameAvt(item.user.name ? item.user.name : 'Paser') }}</a>
     </div>
     <!-- /avatar -->
     <div class="mr-comment-info">
@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     stringToHslColor() {
-      const str = this.item.user.name;
+      const str = this.item.user ? this.item.user.name : 'Paser';
       var hash = 0;
       for (var i = 0; i < str.length; i++) {
         hash = str.charCodeAt(i) + ((hash << 5) - hash);
