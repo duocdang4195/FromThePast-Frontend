@@ -264,7 +264,7 @@
                 </tr>
 
                 <tr class="grand-total">
-                  <th class>total price</th>
+                  <th class>total price <br/><a href="#">(Quy định giá tiền)</a></th>
                   <td class>{{ totalPrice }}</td>
                 </tr>
               </tbody>
@@ -910,6 +910,13 @@ export default {
         }
       }
     }
+  }
+}
+.grand-total {
+  a {
+    font-weight: 300;
+    text-decoration: none;
+    color: #999;
   }
 }
 .v-select.v-text-field input, .v-text-field input {color:  rgba(0,0,0,.87) !important;}

@@ -12,7 +12,7 @@
             </div>
           </li>
           <li v-else @click="goto(item.id)"  v-for="(item, index) in listEmotionsAll" :key="index">
-            <img class="mr-post-thumb" :src="checkImage(item.image)">
+            <span class="mr-post-thumb"><img  :src="checkImage(item.image)"></span>
             <div class="mr-content">
               <h5>{{ item.title }}</h5>
               <span class="mr-timer">{{ item.updated_at | moment("MMMM Do YYYY")}}</span>
@@ -147,9 +147,19 @@ export default {
         position: relative;
         display: inline-block;
         width: 200px;
-        height: 200px;
+        height: 160px;
         background-size: cover;
         background-position: center center;
+
+        img {
+          position: relative;
+          display: inline-block; 
+          object-fit: cover;
+          object-position: 100% center;
+          width: 200px;
+          height: 160px; 
+
+        }
       }
       .mr-content {
         width: calc(100% - 200px);
@@ -175,8 +185,7 @@ export default {
           line-height: 1.5;
         }
         .mr-content__main--content {
-          height: 100px;
-          overflow-y: scroll;
+          height: 75px;
         }
       }
     }
