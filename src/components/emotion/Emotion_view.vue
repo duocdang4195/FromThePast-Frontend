@@ -69,7 +69,7 @@
                 <div class="share mrg-top-50">
                   <h5 class="mrg-btm-15">Share Post :</h5>
                   <div class="social-icon mrg-top-15">
-                    <a href="#" class="btn btn-icon facebook border no-border circle text-gray">
+                    <a class="btn btn-icon facebook border no-border circle text-gray" @click="shareFb()">
                       <i data-v-715ff4e2 class="fab fa-facebook-f"></i>
                     </a>
                     <a href="#" class="btn btn-icon twitter border no-border circle text-gray">
@@ -208,6 +208,12 @@ export default {
     },
     searchTag(tag) {
       this.showTag(tag)
+    },
+    shareFb(){
+        FB.ui({
+          method: 'share',
+          href: 'https://developers.facebook.com/docs/',
+        }, function(response){});
     },
     goTo() {
       this.$router.push({name: 'Emotion_write'})

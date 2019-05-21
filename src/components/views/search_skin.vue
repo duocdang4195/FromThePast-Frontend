@@ -10,20 +10,6 @@
                 <i class="mr-circle-mark">&#9675;</i>Happiness
                 <span>(40)</span>
               </a>
-              <ul class="mr-sub-cat">
-                <li>
-                  <a>Laetus</a>
-                </li>
-                <li>
-                  <a>Felix</a>
-                </li>
-                <li>
-                  <a>Beatitudo</a>
-                </li>
-                <li>
-                  <a>Sublime Beatitudo.</a>
-                </li>
-              </ul>
             </li>
             <li>
               <a>
@@ -60,7 +46,7 @@
         </div>
         <!-- /sidebar-widget -->
 
-        <div class="mr-sidebar">
+        <div class="mr-sidebar" v-if="false">
           <h4 class="mr-cat-2">Seasons</h4>
           <ul class="categories">
             <li>
@@ -158,7 +144,7 @@
             <h5>Images for result</h5>
             <ul>
               <li v-for="item in showImg">
-                <img :src="item.image" alt="">
+                <img :src="item.image" @click="$router.push({ path: '/Emotion_view/'+item.id })" alt="">
               </li>
             </ul>
             <p>

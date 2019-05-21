@@ -236,28 +236,28 @@
                 </tr>
 
                 <tr>
-                  <th>distance</th>
+                  <th>Distance</th>
                   <td>
-                    <b>{{ distancePrice }} km</b>
+                    <b>{{ distance }} km</b>
                   </td>
                 </tr>
 
                 <tr>
-                  <th>distance price</th>
+                  <th>Distance price</th>
                   <td>
                     <b>{{ distancePrice }}</b>
                   </td>
                 </tr>
 
                 <tr>
-                  <th>security price</th>
+                  <th>Security price</th>
                   <td>
                     <b>{{ securityPrice }}</b>
                   </td>
                 </tr>
 
                 <tr>
-                  <th>time price</th>
+                  <th>Time price</th>
                   <td>
                     <b>{{ timePrice }}</b>
                   </td>
