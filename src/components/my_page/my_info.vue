@@ -36,11 +36,11 @@
             </li>
             <li>
               <strong>ID:</strong>
-              <span>Bỏ ID vào này</span>
+              <span>{{ getProfile.user.id }}</span>
             </li>
             <li>
               <strong>User Name</strong>
-              <span>Thêm User name nữa</span>
+              <span>{{ getProfile.user.username }}</span>
             </li>
             <li>
               <strong>Phone:</strong>
@@ -143,6 +143,7 @@ export default {
     };
   },
   async created() {
+    console.log('getProfile', this.getProfile)
     let { response } = await this.getQuotations();
     this.showQuotaions = response.data;
   },
