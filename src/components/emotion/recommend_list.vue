@@ -1,7 +1,7 @@
 <template>
   <div class="v-content__recomment_list">
     <div class="mr-section">
-      <div class="blog-sidebar">
+      <div class="blog-sidebar" v-show="false">
         <div class="mr-sidebar">
           <h4 class="mrg-btm-20">Emotions</h4>
           <ul class="categories">
@@ -142,56 +142,60 @@
       <!-- /column -->
 
       <div class="mr-blog-content">
-       <div class="blog-post single-post mr-search-result">
-              <div class="mr-text-result">
-                <ul>
-                  <li>
-                    <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                    <div class="mr-postcntn">
-                      <span class="mr-postcntn-img" style="background-image:url('');"></span>
-                      <p class="mr-postcntn-text"> The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</p>
-                    </div>
-                    <p class="mr-post-author"><span>Mr.Author</span></p>
-                  </li>
-                  <li>
-                    <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                    <div class="mr-postcntn">
-                      <span class="mr-postcntn-img" style="background-image:url('');"></span>
-                      <p class="mr-postcntn-text"> The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</p>
-                    </div>
-                    <p class="mr-post-author"><span>Mr.Author</span></p>
-                  </li>
-                  <li>
-                    <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                    <div class="mr-postcntn">
-                      <span class="mr-postcntn-img" style="background-image:url('');"></span>
-                      <p class="mr-postcntn-text"> The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</p>
-                    </div>
-                    <p class="mr-post-author"><span>Mr.Author</span></p>
-                  </li>
-                  <li>
-                    <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                    <div class="mr-postcntn">
-                      <span class="mr-postcntn-img" style="background-image:url('');"></span>
-                      <p class="mr-postcntn-text"> The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</p>
-                    </div>
-                    <p class="mr-post-author"><span>Mr.Author</span></p>
-                  </li>
-                </ul>
-              </div><!-- ./. mr-text-result -->
-                      </div><!-- /blog-post -->
-                  </div>
-                  <!-- /column -->
-
-              </div>
-              <!-- /row -->
+        <div class="blog-post single-post mr-search-result">
+          <div class="mr-text-result">
+            <ul>
+              <li v-for="(item) in getListTags" :key="item.id">
+                <h5 class="mr-post-ttl">{{ item.title }}</h5>
+                <div class="mr-postcntn" >
+                  <span @click="goto(item.id)" class="mr-postcntn-img" :style="getBackground(item.image)"></span>
+                  <p
+                    class="mr-postcntn-text"
+                    v-html="strip_tags(item.content).substr(0,300) + (strip_tags(item.content).length > 400 ? '...' : '')"
+                  ></p>
+                </div>
+                <p class="mr-post-author">
+                  <span>{{ item.user.username }}</span>
+                </p>
+              </li>
+            </ul>
           </div>
-          <!-- /container -->
-      </section>
-      <!-- /Blog Single Left Sidebar -->
+          <!-- ./. mr-text-result -->
+        </div>
+        <!-- /blog-post -->
+      </div>
+      <!-- /column -->
     </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+  <!-- /Blog Single Left Sidebar -->
 </template>
 
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  created() {
+    console.log("getListTags", this.getListTags);
+  },
+  computed: {
+    ...mapGetters(["getListTags"])
+  },
+  methods: {
+    getBackground(img) {
+      return "background-image:url('" + img + "');";
+    },
+    strip_tags(content) {
+      let t = content.replace(/(<([^>]+)>)/gi, "");
+      return t;
+    },
+    goto(id) {
+      this.$router.push(`/Emotion_view/${id}`);
+    },
+  }
+};
+</script>
 
 
 <style lang="scss" scoped>
@@ -452,6 +456,7 @@ ul {
       li {
         @extend %full-width;
         margin-bottom: 15px;
+        
 
         h5 {
           @extend %full-width;
@@ -472,6 +477,7 @@ ul {
           font-family: "IBM Plex Sans", sans-serif;
 
           &-img {
+            cursor: pointer;
             position: relative;
             width: 100px;
             height: 100px;

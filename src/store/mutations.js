@@ -60,5 +60,8 @@ export default {
   },
   set_randomQuotation(state, newValue) {
     state.newQuotations = newValue;
+  },
+  updateTag(state, tags) {
+    state.tags = tags;
   }
 }

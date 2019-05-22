@@ -80,7 +80,6 @@ export default {
       let postAdmin = this.getAllMyQuotationsCreate.filter(item => {
         return item.selected === 1;
       });
-      console.log('postAdmin.slice(0, 3)', postAdmin.slice(0, 3))
       return postAdmin.slice(0, 3);
     },
     getBackground() {

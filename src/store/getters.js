@@ -53,4 +53,7 @@ export default {
 	getBackgound(state) {
 		return state.backgroundPage
 	},
+	getListTags(state) {
+		return state.tags
+	},
 }

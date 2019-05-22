@@ -176,9 +176,10 @@ export default {
       return { ok: false, error };
     }
   },
-  async showTag( {}, tag) {
+  async showTag( { commit }, tag) {
     try {
       const response = await api.post("/emotion/findByTag", tag);
+      commit('updateTag', response.data )
       return { ok: true, data: response.data };
     } catch (error) {
       return { ok: false, error };

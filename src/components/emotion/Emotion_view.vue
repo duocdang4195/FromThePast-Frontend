@@ -19,7 +19,7 @@
       <div class="mr-sidebar" v-if="true">
         <h4 class="mr-cat-2">All Tags</h4>
         <ul class="categories">
-          <li @click="searchTag(item)" v-for="item in listTag">
+          <li @click="searchTag(item.toLowerCase())" v-for="item in listTag">
             <a href="#">
               {{ item }}
             </a>
@@ -153,7 +153,6 @@ export default {
       if(res.ok) {
         this.viewEmotion = res.response.data
         this.countLike = this.viewEmotion.likes.length
-				console.log("TCL: created -> this.countLike", this.countLike)
 				if(this.viewEmotion.liked) {
           this.isLike = true
         }
@@ -168,9 +167,6 @@ export default {
   },
   computed: {
     ...mapGetters(["getAllMyQuotationsCreateByID"]),
-    // count() {
-    //   return 
-    // },
     classLike() {
       return classnames({
         liked: this.isLike === true
@@ -207,7 +203,11 @@ export default {
       }
     },
     searchTag(tag) {
-      this.showTag(tag)
+      this.showTag({tag: tag}).then(res => {
+        if(res.ok) {
+          this.$router.push({name: 'recommend_list'})
+        }
+      })
     },
     shareFb(){
         FB.ui({

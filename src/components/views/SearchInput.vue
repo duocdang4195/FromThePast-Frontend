@@ -46,6 +46,7 @@ export default {
       this.$store.state.searchKey = this.keyword
       this.searchAll({ keyword: this.keyword }).then(res => {
         if (res.ok) {
+          console.log("TCL: searchData -> res", res)
           this.$router.push({ name: "search_skin" });
           this.keyword = "";
           this.showIconSearch = true;

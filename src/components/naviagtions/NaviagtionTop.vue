@@ -19,7 +19,7 @@
             <router-link :to="{ name: 'service'}">service</router-link>
           </div>
           <div class="menu__child--elm">
-            <router-link :to="{ name: 'Emotion_write'}">become a writer</router-link>
+            <router-link :to="{ name: 'Emotion_write'}"> {{ showText }}</router-link>
           </div>
           <div class="menu__child--elm">
             <router-link :to="{ name: 'about_list'}">about</router-link>
@@ -39,7 +39,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getBackgound"]),
+    ...mapGetters(["getBackgound", "getProfile"]),
+    showText() {
+      return this.getProfile.user.user_level < 60 ? 'become a writer' : 'writing'
+    }
   },
   methods: {
     showMenu() {
