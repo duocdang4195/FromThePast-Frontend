@@ -176,9 +176,19 @@ export default {
       return { ok: false, error };
     }
   },
-  async showTag( {}, tag) {
+  async getDescription( {}, ) {
+    try {
+      const response = await api.get("/about_description");
+      return { ok: true, data: response.data };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async showTag( { commit }, tag) {
     try {
       const response = await api.post("/emotion/findByTag", tag);
+      commit('updateEmotionTagRelate', response.data.emotion )
+      commit('updateTag', response.data.tags )
       return { ok: true, data: response.data };
     } catch (error) {
       return { ok: false, error };
@@ -351,6 +361,16 @@ export default {
       const response = await api.post(`/search`, {keyword});
       let search = response.data
       commit('updateSearchAll', search)
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
+  async searchOrderBooking({ commit }, { code }) {
+    try {
+      const response = await api.post(`/booking_by_code`, {code});
+      let search = response.data
+      commit('updateSearchBooking', search)
       return { ok: true, response };
     } catch (error) {
       return { ok: false, error };

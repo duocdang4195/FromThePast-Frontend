@@ -5,133 +5,10 @@
         <div class="mr-sidebar">
           <h4 class="mrg-btm-20">Emotions</h4>
           <ul class="categories">
-            <li>
-              <a href="#">
-                <i class="mr-circle-mark">&#9675;</i>Happiness
-                <span>(40)</span>
-              </a>
-              <ul class="mr-sub-cat">
-                <li>
-                  <a href="#">Laetus</a>
-                </li>
-                <li>
-                  <a href="#">Felix</a>
-                </li>
-                <li>
-                  <a href="#">Beatitudo</a>
-                </li>
-                <li>
-                  <a href="#">Sublime Beatitudo.</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">
-                <i class="mr-circle-mark">&#9675;</i>Sadness
-                <span>(35)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class="mr-circle-mark">&#9675;</i>Anger
-                <span>(53)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class="mr-circle-mark">&#9675;</i>Surprise
-                <span>(30)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class="mr-circle-mark">&#9675;</i>Fear
-                <span>(24)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class="mr-circle-mark">&#9675;</i>Disgust
-                <span>(19)</span>
-              </a>
-            </li>
-          </ul>
-          <!-- /categories -->
-        </div>
-        <!-- /sidebar-widget -->
-        <div class="mr-sidebar" v-if="false">
-          <h4 class="mr-cat-2">Seasons</h4>
-          <ul class="categories">
-            <li>
-              <a href="#">
-                Jan
-                <span>(40)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                Feb
-                <span>(35)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                Mar
-                <span>(53)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                Apr
-                <span>(40)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                May
-                <span>(35)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                Jun
-                <span>(53)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                Jul
-                <span>(40)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                Aug
-                <span>(35)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                Sep
-                <span>(53)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                Oct
-                <span>(40)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                Nov
-                <span>(35)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                Dec
-                <span>(53)</span>
+            <li v-for="(item, index) in getListTags" :key="index">
+              <a @click="searchTag(item.tag)" href="#">
+                <i class="mr-circle-mark">&#9675;</i>{{ item.tag }}
+                <span>(  {{ item.count }}  )</span>
               </a>
             </li>
           </ul>
@@ -142,56 +19,69 @@
       <!-- /column -->
 
       <div class="mr-blog-content">
-       <div class="blog-post single-post mr-search-result">
-              <div class="mr-text-result">
-                <ul>
-                  <li>
-                    <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                    <div class="mr-postcntn">
-                      <span class="mr-postcntn-img" style="background-image:url('');"></span>
-                      <p class="mr-postcntn-text"> The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</p>
-                    </div>
-                    <p class="mr-post-author"><span>Mr.Author</span></p>
-                  </li>
-                  <li>
-                    <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                    <div class="mr-postcntn">
-                      <span class="mr-postcntn-img" style="background-image:url('');"></span>
-                      <p class="mr-postcntn-text"> The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</p>
-                    </div>
-                    <p class="mr-post-author"><span>Mr.Author</span></p>
-                  </li>
-                  <li>
-                    <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                    <div class="mr-postcntn">
-                      <span class="mr-postcntn-img" style="background-image:url('');"></span>
-                      <p class="mr-postcntn-text"> The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</p>
-                    </div>
-                    <p class="mr-post-author"><span>Mr.Author</span></p>
-                  </li>
-                  <li>
-                    <h5 class="mr-post-ttl">It’s Time for Digital Products to Start Empowering Us</h5>
-                    <div class="mr-postcntn">
-                      <span class="mr-postcntn-img" style="background-image:url('');"></span>
-                      <p class="mr-postcntn-text"> The digital world, as we’ve designed it, is draining us. The products and services we use are like needy friends: desperate and demanding. Yet we can’t step away. We’re in a codependent relationship. Our products never seem to have enough, and we’re always willing to give a little more. They need our data, files, photos, posts, friends, cars, and houses. They need every second of our attention.</p>
-                    </div>
-                    <p class="mr-post-author"><span>Mr.Author</span></p>
-                  </li>
-                </ul>
-              </div><!-- ./. mr-text-result -->
-                      </div><!-- /blog-post -->
-                  </div>
-                  <!-- /column -->
-
-              </div>
-              <!-- /row -->
+        <div class="blog-post single-post mr-search-result">
+          <div class="mr-text-result">
+            <ul>
+              <li v-for="(item) in getListEmotionTagsRelate" :key="item.id">
+                <h5 class="mr-post-ttl">{{ item.title }}</h5>
+                <div class="mr-postcntn" >
+                  <span @click="goto(item.id)" class="mr-postcntn-img" :style="getBackground(item.image)"></span>
+                  <p
+                    class="mr-postcntn-text"
+                    v-html="strip_tags(item.content).substr(0,300) + (strip_tags(item.content).length > 400 ? '...' : '')"
+                  ></p>
+                </div>
+                <p class="mr-post-author">
+                  <span>{{ item.user.username }}</span>
+                </p>
+              </li>
+            </ul>
           </div>
-          <!-- /container -->
-      </section>
-      <!-- /Blog Single Left Sidebar -->
+          <!-- ./. mr-text-result -->
+        </div>
+        <!-- /blog-post -->
+      </div>
+      <!-- /column -->
     </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+  <!-- /Blog Single Left Sidebar -->
 </template>
 
+<script>
+import { mapGetters, mapActions } from "vuex";
+
+export default {
+  created() {
+    console.log("getListTags", this.getListEmotionTagsRelate);
+  },
+  computed: {
+    ...mapGetters(["getListTags", "getListEmotionTagsRelate"])
+  },
+  methods: {
+    ...mapActions(["showTag"]),
+    getBackground(img) {
+      return "background-image:url('" + img + "');";
+    },
+    strip_tags(content) {
+      let t = content.replace(/(<([^>]+)>)/gi, "");
+      return t;
+    },
+    goto(id) {
+      this.$router.push(`/Emotion_view/${id}`);
+    },
+    searchTag(tag) {
+      this.showTag({tag: tag}).then(res => {
+        if(res.ok) {
+          console.log("TCL: searchTag -> res", res)
+          this.$router.push({name: 'recommend_list'})
+        }
+      })
+    },
+  }
+};
+</script>
 
 
 <style lang="scss" scoped>
@@ -452,6 +342,7 @@ ul {
       li {
         @extend %full-width;
         margin-bottom: 15px;
+        
 
         h5 {
           @extend %full-width;
@@ -472,6 +363,7 @@ ul {
           font-family: "IBM Plex Sans", sans-serif;
 
           &-img {
+            cursor: pointer;
             position: relative;
             width: 100px;
             height: 100px;

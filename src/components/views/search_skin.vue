@@ -3,122 +3,13 @@
     <div class="mr-section">
       <div class="blog-sidebar">
         <div class="mr-sidebar">
-          <h4 class="mrg-btm-20">Emotions</h4>
+          <h4 class="mrg-btm-20">Emotions Tags</h4>
           <ul class="categories">
-            <li>
-              <a>
-                <i class="mr-circle-mark">&#9675;</i>Happiness
-                <span>(40)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <i class="mr-circle-mark">&#9675;</i>Sadness
-                <span>(35)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <i class="mr-circle-mark">&#9675;</i>Anger
-                <span>(53)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <i class="mr-circle-mark">&#9675;</i>Surprise
-                <span>(30)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <i class="mr-circle-mark">&#9675;</i>Fear
-                <span>(24)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <i class="mr-circle-mark">&#9675;</i>Disgust
-                <span>(19)</span>
-              </a>
-            </li>
-          </ul>
-          <!-- /categories -->
-        </div>
-        <!-- /sidebar-widget -->
-
-        <div class="mr-sidebar" v-if="false">
-          <h4 class="mr-cat-2">Seasons</h4>
-          <ul class="categories">
-            <li>
-              <a>
-                Jan
-                <span>(40)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                Feb
-                <span>(35)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                Mar
-                <span>(53)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                Apr
-                <span>(40)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                May
-                <span>(35)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                Jun
-                <span>(53)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                Jul
-                <span>(40)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                Aug
-                <span>(35)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                Sep
-                <span>(53)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                Oct
-                <span>(40)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                Nov
-                <span>(35)</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                Dec
-                <span>(53)</span>
+            <li v-if="getTags.length === 0">no tag relate</li>
+            <li v-else v-for="(item, index) in getTags" :key="index">
+              <a @click="searchTag(item.tag.toLowerCase())">
+                <i class="mr-circle-mark">&#9675;</i>{{ item.tag }}
+                <span>( {{ item.count }} )</span>
               </a>
             </li>
           </ul>
@@ -129,35 +20,33 @@
       <!-- /blog-sidebar -->
 
       <div class="mr-blog-content">
-        <div v-if="isEmpty" class="mr-blog-content_empty">
-            <strong>OOPS!!!!</strong>
-            <p>
-              There is no result matched with your requirement.
-            </p>
-        </div>
-        <div class="blog-post single-post mr-search-result" v-show="!isEmpty">
-          <div class="mr-search-ttl" v-if="false">
-            <input type="text" placeholder="Keywords" class="mr-inputkeyword">
-          </div>
-          <!--./.mr-search-ttl  -->
-          <div class="mr-img-search-result">
-            <h5>Images for result</h5>
-            <ul>
-              <li v-for="item in showImg">
-                <img :src="item.image" @click="$router.push({ path: '/Emotion_view/'+item.id })" alt="">
-              </li>
-            </ul>
-            <p>
-              More images results for
-              <b>{{ searchKey }}</b>
-            </p>
+        <div class="blog-post single-post mr-search-result" >
+          <div>
+            <div class="mr-blog-content_empty" v-if="showImg.length === 0">
+              <strong>OOPS!!!!</strong>
+              <p>
+                There is no result matched with your requirement.
+              </p>
+            </div>
+            <div class="mr-img-search-result" v-else>
+              <h5>Images for result</h5>
+              <ul>
+                <li v-for="item in showImg">
+                  <img :src="item.image" @click="$router.push({ path: '/Emotion_view/'+item.id })" alt="">
+                </li>
+              </ul>
+              <p>
+                More images results for
+                <b>{{ searchKey }}</b>
+              </p>
+            </div>
           </div>
           <!-- ./. mr-img-search-result -->
           <div class="mr-text-result">
             <ul>
               <li>
                 <h5 class="mr-post-ttl">About</h5>
-                <div class="search-content" v-if="getAbout.about">
+                <div class="search-content" v-if="getAbout.length === 0">
                   <p class="search-content-no-result">
                     <span>No Results</span>
                   </p>
@@ -178,7 +67,7 @@
               <li>
                 <h5 class="mr-post-ttl">Emotions</h5>
                 <div class="search-content">
-                  <div class="search-content" v-if="getEmotions.emotion">
+                  <div class="search-content" v-if="getEmotions.length === 0">
                     <p class="search-content-no-result">
                       <span>No Results</span>
                     </p>
@@ -210,7 +99,7 @@
               <li>
                 <h5 class="mr-post-ttl">Quotations</h5>
                 <div class="search-content">
-                  <div class="search-content" v-if="getQuotations.quotation">
+                  <div class="search-content" v-if="getQuotations.length === 0">
                     <p class="search-content-no-result">
                       <span>No Results</span>
                     </p>
@@ -231,7 +120,7 @@
               </li>
               <li>
                 <h5 class="mr-post-ttl">User</h5>
-                <div class="search-content" v-if="getUser.user">
+                <div class="search-content" v-if="getUser.length === 0">
                   <p class="search-content-no-result">
                     <span>No Results</span>
                   </p>
@@ -256,7 +145,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import UserSearch from '@/components/views/UserSearch.vue'
 export default {
   components: {
@@ -271,32 +160,58 @@ export default {
   computed: {
     ...mapGetters(["getDataSearch"]),
     showImg() {
-      let image = this.getDataSearch.emotion.filter(item => {
-        return item.image !== ''
-      })
-      return image
+      if(this.getDataSearch.emotion) {
+        let image = this.getDataSearch.emotion.filter(item => {
+          return item.image !== ''
+        })
+        return image
+      }
+      return []
     },
     searchKey() {
       let keyword = ''
       return this.keyword = this.$store.state.searchKey
     },
     getAbout() {
-      return this.getDataSearch.about
+      if(this.getDataSearch.about) {
+        return this.getDataSearch.about
+      }
+      return []
     },
     getEmotions() {
-      return this.getDataSearch.emotion
+      if (this.getDataSearch.emotion) {
+        return this.getDataSearch.emotion
+      }
+      return []
     },
     getQuotations() {
-      return this.getDataSearch.quotation
+      if(this.getDataSearch.quotation) {
+        return this.getDataSearch.quotation
+      }
+      return []
     },
     getUser() {
-      return this.getDataSearch.user
+      if(this.getDataSearch.user) {
+        return this.getDataSearch.user
+      }
+      return []
     },
-    isEmpty() {
-      
-    }
+    getTags() {
+      if (this.getDataSearch.tag) {
+        return this.getDataSearch.tag
+      }
+      return []
+    },
   },
   methods: {
+    ...mapActions(['showTag']),
+    searchTag(tag) {
+      this.showTag({tag: tag}).then(res => {
+        if(res.ok) {
+          this.$router.push({name: 'recommend_list'})
+        }
+      })
+    },
     showNameAvt(str) {
       let textFirst = str.slice(0, 1).toUpperCase();
       return textFirst;

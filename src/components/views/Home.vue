@@ -193,7 +193,6 @@ export default {
     };
   },
   async created() {
-    console.log('quotationRandom', this.quotationRandom)
     await this.getQuotations();
     console.log(this.$route.params);
     if (!this.$route.params.register_success) {
@@ -289,7 +288,6 @@ export default {
               // this.author = res.response.data.user;
               this.parseQuotation();
           // this.getQuotations().then(response => {
-          //   console.log(response);
           //   if(response.ok) {
 
           //     //this.getAnotherRandom();

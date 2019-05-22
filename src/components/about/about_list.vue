@@ -12,8 +12,7 @@
 					</div>
 					<div class="mr-aboutCol mr-col5">
 						<h3></h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-						<p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						<p v-html="content">{{ content }}</p>
 						<ul class="about-sns">
 							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
 							<li><a href=""><i class="fab fa-instagram"></i></a></li>
@@ -37,14 +36,17 @@ export default {
   },
   data () {
     return {
-
+		content: ''
     }
   },
-  created() {
-    this.getAllAbout()
+  async created() {
+	await this.getAllAbout()
+	await this.getDescription().then(res => {
+		this.content = res.data.content
+	})
   },
   methods: {
-    ...mapActions(['getAllAbout', 'getAllAboutById'])
+    ...mapActions(['getAllAbout', 'getAllAboutById', 'getDescription'])
   },
   computed: {
     ...mapGetters(['getAbout'])
