@@ -1,7 +1,7 @@
 <template>
     <div class="writer-wr">
       <BecomeWriter v-if="getProfile.user.user_level < 60" v-cloak />
-      <EmotionWrite v-if="getProfile.user.user_level > 60" v-cloak />
+      <EmotionWrite v-if="getProfile.user.user_level >= 60" v-cloak />
     </div>
 </template>
 

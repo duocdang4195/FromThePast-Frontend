@@ -192,7 +192,6 @@ export default {
     };
   },
   async created() {
-    console.log('quotationRandom', this.quotationRandom)
     await this.getQuotations();
     await this.getProfileUser();
     await this.parseQuotation();
@@ -235,13 +234,11 @@ export default {
             this.author = this.quotationRandom.user;
             let tmp = this.quotationRandom.content;
             let time = tmp.length;
-            console.log(tmp);
             if (this.timer) {
                 window.clearInterval(this.timer);
             }
 
             this.timer = window.setInterval(()=>{
-                console.log(time);
                 if(time < 1){
                     this.sendCodeTxt = '发送验证码';
                     window.clearInterval(this.timer);
@@ -284,7 +281,6 @@ export default {
               // this.author = res.response.data.user;
               this.parseQuotation();
           // this.getQuotations().then(response => {
-          //   console.log(response);
           //   if(response.ok) {
 
           //     //this.getAnotherRandom();
