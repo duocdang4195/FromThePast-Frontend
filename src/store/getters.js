@@ -56,4 +56,10 @@ export default {
 	getListTags(state) {
 		return state.tags
 	},
+	getListEmotionTagsRelate(state) {
+		return state.emotionTagRealte
+	},
+	getListSearchBooking(state) {
+		return state.getOrderBookingSearch
+	}
 }

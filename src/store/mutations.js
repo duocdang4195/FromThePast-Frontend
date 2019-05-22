@@ -63,5 +63,11 @@ export default {
   },
   updateTag(state, tags) {
     state.tags = tags;
+  },
+  updateEmotionTagRelate(state, emotionTagRealte) {
+    state.emotionTagRealte = emotionTagRealte;
+  },
+  updateSearchBooking(state, getOrderBookingSearch) {
+    state.getOrderBookingSearch = getOrderBookingSearch;
   }
 }

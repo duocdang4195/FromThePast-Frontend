@@ -19,5 +19,7 @@ export default {
     idBooking: '',
     searchKey: '',
     backgroundPage: {},
-    tags: []
+    tags: [],
+    emotionTagRealte: [],
+    getOrderBookingSearch: []
 }

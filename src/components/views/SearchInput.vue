@@ -21,6 +21,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -30,7 +31,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["searchAll"]),
+    ...mapActions(["searchAll", "searchOrderBooking"]),
     showInputSearch() {
       this.showSearch = true;
       setTimeout(()=>{
@@ -43,16 +44,36 @@ export default {
       this.showIconSearch = true;
     },
     searchData() {
-      this.$store.state.searchKey = this.keyword
-      this.searchAll({ keyword: this.keyword }).then(res => {
-        if (res.ok) {
-          console.log("TCL: searchData -> res", res)
-          this.$router.push({ name: "search_skin" });
-          this.keyword = "";
-          this.showIconSearch = true;
-          this.showSearch = false;
-        }
-      });
+      let str = this.keyword.toLowerCase()
+      if( 
+          (str.includes("prp") && str.indexOf('prp') == 0) ||
+          (str.includes("hap") && str.indexOf('hap') == 0)
+        ) {
+        this.searchOrderBooking({ code: this.keyword }).then(res => {
+          if(res.ok) {
+            let { id } = res.response.data
+            this.$router.push(`/order_detail/${id}`);
+            this.keyword = "";
+            this.showIconSearch = true;
+            this.showSearch = false;
+          } else {
+            Swal.fire({
+              title: "That booking code is not valid",
+              type: "error"
+            });
+          }
+        })
+      } else {
+        this.$store.state.searchKey = this.keyword
+        this.searchAll({ keyword: this.keyword }).then(res => {
+          if (res.ok) {
+            this.$router.push({ name: "search_skin" });
+            this.keyword = "";
+            this.showIconSearch = true;
+            this.showSearch = false;
+          }
+        });
+      }
     }
   }
 };
