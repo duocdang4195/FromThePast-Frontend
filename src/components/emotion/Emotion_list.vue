@@ -180,6 +180,7 @@ export default {
       width: calc(50% - 20px);
       height: 80vh;
       min-height: 500px;
+      max-height: 600px;
       padding: 0px;
       margin-right: 20px;
       flex-direction: row;
@@ -226,8 +227,8 @@ export default {
           width:40%;
           height: 180px;
           object-fit: cover;
-          object-position: 100% center;
-          
+          object-position: 100% center; 
+
         }
 
         > div {
@@ -352,6 +353,7 @@ export default {
     width: 50%;
     height: 80vh;
     min-height: 500px;
+    max-height: 600px;
     cursor: pointer;
 
     h3 {

@@ -331,6 +331,13 @@ span.liked {
           cursor: pointer;
         }
         .mr-comment > li {
+          .mr-cmt-author {
+            position: relative;
+            display: inline-block;
+            margin-right: 7px;
+            font-weight: 500;
+          }
+
           &:first-child {
             border-top: 1px dashed #afafaf;
           }
@@ -355,12 +362,17 @@ span.liked {
     .my-quotation-tab__elm {
       width: 50%;
       text-align-last: center;
-      border: 1px solid #000;
       cursor: pointer;
+      font-size: 11px;
+      padding: 3px 0;
+      background-color: #f1f1f1;
+      color: #adadad;
+      transition: background 500ms ease-out;
     }
     .active {
-      background: rgba(0, 0, 0, 0.5);
-      color: #ffffff90;
+     background: rgba(0, 0, 0, 0.5);
+      color: #ffffffc2;
+      transition: background 500ms ease-out;
     }
   }
   .mr-myquote-wr-list {
