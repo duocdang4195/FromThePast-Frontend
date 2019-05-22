@@ -188,13 +188,19 @@ export default {
       isLogin: false,
       notAuthen: true,
       stop: false,
-      author: {}
+      author: {},
+      tmp: {}
     };
   },
   async created() {
     await this.getQuotations();
-    await this.getProfileUser();
-    await this.parseQuotation();
+    console.log(this.$route.params);
+    if (!this.$route.params.register_success) {
+      await this.getProfileUser();
+      await this.parseQuotation();
+    } else {
+      this.showTypeText = "Welcome "+ (this.$route.params.registered_user.user.name) +' to Pasness!'
+    }
     await this.getAnotherRandom();
     this.stop = false;
 
@@ -233,6 +239,7 @@ export default {
             this.showTypeText = "";
             this.author = this.quotationRandom.user;
             let tmp = this.quotationRandom.content;
+            this.tmp = this.quotationRandom;
             let time = tmp.length;
             if (this.timer) {
                 window.clearInterval(this.timer);
@@ -419,7 +426,7 @@ export default {
     },
     commentStt() {
       this.commentQuotations({
-        quotation_id: this.quotationRandom.id,
+        quotation_id: this.tmp.id,
         content: this.comment
       }).then(res => {
         if (res.ok) {
@@ -432,9 +439,9 @@ export default {
     likeStt() {
       this.isLike = !this.isLike;
       if (this.isLike) {
-        this.likeQuotations({ quotation_id: this.quotationRandom.id });
+        this.likeQuotations({ quotation_id: this.tmp.id });
       } else {
-        this.unLikeQuotations({ id: this.quotationRandom.id });
+        this.unLikeQuotations({ id: this.tmp.id });
       }
     },
     showComment() {
@@ -459,7 +466,7 @@ export default {
   position: relative;
   overflow: hidden;
   .background {
-    position: relative;
+    position: fixed;
     right: 0;
     bottom: 0;
     min-width: 100%;
@@ -479,7 +486,7 @@ export default {
     text-align: center;
   }
   .content {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
@@ -545,14 +552,16 @@ export default {
     }
     &__input--user {
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       width: 80%;
+      height: 80px;
+      margin: auto;
       text-align-last: center;
-      transform: translateY(-50%);
-      transform: translateX(-50%);
       .content__input--user--check {
-        width: 60%;
+        width: 80%;
         margin: auto;
         text-align-last: left;
         p {

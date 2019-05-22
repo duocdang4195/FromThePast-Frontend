@@ -224,6 +224,10 @@ export default {
 
         > img {
           width:40%;
+          height: 180px;
+          object-fit: cover;
+          object-position: 100% center;
+          
         }
 
         > div {
@@ -290,7 +294,10 @@ export default {
         > img {
           position: relative;
           display: inline-block;
+          object-fit: cover;
+          object-position: 100% center;
           width: 100%;
+          height: 150px;
         }
 
         h4 {
@@ -412,7 +419,10 @@ export default {
       > img {
         position: relative;
         display: inline-block;
+        object-fit: cover;
+        object-position: 100% center;
         width: 100%;
+        height: 300px;
       }
 
       .mr-header {

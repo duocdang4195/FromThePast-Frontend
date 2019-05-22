@@ -123,7 +123,7 @@ export default {
         name: this.name
       }).then(res => {
         if(res.ok) {
-          this.$router.push({name: 'home'})
+          this.$router.push({name: 'home', params: {register_success: true, registered_user: res.data.data}})
         } else {
           console.log(res.error.response.data.errors)
         }

@@ -1,7 +1,7 @@
 <template>
   <div class="mr-postcntn_user">
     <span :style="{background: stringToHslColor}" class="mr-postcntn_user_avat" v-text="showNameAvt(item.name)"></span>
-    <span class="mr-postcntn_user_id">{{ item.email }}</span>
+    <span class="mr-postcntn_user_id">{{ item.name }}</span>
   </div>
 </template>
 

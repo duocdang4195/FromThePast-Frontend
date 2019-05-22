@@ -236,35 +236,35 @@
                 </tr>
 
                 <tr>
-                  <th>distance</th>
+                  <th>Distance</th>
                   <td>
-                    <b>{{ distancePrice }} km</b>
+                    <b>{{ distance }} km</b>
                   </td>
                 </tr>
 
                 <tr>
-                  <th>distance price</th>
+                  <th>Distance price</th>
                   <td>
                     <b>{{ distancePrice }}</b>
                   </td>
                 </tr>
 
                 <tr>
-                  <th>security price</th>
+                  <th>Security price</th>
                   <td>
                     <b>{{ securityPrice }}</b>
                   </td>
                 </tr>
 
                 <tr>
-                  <th>time price</th>
+                  <th>Time price</th>
                   <td>
                     <b>{{ timePrice }}</b>
                   </td>
                 </tr>
 
                 <tr class="grand-total">
-                  <th class>total price</th>
+                  <th class>total price <br/><a href="#">(Quy định giá tiền)</a></th>
                   <td class>{{ totalPrice }}</td>
                 </tr>
               </tbody>
@@ -910,6 +910,13 @@ export default {
         }
       }
     }
+  }
+}
+.grand-total {
+  a {
+    font-weight: 300;
+    text-decoration: none;
+    color: #999;
   }
 }
 .v-select.v-text-field input, .v-text-field input {color:  rgba(0,0,0,.87) !important;}

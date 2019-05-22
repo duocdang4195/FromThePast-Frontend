@@ -6,16 +6,15 @@
       </span>
     </div>
     <div class="search-input" v-if="showSearch">
-      <transition name="slideRight">
-        <v-text-field
+        <v-text-field ref="searchInput"
           v-model="keyword"
           height="40px"
           @keydown.enter.prevent="searchData"
-          background-color="rgba(255,255,255,0.7)"
-          placeholder="Search"
-          solo
+          @blur="hideInputSearch"
+          placeholder="Find Anything"
+          color="#333"
+          autofocus
         ></v-text-field>
-      </transition>
     </div>
   </div>
 </template>
@@ -34,7 +33,14 @@ export default {
     ...mapActions(["searchAll"]),
     showInputSearch() {
       this.showSearch = true;
+      setTimeout(()=>{
+        this.$refs.searchInput.focus();  
+      });
       this.showIconSearch = false;
+    },
+    hideInputSearch() {
+      this.showSearch = false;
+      this.showIconSearch = true;
     },
     searchData() {
       this.$store.state.searchKey = this.keyword
