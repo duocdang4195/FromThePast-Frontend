@@ -468,7 +468,6 @@ a {
             .search-content {
               height: auto;
               max-height: 400px;
-              overflow-y: scroll;
               padding-left: 20px;
               .mr-postcntn {
                 font-size: 16px;

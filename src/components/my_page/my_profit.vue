@@ -72,7 +72,7 @@ export default {
     content: " ";
     position: absolute;
     width: 100vw;
-    height: 40px;
+    height: 70px;
     top: 0;
     left: 0;
     background-color: #121212;
@@ -82,7 +82,7 @@ export default {
     content: " ";
     position: absolute;
     width: 100vw;
-    height: 40px;
+    height: 70px;
     bottom: 0;
     left: 0;
     background-color: #fff;
