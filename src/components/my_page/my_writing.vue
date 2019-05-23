@@ -169,8 +169,9 @@ export default {
         h5 {
           font-size: 17px;
           color: #333;
-          line-height: 1;
+          line-height: 1.3;
           margin-bottom: 10px;
+          text-transform: uppercase;
         }
         .mr-timer {
           font-style: italic;
@@ -185,7 +186,7 @@ export default {
           line-height: 1.5;
         }
         .mr-content__main--content {
-          height: 75px;
+          height: auto;
         }
       }
     }

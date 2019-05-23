@@ -339,6 +339,8 @@ a {
             img {
               width: 100%;
               height: 100%;
+              object-fit: cover;
+              object-position: 100% center;
             }
 
             > span {
@@ -382,7 +384,6 @@ a {
             }
             .search-content {
               height: auto;
-              max-height: 400px;
               padding-left: 20px;
               .mr-postcntn {
                 font-size: 16px;
@@ -493,7 +494,7 @@ a {
   }
 }
 .mr-postcntn_emotion {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   &_ttl {
     position: relative;
     display: inline-block;
@@ -516,9 +517,8 @@ a {
     &_img {
       width: 100px;
       height: 100px;
-      background-size: cover;
-      background-position: center center;
-      border: 1px solid #d9d9d9;
+      object-fit: cover;
+      object-position: 100% center;
     }
     &_text {
       width: calc(100% - 110px);
