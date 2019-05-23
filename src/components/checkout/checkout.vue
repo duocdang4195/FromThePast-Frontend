@@ -267,6 +267,13 @@
                   <th class>total price <br/><a href="#">(Quy định giá tiền)</a></th>
                   <td class>{{ totalPrice }}</td>
                 </tr>
+
+                <tr>
+                  <th>Service insurance commitment</th>
+                  <td>
+                    <b v-text="caculatorMoney(securityPrice)"></b>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -456,6 +463,9 @@ export default {
       "getPrice",
       "createBooking"
     ]),
+    caculatorMoney(money) {
+      return (parseInt(money) * 10000).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+    },
     handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       if (file > 2e6) {
         Swal.fire({
