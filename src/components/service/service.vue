@@ -133,8 +133,8 @@ button::focus {
     }
     > img {
       position: relative;
-      width: 100px;
-      height: 100px;
+      width: 50px;
+      height: 50px;
     }
   }
   .mr-next {
@@ -144,8 +144,8 @@ button::focus {
     }
     > img {
       position: relative;
-      width: 100px;
-      height: 100px;
+      width: 50px;
+      height: 50px;
     }
   }
   .mr-service-wr {
