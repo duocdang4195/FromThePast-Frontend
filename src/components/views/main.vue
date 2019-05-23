@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-fullslider" v-if="loading" v-cloak>
+  <div class="mr-fullslider"  :style="getBackground" v-if="loading" v-cloak>
     <div class="mr-mystatus">
       <p>{{ quotationRandom.content }}</p>
       <ul class="mr-cmt-slider" v-if="quotationRandom.comments && quotationRandom.comments.length == 0">
@@ -34,15 +34,13 @@ export default {
     this.getQuotations().then(res => {
       if(res.ok) {
         this.quotationRandom = res.response.data
-        console.log("TCL: created -> this.quotationRandom ", this.quotationRandom )
         this.comments = this.quotationRandom.comments[Math.floor(Math.random() * this.quotationRandom.comments.length)];
         this.loading = true
-        console.log("TCL: created -> this.comments", this.comments)
       }
     })
   },
   computed: {
-    ...mapGetters["getBackgound"],
+    ...mapGetters(["getBackgound"]),
     getBackground() {
       return (
         "background-image:url('" +
