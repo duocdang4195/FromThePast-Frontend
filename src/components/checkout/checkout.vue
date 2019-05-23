@@ -231,7 +231,7 @@
               <tbody>
                 <tr>
                   <th colspan="2">
-                    <b>The New Anxiety Therapy That’s All About Accepting Your Fears</b>
+                    <b>{{ checkService }}</b>
                   </th>
                 </tr>
 
@@ -318,6 +318,7 @@ export default {
       emailSender: "",
       type: "",
       content: "",
+      orderService: 'Your Service',
       handWrite: false,
       handPrint: false,
       hideWard: true,
@@ -433,7 +434,19 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getIdEmotion", "getProfile"])
+    ...mapGetters(["getIdEmotion", "getProfile"]),
+    checkService() {
+      if(this.$store.state.type == 1) {
+        return this.orderService = 'Handwriting'
+      }
+      if(this.$store.state.type == 2) {
+        return this.orderService = 'Write'
+      }
+      if(this.$store.state.type == 3) {
+        return this.orderService = 'Emotion'
+      }
+      return this.orderService
+    }
   },
   methods: {
     ...mapActions([

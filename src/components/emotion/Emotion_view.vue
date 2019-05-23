@@ -6,7 +6,7 @@
       <div class="mr-sidebar">
         <h4 class="mrg-btm-20">Emotions</h4>
         <ul class="categories">
-          <li v-for="tag in viewEmotion.tags">
+          <li  @click="searchTag(tag.toLowerCase())" v-for="tag in viewEmotion.tags">
             <a href="#">
               <i class="mr-circle-mark">&#9675;</i> {{tag}}
               <!-- <span>(40)</span> -->
@@ -166,7 +166,7 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(["getAllMyQuotationsCreateByID"]),
+    ...mapGetters(["getAllMyQuotationsCreateByID", "getBackgound"]),
     classLike() {
       return classnames({
         liked: this.isLike === true
@@ -205,7 +205,6 @@ export default {
     searchTag(tag) {
       this.showTag({tag: tag}).then(res => {
         if(res.ok) {
-          console.log("TCL: searchTag -> res", res)
           this.$router.push({name: 'recommend_list'})
         }
       })

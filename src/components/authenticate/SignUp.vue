@@ -131,19 +131,19 @@ export default {
             params: { register_success: true, registered_user: res.data.data }
           });
         } else {
-          let errorData = res.error.response.data
-          let err = []
-          if(errorData.hasOwnProperty('errors')) {
-            for (const key of Object.keys(errorData.errors)) {
-              
-              err.push(key)
+            let errorData = res.error.response.data
+            let err = []
+            if(errorData.hasOwnProperty('errors')) {
+              for (const key of Object.keys(errorData.errors)) {
+                
+                err.push(key)
+              }
+              Swal.fire({
+                title: `The ${err} has already been taken`,
+                type: "error"
+              });
             }
-            Swal.fire({
-              title: `The ${err} has already been taken`,
-              type: "error"
-            });
           }
-        }
       });
     }
   }

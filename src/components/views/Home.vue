@@ -1,7 +1,7 @@
 <template>
   <div class="home-wr">
     <video autoplay muted loop class="background">
-      <source src="@/assets/video/cloudSky.mp4" type="video/mp4">
+      <source :src="getBackground" type="video/mp4">
     </video>
     <div class="content">
       <div class="content__logo">
@@ -39,7 +39,7 @@
           :erase-on-complete="false"
           caret-animation="blink"
         ></vue-typer>
-      </div> -->
+      </div>-->
       <div class="content__input--quotaion" v-if="isAuthenticated">
         <textarea
           cols="80"
@@ -54,7 +54,13 @@
       <div class="content__input--user">
         <div class="content__input--user--check" v-if="isUser">
           <p>Password</p>
-          <input ref="password" @keydown.enter.prevent="signIn" type="password" v-model="passWordUser" autofocus>
+          <input
+            ref="password"
+            @keydown.enter.prevent="signIn"
+            type="password"
+            v-model="passWordUser"
+            autofocus
+          >
         </div>
         <!-- show Password -->
         <div class="content__input--user--check" v-if="notUser">
@@ -69,16 +75,31 @@
         <!-- show User Name -->
         <div class="content__input--user--check" v-if="signupPassword">
           <p>SET YOUR PASSWORD</p>
-          <input ref="newPassword" type="password" autofocus v-model="password" @keydown.enter.prevent="fillPassword">
+          <input
+            ref="newPassword"
+            type="password"
+            autofocus
+            v-model="password"
+            @keydown.enter.prevent="fillPassword"
+          >
         </div>
         <!-- show User Password -->
         <div class="content__input--user--check" v-if="signupConfirmPassword">
           <p>RE-TYPE YOUR PASSWORD</p>
-          <input ref="confirmPass" type="password" autofocus v-model="confirmPassword" @keydown.enter.prevent="registerAccount">
+          <input
+            ref="confirmPass"
+            type="password"
+            autofocus
+            v-model="confirmPassword"
+            @keydown.enter.prevent="registerAccount"
+          >
         </div>
         <!-- show User Confirm Password -->
       </div>
-      <div class="content__actions content__author" v-if="checkAuthen.length > 0 && !isAuthenticated">
+      <div
+        class="content__actions content__author"
+        v-if="checkAuthen.length > 0 && !isAuthenticated"
+      >
         <v-tooltip v-if="showAuthor" top>
           <template v-slot:activator="{ on }">
             <p dark v-on="on" @click="toSignUp">Author</p>
@@ -87,10 +108,11 @@
         </v-tooltip>
       </div>
       <div class="content__actions content__author" v-if="quotaion.length > 0 && isAuthenticated">
-          <p>{{ getProfile.user.username }}</p>
+        <p>{{ getProfile.user.username }}</p>
       </div>
       <div class="content__actions" v-if="isAuthenticated && getProfile && quotaion.length == 0">
-        <span v-if="author"><!-- {{getProfile.user.username ? getProfile.user.username : getProfile.user.email}} -->
+        <span v-if="author">
+          <!-- {{getProfile.user.username ? getProfile.user.username : getProfile.user.email}} -->
           <!-- {{quotationRandom.user ? (quotationRandom.user.name ? quotationRandom.user.name : quotationRandom.user.email) : 'Paser'}}           -->
           {{author ? (author.name ? author.name : 'Paser') : 'Paser'}}
         </span>
@@ -139,11 +161,9 @@
       </div>
     </div>
     <div class="search-home">
-      <SearchInput />
+      <SearchInput/>
     </div>
-    <div class="footer">
-      Copyright © 2020 by From The PAST Jsc,.
-    </div>
+    <div class="footer">Copyright © 2020 by From The PAST Jsc,.</div>
   </div>
 </template>
 <script>
@@ -151,7 +171,7 @@ import { mapActions, mapGetters, mapMutations } from "vuex";
 import classnames from "classnames";
 import Swal from "sweetalert2";
 import { setInterval } from "timers";
-import SearchInput from '@/components/views/SearchInput.vue'
+import SearchInput from "@/components/views/SearchInput.vue";
 
 const validateEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
@@ -193,24 +213,35 @@ export default {
     };
   },
   async created() {
+    console.log("getBackgound", this.getBackgound);
     await this.getQuotations();
-    console.log(this.$route.params);
     if (!this.$route.params.register_success) {
       await this.getProfileUser();
       await this.parseQuotation();
     } else {
-      this.showTypeText = "Welcome "+ (this.$route.params.registered_user.user.name) +' to Pasness!'
+      this.showTypeText =
+        "Welcome " +
+        this.$route.params.registered_user.user.name +
+        " to Pasness!";
     }
     await this.getAnotherRandom();
     this.stop = false;
 
     // this.timeDown();
   },
-  destroyed(){
+  destroyed() {
     this.stop = true;
   },
   computed: {
-    ...mapGetters(["quotationRandom", "isAuthenticated", "getProfile", "getBackgound"]),
+    ...mapGetters([
+      "quotationRandom",
+      "isAuthenticated",
+      "getProfile",
+      "getBackgound"
+    ]),
+    getBackground() {
+      return this.getBackgound.home_video;
+    },
     classLike() {
       return classnames("actions", "content__actions--like", {
         liked: this.isLike === true
@@ -235,108 +266,110 @@ export default {
       "getProfileUser",
       "set_randomQuotation"
     ]),
-  parseQuotation: function () {
-            this.showTypeText = "";
-            this.author = this.quotationRandom.user;
-            let tmp = this.quotationRandom.content;
-            this.tmp = this.quotationRandom;
-            let time = tmp.length;
-            if (this.timer) {
-                window.clearInterval(this.timer);
-            }
-
-            this.timer = window.setInterval(()=>{
-                if(time < 1){
-                    this.sendCodeTxt = '发送验证码';
-                    window.clearInterval(this.timer);
-                    this.timer = null;
-                }else{
-                    --time;
-                    //this.sendCodeTxt = '还剩'+time+'秒';
-                    this.showTypeText += tmp[this.showTypeText.length];
-                }
-            },70);
-    },
-    async getAnotherRandom(){
-      let self = this;
-      await setTimeout(()=> {
-          if (!self.stop) {
-            self.getQuotations();
-            self.parseQuotation();
-            self.getAnotherRandom();
-          }
-      }, 180000);
-    },
-    clickCreateQuotation() {
-      this.clickPost = false;
-      this.createEvent = true;
-      this.createUser = true;
-      this.isLogin = true
-      if(this.createUser) {
-        return setTimeout(x => {
-                  this.$refs.check.focus()
-                }, 150);
+    parseQuotation: function() {
+      this.showTypeText = "";
+      this.author = this.quotationRandom.user;
+      let tmp = this.quotationRandom.content;
+      this.tmp = this.quotationRandom;
+      let time = tmp.length;
+      if (this.timer) {
+        window.clearInterval(this.timer);
       }
-    },
-    async postQuotations() {
-      await this.createQuotations({ content: this.quotaion }).then(res => {
-        if (res.ok) {
-              
-              this.quotaion = "";
-              this.set_randomQuotation(res.response.data);
-              // this.showTypeText =res.response.data.content;
-              // this.author = res.response.data.user;
-              this.parseQuotation();
-          // this.getQuotations().then(response => {
-          //   if(response.ok) {
 
-          //     //this.getAnotherRandom();
-
-          //   }
-          // })
+      this.timer = window.setInterval(() => {
+        if (time < 1) {
+          this.sendCodeTxt = "发送验证码";
+          window.clearInterval(this.timer);
+          this.timer = null;
+        } else {
+          --time;
+          //this.sendCodeTxt = '还剩'+time+'秒';
+          this.showTypeText += tmp[this.showTypeText.length];
         }
-      });
-
-      
+      }, 70);
+    },
+    async getAnotherRandom() {
+      let self = this;
+      await setTimeout(() => {
+        if (!self.stop) {
+          self.getQuotations();
+          self.parseQuotation();
+          self.getAnotherRandom();
+        }
+      }, 150000);
+    },
+    // clickCreateQuotation() {
+    //   this.clickPost = false;
+    //   this.createEvent = true;
+    //   this.createUser = true;
+    //   this.isLogin = true
+    //   if(this.createUser) {
+    //     return setTimeout(x => {
+    //               this.$refs.check.focus()
+    //             }, 150);
+    //   }
+    // },
+    async postQuotations() {
+      if (this.quotaion.length > 170) {
+        Swal.fire({
+          title: "Content quotation must be max length 170 charcter !",
+          type: "error"
+        });
+      } else {
+        await this.createQuotations({ content: this.quotaion }).then(res => {
+          if (res.ok) {
+            this.quotaion = "";
+            this.set_randomQuotation(res.response.data);
+            this.getAnotherRandom();
+            this.parseQuotation();
+          }
+        });
+      }
     },
     toSignUp() {
       this.$router.push({ name: "signup" });
     },
     async checkUserProfile() {
       if (this.checkAuthen.indexOf(" ") >= 0) {
-        this.createQuotations({ content: this.checkAuthen }).then(res => {
-          if (res.ok) {
-            this.getQuotations().then(response => {
-              if(response.ok) {
-                this.checkAuthen = "";
-                this.clickPost = true;
-                this.createUser = false;
-                this.getAnotherRandom()
-                this.parseQuotation()
-              }
-            })
-            
-          }
-        });
+        if (this.quotaion.length > 170) {
+          Swal.fire({
+            title: "Content quotation must be max length 170 charcter !",
+            type: "error"
+          });
+        } else {
+          this.createQuotations({ content: this.checkAuthen }).then(res => {
+            if (res.ok) {
+              this.getQuotations().then(response => {
+                if (response.ok) {
+                  this.checkAuthen = "";
+                  this.clickPost = true;
+                  this.createUser = false;
+                  this.getAnotherRandom();
+                  this.parseQuotation();
+                }
+              });
+            }
+          });
+        }
       } else {
         this.checkAccount({ email: this.checkAuthen }).then(res => {
           if (res.ok) {
             setTimeout(x => {
-              this.$refs.password.focus()
+              this.$refs.password.focus();
             }, 150);
-            this.showRandom = false
-            this.showAuthor = false
+            this.showRandom = false;
+            this.showAuthor = false;
             this.checkUser = false;
             this.isUser = true;
           } else {
             setTimeout(x => {
-              this.$refs.email.focus()
+              this.$refs.email.focus();
             }, 150);
-            this.showRandom = false
+            this.showRandom = false;
             this.checkAuthen = "";
             this.checkUser = false;
             this.notUser = true;
-            this.notAuthen = false
+            this.notAuthen = false;
           }
         });
       }
@@ -346,22 +379,22 @@ export default {
         email: this.checkAuthen,
         password: this.passWordUser
       }).then(res => {
-        if(res.ok) {
+        if (res.ok) {
           this.getProfileUser();
-          this.isUser = false
-          this.clickPost = true
+          this.isUser = false;
+          this.clickPost = true;
         } else {
           Swal.fire({
             title: "Email Or Password invalid",
             type: "error"
           });
         }
-      })
+      });
     },
     fillEmail() {
       if (validateEmail.test(this.email.toLowerCase())) {
         setTimeout(x => {
-          this.$refs.username.focus()
+          this.$refs.username.focus();
         }, 150);
         this.notUser = false;
         this.signupUserName = true;
@@ -380,7 +413,7 @@ export default {
         });
       } else {
         setTimeout(x => {
-          this.$refs.newPassword.focus()
+          this.$refs.newPassword.focus();
         }, 150);
         this.signupUserName = false;
         this.signupPassword = true;
@@ -394,7 +427,7 @@ export default {
         });
       } else {
         setTimeout(x => {
-          this.$refs.confirmPass.focus()
+          this.$refs.confirmPass.focus();
         }, 150);
         this.signupPassword = false;
         this.signupConfirmPassword = true;
@@ -418,9 +451,22 @@ export default {
         }).then(res => {
           if (res.ok) {
             this.getProfileUser();
-            this.createEvent = true
-            this.showTypeText = `Welocome ${this.userName} to passness `
-          }
+            this.createEvent = true;
+            this.showTypeText = `Welocome ${this.userName} to passness `;
+          } else {
+              let errorData = res.error.response.data
+              let err = []
+              if(errorData.hasOwnProperty('errors')) {
+                for (const key of Object.keys(errorData.errors)) {
+                  
+                  err.push(key)
+                }
+                Swal.fire({
+                  title: `The ${err} has already been taken`,
+                  type: "error"
+                });
+              }
+            }
         });
       }
     },
@@ -431,8 +477,8 @@ export default {
       }).then(res => {
         if (res.ok) {
           this.comment = "";
-          this.isHideComment = false
-          this.isComment = false
+          this.isHideComment = false;
+          this.isComment = false;
         }
       });
     },
@@ -454,8 +500,8 @@ export default {
 
 
 <style lang="scss" scoped>
-::placeholder{
-  color:#fff;
+::placeholder {
+  color: #fff;
 }
 .vue-typer .custom.char.typed {
   color: #fff;
@@ -540,7 +586,6 @@ export default {
         cursor: pointer;
       }
       textarea {
-
         width: 100%;
         font-size: 27px;
         color: #eaeaea;
@@ -603,12 +648,12 @@ export default {
       position: absolute;
       top: 55%;
       transform: translateY(-50%);
-      right:0;
-      left:0;
+      right: 0;
+      left: 0;
       color: #fff;
       margin: 0 auto;
       width: 100%;
-      max-width:1200px;
+      max-width: 1200px;
       padding: 0 15px;
       text-align: right;
       span {

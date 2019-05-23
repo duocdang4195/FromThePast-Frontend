@@ -4,7 +4,10 @@
       <div class="mr-myinformation">
         <div class="mr-basicinfo mr-basic-profit">
           <h5>My profit</h5>
-          <ul class="mr-profit-board">
+          <ul class="mr-profit-board" v-if="proFit.length == 0">
+            <li class="mr-head">No Data ^.^</li>
+          </ul>
+          <ul class="mr-profit-board" v-else>
             <li class="mr-head">
               <span class="mr-col0">No.</span>
               <span class="mr-col1">Subject</span>
@@ -43,7 +46,6 @@ export default {
   async created() {
     const res = await this.getProfit()
     this.proFit = res.response.data
-		console.log("TCL: created -> this.proFit", this.proFit)
   },
   methods: {
     ...mapActions(['getProfit']),

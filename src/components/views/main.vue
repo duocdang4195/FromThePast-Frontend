@@ -1,11 +1,14 @@
 <template>
-  <div class="mr-fullslider" v-if="comments.content" :style="getBackground" v-cloak>
+  <div class="mr-fullslider" v-if="loading" v-cloak>
     <div class="mr-mystatus">
       <p>{{ quotationRandom.content }}</p>
-      <ul class="mr-cmt-slider">
+      <ul class="mr-cmt-slider" v-if="quotationRandom.comments && quotationRandom.comments.length == 0">
+        No Comment ^.^
+      </ul>
+      <ul class="mr-cmt-slider" v-else>
         <li>
           {{ comments.content }}
-          <span class="mr-author" v-if="comments.user">{{ comments.user.name ? comments.user.name : comments.user.email }}</span>
+          <span class="mr-author">{{ comments.user.name ? comments.user.name : 'Paser' }}</span>
         </li>
       </ul>
     </div>
@@ -22,19 +25,24 @@ import _ from "lodash";
 export default {
   data() {
     return {
-      comments: {}
+      quotationRandom: {},
+      comments: {},
+      loading: false
     };
   },
-  async created() {
-    await this.getCommnet()
+  created() {
+    this.getQuotations().then(res => {
+      if(res.ok) {
+        this.quotationRandom = res.response.data
+        console.log("TCL: created -> this.quotationRandom ", this.quotationRandom )
+        this.comments = this.quotationRandom.comments[Math.floor(Math.random() * this.quotationRandom.comments.length)];
+        this.loading = true
+        console.log("TCL: created -> this.comments", this.comments)
+      }
+    })
   },
   computed: {
-    ...mapGetters([
-      "quotationRandom",
-      "comentEmotionsList",
-      "comentQuotationsList",
-      "getBackgound"
-    ]),
+    ...mapGetters["getBackgound"],
     getBackground() {
       return (
         "background-image:url('" +
@@ -46,26 +54,7 @@ export default {
   methods: {
     ...mapActions([
       "getQuotations",
-      "getCommentsQuotations",
-      "getCommentsEmotions",
     ]),
-    async getCommnet() {
-      let comentEmotionsList = []
-      let comentQuotationsList = []
-      let listComments = []
-      let resCommentQuotation = await this.getCommentsQuotations().then(res => {
-        if(res.ok) {
-          comentQuotationsList = res.data
-        }
-      })
-      let resCommentEmotion = await this.getCommentsEmotions().then(res => {
-        if(res.ok) {
-          comentEmotionsList = res.data
-        }
-      })
-      listComments = _.union(this.comentQuotationsList,this.comentEmotionsList);
-      this.comments = listComments[Math.floor(Math.random() * listComments.length)];
-    }
   }
 };
 </script>

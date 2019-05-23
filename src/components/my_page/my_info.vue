@@ -5,7 +5,7 @@
         <div class="mr-quote">
           <p
             class="mr-greeting"
-          >{{caculatorTime}} {{!getProfile.user.name ? getProfile.user.name : getProfile.user.email}}</p>
+          >{{caculatorTime}} {{!getProfile.user.name ? getProfile.user.name : getProfile.user.username}}</p>
           <div class="mr-wc-quotation">
             <p>
               {{ showQuotaions.content }}
@@ -14,7 +14,7 @@
            <i class="mr-wc-quotation_author"
               v-if="showQuotaions.user"
               v-cloak
-            >{{ !showQuotaions.user.name ? showQuotaions.user.name : 'Paser' }}</i>
+            >{{ showQuotaions.user.name ? showQuotaions.user.name : 'Paser' }}</i>
           </div>
           <div class="mr-welcomequestion">
             <input
@@ -31,10 +31,6 @@
           <h5>My information</h5>
           <ul>
             <li>
-              <strong>Email:</strong>
-              <span>{{ getProfile.user.email }}</span>
-            </li>
-            <li>
               <strong>ID:</strong>
               <span>{{ getProfile.user.id }}</span>
             </li>
@@ -42,6 +38,12 @@
               <strong>User Name</strong>
               <span>{{ getProfile.user.username }}</span>
             </li>
+            <li>
+              <strong>Email:</strong>
+              <span>{{ getProfile.user.email }}</span>
+            </li>
+            
+            
             <li>
               <strong>Phone:</strong>
               <span class="mr-underline" v-if="!getProfile.user.phone" @click="showInputPhone = true">Add your number</span>
@@ -143,9 +145,9 @@ export default {
     };
   },
   async created() {
-    console.log('getProfile', this.getProfile)
     let { response } = await this.getQuotations();
     this.showQuotaions = response.data;
+    console.log("TCL: created -> this.showQuotaions", this.getProfile)
   },
   mounted(){
     setTimeout(()=>{
