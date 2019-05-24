@@ -318,7 +318,7 @@ export default {
         } else {
           this.createQuotations({ content: this.checkAuthen }).then(res => {
             // if (res.ok) {
-              // this.$store.state.saveQuotationAuthor = this.checkAuthen
+              this.$store.state.saveQuotationAuthor = this.checkAuthen
               // this.getQuotations().then(response => {
                 if (res.ok) {
                   this.checkAuthen = "";
