@@ -21,5 +21,6 @@ export default {
     backgroundPage: {},
     tags: [],
     emotionTagRealte: [],
-    getOrderBookingSearch: []
+    getOrderBookingSearch: [],
+    saveQuotationAuthor: '',
 }

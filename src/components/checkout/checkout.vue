@@ -464,7 +464,7 @@ export default {
       "createBooking"
     ]),
     caculatorMoney(money) {
-      return (parseInt(money) * 10000).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+      return (parseInt(money) * 100000).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
     },
     handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       if (file > 2e6) {
@@ -522,7 +522,6 @@ export default {
         address: this.street
       }).then(res => {
         if (res.ok) {
-					console.log("TCL: checkPrice -> res", res)
           let data = res.response.data;
           this.distance = data.distance
           this.distancePrice = data.distance_price;

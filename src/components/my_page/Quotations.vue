@@ -30,13 +30,6 @@
               <span>{{ item.likes.length }}</span>
             </span>
           </p>
-          <ul class="mr-comment">
-            <Comments
-              v-for="(listComment, index) in item.comments"
-              :key="index"
-              :item="listComment"
-            />
-          </ul>
           <div class="comment-quotation" v-if="showComment === index" :key="index">
             <textarea
               class="comment-quotation__input"
@@ -47,6 +40,13 @@
             ></textarea>
             <div class="btn-submit" @click="commentStt(item.id, index)">comment</div>
           </div>
+          <ul class="mr-comment">
+            <Comments
+              v-for="(listComment, index) in item.comments"
+              :key="index"
+              :item="listComment"
+            />
+          </ul>
         </div>
       </li>
     </ul>

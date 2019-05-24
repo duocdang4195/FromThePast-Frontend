@@ -54,7 +54,6 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   created() {
-    console.log("getListTags", this.getListEmotionTagsRelate);
   },
   computed: {
     ...mapGetters(["getListTags", "getListEmotionTagsRelate"])
@@ -74,7 +73,6 @@ export default {
     searchTag(tag) {
       this.showTag({tag: tag}).then(res => {
         if(res.ok) {
-          console.log("TCL: searchTag -> res", res)
           this.$router.push({name: 'recommend_list'})
         }
       })

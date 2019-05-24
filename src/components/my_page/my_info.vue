@@ -147,7 +147,6 @@ export default {
   async created() {
     let { response } = await this.getQuotations();
     this.showQuotaions = response.data;
-    console.log("TCL: created -> this.showQuotaions", this.getProfile)
   },
   mounted(){
     setTimeout(()=>{

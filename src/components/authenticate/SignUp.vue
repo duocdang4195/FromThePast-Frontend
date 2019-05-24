@@ -76,7 +76,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["signUp"]),
+    ...mapActions(["signUp", "createQuotations"]),
     validateRegister() {
       if (
         this.userName === "" ||
@@ -126,6 +126,10 @@ export default {
         name: this.name
       }).then(res => {
         if (res.ok) {
+          if(this.$store.state.saveQuotationAuthor !== '') {
+            this.createQuotations({ content: this.$store.state.saveQuotationAuthor }).then(res => {
+            })
+          }
           this.$router.push({
             name: "home",
             params: { register_success: true, registered_user: res.data.data }

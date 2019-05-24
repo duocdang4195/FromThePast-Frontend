@@ -5,7 +5,12 @@
         <div class="mr-basicinfo mr-basic-profit">
           <h5>My profit</h5>
           <ul class="mr-profit-board" v-if="proFit.length == 0">
-            <li class="mr-head">No Data ^.^</li>
+            <li class="mr-head">
+              <h4 style="text-align: center; width:100%;">You dont have any data yet!</h4>
+              <div style="width:100%; text-align:center;">
+                <img src="../../assets/images/empty_thinking.svg" style="width:300px;">
+              </div>
+            </li>
           </ul>
           <ul class="mr-profit-board" v-else>
             <li class="mr-head">

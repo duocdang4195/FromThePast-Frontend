@@ -20,26 +20,6 @@
           @keydown.enter.prevent="checkUserProfile"
         ></textarea>
       </div>
-      <!-- show Quotations -->
-      <!-- <div
-        @click="clickCreateQuotation"
-        class="content__input--quotaion strick-quotation"
-        v-if="clickPost"
-      >
-        <vue-typer
-          :text="showTypeText"
-          :repeat="0"
-          :shuffle="false"
-          initial-action="typing"
-          :pre-type-delay="70"
-          :type-delay="70"
-          :pre-erase-delay="0"
-          :erase-delay="250"
-          erase-style="select-all"
-          :erase-on-complete="false"
-          caret-animation="blink"
-        ></vue-typer>
-      </div>-->
       <div class="content__input--quotaion" v-if="isAuthenticated">
         <textarea
           cols="80"
@@ -111,7 +91,7 @@
         <p>{{ getProfile.user.username }}</p>
       </div>
       <div class="content__actions" v-if="isAuthenticated && getProfile && quotaion.length == 0">
-        <span v-if="author">
+        <span>
           <!-- {{getProfile.user.username ? getProfile.user.username : getProfile.user.email}} -->
           <!-- {{quotationRandom.user ? (quotationRandom.user.name ? quotationRandom.user.name : quotationRandom.user.email) : 'Paser'}}           -->
           {{author ? (author.name ? author.name : 'Paser') : 'Paser'}}
@@ -138,7 +118,7 @@
       </div>
       <div class="content__actions" v-show="notAuthen">
         <span v-if="!isAuthenticated && checkAuthen.length == 0">
-          <span v-if="author">{{author ? (author.name ? author.name : 'Paser') : 'Paser'}}</span>
+          <span >{{author ? (author.name ? author.name : 'Paser') : 'Paser'}}</span>
           <div :class="classLike">
             <span @click="toSignUp">
               <icon name="heart"/>
@@ -213,7 +193,6 @@ export default {
     };
   },
   async created() {
-    console.log("getBackgound", this.getBackgound);
     await this.getQuotations();
     if (!this.$route.params.register_success) {
       await this.getProfileUser();
@@ -296,7 +275,7 @@ export default {
           self.parseQuotation();
           self.getAnotherRandom();
         }
-      }, 150000);
+      }, 15000);
     },
     // clickCreateQuotation() {
     //   this.clickPost = false;
@@ -338,17 +317,18 @@ export default {
           });
         } else {
           this.createQuotations({ content: this.checkAuthen }).then(res => {
-            if (res.ok) {
-              this.getQuotations().then(response => {
-                if (response.ok) {
+            // if (res.ok) {
+              // this.$store.state.saveQuotationAuthor = this.checkAuthen
+              // this.getQuotations().then(response => {
+                if (res.ok) {
                   this.checkAuthen = "";
                   this.clickPost = true;
                   this.createUser = false;
                   this.getAnotherRandom();
                   this.parseQuotation();
                 }
-              });
-            }
+              // });
+            // }
           });
         }
       } else {

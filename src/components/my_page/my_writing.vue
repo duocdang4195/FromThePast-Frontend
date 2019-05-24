@@ -51,7 +51,6 @@ export default {
     this.getMyWriting().then(res => {
       if(res.ok) {
         this.listEmotionsAll = res.data
-				console.log("TCL: created -> this.listEmotionsAll", this.listEmotionsAll)
         this.isLoaded = true;
       }
     })
