@@ -33,7 +33,7 @@ import {
 
 Vue.use(Router);
 
-export default new Router ({
+const router =  new Router ({
 	mode: 'history',
 	routes: [
 		{
@@ -179,3 +179,10 @@ export default new Router ({
 	},
   ]
 });
+
+router.afterEach((to, from) => {
+	window.ga('set', 'page', to.path);
+	window.ga('send', 'pageview');
+});
+
+export default router;
