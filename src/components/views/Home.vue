@@ -515,8 +515,8 @@ export default {
         transform: translateY(-50%);
         right: 0;
         text-align-last: right;
-        font-size: 30px;
-        font-family: "Dancing Script", cursive;
+        font-size: 25px;
+        font-family: "IBM Plex Sans", sans-serif;
         .left {
           color: #fff;
           span {
@@ -544,9 +544,9 @@ export default {
       textarea {
 
         width: 100%;
-        font-size: 27px;
+        font-size: 25px;
         color: #eaeaea;
-        font-family: "Dancing Script", cursive;
+        font-family: "IBM Plex Sans", sans-serif;
         text-align: right;
         outline: none;
         resize: none;
