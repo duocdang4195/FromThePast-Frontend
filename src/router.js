@@ -25,6 +25,7 @@ import order_detail from './components/checkout/order_detail.vue';
 import finish_booking from './components/checkout/finish_booking.vue';
 import service from './components/service/service.vue';
 import Writer from '@/components/emotion/Writer.vue'
+import PolicyInsurence from '@/components/checkout/PolicyInsurence.vue'
 
 import {
   ifNotAuthenticated,
@@ -54,6 +55,11 @@ const router =  new Router ({
 					path: '/about_view/:id',
 					name: 'about_view',
 					component: AboutView,
+				},
+				{
+					path: '/PolicyInsurence',
+					name: 'PolicyInsurence',
+					component: PolicyInsurence,
 				},
 				{
 					path: '/my_info',

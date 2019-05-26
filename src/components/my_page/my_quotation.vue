@@ -33,15 +33,16 @@ export default {
       isLoaded: false,
     };
   },
-  async created() {
-    await this.getAllQuotationsRealtions().then(res => {
+  created() {
+    this.getAllQuotationsRealtions().then(res => {
       if (res.ok) {
         this.quotationsRelation = res.response.data;
       }
     });
-    await this.getAllMyQuotations().then(res => {
+    this.getAllMyQuotations().then(res => {
       if (res.ok) {
         this.listQuotations = res.response.data;
+        console.log("TCL: created -> listQuotations", this.listQuotations)
         this.isLoaded = true;
       }
     });

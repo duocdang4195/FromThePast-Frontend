@@ -263,16 +263,17 @@
                   </td>
                 </tr>
 
-                <tr class="grand-total">
-                  <th class>total price <br/><a href="#">(Quy định giá tiền)</a></th>
-                  <td class>{{ totalPrice }}</td>
-                </tr>
-
                 <tr>
-                  <th>Service insurance commitment</th>
+                  <th>Service insurance commitment <br>
+                    <router-link :to="{name: 'PolicyInsurence'}"> To reimbursing you if this order (*) </router-link>
+                  </th>
                   <td>
                     <b v-text="caculatorMoney(securityPrice)"></b>
                   </td>
+                </tr>
+                 <tr class="grand-total">
+                  <th class>total price</th>
+                  <td class>{{ totalPrice }}</td>
                 </tr>
               </tbody>
             </table>
@@ -441,7 +442,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getIdEmotion", "getProfile"]),
+    ...mapGetters(["getIdEmotion", "getProfile", "getBackgound"]),
     checkService() {
       if(this.$store.state.type == 1) {
         return this.orderService = 'Handwriting'
@@ -464,7 +465,7 @@ export default {
       "createBooking"
     ]),
     caculatorMoney(money) {
-      return (parseInt(money) * 100000).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+      return (parseInt(money) * this.getBackgound.comission).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
     },
     handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       if (file > 2e6) {
@@ -628,6 +629,7 @@ export default {
         phone: this.numberPhone,
         email: this.email,
         type: this.type,
+        emotion_id : this.$store.state.idOrderEmotion,
         content: this.content,
         citizen: this.cmndID,
         from_city: this.selectCitySender,
@@ -638,6 +640,7 @@ export default {
         from_name: this.fullnameSender
       }).then(res => {
         if (res.ok) {
+          console.log("TCL: orderBooking -> res", res)
           this.$router.push({ name: "finish_booking" });
         }
       });

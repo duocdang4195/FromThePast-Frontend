@@ -22,8 +22,8 @@
             </span>
             <span class="mr-likes">
               <span
-                @click="clickLike(index, item.id, item.likes)"
-                :class="{liked: isLike === index}"
+                @click="clickLike(item)"
+                :class="{liked: item.liked === true}"
               >
                 <icon name="heart"/>
               </span>
@@ -91,21 +91,19 @@ export default {
         this.isClick = false;
       }
     },
-    clickLike(i, id, likes) {
-      if (!this.isClickLike) {
-        this.isLike = i;
-        this.isClickLike = true;
-        this.likeQuotations({ quotation_id: id }).then(res => {
+    clickLike(val) {
+      if (val.liked === false) {
+        this.likeQuotations({ quotation_id: val.id }).then(res => {
           if (res.ok) {
-            likes.length += 1;
+            val.liked = true
+            val.likes.length += 1
           }
         });
       } else {
-        this.isLike = "";
-        this.isClickLike = false;
-        this.unLikeQuotations({ id: id }).then(res => {
+        this.unLikeQuotations({ id: val.id }).then(res => {
           if (res.ok) {
-            likes.length -= 1;
+            val.liked = false
+            val.likes.length -= 1
           }
         });
       }
