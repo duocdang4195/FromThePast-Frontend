@@ -2,10 +2,10 @@
   <div class="mr-fullslider"  :style="getBackground" v-if="loading" v-cloak>
     <div class="mr-mystatus">
       <p>{{ quotationRandom.content }}</p>
-      <!-- <ul class="mr-cmt-slider" v-if="quotationRandom.comments && quotationRandom.comments.length == 0">
-        No Comment ^.^
-      </ul> -->
-      <ul class="mr-cmt-slider" v-if="comments.content" v-cloak>
+      <ul class="mr-cmt-slider" v-if="quotationRandom.comments && quotationRandom.comments.length == 0">
+        &nbsp;
+      </ul>
+      <ul class="mr-cmt-slider" v-else>
         <li>
           {{ comments.content }}
           <span class="mr-author">{{ comments.user.name ? comments.user.name : 'Paser' }}</span>
@@ -88,7 +88,7 @@ export default {
       position: relative;
       display: inline-block;
       width: 100%;
-      font-size: 22px;
+      font-size: 18px;
       line-height: 1.5;
       padding: 20px;
       font-weight: 500;

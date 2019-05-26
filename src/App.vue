@@ -94,5 +94,15 @@ export default {
 	.swal2-styled:focus {
 		box-shadow: 0 0 0 transparent !important;
 	}
+
+	.ql-align-center {
+		text-align: center;
+	}
+	.ql-align-right {
+		text-align: right;
+	}
+	.ql-align-left {
+		text-align: left;
+	}
 </style>
 

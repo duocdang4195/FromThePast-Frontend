@@ -14,7 +14,7 @@
           <div class="sidebar__child--elm">
             <router-link :to="{ name: 'my_profit'}">my profit</router-link>
           </div>
-          <div class="sidebar__child--elm">
+          <div class="sidebar__child--elm" v-if="getProfile.user.user_level >= 60">
             <router-link :to="{ name: 'my_writing'}">my writing</router-link>
           </div>
           <div class="sidebar__child--elm">
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -42,6 +42,9 @@ export default {
       openkMenu: true,
       showSideHover: true
     };
+  },
+  computed: {
+    ...mapGetters(["getProfile"]),
   },
   methods: {
     ...mapActions(["signOut"]),

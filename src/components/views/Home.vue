@@ -10,6 +10,7 @@
         </router-link>
       </div>
       <div class="content__input--quotaion" v-if="!isAuthenticated">
+        
         <textarea
           v-if="showRandom"
           cols="80"
@@ -140,6 +141,15 @@
         </span>
       </div>
     </div>
+    <vue-programmatic-invisible-google-recaptcha
+      ref="checkRobots"
+      :sitekey="'6LdFi6UUAAAAACrHh4PKy_4L5puGLSv_NkKsTXKQ'"
+      :elementId="'checkRobots'"
+      :badgePosition="'left'"
+      :showBadgeMobile="false"
+      :showBadgeDesktop="true"
+      @recaptcha-callback="recaptchaCallback"
+    ></vue-programmatic-invisible-google-recaptcha>
     <div class="search-home">
       <SearchInput/>
     </div>
@@ -152,11 +162,13 @@ import classnames from "classnames";
 import Swal from "sweetalert2";
 import { setInterval } from "timers";
 import SearchInput from "@/components/views/SearchInput.vue";
+import VueProgrammaticInvisibleGoogleRecaptcha from 'vue-programmatic-invisible-google-recaptcha'
 
 const validateEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
   components: {
-    SearchInput
+    SearchInput,
+    VueProgrammaticInvisibleGoogleRecaptcha
   },
   data() {
     return {
@@ -205,7 +217,7 @@ export default {
     }
     await this.getAnotherRandom();
     this.stop = false;
-
+    console.log('tmp', this.tmp)
     // this.timeDown();
   },
   destroyed() {
@@ -295,6 +307,8 @@ export default {
           type: "error"
         });
       } else {
+        // this.$refs.invisibleRecaptcha1.reset()
+        this.$refs.checkRobots.execute()
         await this.createQuotations({ content: this.quotaion }).then(res => {
           if (res.ok) {
             this.quotaion = "";
@@ -303,6 +317,11 @@ export default {
             this.parseQuotation();
           }
         });
+      }
+    },
+    recaptchaCallback(recaptchaToken) {
+      if(recaptchaToken) {
+        alert('dasdad')
       }
     },
     toSignUp() {
@@ -487,6 +506,7 @@ export default {
   color: #fff;
 }
 .home-wr {
+  font-family: "IBM Plex Sans", sans-serif;
   width: 100vw;
   height: 100vh;
   position: relative;
@@ -530,24 +550,6 @@ export default {
     }
     .strick-quotation {
       width: 100%;
-      .vue-typer * {
-        color: #fff !important;
-      }
-      .vue-typer {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 0;
-        text-align-last: right;
-        font-size: 30px;
-        font-family: "Dancing Script", cursive;
-        .left {
-          color: #fff;
-          span {
-            color: #fff;
-          }
-        }
-      }
     }
     &__input--quotaion {
       position: absolute;
@@ -569,7 +571,6 @@ export default {
         width: 100%;
         font-size: 27px;
         color: #eaeaea;
-        font-family: "Dancing Script", cursive;
         text-align: right;
         outline: none;
         resize: none;

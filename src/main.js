@@ -7,6 +7,7 @@ import "./plugins/vue-moment";
 import "./plugins/vue-awesome";
 import "./plugins/vue-typer";
 import "./plugins/loading";
+import "./plugins/recaptcha";
 import "./plugins/v-tooltip";
 import "vuetify/dist/vuetify.min.css";
 require("vue2-animate/dist/vue2-animate.min.css");
