@@ -1,6 +1,6 @@
 <template>
 
- <div class="v-content__insider">
+ <div class="v-content__insider" v-if="viewEmotion" v-cloak>
   <div class="mr-section" v-cloak v-show="isLoaded">
     <div class="blog-sidebar">
       <div class="mr-sidebar">
@@ -61,6 +61,8 @@
                   <span class="mr-post-meta_like_count"> {{ countLike }} like</span>
                 </div>
               </div>
+
+
               <p
                 class="mr-writing-content"
                 v-html="viewEmotion.content"
@@ -100,7 +102,7 @@
             <!-- /comment-wrapper -->
             <div class="form-group mr-cmnt-wr">
               <textarea
-                v-model="content"
+                v-model="contentComment"
                 class="form-control"
                 name="message"
                 placeholder="Write a comment"
@@ -127,6 +129,7 @@
 import { mapActions, mapGetters } from "vuex";
 import Comments from '@/components/emotion/Comments.vue'
 import classnames from "classnames";
+import "quill/dist/quill.bubble.css";
 
 export default {
   components: {
@@ -135,7 +138,7 @@ export default {
   data() {
     return {
       emotion_id: "",
-      content: "",
+      contentComment: "",
       userName: "",
       testObj: {
         background: "red"
@@ -144,7 +147,7 @@ export default {
       listTag: [],
       isLike: false,
       countLike: '',
-      isLoaded: false
+      isLoaded: false,
     };
   },
   created() {
@@ -178,11 +181,11 @@ export default {
     submitComment() {
       this.createCommentEmotions({
         emotion_id: Number(this.$route.params.id),
-        content: this.content
+        content: this.contentComment
       }).then(res => {
         if (res.ok) {
           this.getAllMyQuotationsCreateByID.comment.push(res.data);
-          this.content = "";
+          this.contentComment = "";
         }
       });
     },
@@ -220,6 +223,7 @@ export default {
     },
     orderEmotion() {
       this.$store.state.type = '3'
+      this.$store.state.idOrderEmotion = this.$route.params.id
       this.$router.push({name: 'checkout'})
     }
   }

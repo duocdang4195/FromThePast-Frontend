@@ -1,74 +1,49 @@
 <template>
-  <div v-if="isLoaded" v-cloak>
-    <div :style="getBackground" class="mr-fullslider">
-      <div class="mr-mywriting-wr">
-        <div class="my-quotation-tab">
-          <div
-            @click="showYourQuotation"
-            :class="['my-quotation-tab__elm',{ active: yourQuotations }]"
-          >Your Emotion</div>
-          <div
-            @click="showYourQuotationRelation"
-            :class="['my-quotation-tab__elm',{ active: !yourQuotations }]"
-          >Emotion Relation</div>
+  <div class="mr-mywriting-wr">
+    <ul>
+      <li v-if="listEmotionsAll.length === 0">
+        <div class="list__empty">
+          <h4 style="text-align: center; width:100%;">You dont have any data yet!</h4>
+          <div style="width:100%; text-align:center;">
+            <img src="../../assets/images/empty_thinking.svg" style="width:300px;">
+          </div>
         </div>
-        <MyEmotion v-if="yourQuotations" :listEmotionsAll="listEmotionsAll"/>
-        <EmotionRelate v-if="!yourQuotations" :emotionRelate="emotionRelate"/>
-      </div>
-    </div>
-    <!-- ./. mr-fullslider -->
+      </li>
+      <li v-else @click="goto(item.id)" v-for="(item, index) in listEmotionsAll" :key="index">
+        <span class="mr-post-thumb">
+          <img :src="item.image">
+        </span>
+        <div class="mr-content">
+          <h5>{{ item.title }}</h5>
+          <span class="mr-timer">{{ item.updated_at | moment("MMMM Do YYYY")}}</span>
+          <p
+            v-html="strip_tags(item.content).substr(0,300) + (strip_tags(item.content).length > 400 ? '...' : '')"
+            class="mr-content__main--content"
+          ></p>
+          <div class="action-quotation">
+            <div class="action-quotation__elm">
+              <icon name="comments"/>
+              <span>{{ item.comment.length }} Comments</span>
+            </div>
+            <div class="action-quotation__elm">
+              <icon name="heart"/>
+              <span>{{ item.likes.length }} likes</span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
+  <!-- ./. mr-fullslider -->
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import MyEmotion from "@/components/my_page/MyEmotion.vue";
-import EmotionRelate from "@/components/my_page/EmotionRelate.vue";
 export default {
-  components: {
-    MyEmotion,
-    EmotionRelate
+  props: {
+    listEmotionsAll: Array
   },
-  data() {
-    return {
-      listEmotionsAll: [],
-      emotionRelate: [],
-      isLoaded: false,
-      yourQuotations: true
-    };
-  },
-  created() {
-    this.getAllEmotionsRealtions().then(res => {
-      if (res.ok) {
-        this.emotionRelate = res.response.data;
-      }
-    });
-    this.getMyWriting().then(res => {
-      if (res.ok) {
-        this.listEmotionsAll = res.data;
-        this.isLoaded = true;
-      }
-    });
-  },
-  computed: {
-    ...mapGetters(["getBackgound"]),
-    getBackground() {
-      return (
-        "background-image:url('" +
-        this.getBackgound.my_quotation_background +
-        "');"
-      );
-    }
-  },
+
   methods: {
-    ...mapActions(["getMyWriting", "getAllEmotionsRealtions"]),
-    checkImage(image) {
-      if (!image) {
-        return this.getBackgound.logo_dark;
-      } else {
-        return image;
-      }
-    },
     goto(id) {
       this.$router.push(`/Emotion_view/${id}`);
     },
@@ -76,16 +51,6 @@ export default {
       let t = content.replace(/(<([^>]+)>)/gi, "");
 
       return t;
-    },
-    showYourQuotation() {
-      if (!this.yourQuotations) {
-        this.yourQuotations = true;
-      }
-    },
-    showYourQuotationRelation() {
-      if (this.yourQuotations) {
-        this.yourQuotations = false;
-      }
     }
   }
 };
@@ -103,28 +68,6 @@ export default {
   svg {
     position: relative;
     top: 2px;
-  }
-}
-.my-quotation-tab {
-  position: absolute;
-  display: flex;
-  top: -1px;
-  width: 100%;
-  align-items: center;
-  .my-quotation-tab__elm {
-    width: 50%;
-    text-align-last: center;
-    cursor: pointer;
-    font-size: 11px;
-    padding: 3px 0;
-    background-color: #f1f1f1;
-    color: #adadad;
-    transition: background 500ms ease-out;
-  }
-  .active {
-    background: rgba(0, 0, 0, 0.5);
-    color: #ffffffc2;
-    transition: background 500ms ease-out;
   }
 }
 .mr-fullslider {
@@ -147,12 +90,14 @@ export default {
   max-width: 1200px;
   height: auto;
   max-height: calc(100vh - 160px);
-  margin-top: 20px;
+  margin-top: 40px;
   margin-bottom: 40px;
   width: 100%;
+  padding: 50px;
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid #e3e3e3;
   box-shadow: 1px 3px 5px rgba(180, 180, 180, 0.5);
+  overflow: auto;
 
   ul {
     > li {

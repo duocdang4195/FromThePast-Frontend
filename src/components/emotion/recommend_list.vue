@@ -8,7 +8,7 @@
             <li v-for="(item, index) in getListTags" :key="index">
               <a @click="searchTag(item.tag)" href="#">
                 <i class="mr-circle-mark">&#9675;</i>{{ item.tag }}
-                <span>(  {{ item.count }}  )</span>
+                <span>(  {{ item.count_post }}  )</span>
               </a>
             </li>
           </ul>
@@ -56,7 +56,7 @@ export default {
   created() {
   },
   computed: {
-    ...mapGetters(["getListTags", "getListEmotionTagsRelate"])
+    ...mapGetters(["getListTags", "getListEmotionTagsRelate", "getListEmotionTagsRelate"])
   },
   methods: {
     ...mapActions(["showTag"]),

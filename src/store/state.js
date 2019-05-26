@@ -23,4 +23,6 @@ export default {
     emotionTagRealte: [],
     getOrderBookingSearch: [],
     saveQuotationAuthor: '',
+    idOrderEmotion: '',
+    checkRobotQuotation: ''
 }

@@ -124,6 +124,14 @@ export default {
       return { ok: false, error };
     }
   },
+  async getAllEmotionsRealtions({}) {
+    try {
+      const response = await api.get("/emotion_relation")
+      return { ok: true, response };
+    } catch (error) {
+      return { ok: false, error };
+    }
+  },
   async getAllMyQuotations({ commit }) {
     try {
       const response = await api.get("/quotations");

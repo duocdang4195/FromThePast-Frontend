@@ -3,7 +3,7 @@
 <template>
   <div :style="getBackground"  class="mr-serviceList-wr">
     <button class="mr-pre">
-      <img @click="previousPage" src="../../assets/images/chevron-left.svg" alt>
+      <img @click="previousPage" v-if="showPre" src="../../assets/images/chevron-left.svg" alt>
     </button>
 
     <div class="mr-service-wr">
@@ -29,7 +29,7 @@
     <!-- ./.mr-service-wr  -->
 
     <button class="mr-next">
-      <img @click="nextPage" src="../../assets/images/chevron-right.svg" alt>
+      <img @click="nextPage" v-if="showNext" src="../../assets/images/chevron-right.svg" alt>
     </button>
   </div>
 </template>
@@ -43,7 +43,9 @@ export default {
       handwrite: {},
       letterPrint: {},
       next: false,
-      pre: true
+      pre: true,
+      showPre: false,
+      showNext: true,
     }
   },
   async created() {
@@ -69,10 +71,14 @@ export default {
     nextPage() {
       this.pre = false
       this.next = true
+      this.showPre = true
+      this.showNext = false
     },
     previousPage() {
       this.next = false
       this.pre = true
+      this.showPre = false
+      this.showNext = true
     },
     bookHandWite() {
       this.$store.state.type = '1'
