@@ -28,7 +28,7 @@
 
       <div class="mr-article-wr">
         <h3>My emotion</h3>
-        <div class="mr-controller">
+        <div class="mr-controller" v-if="false">
           <span @click="randomEmotions" class="mr-next">
             Next
             <img src="../../assets/images/chevron-right.svg" alt class>
@@ -69,10 +69,15 @@ export default {
   },
   async created() {
     await this.getMyEmotionsCreate();
-    this.contentEmotions = this.getAllMyQuotationsCreate[
-      Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)
+    let newArr = this.getAllMyQuotationsCreate.filter(item => {
+                                                  return  item.selected !== 1
+                                                })
+    this.contentEmotions = newArr[
+      Math.floor(Math.random() * newArr.length)
     ];
+
     this.recentPost.unshift(this.contentEmotions);
+    setInterval(this.randomEmotions , 15000);
   },
   computed: {
     ...mapGetters(["getAllMyQuotationsCreate", "getBackgound"]),
@@ -103,8 +108,11 @@ export default {
       this.$router.push(`/Emotion_view/${id}`);
     },
     randomEmotions() {
-      this.contentEmotions = this.getAllMyQuotationsCreate[
-        Math.floor(Math.random() * this.getAllMyQuotationsCreate.length)
+      let newArr = this.getAllMyQuotationsCreate.filter(item => {
+                                                  return  item.selected !== 1
+                                                })
+      this.contentEmotions = newArr[
+        Math.floor(Math.random() * newArr.length)
       ];
       this.recentPost.unshift(this.contentEmotions);
     },

@@ -2,12 +2,15 @@
   <div class="mr-about-view-bgr">
     <div class="mr-about-view-wr">
       <div class="mr-about-view-cntn">
-        <h3>Chính sách và bảo mật</h3>
+        <h3>Cách thức tính phí dịch vụ của From The PAST – Áp dụng từ 25/05/2019 </h3>
         <div class="mr-about-flexbox">
           <div class="mr-cntnBox">
-						<p>Why do we use it?
-It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <h4>Bạn thân mến</h4>
+            <p>Pasness® là một sản phẩm của From The PAST® với mong muốn tạo ra một môi trường xã hội nội tâm sâu sắc cho mỗi con người, nhằm giúp mỗi người chúng ta có thể hiểu sâu sắc hơn, thấu hiểu hơn bản thân mình, để từ đó có thể cởi mở, bao dung và thấu hiểu hơn người khác. </p>
+            <p>Pasness® với tôn chỉ tôn vinh cảm xúc của mỗi con người, với mong muốn trở thành một phần trong tâm hồn mỗi người khi lựa chọn Pasness® làm nơi để lưu giữ và bảo tồn cảm xúc, tình cảm, hiểu biết của chính bản thân. </p>
+            <p>Dịch vụ Thư gửi <strong>Từ Quá Khứ</strong> của From The PAST® được lập ra là một trong những dịch vụ mà chúng tôi tin rằng sẽ là công cụ hỗ trợ tuyệt vời để lưu giữ, phát triển và làm thăng hoa cảm xúc của bạn và những người bạn chọn lựa. </p>
+            <p>Trong khuôn khổ của mục này, chúng tôi xin trao đổi cùng bạn về chính sách tính phí của dịch vụ như dưới đây: 
+              <br> Phí dịch vụ = Phí thời gian + Phí lưu trữ + Phí vận chuyển </p>
           </div>
         </div>
       </div>

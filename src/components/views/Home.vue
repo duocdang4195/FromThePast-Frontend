@@ -9,18 +9,25 @@
           <img :src="getBackgound.logo_white" alt>
         </router-link>
       </div>
-      <div class="content__input--quotaion" v-if="!isAuthenticated">
-        
-        <textarea
-          v-if="showRandom"
-          cols="80"
-          autofocus
-          v-model="checkAuthen"
-          ref="check"
-          :placeholder="showTypeText"
-          @keydown.enter.prevent="checkUserProfile"
-        ></textarea>
-      </div>
+        <div class="content__input--quotaion" v-if="!isAuthenticated">
+          <textarea
+            v-if="showRandom"
+            cols="80"
+            autofocus
+            v-model="checkAuthen"
+            ref="check"
+            :placeholder="showTypeText"
+            @keydown.enter.prevent="checkUserProfile"
+          ></textarea>
+        </div>
+      <vue-programmatic-invisible-google-recaptcha
+        ref="checkRobots"
+        :sitekey="'6LfTjaUUAAAAADhRKnSgvFPFs4vlBj4ykWd7RhOd'"
+        :elementId="'checkRobots'"
+        :badgePosition="'left'"
+        :showBadgeMobile="false"
+        :showBadgeDesktop="false"
+      ></vue-programmatic-invisible-google-recaptcha>
       <div class="content__input--quotaion" v-if="isAuthenticated">
         <textarea
           cols="80"
@@ -141,15 +148,6 @@
         </span>
       </div>
     </div>
-    <vue-programmatic-invisible-google-recaptcha
-      ref="checkRobots"
-      :sitekey="'6LdFi6UUAAAAACrHh4PKy_4L5puGLSv_NkKsTXKQ'"
-      :elementId="'checkRobots'"
-      :badgePosition="'left'"
-      :showBadgeMobile="false"
-      :showBadgeDesktop="true"
-      @recaptcha-callback="recaptchaCallback"
-    ></vue-programmatic-invisible-google-recaptcha>
     <div class="search-home">
       <SearchInput/>
     </div>
@@ -308,7 +306,6 @@ export default {
         });
       } else {
         // this.$refs.invisibleRecaptcha1.reset()
-        this.$refs.checkRobots.execute()
         await this.createQuotations({ content: this.quotaion }).then(res => {
           if (res.ok) {
             this.quotaion = "";
@@ -317,11 +314,6 @@ export default {
             this.parseQuotation();
           }
         });
-      }
-    },
-    recaptchaCallback(recaptchaToken) {
-      if(recaptchaToken) {
-        alert('dasdad')
       }
     },
     toSignUp() {
@@ -335,20 +327,29 @@ export default {
             type: "error"
           });
         } else {
-          this.createQuotations({ content: this.checkAuthen }).then(res => {
-            // if (res.ok) {
-              this.$store.state.saveQuotationAuthor = this.checkAuthen
-              // this.getQuotations().then(response => {
-                if (res.ok) {
-                  this.checkAuthen = "";
-                  this.clickPost = true;
-                  this.createUser = false;
-                  this.getAnotherRandom();
-                  this.parseQuotation();
-                }
-              // });
-            // }
-          });
+          if(this.$store.state.checkRobotQuotation === this.checkAuthen) {
+            Swal.fire({
+              title: "Quotation has already exits",
+              type: "error"
+            });
+            this.$refs.checkRobots.execute()
+          } else {
+              this.createQuotations({ content: this.checkAuthen }).then(res => {
+              // if (res.ok) {
+                this.$store.state.saveQuotationAuthor = this.checkAuthen
+                // this.getQuotations().then(response => {
+                  if (res.ok) {
+                    this.$store.state.checkRobotQuotation = this.checkAuthen
+                    this.checkAuthen = "";
+                    this.clickPost = true;
+                    this.createUser = false;
+                    this.getAnotherRandom();
+                    this.parseQuotation();
+                  }
+                // });
+              // }
+            });
+          }
         }
       } else {
         this.checkAccount({ email: this.checkAuthen }).then(res => {
