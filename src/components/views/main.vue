@@ -82,13 +82,13 @@ export default {
     background-color: rgba(0, 0, 0, 0.5);
     color: #fff;
     padding: 50px;
-    font-family: "IBM Plex Sans", sans-serif;
+    font-family: "Dancing Script", cursive;
     font-weight: 300;
     p {
       position: relative;
       display: inline-block;
       width: 100%;
-      font-size: 18px;
+      font-size: 30px;
       line-height: 1.5;
       padding: 20px;
       font-weight: 500;

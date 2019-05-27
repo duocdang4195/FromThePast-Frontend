@@ -40,6 +40,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -52,7 +53,12 @@ export default {
     getCode() {
       this.forgotPassword({email: this.email}).then(res => {
         if(res.ok) {
-          alert('sdas')
+          this.$router.push({ name: "login" });
+        } else {
+          Swal.fire({
+            title: "Can not found the email in system",
+            type: "error"
+          });
         }
       })
     }

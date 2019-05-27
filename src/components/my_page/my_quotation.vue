@@ -42,7 +42,6 @@ export default {
     this.getAllMyQuotations().then(res => {
       if (res.ok) {
         this.listQuotations = res.response.data;
-        console.log("TCL: created -> listQuotations", this.listQuotations)
         this.isLoaded = true;
       }
     });

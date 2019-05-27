@@ -215,7 +215,6 @@ export default {
     }
     await this.getAnotherRandom();
     this.stop = false;
-    console.log('tmp', this.tmp)
     // this.timeDown();
   },
   destroyed() {
@@ -570,7 +569,8 @@ export default {
       }
       textarea {
         width: 100%;
-        font-size: 27px;
+        font-size: 25px;
+        font-family: "Dancing Script", cursive;
         color: #eaeaea;
         text-align: right;
         outline: none;

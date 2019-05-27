@@ -165,16 +165,16 @@ export default {
     caculatorTime() {
       let communicate = "";
       let time = moment().format("H");
-      if (0 < time && time < 11) {
+      if (0 < time && time <= 11) {
         return (communicate = "Good Moring");
       }
-      if (11 < time && time < 15) {
+      if (11 < time && time <= 15) {
         return (communicate = "Good Afternoon");
       }
-      if (15 < time && time < 21) {
+      if (15 < time && time <= 21) {
         return (communicate = "Good Evening");
       }
-      if (21 < time && time < 0) {
+      if (21 < time && time <= 0) {
         return (communicate = "Good Night");
       }
       return communicate;

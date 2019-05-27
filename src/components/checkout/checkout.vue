@@ -640,7 +640,6 @@ export default {
         from_name: this.fullnameSender
       }).then(res => {
         if (res.ok) {
-          console.log("TCL: orderBooking -> res", res)
           this.$router.push({ name: "finish_booking" });
         }
       });
