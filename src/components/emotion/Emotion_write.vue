@@ -37,7 +37,7 @@
 </template>
 <script>
 import api from "@/plugins/axios";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { VueEditor } from "vue2-editor";
 import "quill/dist/quill.bubble.css";
 import Swal from "sweetalert2";
@@ -81,6 +81,10 @@ export default {
         this.items = res.data;
       }
     });
+    this.backgoundImage = "background-image:url('"+this.getBackgound.becomewriter_background+"');"
+  },
+  computed: {
+    ...mapGetters(['getBackgound']),
   },
   methods: {
     ...mapActions(["createEmotions", "getTagEmotions"]),
