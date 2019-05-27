@@ -21,6 +21,7 @@
           ></textarea>
         </div>
       <vue-programmatic-invisible-google-recaptcha
+        v-if="false"
         ref="checkRobots"
         :sitekey="'6LfTjaUUAAAAADhRKnSgvFPFs4vlBj4ykWd7RhOd'"
         :elementId="'checkRobots'"
