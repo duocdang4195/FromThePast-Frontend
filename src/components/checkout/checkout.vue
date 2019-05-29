@@ -265,7 +265,7 @@
 
                 <tr>
                   <th>Service insurance commitment <br>
-                    <router-link :to="{name: 'PolicyInsurence'}"> To reimbursing you if this order (*) </router-link>
+                    <router-link :to="{name: 'PolicyInsurence'}" target="_blank"> To reimbursing you if this order (*) </router-link>
                   </th>
                   <td>
                     <b v-text="caculatorMoney(securityPrice)"></b>
