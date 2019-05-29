@@ -20,7 +20,7 @@
             <p>Chúng tôi tin rằng, con người chúng ta luôn có muôn vàn những loại cảm xúc khác nhau trong mỗi ngày, điều đó được đặt một cách vô tình hoặc hữu ý vào những đồ vật hoặc sự việc trong trí nhớ. Việc quản trị cảm xúc với nguồn xúc cảm hàng ngày là một điều không dễ dàng, đôi khi theo thời gian ta đánh mất hoặc quên đi những xúc cảm đáng trân trọng đó.  </p>
             <p>Chúng ta sẽ cùng tìm cách nhắc nhờ nó trở về như là một món quà cho chính bản thân và những người bạn chọn lựa. Vậy nên, chúng tôi đề cao việc bạn gửi cảm xúc của mình cho chúng tôi càng lâu càng tốt, để giá trị khi nhận về lại sẽ là cao nhất và dễ thăng hoa nhất khi được gợi nhớ về. </p>
             <p>Với tôn chỉ phục vụ trên, chúng tôi sẽ tính giá thời gian càng lâu giá đơn hàng của bạn càng ít phí cho đến miễn phí: </p>
-            <p><small>Hinh anh minh hoa</small></p>
+            <p><img class="img-des" src="../../assets/images/ds1.jpg" alt=""></p>
           </div>
         </div>
 
@@ -29,7 +29,7 @@
             <h4>CHI PHÍ LƯU TRỮ (Security price): </h4>
             <p>Việc được bạn lựa chọn Pasness® lưu giữ cảm xúc của bạn làm chúng tôi cảm thấy rất tự hào và hiểu rằng đó là một trọng trách vô cùng lớn cần được thực hiện với sự cam kết và đảm bảo cao nhất, luôn phải an toàn, bảo mật và trung thực. Việc lưu trữ sẽ được hoàn toàn bảo mật (đặc biệt là với thư viết tay được nhận từ bạn). Tất cả các thư in (bài viết, hoặc bạn tự viết bài gửi về) sẽ được in ra giấy và bảo quản ngay sau khi đơn hàng được đặt thành công. Chúng tôi sẽ lưu giữ tại Trung tâm quản lý tài sản khách hàng được an toàn cho đến ngày hẹn giao. </p>
             <p>Việc lưu trữ này được tính phí tăng chậm dần đều, các khoản phí này được dùng để bảo trì cơ sở vật chất và lương cho đội ngũ quản lý tài sản của khách hàng theo thời gian. Vui lòng tham khảo cách tính phí lưu trữ dưới đây: </p>
-            <p><small>Hinh anh minh hoa</small></p>
+            <p><img class="img-des" src="../../assets/images/ds2.jpg" alt=""></p>
           </div>
         </div>
 
@@ -40,7 +40,7 @@
             <p>Chúng tôi cố gắng giao thư đến tận tay người nhận theo nội dung bạn đặt. Thách thức của chúng tôi là giao cho người nhận đúng thời gian để cảm xúc nhận được là giá trị nhất. </p>
             <p>Chi phí vận chuyển bao gồm các chi phí cho việc chuyển thư đến Trung tâm quản lý tài sản Khách hàng để lưu trữ bảo mật, an toàn, và chi phí nhận thư và gửi thư theo lịch, địa chỉ được bạn sắp đặt cùng với Pasness®.  </p>
             <p>Với mong muốn phục vụ bạn tốt nhất, chúng tôi hợp tác với đối tác Google Map để có thể định vị tốt nhất vị trí của bạn cung cấp và đối chiếu với các địa điểm gần nhất mà chúng tôi có thể đến với bạn để có lịch trình hợp lý với chi phí vận chuyển tốt nhất cho bạn. Vui lòng tham khảo cách tính phí vận chuyển/ giao nhận dưới đây: </p>
-            <p><small>Hinh anh minh hoa</small></p>
+            <p><img class="img-des" src="../../assets/images/ds3.jpg" alt=""></p>
           </div>
         </div>
 
@@ -81,6 +81,10 @@ export default {
 
 <style lang="css" scoped>
 
+
+.img-des {
+  text-align-last: center;
+}
 
 .mr-about-view-bgr {
   position: relative;

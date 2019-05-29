@@ -1,7 +1,7 @@
 <template>
-  <div class="home-wr">
+  <div class="home-wr" v-if="isLoading">
     <video autoplay muted loop class="background">
-      <source :src="getBackground" type="video/mp4">
+      <source :src="themeVideo" type="video/mp4">
     </video>
     <div class="content">
       <div class="content__logo">
@@ -200,10 +200,18 @@ export default {
       notAuthen: true,
       stop: false,
       author: {},
-      tmp: {}
+      tmp: {},
+      isLoading: false,
+      themeVideo: ''
     };
   },
   async created() {
+    await this.getBackground().then(res => {
+      if(res.ok) {
+        this.themeVideo = res.response.data.home_video
+        this.isLoading = true
+      }
+    })
     await this.getQuotations();
     if (!this.$route.params.register_success) {
       await this.getProfileUser();
@@ -226,9 +234,9 @@ export default {
       "quotationRandom",
       "isAuthenticated",
       "getProfile",
-      "getBackgound"
+      "getBackgound",
     ]),
-    getBackground() {
+    getVideo() {
       return this.getBackgound.home_video;
     },
     classLike() {
@@ -253,7 +261,8 @@ export default {
       "unLikeQuotations",
       "commentQuotations",
       "getProfileUser",
-      "set_randomQuotation"
+      "set_randomQuotation",
+      "getBackground"
     ]),
     parseQuotation: function() {
       this.showTypeText = "";
@@ -343,6 +352,7 @@ export default {
                     this.checkAuthen = "";
                     this.clickPost = true;
                     this.createUser = false;
+                    this.set_randomQuotation(res.response.data);
                     this.getAnotherRandom();
                     this.parseQuotation();
                   }
