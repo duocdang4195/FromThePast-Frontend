@@ -13,7 +13,7 @@
           <v-text-field
             v-model="email"
             label="USER NAME"
-            @keydown.enter.prevent="signIn"
+            v-on:keyup.13.prevent="signIn"
           ></v-text-field>
         </div>
 
@@ -22,7 +22,7 @@
             v-model="password"
             label="PASSWORD"
             type="password"
-            @keydown.enter.prevent="signIn"
+            v-on:keyup.13.prevent="signIn"
           ></v-text-field>
         </div>
 

@@ -36,7 +36,7 @@
               v-model="comment"
               name="message"
               placeholder="Write a comment"
-              @keydown.enter.prevent="commentStt(item.id, index)"
+              v-on:keyup.13.prevent="commentStt(item.id, index)"
             ></textarea>
             <div class="btn-submit" @click="commentStt(item.id, index)">comment</div>
           </div>

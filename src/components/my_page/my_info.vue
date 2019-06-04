@@ -18,7 +18,7 @@
           </div>
           <div class="mr-welcomequestion">
             <input
-              @keydown.enter.prevent="postQuotations"
+              v-on:keyup.13.prevent="postQuotations"
               v-model="quotation"
               type="text"
               placeholder="How are you today?"

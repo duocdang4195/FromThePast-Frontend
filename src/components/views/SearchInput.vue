@@ -9,7 +9,7 @@
         <v-text-field ref="searchInput"
           v-model="keyword"
           height="40px"
-          @keydown.enter.prevent="searchData"
+          v-on:keyup.13.prevent="searchData"
           @blur="hideInputSearch"
           placeholder="Find Anything"
           color="#333"

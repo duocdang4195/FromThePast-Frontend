@@ -17,7 +17,7 @@
             type="New password"
             color="rgba(0,0,0,0.9)"
             border-color="rgba(0,0,0,0.5)"
-            @keydown.enter.prevent="signIn"
+            v-on:keyup.13.prevent="signIn"
           ></v-text-field>
         </div>
 
@@ -28,7 +28,7 @@
             type="Confirm new password"
             color="rgba(0,0,0,0.9)"
             border-color="rgba(0,0,0,0.5)"
-            @keydown.enter.prevent="signIn"
+            v-on:keyup.13.prevent="signIn"
           ></v-text-field>
         </div>
 

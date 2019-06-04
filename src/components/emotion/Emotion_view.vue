@@ -106,7 +106,7 @@
                 class="form-control"
                 name="message"
                 placeholder="Write a comment"
-                @keydown.enter.prevent="submitComment"
+                v-on:keyup.13.prevent="submitComment"
               ></textarea>
             </div>
             <!-- form-group -->

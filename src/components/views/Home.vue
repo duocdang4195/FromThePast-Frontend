@@ -9,17 +9,17 @@
           <img :src="getBackgound.logo_white" alt>
         </router-link>
       </div>
-        <div class="content__input--quotaion" v-if="!isAuthenticated">
-          <textarea
-            v-if="showRandom"
-            cols="80"
-            autofocus
-            v-model="checkAuthen"
-            ref="check"
-            :placeholder="showTypeText"
-            @keydown.enter.prevent="checkUserProfile"
-          ></textarea>
-        </div>
+      <div class="content__input--quotaion" v-if="!isAuthenticated">
+        <textarea
+          v-if="showRandom"
+          cols="80"
+          autofocus
+          v-model="checkAuthen"
+          ref="check"
+          :placeholder="showTypeText"
+          v-on:keyup.13.prevent="checkUserProfile"
+        ></textarea>
+      </div>
       <vue-programmatic-invisible-google-recaptcha
         v-if="false"
         ref="checkRobots"
@@ -36,7 +36,7 @@
           :placeholder="showTypeText"
           v-model="quotaion"
           ref="quotation"
-          @keydown.enter.prevent="postQuotations"
+          v-on:keyup.13.prevent="postQuotations"
         ></textarea>
       </div>
       <!-- show Quotations -->
@@ -45,7 +45,7 @@
           <p>Password</p>
           <input
             ref="password"
-            @keydown.enter.prevent="signIn"
+            v-on:keyup.13.prevent="signIn"
             type="password"
             v-model="passWordUser"
             autofocus
@@ -54,12 +54,12 @@
         <!-- show Password -->
         <div class="content__input--user--check" v-if="notUser">
           <p>HI, What is your email ?</p>
-          <input ref="email" autofocus v-model="email" @keydown.enter.prevent="fillEmail">
+          <input ref="email" autofocus v-model="email" v-on:keyup.13.prevent="fillEmail">
         </div>
         <!-- show Email Signup -->
         <div class="content__input--user--check" v-if="signupUserName">
           <p>HI, What will be your username?</p>
-          <input ref="username" autofocus v-model="userName" @keydown.enter.prevent="fillUserName">
+          <input ref="username" autofocus v-model="userName" v-on:keyup.13.prevent="fillUserName">
         </div>
         <!-- show User Name -->
         <div class="content__input--user--check" v-if="signupPassword">
@@ -69,7 +69,7 @@
             type="password"
             autofocus
             v-model="password"
-            @keydown.enter.prevent="fillPassword"
+            v-on:keyup.13.prevent="fillPassword"
           >
         </div>
         <!-- show User Password -->
@@ -80,7 +80,7 @@
             type="password"
             autofocus
             v-model="confirmPassword"
-            @keydown.enter.prevent="registerAccount"
+            v-on:keyup.13.prevent="registerAccount"
           >
         </div>
         <!-- show User Confirm Password -->
@@ -117,7 +117,7 @@
           <textarea
             v-if="isHideComment"
             v-model="comment"
-            @keydown.enter.prevent="commentStt"
+            v-on:keyup.13.prevent="commentStt"
             class="content__actions--comments--input"
             placeholder="Enter your idea here"
             cols="80"
@@ -127,7 +127,7 @@
       </div>
       <div class="content__actions" v-show="notAuthen">
         <span v-if="!isAuthenticated && checkAuthen.length == 0">
-          <span >{{author ? (author.name ? author.name : 'Paser') : 'Paser'}}</span>
+          <span>{{author ? (author.name ? author.name : 'Paser') : 'Paser'}}</span>
           <div :class="classLike">
             <span @click="toSignUp">
               <icon name="heart"/>
@@ -161,7 +161,7 @@ import classnames from "classnames";
 import Swal from "sweetalert2";
 import { setInterval } from "timers";
 import SearchInput from "@/components/views/SearchInput.vue";
-import VueProgrammaticInvisibleGoogleRecaptcha from 'vue-programmatic-invisible-google-recaptcha'
+import VueProgrammaticInvisibleGoogleRecaptcha from "vue-programmatic-invisible-google-recaptcha";
 
 const validateEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default {
@@ -202,16 +202,16 @@ export default {
       author: {},
       tmp: {},
       isLoading: false,
-      themeVideo: ''
+      themeVideo: ""
     };
   },
   async created() {
     await this.getBackground().then(res => {
-      if(res.ok) {
-        this.themeVideo = res.response.data.home_video
-        this.isLoading = true
+      if (res.ok) {
+        this.themeVideo = res.response.data.home_video;
+        this.isLoading = true;
       }
-    })
+    });
     await this.getQuotations();
     if (!this.$route.params.register_success) {
       await this.getProfileUser();
@@ -234,7 +234,7 @@ export default {
       "quotationRandom",
       "isAuthenticated",
       "getProfile",
-      "getBackgound",
+      "getBackgound"
     ]),
     getVideo() {
       return this.getBackgound.home_video;
@@ -336,27 +336,27 @@ export default {
             type: "error"
           });
         } else {
-          if(this.$store.state.checkRobotQuotation === this.checkAuthen) {
+          if (this.$store.state.checkRobotQuotation === this.checkAuthen) {
             Swal.fire({
               title: "Quotation has already exits",
               type: "error"
             });
-            this.$refs.checkRobots.execute()
+            this.$refs.checkRobots.execute();
           } else {
-              this.createQuotations({ content: this.checkAuthen }).then(res => {
+            this.createQuotations({ content: this.checkAuthen }).then(res => {
               // if (res.ok) {
-                this.$store.state.saveQuotationAuthor = this.checkAuthen
-                // this.getQuotations().then(response => {
-                  if (res.ok) {
-                    this.$store.state.checkRobotQuotation = this.checkAuthen
-                    this.checkAuthen = "";
-                    this.clickPost = true;
-                    this.createUser = false;
-                    this.set_randomQuotation(res.response.data);
-                    this.getAnotherRandom();
-                    this.parseQuotation();
-                  }
-                // });
+              this.$store.state.saveQuotationAuthor = this.checkAuthen;
+              // this.getQuotations().then(response => {
+              if (res.ok) {
+                this.$store.state.checkRobotQuotation = this.checkAuthen;
+                this.checkAuthen = "";
+                this.clickPost = true;
+                this.createUser = false;
+                this.set_randomQuotation(res.response.data);
+                this.getAnotherRandom();
+                this.parseQuotation();
+              }
+              // });
               // }
             });
           }
@@ -464,19 +464,18 @@ export default {
             this.createEvent = true;
             this.showTypeText = `Welocome ${this.userName} to passness `;
           } else {
-              let errorData = res.error.response.data
-              let err = []
-              if(errorData.hasOwnProperty('errors')) {
-                for (const key of Object.keys(errorData.errors)) {
-                  
-                  err.push(key)
-                }
-                Swal.fire({
-                  title: `The ${err} has already been taken`,
-                  type: "error"
-                });
+            let errorData = res.error.response.data;
+            let err = [];
+            if (errorData.hasOwnProperty("errors")) {
+              for (const key of Object.keys(errorData.errors)) {
+                err.push(key);
               }
+              Swal.fire({
+                title: `The ${err} has already been taken`,
+                type: "error"
+              });
             }
+          }
         });
       }
     },

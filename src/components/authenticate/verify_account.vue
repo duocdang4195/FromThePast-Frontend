@@ -14,7 +14,7 @@
             label="Your Email"
             color="rgba(0,0,0,0.9)"
             border-color="rgba(0,0,0,0.5)"
-            @keydown.enter.prevent="getCode"
+            v-on:keyup.13.prevent="getCode"
           ></v-text-field>
         </div>
 
